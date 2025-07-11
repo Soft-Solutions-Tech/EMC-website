@@ -57,7 +57,9 @@ module.exports = {
           '3': 'hsl(var(--chart-3))',
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))'
-        }
+        },
+        'background-icon1': '#c6c6c6',
+        'secondary-bg-40': 'rgba(0, 105, 145, 0.4)'
       }
     }
   },
