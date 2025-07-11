@@ -1,11 +1,14 @@
 import { HeroBanner } from "./sections/HeroBanner";
-import PhilosophySection from "./sections/Info";
+import InfoSection from "./sections/Info";
+import PortoflioSection from "./sections/Portoflio";
+
 
 export default function Home() {
   return (
     <div>
       <HeroBanner />
-      <PhilosophySection/>
+      <InfoSection />
+      <PortoflioSection />
     </div>
   );
 }

@@ -41,7 +41,7 @@ function AnimatedCounter({ target, suffix = "", isVisible, delay }) {
   );
 }
 
-export default function PhilosophySection() {
+export default function InfoSection() {
   const philosophyRef = useRef(null);
   const [isPhilosophyVisible, setIsPhilosophyVisible] = useState(false);
 
@@ -129,8 +129,8 @@ export default function PhilosophySection() {
                 }`}
             >
               <div className="space-y-3 text-center lg:text-left group">
-                <div className="w-8 h-8 bg-background-icon1 rounded-sm flex items-center justify-center mx-auto lg:mx-0 group-hover:scale-110 transition-transform duration-300">
-                  <Zap className="h-4 w-4 text-black" />
+                <div className="w-8 h-8 bg-background-icon1 rounded-sm flex items-center justify-center mx-auto lg:mx-0 transition-transform duration-300">
+                  <Zap className="h-4 w-4 text-white" />
                 </div>
                 <h3 className="font-semibold dark-text tracking-wide">
                   {emcInfo.philosophyTitle}
@@ -138,7 +138,7 @@ export default function PhilosophySection() {
                 <p className="text-xs text-gray-500">{emcInfo.philosophySub}</p>
               </div>
               <div className="space-y-3 text-center lg:text-left group">
-                <div className="w-8 h-8 bg-background-icon1 rounded-sm flex items-center justify-center mx-auto lg:mx-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-8 h-8 bg-background-icon1 rounded-sm flex items-center justify-center mx-auto lg:mx-0 transition-transform duration-300">
                   <Plug className="h-4 w-4 text-white" />
                 </div>
                 <h3 className="font-semibold dark-text tracking-wide">
@@ -178,7 +178,7 @@ export default function PhilosophySection() {
                 return (
                   <div key={stat.label} className="text-center space-y-2 group">
                     <div
-                      className={`text-2xl sm:text-3xl font-black ${numberClass} transition-all duration-500 delay-700 group-hover:scale-110`}
+                      className={`text-2xl sm:text-3xl font-black ${numberClass} transition-all duration-500 delay-700`}
                     >
                       <AnimatedCounter
                         target={stat.value}
