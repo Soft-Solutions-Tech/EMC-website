@@ -205,17 +205,14 @@ export default function InfoSection() {
             </div>
           </div>
         </div>
+        {/* Decorative Side Lines - now inside the container */}
+        <div
+          className={`absolute top-24 sm:top-4 left-0 sm:left-4 w-0.5 sm:w-1 bg-secondary-bg-40 transition-all duration-1000 delay-1000 ${isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"}`}
+        />
+        <div
+          className={`absolute bottom-16 sm:bottom-2 right-0 w-0.5 sm:w-1 bg-black/20 transition-all duration-1000 delay-1100 ${isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"}`}
+        />
       </div>
-
-      {/* Decorative Side Lines */}
-      <div
-        className={`absolute top-16 sm:top-32 left-0 w-0.5 sm:w-1 bg-secondary-bg-40 transition-all duration-1000 delay-1000 ${isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"
-          }`}
-      />
-      <div
-        className={`absolute bottom-16 sm:bottom-24 right-0 w-0.5 sm:w-1 bg-black/20 transition-all duration-1000 delay-1100 ${isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"
-          }`}
-      />
     </section>
   );
 }
