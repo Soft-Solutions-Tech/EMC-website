@@ -63,7 +63,7 @@ export function Header() {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-transparent supports-[backdrop-filter]:bg-background/60 shadow-sm">
+<header className="sticky top-0 z-50 w-full bg-transparent supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="flex items-center justify-between p-4">
         <Link href="/" className="flex items-center">
           <img
