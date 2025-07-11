@@ -63,16 +63,15 @@ export function Header() {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/20 bg-transparent backdrop-blur-md supports-[backdrop-filter]:bg-background/60 shadow-sm">
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-background via-background to-secondary/50">
+    <header className="sticky top-0 z-50 w-full bg-transparent supports-[backdrop-filter]:bg-background/60 shadow-sm">
+      <div className="flex items-center justify-between p-4">
         <Link href="/" className="flex items-center">
           <img
-            src="/logos/EMC-LOGO.jpg"
+            src="/logos/EMC-LOGO.png"
             alt="EMC Logo"
             className="h-8 w-auto"
           />
         </Link>
-
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center justify-end flex-1">
           <NavigationMenu>
