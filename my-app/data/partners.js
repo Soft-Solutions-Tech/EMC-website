@@ -1,26 +1,35 @@
 export const partners = [
   {
-    id: "p1",
-    name: "KSB Service Egypt",
-    logo: "/images/partners/ksb.png",
-    brief: "Partner since 2022, providing pump and valve services in industrial and power sectors."
-  },
-  {
-    id: "p2",
-    name: "BuildCore Egypt",
-    logo: "/images/partners/buildcore.png",
-    brief: "A construction and engineering solutions provider for large-scale infrastructure projects."
-  },
-  {
     id: "p3",
-    name: "EcoDesign Studios",
-    logo: "/images/partners/ecodesign.png",
-    brief: "Specialists in sustainable architecture and environmental design consultation."
+    name: "Cimtas",
+    logo: "/partners/cimtas.jpg",
+    brief: "A global leader in piping and pressure vessel manufacturing.",
+    website: "https://www.cimtas.com",
+    subCompanies: [],
   },
   {
     id: "p4",
-    name: "Modern Builders Inc.",
-    logo: "/images/partners/modernbuilders.png",
-    brief: "Leading construction firm partnering on high-end residential and commercial builds."
-  }
+    name: "Doosan",
+    logo: "/partners/doosan.jpg",
+    brief: "A multinational conglomerate specializing in energy and infrastructure.",
+    website: "https://www.doosan.com",
+    subCompanies: [],
+  },
+  {
+    id: "p5",
+    name: "Hamon",
+    logo: "/partners/hamon.jpg",
+    brief: "An expert in cooling systems and environmental technologies.",
+    website: "https://www.hamon.com",
+    subCompanies: [],
+  },
+  {
+    id: "p6",
+    name: "Prysmian",
+    logo: "/partners/prysmian.jpg",
+    brief: "A leading company in the energy and telecom cable systems industry.",
+    website: "https://www.prysmiangroup.com",
+    subCompanies: [],
+  },
 ];
+

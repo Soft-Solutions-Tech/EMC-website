@@ -1,40 +1,63 @@
 export const clients = [
   {
-    id: "c1",
-    name: "Palm Real Estate Co.",
-    logo: "/images/clients/palm.png",
-    brief: "A leading real estate developer in Egypt focusing on luxury residential projects.",
+    id: "c4",
+    name: "Abu Qir",
+    logo: "/clients/abuQir.jpg",
+    brief: "A key player in the fertilizer industry with a focus on sustainable production.",
+    website: "https://www.abuqir.com",
+    subCompanies: [],
+  },
+  {
+    id: "c5",
+    name: "Electricity",
+    logo: "/clients/electricity.jpg",
+    brief: "A major provider of electrical infrastructure and services.",
+    website: "https://www.eehc.gov.eg",
     subCompanies: [
       {
-        id: "sc1",
-        name: "Palm Construction",
-        logo: "/images/clients/palm-construction.png"
+        id: "c5-1",
+        name: "Upper Egypt Electricity",
+        logo: "/clients/electricity.jpg",
+        brief: "Electricity distribution and infrastructure development in Upper Egypt.",
+        website: "https://www.ueepco.com.eg",
       },
       {
-        id: "sc2",
-        name: "Palm Interiors",
-        logo: "/images/clients/palm-interiors.png"
-      }
-    ]
-  },
-  {
-    id: "c2",
-    name: "SkyTech Ventures",
-    logo: "/images/clients/skytech.png",
-    brief: "A tech-forward investment firm with focus on business parks and infrastructure.",
-    subCompanies: [] // No subcompanies here
-  },
-  {
-    id: "c3",
-    name: "National Power Holding",
-    logo: "/images/clients/nph.png",
-    brief: "State-owned enterprise responsible for national-scale energy projects.",
-    subCompanies: [
+        id: "c5-2",
+        name: "Canal Electricity",
+        logo: "/clients/electricity.jpg",
+        brief: "Power services and maintenance in the Suez Canal and surrounding areas.",
+        website: "https://www.canalelectricity.com.eg",
+      },
       {
-        id: "sc3",
-        name: "NPH Generation",
-        logo: "/images/clients/nph-generation.png"
-      }
-    ]
-  }
+        id: "c5-3",
+        name: "South Delta Electricity",
+        logo: "/clients/electricity.jpg",
+        brief: "Electric utility and grid support across the South Delta region.",
+        website: "https://www.southdeltaelectric.com.eg",
+      },
+      {
+        id: "c5-4",
+        name: "Middle Egypt Electricity",
+        logo: "/clients/electricity.jpg",
+        brief: "Regional electricity service provider in Middle Egypt.",
+        website: "https://www.middleegyptelectric.com.eg",
+      },
+    ],
+  },
+  {
+    id: "c6",
+    name: "Military",
+    logo: "/clients/military.jpg",
+    brief: "A government entity overseeing defense-related projects.",
+    website: "https://www.mod.gov.eg",
+    subCompanies: [],
+  },
+  {
+    id: "c7",
+    name: "Petrojet",
+    logo: "/clients/petrojet.jpg",
+    brief: "A leading contractor in the oil and gas sector.",
+    website: "https://www.petrojet.com.eg",
+    subCompanies: [],
+  },
 ];
