@@ -67,6 +67,12 @@ export default function InfoSection() {
       ref={philosophyRef}
       className="py-12 sm:py-24 bg-white relative overflow-hidden"
     >
+      <div className="mb-12 sm:mb-16 lg:mb-4 text-center">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
+          Who We Are
+        </h2>
+        <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
           {/* Left Section */}

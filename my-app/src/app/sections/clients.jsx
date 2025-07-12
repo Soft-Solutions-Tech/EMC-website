@@ -4,7 +4,7 @@ import { partners } from "../../../data/partners";
 
 const ClientsSection = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 to-gray-100 relative overflow-hidden">
+    <section className="py-20 bg-white relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.02)_1px,transparent_0)] [background-size:24px_24px]"></div>
       <div className="absolute top-0 left-0 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
@@ -18,12 +18,14 @@ const ClientsSection = () => {
               <div className="inline-block px-4 py-2 bg-teal-50 text-teal rounded-full text-sm font-semibold tracking-wider uppercase mb-4">
                 Strategic Partners
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-navy via-teal to-navy bg-clip-text text-transparent mb-6">
-                Our Partners
-              </h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                Collaborative partners driving innovation and growth through
-                shared expertise
+              <div className="mb-12 sm:mb-16 lg:mb-4 text-center">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
+                  Our Partners
+                </h2>
+                <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
+              </div>
+              <p className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold">
+                Collaborative partners driving innovation and growth through shared expertise
               </p>
             </div>
 
@@ -73,9 +75,8 @@ const ClientsSection = () => {
                                 key={sub.id}
                                 className="flex items-center p-3 rounded-lg bg-secondary-bg-40 hover:bg-teal-100 transition-colors duration-200"
                                 style={{
-                                  animationDelay: `${
-                                    index * 150 + subIndex * 100
-                                  }ms`,
+                                  animationDelay: `${index * 150 + subIndex * 100
+                                    }ms`,
                                 }}
                               >
                                 <div className="relative">
@@ -108,12 +109,14 @@ const ClientsSection = () => {
               <div className="inline-block px-4 py-2 bg-teal-50 text-teal rounded-full text-sm font-semibold tracking-wider uppercase mb-4">
                 Valued Clients
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-navy via-teal to-navy bg-clip-text text-transparent mb-6">
-                Our Clients
-              </h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                Trusted clients we empower with tailored solutions and
-                exceptional service
+              <div className="mb-12 sm:mb-16 lg:mb-4 text-center">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
+                  Our Clients
+                </h2>
+                <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
+              </div>
+              <p className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold">
+                Trusted clients we empower with tailored solutions and exceptional service
               </p>
             </div>
 
@@ -165,9 +168,8 @@ const ClientsSection = () => {
                               rel="noopener noreferrer"
                               className="flex items-center p-3 rounded-lg bg-secondary-bg-40 hover:bg-teal-100 transition-colors duration-200"
                               style={{
-                                animationDelay: `${
-                                  index * 150 + subIndex * 100
-                                }ms`,
+                                animationDelay: `${index * 150 + subIndex * 100
+                                  }ms`,
                               }}
                             >
                               <div className="relative">

@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { projects } from "../../../data/projects.js";
 import { User, Users, BadgeDollarSign, CalendarClock, BriefcaseBusiness } from "lucide-react";
+import { motion } from "framer-motion";
 
 function formatDate(dateStr) {
     if (!dateStr) return 'Present';
@@ -172,7 +173,13 @@ export default function PortoflioSection() {
     return (
         <section className="py-16 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-primary text-center">Our Project Portfolio</h2>
+                {/* Section Title */}
+                <div className="mb-12 sm:mb-16 lg:mb-8 text-center">
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
+                        Our Project Portfolio
+                    </h2>
+                    <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
+                </div>
                 <div className="flex flex-col gap-8">
                     {featured.map((project, idx) => {
                         // Insert heading before rows 0, 2, 4
@@ -183,17 +190,28 @@ export default function PortoflioSection() {
                         return (
                             <>
                                 {heading && (
-                                    <div className="mb-2 mt-8">
-                                        <h3 className="text-2xl font-bold text-primary tracking-widest uppercase text-center">{heading.label}</h3>
+                                    <div className={`mb-8 ${idx === 0 ? 'mt-0' : 'mt-4'} text-center`}>
+                                        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
+                                            {heading.label}
+                                        </h3>
                                         {heading.desc && (
-                                            <p className="text-xs text-gray-500 text-center max-w-xl mx-auto mt-2">
-                                                {heading.desc.join(' ')}
+                                            <p className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-6 leading-relaxed font-semibold">
+                                                {heading.desc.map((desc, index) => (
+                                                    <span key={index}>
+                                                        {desc}
+                                                        {index < heading.desc.length - 1 ? ', ' : '.'}
+                                                    </span>
+                                                ))}
                                             </p>
                                         )}
                                     </div>
                                 )}
-                                <div
+                                <motion.div
                                     key={project.id}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6, delay: idx * 0.1 }}
                                     className={`grid grid-cols-1 sm:grid-cols-2 items-center gap-6 rounded-xl shadow p-6 min-h-[220px] sm:min-h-[400px] lg:min-h-[500px] ${idx % 2 === 0 ? 'bg-gray-50' : ''}`}
                                 >
                                     {/* Image: left for odd, right for even (on tablet/desktop) */}
@@ -234,7 +252,7 @@ export default function PortoflioSection() {
                                             </a>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             </>
                         );
                     })}
