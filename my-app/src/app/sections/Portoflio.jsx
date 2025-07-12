@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { projects } from "../../../data/projects.js";
 import { User, Users, BadgeDollarSign, CalendarClock, BriefcaseBusiness } from "lucide-react";
 import { motion } from "framer-motion";
@@ -188,7 +188,7 @@ export default function PortoflioSection() {
                         let borderColor = '#00AEEF';
                         if (idx === 2 || idx === 3) borderColor = '#00263A';
                         return (
-                            <>
+                            <React.Fragment key={project.id}>
                                 {heading && (
                                     <div className={`mb-8 ${idx === 0 ? 'mt-0' : 'mt-4'} text-center`}>
                                         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
@@ -207,7 +207,7 @@ export default function PortoflioSection() {
                                     </div>
                                 )}
                                 <motion.div
-                                    key={project.id}
+                                    key={`motion-${project.id}`}
                                     initial={{ opacity: 0, y: 40 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
@@ -253,7 +253,7 @@ export default function PortoflioSection() {
                                         </div>
                                     </div>
                                 </motion.div>
-                            </>
+                            </React.Fragment>
                         );
                     })}
                 </div>
