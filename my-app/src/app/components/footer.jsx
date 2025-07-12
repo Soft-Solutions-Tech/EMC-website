@@ -41,7 +41,7 @@ export const Footer = () => {
                             <div className="space-y-2 text-sm text-center">
                                 <a href="/terms" className="text-navy hover:text-accent transition-colors duration-300 block">Terms of Service</a>
                                 <a href="/privacy" className="text-navy hover:text-accent transition-colors duration-300 block">Privacy Policy</a>
-                                <a href="/cookies" className="text-navy hover:text-accent transition-colors duration-300 block">Cookie Policy</a>
+
                             </div>
                         </div>
                         {/* Column 4: Links */}
@@ -49,9 +49,7 @@ export const Footer = () => {
                             <h4 className="text-lg font-semibold text-navy text-center">Quick Links</h4>
                             <div className="space-y-2 text-sm text-center">
                                 <a href="/about" className="text-navy hover:text-accent transition-colors duration-300 block">About Us</a>
-                                <a href="/services" className="text-navy hover:text-accent transition-colors duration-300 block">Services</a>
                                 <a href="/contact" className="text-navy hover:text-accent transition-colors duration-300 block">Contact Us</a>
-                                <a href="/careers" className="text-navy hover:text-accent transition-colors duration-300 block">Careers</a>
                             </div>
                         </div>
                         {/* Column 5: Projects by EMC */}
