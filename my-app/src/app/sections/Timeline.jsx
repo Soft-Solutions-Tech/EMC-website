@@ -39,38 +39,38 @@ export function TimelineSection() {
 
   return (
     <section
-      className="relative w-full py-5 bg-background text-foreground overflow-hidden"
+      id="timeline"
+      className="relative w-full py-12 sm:py-16 bg-background text-foreground overflow-hidden"
       aria-label="Company Timeline"
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mb-20 text-center"
+          className="mb-12 sm:mb-16 lg:mb-20 text-center"
         >
-          <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal-400 to-accent leading-[1.15] pb-2">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
             Our Journey Through Time
           </h2>
-
           <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
         </motion.div>
 
-        {/* Horizontal Timeline Container */}
+        {/* Horizontal Timeline Container (Desktop) */}
         <div className="relative w-full">
-          {/* Timeline Line */}
+          {/* Timeline Line (Desktop) */}
           <motion.div
             variants={lineVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-accent/20 via-accent to-accent/20 transform -translate-y-1/2 origin-left"
+            className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-accent/20 via-accent to-accent/20 transform -translate-y-1/2 origin-left"
           />
 
           {/* Desktop Layout */}
           <div className="hidden lg:block">
-            <div className="flex justify-between items-center relative min-h-[400px]">
+            <div className="flex justify-between items-center relative min-h-[400px] gap-4">
               {companyTimeline.map((item, index) => (
                 <motion.div
                   key={index}
@@ -79,20 +79,23 @@ export function TimelineSection() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className="relative flex flex-col items-center"
-                  style={{ flex: "1 1 0%" }}
+                  className="relative flex flex-col items-center flex-1"
+                  aria-labelledby={`timeline-event-${index}`}
                 >
                   {/* Dot */}
                   <div className="z-10 w-6 h-6 bg-accent border-4 border-background rounded-full shadow-lg shadow-accent/30" />
 
                   {/* Event Card */}
                   <div
-                    className={`absolute w-64 bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 shadow-lg ${
+                    className={`absolute w-full max-w-xs bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 shadow-lg ${
                       index % 2 === 0 ? "top-12" : "bottom-12"
                     }`}
                   >
                     {/* Year Badge */}
-                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-background px-4 py-1 rounded-full text-sm font-bold shadow-md">
+                    <div
+                      className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold shadow-md"
+                      id={`timeline-event-${index}`}
+                    >
                       {item.year}
                     </div>
 
@@ -118,8 +121,11 @@ export function TimelineSection() {
           </div>
 
           {/* Mobile/Tablet Layout */}
-          <div className="lg:hidden">
-            <div className="space-y-16">
+          <div className="lg:hidden relative">
+            {/* Vertical Timeline Line (Mobile) */}
+            <div className="absolute top-0 bottom-0 left-7 w-1 bg-gradient-to-b from-accent/20 via-accent to-accent/20" />
+
+            <div className="space-y-12 sm:space-y-16">
               {companyTimeline.map((item, index) => (
                 <motion.div
                   key={index}
@@ -128,7 +134,8 @@ export function TimelineSection() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className="relative flex items-center"
+                  className="relative flex items-start"
+                  aria-labelledby={`timeline-event-mobile-${index}`}
                 >
                   {/* Dot */}
                   <div className="z-10 w-6 h-6 bg-accent border-4 border-background rounded-full shadow-lg shadow-accent/30 flex-shrink-0" />
@@ -136,7 +143,10 @@ export function TimelineSection() {
                   {/* Event Card */}
                   <div className="ml-8 w-full bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 shadow-lg">
                     {/* Year */}
-                    <div className="text-lg font-bold text-accent mb-2">
+                    <div
+                      className="text-lg font-bold text-accent mb-2"
+                      id={`timeline-event-mobile-${index}`}
+                    >
                       {item.year}
                     </div>
 

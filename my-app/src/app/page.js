@@ -8,8 +8,8 @@ export default function Home() {
     <div>
       <HeroBanner />
       <InfoSection />
-      <TimelineSection />
       <PortoflioSection />
+      <TimelineSection />
     </div>
   );
 }
