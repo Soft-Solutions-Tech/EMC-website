@@ -122,8 +122,8 @@ export function TimelineSection() {
 
           {/* Mobile/Tablet Layout */}
           <div className="lg:hidden relative">
-            {/* Vertical Timeline Line (Mobile) */}
-            <div className="absolute top-0 bottom-0 left-7 w-1 bg-gradient-to-b from-accent/20 via-accent to-accent/20" />
+            {/* Vertical Timeline Line (Mobile) - Now centered on circles */}
+            <div className="absolute top-0 bottom-0 left-2 w-1 bg-gradient-to-b from-accent/20 via-accent to-accent/20" />
 
             <div className="space-y-12 sm:space-y-16">
               {companyTimeline.map((item, index) => (
