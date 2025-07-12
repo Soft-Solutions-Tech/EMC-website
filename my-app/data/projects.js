@@ -97,8 +97,8 @@ export const projects = [
     location: "Luxor, Egypt",
     images: [
       "https://images.unsplash.com/photo-1603465410243-af3e840367dd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGNvbnN0cnVjdGlvbiUyMHNpdGV8ZW58MHx8MHx8fDA%3D",
-      "https://images.unsplash.com/photo-1603465410243-af3e840367dd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGNvbnN0cnVjdGlvbiUyMHNpdGV8ZW58MHx8MHx8fDA%3D",
       "https://images.unsplash.com/photo-1517089152318-42ec560349c0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzF8fGNvbnN0cnVjdGlvbiUyMHNpdGV8ZW58MHx8MHx8fDA%3D",
+      "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c29sYXIlMjBwYW5lbHN8ZW58MHx8MHx8fDA%3D",
     ],
     consultingCta: "Explore our After Sales projects"
   },
@@ -116,8 +116,8 @@ export const projects = [
     location: "Suez Canal, Egypt",
     images: [
       "https://images.unsplash.com/photo-1694521788304-1d42378498da?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fGNvbnN0cnVjdGlvbiUyMHNpdGV8ZW58MHx8MHx8fDA%3D",
-      "https://images.unsplash.com/photo-1694521788304-1d42378498da?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fGNvbnN0cnVjdGlvbiUyMHNpdGV8ZW58MHx8MHx8fDA%3D",
       "https://images.unsplash.com/photo-1723107638733-16ef49e5d4de?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTI0fHxjb25zdHJ1Y3Rpb24lMjBzaXRlfGVufDB8fDB8fHww",
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW5kdXN0cmlhbCUyMHpvbmV8ZW58MHx8MHx8fDA%3D",
     ],
     consultingCta: "Explore our After Sales projects"
   },
