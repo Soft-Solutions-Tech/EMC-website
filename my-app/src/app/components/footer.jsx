@@ -101,7 +101,6 @@ export const Footer = () => {
                             <div className="space-y-2 text-sm text-center">
                                 <a href="/terms" className="text-navy hover:text-accent transition-colors duration-300 block">Terms of Service</a>
                                 <a href="/privacy" className="text-navy hover:text-accent transition-colors duration-300 block">Privacy Policy</a>
-                                <a href="/cookies" className="text-navy hover:text-accent transition-colors duration-300 block">Cookie Policy</a>
                             </div>
                         </div>
                         {/* Quick Links */}
@@ -111,7 +110,6 @@ export const Footer = () => {
                                 <a href="/about" className="text-navy hover:text-accent transition-colors duration-300 block">About Us</a>
                                 <a href="/services" className="text-navy hover:text-accent transition-colors duration-300 block">Services</a>
                                 <a href="/contact" className="text-navy hover:text-accent transition-colors duration-300 block">Contact Us</a>
-                                <a href="/careers" className="text-navy hover:text-accent transition-colors duration-300 block">Careers</a>
                             </div>
                         </div>
                         {/* Projects by EMC */}
