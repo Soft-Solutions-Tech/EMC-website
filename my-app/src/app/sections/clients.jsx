@@ -25,7 +25,8 @@ const ClientsSection = () => {
                 <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
               </div>
               <p className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold">
-                Collaborative partners driving innovation and growth through shared expertise
+                Collaborative partners driving innovation and growth through
+                shared expertise
               </p>
             </div>
 
@@ -75,8 +76,9 @@ const ClientsSection = () => {
                                 key={sub.id}
                                 className="flex items-center p-3 rounded-lg bg-secondary-bg-40 hover:bg-teal-100 transition-colors duration-200"
                                 style={{
-                                  animationDelay: `${index * 150 + subIndex * 100
-                                    }ms`,
+                                  animationDelay: `${
+                                    index * 150 + subIndex * 100
+                                  }ms`,
                                 }}
                               >
                                 <div className="relative">
@@ -116,7 +118,8 @@ const ClientsSection = () => {
                 <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
               </div>
               <p className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold">
-                Trusted clients we empower with tailored solutions and exceptional service
+                Trusted clients we empower with tailored solutions and
+                exceptional service
               </p>
             </div>
 
@@ -168,8 +171,9 @@ const ClientsSection = () => {
                               rel="noopener noreferrer"
                               className="flex items-center p-3 rounded-lg bg-secondary-bg-40 hover:bg-teal-100 transition-colors duration-200"
                               style={{
-                                animationDelay: `${index * 150 + subIndex * 100
-                                  }ms`,
+                                animationDelay: `${
+                                  index * 150 + subIndex * 100
+                                }ms`,
                               }}
                             >
                               <div className="relative">

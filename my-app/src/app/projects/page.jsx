@@ -1,76 +1,11 @@
 "use client";
 import React, { useState, useMemo, useEffect } from "react";
 import { projects, ProjectType } from "../../../data/projects";
+import { InfoBar, Timeline, Partners } from "../sections/Portoflio";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  BriefcaseBusiness,
-  User,
-  BadgeDollarSign,
-  CalendarClock,
-  Users,
-  ArrowRight,
-  Building2,
-  MapPin,
-} from "lucide-react";
+import { ArrowRight, Building2, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Head from "next/head";
-
-function formatDate(dateStr) {
-  if (!dateStr) return "Present";
-  const date = new Date(dateStr);
-  return date.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-  });
-}
-
-function InfoBar({ status, client, value }) {
-  return (
-    <div className="flex flex-wrap gap-3 mb-6">
-      <span className="flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200">
-        <BriefcaseBusiness className="w-4 h-4 text-accent" />
-        {status}
-      </span>
-      <span className="flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200">
-        <User className="w-4 h-4  text-accent" />
-        {client}
-      </span>
-      <span className="flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200">
-        <BadgeDollarSign className="w-4 h-4  text-accent" />
-        {value}
-      </span>
-    </div>
-  );
-}
-
-function Timeline({ start, end }) {
-  return (
-    <div className="flex items-center gap-3 mb-4 text-sm text-slate-600">
-      <div className="flex items-center gap-2">
-        <CalendarClock className="w-4 h-4 text-teal-600" />
-        <span className="font-medium">{formatDate(start)}</span>
-      </div>
-      <div className="w-8 h-px bg-slate-300"></div>
-      <div className="flex items-center gap-2">
-        <CalendarClock className="w-4 h-4 text-teal-600" />
-        <span className="font-medium">{formatDate(end)}</span>
-      </div>
-    </div>
-  );
-}
-
-function Partners({ partners }) {
-  if (!partners || partners.length === 0) return null;
-  return (
-    <div className="flex items-start gap-3 mb-4 text-sm text-slate-600">
-      <Users className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
-      <div>
-        <span className="font-medium text-slate-800">Partners: </span>
-        <span>{partners.join(", ")}</span>
-      </div>
-    </div>
-  );
-}
 
 function ProjectCard({ project, index }) {
   return (

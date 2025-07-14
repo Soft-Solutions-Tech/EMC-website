@@ -56,11 +56,6 @@ export default function InfoSection() {
     return () => observer.disconnect();
   }, []);
 
-  const yearsExperience =
-    new Date().getFullYear() - Number(companyOverview.established);
-  const numProjects = projects.length;
-  const numClients = clients.length;
-
   return (
     <section
       id="philosophy"
@@ -80,10 +75,11 @@ export default function InfoSection() {
             {/* Title & Underline */}
             <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
               <div
-                className={`flex items-center justify-center lg:justify-start space-x-3 transition-all duration-700 ${isPhilosophyVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-                  }`}
+                className={`flex items-center justify-center lg:justify-start space-x-3 transition-all duration-700 ${
+                  isPhilosophyVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4"
+                }`}
               >
                 <div className="w-8 sm:w-12 h-0.5 bg-primary"></div>
                 <span className="text-xs sm:text-sm font-light tracking-widest uppercase primary-text">
@@ -92,47 +88,52 @@ export default function InfoSection() {
               </div>
 
               <div
-                className={`transition-all duration-700 delay-200 ${isPhilosophyVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-                  }`}
+                className={`transition-all duration-700 delay-200 ${
+                  isPhilosophyVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-8"
+                }`}
               >
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter primary-text">
                   Engineering beyond
                   <span className="block text-accent relative">
                     limits.
                     <div
-                      className={`absolute top-12 left-0 h-1 bg-secondary-bg-40 transition-all duration-1000 delay-700 ${isPhilosophyVisible ? "w-full" : "w-0"
-                        }`}
+                      className={`absolute top-12 left-0 h-1 bg-secondary-bg-40 transition-all duration-1000 delay-700 ${
+                        isPhilosophyVisible ? "w-full" : "w-0"
+                      }`}
                     ></div>
                   </span>
                 </h2>
               </div>
 
               <div
-                className={`w-16 h-1 primary-bg mx-auto lg:mx-0 mt-4 transition-all duration-1000 delay-700 ${isPhilosophyVisible
-                  ? "opacity-100 scale-100"
-                  : "opacity-0 scale-50"
-                  }`}
+                className={`w-16 h-1 primary-bg mx-auto lg:mx-0 mt-4 transition-all duration-1000 delay-700 ${
+                  isPhilosophyVisible
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-50"
+                }`}
               ></div>
             </div>
 
             {/* Summary */}
             <div
-              className={`space-y-4 sm:space-y-6 text-base sm:text-lg font-light text-gray-700 leading-relaxed transition-all duration-700 delay-400 ${isPhilosophyVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-                }`}
+              className={`space-y-4 sm:space-y-6 text-base sm:text-lg font-light text-gray-700 leading-relaxed transition-all duration-700 delay-400 ${
+                isPhilosophyVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
             >
               <p>{emcInfo.summary}</p>
             </div>
 
             {/* Icon Boxes */}
             <div
-              className={`grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 sm:pt-8 transition-all duration-700 delay-600 ${isPhilosophyVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-                }`}
+              className={`grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 sm:pt-8 transition-all duration-700 delay-600 ${
+                isPhilosophyVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
             >
               <div className="space-y-3 text-center lg:text-left group">
                 <div className="w-8 h-8 bg-background-icon1 rounded-sm flex items-center justify-center mx-auto lg:mx-0 transition-transform duration-300">
@@ -160,10 +161,11 @@ export default function InfoSection() {
             {/* Quote Block */}
             <div
               style={{ borderLeft: "4px solid #00263A" }}
-              className={`bg-gray-50/50 p-6 sm:p-8 relative overflow-hidden transition-all duration-700 delay-300 ${isPhilosophyVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-8"
-                }`}
+              className={`bg-gray-50/50 p-6 sm:p-8 relative overflow-hidden transition-all duration-700 delay-300 ${
+                isPhilosophyVisible
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 translate-x-8"
+              }`}
             >
               <blockquote className="text-xl sm:text-2xl font-light text-gray-800 leading-relaxed italic relative z-10">
                 {emcInfo.philosophy}
@@ -172,10 +174,11 @@ export default function InfoSection() {
 
             {/* Stats */}
             <div
-              className={`grid grid-cols-3 gap-4 sm:gap-6 transition-all duration-700 delay-500 justify-items-center ${isPhilosophyVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-                }`}
+              className={`grid grid-cols-3 gap-4 sm:gap-6 transition-all duration-700 delay-500 justify-items-center ${
+                isPhilosophyVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
             >
               {emcInfo.stats.map((stat, idx) => {
                 const numberClass =
@@ -198,8 +201,9 @@ export default function InfoSection() {
                     </div>
                     <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden">
                       <div
-                        className={`h-full ${barClass} transition-all duration-1000 delay-1000 ${isPhilosophyVisible ? "w-full" : "w-0"
-                          }`}
+                        className={`h-full ${barClass} transition-all duration-1000 delay-1000 ${
+                          isPhilosophyVisible ? "w-full" : "w-0"
+                        }`}
                       ></div>
                     </div>
                     <div className="text-xs text-gray-500">
@@ -213,10 +217,14 @@ export default function InfoSection() {
         </div>
         {/* Decorative Side Lines - now inside the container */}
         <div
-          className={`absolute top-24 sm:top-4 left-0 sm:left-4 w-0.5 sm:w-1 bg-secondary-bg-40 transition-all duration-1000 delay-1000 ${isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"}`}
+          className={`absolute top-24 sm:top-4 left-0 sm:left-4 w-0.5 sm:w-1 bg-secondary-bg-40 transition-all duration-1000 delay-1000 ${
+            isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"
+          }`}
         />
         <div
-          className={`absolute bottom-16 sm:bottom-2 right-0 w-0.5 sm:w-1 bg-black/20 transition-all duration-1000 delay-1100 ${isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"}`}
+          className={`absolute bottom-16 sm:bottom-2 right-0 w-0.5 sm:w-1 bg-black/20 transition-all duration-1000 delay-1100 ${
+            isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"
+          }`}
         />
       </div>
     </section>

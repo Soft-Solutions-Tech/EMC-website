@@ -3,10 +3,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { projects } from "../../../data/projects.js";
 import {
   User,
-  Users,
+  BriefcaseBusiness,
   BadgeDollarSign,
   CalendarClock,
-  BriefcaseBusiness,
+  Users,
+  ArrowRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -15,11 +16,12 @@ function formatDate(dateStr) {
   const date = new Date(dateStr);
   return date.toLocaleDateString(undefined, {
     year: "numeric",
-    month: "short",
+    month: "long",
+    day: "numeric",
   });
 }
 
-function InfoBar({ status, client, value }) {
+export function InfoBar({ status, client, value }) {
   return (
     <div className="flex flex-wrap gap-3 mb-6">
       <span className="flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200">
@@ -38,29 +40,31 @@ function InfoBar({ status, client, value }) {
   );
 }
 
-function Timeline({ start, end }) {
+export function Timeline({ start, end }) {
   return (
-    <div className="flex items-center justify-center gap-2 mb-2 text-xs text-gray-600">
-      <span className="flex items-center gap-1">
-        <CalendarClock className="w-4 h-4 text-primary" />
-        {formatDate(start)}
-      </span>
-      <span className="mx-1 text-gray-400">→</span>
-      <span className="flex items-center gap-1">
-        <CalendarClock className="w-4 h-4 text-primary" />
-        {formatDate(end)}
-      </span>
+    <div className="flex items-center gap-3 mb-4 text-sm text-slate-600">
+      <div className="flex items-center gap-2">
+        <CalendarClock className="w-4 h-4 text-teal-600" />
+        <span className="font-medium">{formatDate(start)}</span>
+      </div>
+      <ArrowRight className="w-4 h-4 text-slate-400" />
+      <div className="flex items-center gap-2">
+        <CalendarClock className="w-4 h-4 text-teal-600" />
+        <span className="font-medium">{formatDate(end)}</span>
+      </div>
     </div>
   );
 }
 
-function Partners({ partners }) {
+export function Partners({ partners }) {
   if (!partners || partners.length === 0) return null;
   return (
-    <div className="flex items-center justify-center gap-2 mb-2 text-xs text-gray-700">
-      <Users className="w-4 h-4 text-primary" />
-      <span className="font-semibold">Partners:</span>
-      <span>{partners.join(", ")}</span>
+    <div className="flex items-start gap-3 mb-4 text-sm text-slate-600">
+      <Users className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
+      <div>
+        <span className="font-medium text-slate-800">Partners: </span>
+        <span>{partners.join(", ")}</span>
+      </div>
     </div>
   );
 }
