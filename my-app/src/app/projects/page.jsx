@@ -25,33 +25,18 @@ function formatDate(dateStr) {
 }
 
 function InfoBar({ status, client, value }) {
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "Finished":
-        return "bg-green-100 text-green-800 border-green-200";
-      case "Active":
-        return "bg-blue-100 text-blue-800 border-blue-200";
-      default:
-        return "bg-slate-100 text-slate-800 border-slate-200";
-    }
-  };
-
   return (
     <div className="flex flex-wrap gap-3 mb-6">
-      <span
-        className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium border ${getStatusColor(
-          status
-        )}`}
-      >
-        <BriefcaseBusiness className="w-4 h-4" />
+      <span className="flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200">
+        <BriefcaseBusiness className="w-4 h-4 text-accent" />
         {status}
       </span>
       <span className="flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200">
-        <User className="w-4 h-4" />
+        <User className="w-4 h-4  text-accent" />
         {client}
       </span>
-      <span className="flex items-center gap-2 bg-blue-50 text-blue-700 rounded-full px-4 py-2 text-sm font-medium border border-blue-200">
-        <BadgeDollarSign className="w-4 h-4" />
+      <span className="flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200">
+        <BadgeDollarSign className="w-4 h-4  text-accent" />
         {value}
       </span>
     </div>
