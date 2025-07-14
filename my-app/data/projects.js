@@ -1,8 +1,7 @@
 export const ProjectType = {
   EPC: "EPC",
   CONSULTING: "CONSULTING",
-  AFTERSALES: "AFTER SALES",
-  OTHER: "OTHER",
+  AFTERSALES: "AFTERSALES",
 };
 
 // MOCK Project data

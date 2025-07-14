@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { ProjectType } from "../../../data/projects";
 
 const NAV_ITEMS = [
@@ -23,10 +23,11 @@ const NAV_ITEMS = [
     name: "Projects",
     dropdown: true,
     items: [
-      { name: "All", href: "/projects?type=ALL" },
+      { name: "All", href: "/projects?type=ALL", type: "ALL" },
       ...Object.entries(ProjectType).map(([key, value]) => ({
         name: value,
         href: `/projects?type=${key}`,
+        type: key,
       })),
     ],
   },
@@ -37,6 +38,8 @@ export function Header() {
   const [clientPathname, setClientPathname] = React.useState("");
   const [mobileDropdownOpen, setMobileDropdownOpen] = React.useState(false);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const toggleMobileMenu = React.useCallback(() => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -65,6 +68,8 @@ export function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMobileMenuOpen]);
 
+  const currentType = searchParams.get("type") || "ALL";
+
   return (
     <header className="sticky top-0 z-50 w-full bg-transparent supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="flex items-center justify-between p-4">
@@ -75,6 +80,7 @@ export function Header() {
             className="h-8 w-auto"
           />
         </Link>
+
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center justify-end flex-1">
           <NavigationMenu>
@@ -97,9 +103,11 @@ export function Header() {
                           <NavigationMenuLink key={subItem.href} asChild>
                             <Link
                               href={subItem.href}
+                              replace
                               className={cn(
                                 "block px-4 py-3 text-sm rounded-lg border border-transparent text-muted-foreground hover:text-accent hover:bg-accent/10 hover:border-accent/20 transition-all duration-300",
-                                pathname === subItem.href &&
+                                pathname.startsWith("/projects") &&
+                                  currentType === subItem.type &&
                                   "text-accent font-semibold bg-accent/10 border-accent/30"
                               )}
                             >
@@ -152,6 +160,7 @@ export function Header() {
             <MobileMenu
               onClose={toggleMobileMenu}
               pathname={clientPathname}
+              currentType={currentType}
               mobileDropdownOpen={mobileDropdownOpen}
               toggleMobileDropdown={toggleMobileDropdown}
             />
@@ -165,6 +174,7 @@ export function Header() {
 function MobileMenu({
   onClose,
   pathname,
+  currentType,
   mobileDropdownOpen,
   toggleMobileDropdown,
 }) {
@@ -231,10 +241,12 @@ function MobileMenu({
                         >
                           <Link
                             href={subItem.href}
+                            replace
                             onClick={onClose}
                             className={cn(
                               "block px-4 py-3 text-sm rounded-lg border border-transparent text-muted-foreground hover:text-accent hover:bg-accent/10 hover:border-accent/20 transition-all duration-300",
-                              pathname === subItem.href &&
+                              pathname.startsWith("/projects") &&
+                                currentType === subItem.type &&
                                 "text-accent font-semibold bg-accent/10 border-accent/30"
                             )}
                           >
@@ -273,7 +285,7 @@ function MobileMenu({
 
       {/* Background blur circles */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/50 to-accent/5 -z-10" />
-      <div className="absolute top-/4 right-1/4 w-32 h-32 bg-accent/10 rounded-full blur-3xl -z-10" />
+      <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-accent/10 rounded-full blur-3xl -z-10" />
       <div className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-teal/10 rounded-full blur-2xl -z-10" />
     </motion.div>
   );

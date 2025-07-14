@@ -33,26 +33,26 @@ function InfoBar({ status, client, value }) {
       case "Active":
         return "bg-blue-100 text-blue-800 border-blue-200";
       default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
+        return "bg-slate-100 text-slate-800 border-slate-200";
     }
   };
 
   return (
-    <div className="flex flex-wrap gap-2 mb-4">
+    <div className="flex flex-wrap gap-3 mb-6">
       <span
-        className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium border ${getStatusColor(
+        className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium border ${getStatusColor(
           status
         )}`}
       >
-        <BriefcaseBusiness className="w-3 h-3 text-accent" />
+        <BriefcaseBusiness className="w-4 h-4" />
         {status}
       </span>
-      <span className="flex items-center gap-1 bg-gray-100 text-gray-800 rounded-full px-3 py-1 text-xs font-medium border border-gray-200">
-        <User className="w-3 h-3 text-primary" />
+      <span className="flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200">
+        <User className="w-4 h-4" />
         {client}
       </span>
-      <span className="flex items-center gap-1 bg-blue-50 text-blue-800 rounded-full px-3 py-1 text-xs font-medium border border-blue-200">
-        <BadgeDollarSign className="w-3 h-3 text-primary" />
+      <span className="flex items-center gap-2 bg-blue-50 text-blue-700 rounded-full px-4 py-2 text-sm font-medium border border-blue-200">
+        <BadgeDollarSign className="w-4 h-4" />
         {value}
       </span>
     </div>
@@ -61,14 +61,14 @@ function InfoBar({ status, client, value }) {
 
 function Timeline({ start, end }) {
   return (
-    <div className="flex items-center gap-2 mb-3 text-xs text-gray-600">
-      <div className="flex items-center gap-1">
-        <CalendarClock className="w-3 h-3 text-teal" />
+    <div className="flex items-center gap-3 mb-4 text-sm text-slate-600">
+      <div className="flex items-center gap-2">
+        <CalendarClock className="w-4 h-4 text-teal-600" />
         <span className="font-medium">{formatDate(start)}</span>
       </div>
-      <ArrowRight className="w-3 h-3 text-gray-400" />
-      <div className="flex items-center gap-1">
-        <CalendarClock className="w-3 h-3 text-teal" />
+      <ArrowRight className="w-4 h-4 text-slate-400" />
+      <div className="flex items-center gap-2">
+        <CalendarClock className="w-4 h-4 text-teal-600" />
         <span className="font-medium">{formatDate(end)}</span>
       </div>
     </div>
@@ -78,10 +78,10 @@ function Timeline({ start, end }) {
 function Partners({ partners }) {
   if (!partners || partners.length === 0) return null;
   return (
-    <div className="flex items-start gap-2 mb-3 text-xs text-gray-600">
-      <Users className="w-3 h-3 text-teal mt-0.5 flex-shrink-0" />
+    <div className="flex items-start gap-3 mb-4 text-sm text-slate-600">
+      <Users className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
       <div>
-        <span className="font-medium text-gray-800">Partners: </span>
+        <span className="font-medium text-slate-800">Partners: </span>
         <span>{partners.join(", ")}</span>
       </div>
     </div>
@@ -109,17 +109,17 @@ export default function ProjectDetailPage() {
       <section className="py-16 bg-white min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center py-12">
-            <Building2 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-navy mb-2">
+            <Building2 className="w-16 h-16 text-slate-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-slate-800 mb-2">
               Project Not Found
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-slate-600 mb-6">
               The project you're looking for does not exist. Redirecting to
               projects page...
             </p>
             <button
               onClick={() => router.push("/projects?type=ALL")}
-              className="bg-navy hover:bg-navy/90 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto"
+              className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto"
             >
               <ArrowRight className="w-4 h-4 rotate-180" />
               Back to Projects
@@ -147,14 +147,11 @@ export default function ProjectDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Project Header */}
           <div className="mb-12 text-center">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-teal-500 to-slate-800 leading-[1.15] pb-2">
               {project.name}
             </h1>
-            <div
-              className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-lg"
-              style={{ boxShadow: "0 0 20px rgba(0, 174, 239, 0.3)" }}
-            />
-            <p className="mt-4 text-gray-600 text-lg max-w-2xl mx-auto">
+            <div className="mt-4 mx-auto h-1 w-24 bg-sky-500 rounded-full shadow-lg" />
+            <p className="mt-4 text-slate-600 text-lg max-w-2xl mx-auto">
               {project.type} Project in {project.location}
             </p>
           </div>
@@ -169,7 +166,7 @@ export default function ProjectDetailPage() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="relative h-64 bg-gray-100 rounded-lg overflow-hidden"
+                    className="relative h-64 bg-slate-100 rounded-lg overflow-hidden"
                   >
                     <img
                       src={image}
@@ -183,10 +180,10 @@ export default function ProjectDetailPage() {
           )}
 
           {/* Project Details */}
-          <div className="bg-gray-50 rounded-xl border border-gray-200 shadow-sm p-6 mb-8">
-            <div className="flex items-start gap-2 mb-4">
-              <MapPin className="w-4 h-4 text-teal mt-1 flex-shrink-0" />
-              <span className="text-sm text-gray-600 font-medium">
+          <div className="bg-slate-50 rounded-xl border border-slate-200 shadow-sm p-6 mb-8">
+            <div className="flex items-start gap-3 mb-4">
+              <MapPin className="w-5 h-5 text-teal-600 mt-1 flex-shrink-0" />
+              <span className="text-slate-600 font-medium">
                 {project.location}
               </span>
             </div>
@@ -201,11 +198,11 @@ export default function ProjectDetailPage() {
 
             <Partners partners={project.partners} />
 
-            <div className="mt-4">
-              <h2 className="text-xl font-semibold text-navy mb-2">
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold text-slate-800 mb-3">
                 Project Overview
               </h2>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-slate-600 leading-relaxed">
                 {project.description}
               </p>
             </div>
@@ -215,7 +212,7 @@ export default function ProjectDetailPage() {
           <div className="text-center">
             <button
               onClick={() => router.push(`/projects?type=${project.type}`)}
-              className="bg-navy hover:bg-navy/90 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto"
+              className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto"
             >
               <ArrowRight className="w-4 h-4 rotate-180" />
               Back to {project.type} Projects
