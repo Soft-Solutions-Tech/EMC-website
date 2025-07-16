@@ -124,7 +124,7 @@ function ProjectsPageInner() {
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="mb-16 text-center">
           <motion.h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-teal-500 to-slate-800 leading-[1.15] pb-2"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -132,7 +132,7 @@ function ProjectsPageInner() {
             {projectType === "ALL" ? "Our Projects" : `${projectType} Projects`}
           </motion.h1>
           <motion.div
-            className="mt-6 mx-auto h-1.5 w-32 bg-gradient-to-r from-sky-500 to-teal-600 rounded-full shadow-lg"
+            className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md"
             initial={{ width: 0 }}
             animate={{ width: 128 }}
             transition={{ duration: 1, delay: 0.5 }}

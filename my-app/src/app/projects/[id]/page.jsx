@@ -66,10 +66,20 @@ export default function ProjectDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Project Header */}
           <div className="mb-12 text-center">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-teal-500 to-slate-800 leading-[1.15] pb-2">
-              {project.name}
-            </h1>
-            <div className="mt-4 mx-auto h-1 w-24 bg-sky-500 rounded-full shadow-lg" />
+            <motion.h1
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              {project.name}{" "}
+            </motion.h1>
+            <motion.div
+              className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md"
+              initial={{ width: 0 }}
+              animate={{ width: 128 }}
+              transition={{ duration: 1, delay: 0.5 }}
+            />{" "}
             <p className="mt-4 text-slate-600 text-lg max-w-2xl mx-auto">
               {project.type} Project in {project.location}
             </p>

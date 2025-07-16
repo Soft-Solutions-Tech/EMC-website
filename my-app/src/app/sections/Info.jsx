@@ -1,8 +1,6 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
-import { companyOverview } from "../../../data/about.js";
-import { projects } from "../../../data/projects.js";
-import { clients } from "../../../data/clients.js";
+import { motion } from "framer-motion";
 import { Zap, Plug } from "lucide-react";
 import { emcInfo } from "../../../data/info.js";
 
@@ -63,10 +61,23 @@ export default function InfoSection() {
       className="py-12 sm:py-24 bg-white relative overflow-hidden"
     >
       <div className="mb-12 sm:mb-16 lg:mb-4 text-center">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
-          Who We Are
-        </h2>
-        <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
+        <motion.h2
+          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          Who Are We
+        </motion.h2>
+
+        <motion.div
+          className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
+          initial={{ width: 0 }}
+          whileInView={{ width: 128 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5 }}
+        />
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">

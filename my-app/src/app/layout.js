@@ -12,6 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+      </head>
       <body className="m-0 p-0 min-h-screen flex flex-col bg-white">
         <Suspense fallback={<div className="h-16 bg-white/60"></div>}>
           <Header />

@@ -215,19 +215,32 @@ export default function PortoflioSection() {
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <div className="mb-12 sm:mb-16 lg:mb-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
-            Our Project Portfolio
-          </h2>
-          <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
+        <div className="mb-12 sm:mb-16 text-center">
+          <motion.h2
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            Our Projects Portfolio
+          </motion.h2>
+
+          <motion.div
+            className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
+            initial={{ width: 0 }}
+            whileInView={{ width: 128 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.5 }}
+          />
         </div>
+
+        {/* Featured Projects */}
         <div className="flex flex-col gap-8">
           {featured.map((project, idx) => {
-            // Insert heading before rows 0, 2, 4
             const heading = sectionHeadings.find((h) => h.idx === idx);
-            // Determine border color for dots
-            let borderColor = "#00AEEF";
-            if (idx === 2 || idx === 3) borderColor = "#00263A";
+            const borderColor = idx === 2 || idx === 3 ? "#00263A" : "#00AEEF";
+
             return (
               <React.Fragment key={project.id}>
                 {heading && (
@@ -240,7 +253,7 @@ export default function PortoflioSection() {
                       {heading.label}
                     </h3>
                     {heading.desc && (
-                      <p className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-6 leading-relaxed font-semibold">
+                      <p className="text-lg text-slate-600 max-w-2xl mx-auto mt-6 leading-relaxed font-semibold">
                         {heading.desc.map((desc, index) => (
                           <span key={index}>
                             {desc}
@@ -261,15 +274,13 @@ export default function PortoflioSection() {
                     idx % 2 === 0 ? "bg-gray-50" : ""
                   }`}
                 >
-                  {/* Image: left for odd, right for even (on tablet/desktop) */}
+                  {/* Image Section */}
                   <div
-                    className={
-                      idx % 2 === 1
-                        ? "order-1 sm:order-2 flex items-center justify-center h-full"
-                        : "order-1 flex items-center justify-center h-full"
-                    }
+                    className={`flex items-center justify-center h-full ${
+                      idx % 2 === 1 ? "order-1 sm:order-2" : "order-1"
+                    }`}
                   >
-                    {project.images && project.images.length > 0 && (
+                    {project.images?.length > 0 && (
                       <ProjectImageCarousel
                         images={project.images}
                         projectName={project.name}
@@ -277,13 +288,12 @@ export default function PortoflioSection() {
                       />
                     )}
                   </div>
-                  {/* Text content */}
+
+                  {/* Content Section */}
                   <div
-                    className={
-                      idx % 2 === 1
-                        ? "order-2 sm:order-1 flex flex-col items-center justify-center text-center h-full"
-                        : "order-2 flex flex-col items-center justify-center text-center h-full"
-                    }
+                    className={`flex flex-col items-center justify-center text-center h-full ${
+                      idx % 2 === 1 ? "order-2 sm:order-1" : "order-2"
+                    }`}
                   >
                     <h3 className="text-xl font-semibold text-navy mb-2">
                       {project.name}
@@ -295,6 +305,7 @@ export default function PortoflioSection() {
                     <span className="text-sm text-gray-500 mb-4">
                       {project.location}
                     </span>
+
                     <InfoBar
                       status={project.status}
                       client={project.client}
@@ -302,7 +313,8 @@ export default function PortoflioSection() {
                     />
                     <Timeline start={project.startDate} end={project.endDate} />
                     <Partners partners={project.partners} />
-                    <div className="flex flex-col gap-3 w-full">
+
+                    <div className="flex flex-col gap-3 w-full mt-4">
                       <a
                         href={`/projects/${project.id}`}
                         className="bg-accent text-white px-4 py-2 lg:py-4 rounded-lg font-semibold shadow hover:bg-accent/90 transition text-sm w-full text-center"

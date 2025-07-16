@@ -45,17 +45,20 @@ export function TimelineSection() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mb-12 sm:mb-16 lg:mb-20 text-center"
+        <motion.h1
+          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
-            Our Journey Through Time
-          </h2>
-          <div className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md" />
-        </motion.div>
+          Our Journey Through Time
+        </motion.h1>
+        <motion.div
+          className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md"
+          initial={{ width: 0 }}
+          animate={{ width: 128 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        />
 
         {/* Horizontal Timeline Container (Desktop) */}
         <div className="relative w-full">
