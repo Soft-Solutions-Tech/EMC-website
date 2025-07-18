@@ -54,7 +54,7 @@ export function TimelineSection() {
           Our Journey Through Time
         </motion.h1>
         <motion.div
-          className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md"
+          className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-5"
           initial={{ width: 0 }}
           animate={{ width: 128 }}
           transition={{ duration: 1, delay: 0.5 }}
