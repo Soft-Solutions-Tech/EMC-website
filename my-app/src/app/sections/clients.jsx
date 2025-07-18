@@ -1,10 +1,209 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { clients } from "../../../data/clients";
 import { partners } from "../../../data/partners";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ClientsSection = () => {
+  const [expandedPartners, setExpandedPartners] = useState(
+    partners
+      .filter((p) => p.subCompanies && p.subCompanies.length > 0)
+      .reduce((acc, partner) => ({ ...acc, [partner.id]: true }), {})
+  );
+
+  const [expandedClients, setExpandedClients] = useState(
+    clients
+      .filter((c) => c.subCompanies && c.subCompanies.length > 0)
+      .reduce((acc, client) => ({ ...acc, [client.id]: true }), {})
+  );
+
+  const togglePartnerExpansion = (partnerId) => {
+    setExpandedPartners((prev) => ({
+      ...prev,
+      [partnerId]: !prev[partnerId],
+    }));
+  };
+
+  const toggleClientExpansion = (clientId) => {
+    setExpandedClients((prev) => ({
+      ...prev,
+      [clientId]: !prev[clientId],
+    }));
+  };
+
+  // Sort companies: those with subCompanies first
+  const sortedPartners = [...partners].sort((a, b) => {
+    const aHasSub = a.subCompanies && a.subCompanies.length > 0 ? -1 : 1;
+    const bHasSub = b.subCompanies && b.subCompanies.length > 0 ? -1 : 1;
+    return aHasSub - bHasSub;
+  });
+
+  const sortedClients = [...clients].sort((a, b) => {
+    const aHasSub = a.subCompanies && a.subCompanies.length > 0 ? -1 : 1;
+    const bHasSub = b.subCompanies && b.subCompanies.length > 0 ? -1 : 1;
+    return aHasSub - bHasSub;
+  });
+
+  // Enhanced card component for consistent styling
+  const CompanyCard = ({
+    company,
+    index,
+    hasSubCompanies,
+    expanded,
+    onToggle,
+    isPartner = false,
+  }) => {
+    const sectionType = isPartner ? "partner" : "client";
+
+    return (
+      <div
+        className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-border overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit"
+        style={{ animationDelay: `${index * 150}ms` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-teal-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal to-navy transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-xl"></div>
+
+        {/* Main card content with consistent height */}
+        <div className="relative z-10 p-6 h-64 flex flex-col">
+          <a
+            href={company.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block flex-1"
+          >
+            <div className="flex justify-center mb-4">
+              <div className="relative">
+                <img
+                  src={company.logo}
+                  alt={`${company.name} logo`}
+                  className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
+            </div>
+            <div className="text-center">
+              <h3 className="text-lg font-bold text-navy group-hover:text-teal transition-colors">
+                {company.name}
+              </h3>
+              <div className="w-6 h-0.5 bg-gradient-to-r from-teal to-navy mt-1 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+            </div>
+
+            <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors mb-4 line-clamp-3 flex-1 text-center">
+              {company.brief}
+            </p>
+          </a>
+
+          {/* Enhanced dropdown section - positioned at bottom */}
+          {hasSubCompanies && (
+            <div className="mt-auto pt-4 border-t border-secondary">
+              <button
+                onClick={() => onToggle(company.id)}
+                className="flex items-center justify-between w-full text-left focus:outline-none group/button hover:bg-teal-50 rounded-lg p-2 -m-2 transition-colors duration-200"
+              >
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-teal rounded-full mr-2 opacity-60"></div>
+                  <h4 className="text-sm font-semibold text-teal uppercase tracking-wider">
+                    Portfolio ({company.subCompanies.length})
+                  </h4>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-xs text-muted-foreground mr-2 opacity-0 group-hover/button:opacity-100 transition-opacity duration-200">
+                    {expanded ? "Hide" : "Show"}
+                  </span>
+                  <svg
+                    className={`w-4 h-4 text-teal transform transition-all duration-300 ${
+                      expanded
+                        ? "rotate-180 scale-110"
+                        : "group-hover/button:scale-110"
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Dropdown content - positioned outside main card */}
+        {hasSubCompanies && (
+          <AnimatePresence>
+            {expanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="relative z-20 -mt-2 mx-2 overflow-hidden"
+              >
+                <div className="bg-gradient-to-r from-teal-100 to-blue-100 rounded-lg p-3 shadow-lg border border-teal-200">
+                  <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-teal-300 scrollbar-track-teal-100">
+                    {company.subCompanies.map((sub, subIndex) => (
+                      <motion.div
+                        key={sub.id}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: subIndex * 0.1, duration: 0.3 }}
+                      >
+                        <a
+                          href={sub.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center p-2 rounded-lg bg-white hover:bg-teal-50 transition-all duration-200 shadow-sm hover:shadow-md group/sub border border-transparent hover:border-teal-200"
+                        >
+                          <div className="relative mr-3 flex-shrink-0">
+                            <img
+                              src={sub.logo}
+                              alt={`${sub.name} logo`}
+                              className="h-6 w-6 object-contain transition-transform duration-200 group-hover/sub:scale-110"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-sm font-medium text-foreground group-hover/sub:text-navy transition-colors block truncate">
+                              {sub.name}
+                            </span>
+                            {sub.brief && (
+                              <span className="text-xs text-muted-foreground group-hover/sub:text-foreground transition-colors block truncate">
+                                {sub.brief}
+                              </span>
+                            )}
+                          </div>
+                          <svg
+                            className="w-3 h-3 text-teal opacity-0 group-hover/sub:opacity-100 transition-opacity duration-200 flex-shrink-0"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            />
+                          </svg>
+                        </a>
+                        {subIndex < company.subCompanies.length - 1 && (
+                          <div className="h-px bg-gradient-to-r from-transparent via-teal-200 to-transparent my-1"></div>
+                        )}
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        )}
+      </div>
+    );
+  };
+
   return (
     <section className="py-20 bg-white relative overflow-hidden">
       {/* Background decorative elements */}
@@ -14,7 +213,7 @@ const ClientsSection = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Partners Section */}
-        {partners.length > 0 && (
+        {sortedPartners.length > 0 && (
           <>
             <div className="text-center mb-16">
               <div className="inline-block px-4 py-2 bg-teal-50 text-teal rounded-full text-sm font-semibold tracking-wider uppercase mb-4">
@@ -44,82 +243,29 @@ const ClientsSection = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-              {partners.map((partner, index) => (
-                <a
-                  key={partner.id}
-                  href={partner.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-border overflow-hidden transform hover:-translate-y-2"
-                  style={{ animationDelay: `${index * 150}ms` }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-teal-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal to-navy transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-
-                  <div className="relative z-10 p-8">
-                    <div className="flex items-center mb-6">
-                      <div className="relative">
-                        <img
-                          src={partner.logo}
-                          alt={`${partner.name} logo`}
-                          className="h-16 w-16 object-contain mr-4 transition-transform duration-300 group-hover:scale-110"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-navy group-hover:text-teal transition-colors">
-                          {partner.name}
-                        </h3>
-                        <div className="w-8 h-0.5 bg-gradient-to-r from-teal to-navy mt-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                      </div>
-                    </div>
-
-                    <p className="text-muted-foreground mb-6 leading-relaxed group-hover:text-foreground transition-colors">
-                      {partner.brief}
-                    </p>
-
-                    {partner.subCompanies &&
-                      partner.subCompanies.length > 0 && (
-                        <div className="mt-6 pt-6 border-t border-secondary">
-                          <h4 className="text-sm font-semibold text-teal mb-4 uppercase tracking-wider">
-                            Portfolio Companies
-                          </h4>
-                          <div className="grid grid-cols-1 gap-3">
-                            {partner.subCompanies.map((sub, subIndex) => (
-                              <div
-                                key={sub.id}
-                                className="flex items-center p-3 rounded-lg bg-secondary-bg-40 hover:bg-teal-100 transition-colors duration-200"
-                                style={{
-                                  animationDelay: `${
-                                    index * 150 + subIndex * 100
-                                  }ms`,
-                                }}
-                              >
-                                <div className="relative">
-                                  <img
-                                    src={sub.logo}
-                                    alt={`${sub.name} logo`}
-                                    className="h-8 w-8 object-contain mr-3"
-                                  />
-                                  <div className="absolute -inset-1 bg-gradient-to-r from-teal to-navy rounded-full opacity-0 hover:opacity-10 transition-opacity duration-200"></div>
-                                </div>
-                                <span className="text-sm font-medium text-foreground hover:text-navy transition-colors">
-                                  {sub.name}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                  </div>
-                </a>
-              ))}
+            {/* All partners with consistent alignment */}
+            <div className="mb-20">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                {sortedPartners.map((partner, index) => (
+                  <CompanyCard
+                    key={partner.id}
+                    company={partner}
+                    index={index}
+                    hasSubCompanies={
+                      partner.subCompanies && partner.subCompanies.length > 0
+                    }
+                    expanded={expandedPartners[partner.id]}
+                    onToggle={togglePartnerExpansion}
+                    isPartner={true}
+                  />
+                ))}
+              </div>
             </div>
           </>
         )}
 
         {/* Clients Section */}
-        {clients.length > 0 && (
+        {sortedClients.length > 0 && (
           <>
             <div className="text-center mb-16">
               <div className="inline-block px-4 py-2 bg-teal-50 text-teal rounded-full text-sm font-semibold tracking-wider uppercase mb-4">
@@ -149,78 +295,23 @@ const ClientsSection = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-              {clients.map((client, index) => (
-                <a
-                  key={client.id}
-                  href={client.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-border overflow-hidden transform hover:-translate-y-2"
-                  style={{ animationDelay: `${index * 150}ms` }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-teal-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal to-navy transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-
-                  <div className="relative z-10 p-8">
-                    <div className="flex items-center mb-6">
-                      <div className="relative">
-                        <img
-                          src={client.logo}
-                          alt={`${client.name} logo`}
-                          className="h-16 w-16 object-contain mr-4 transition-transform duration-300 group-hover:scale-110"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-navy group-hover:text-teal transition-colors">
-                          {client.name}
-                        </h3>
-                        <div className="w-8 h-0.5 bg-gradient-to-r from-teal to-navy mt-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                      </div>
-                    </div>
-
-                    <p className="text-muted-foreground mb-6 leading-relaxed group-hover:text-foreground transition-colors">
-                      {client.brief}
-                    </p>
-
-                    {client.subCompanies && client.subCompanies.length > 0 && (
-                      <div className="mt-6 pt-6 border-t border-secondary">
-                        <h4 className="text-sm font-semibold text-teal mb-4 uppercase tracking-wider">
-                          Portfolio Companies
-                        </h4>
-                        <div className="grid grid-cols-1 gap-3">
-                          {client.subCompanies.map((sub, subIndex) => (
-                            <a
-                              key={sub.id}
-                              href={sub.website}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center p-3 rounded-lg bg-secondary-bg-40 hover:bg-teal-100 transition-colors duration-200"
-                              style={{
-                                animationDelay: `${
-                                  index * 150 + subIndex * 100
-                                }ms`,
-                              }}
-                            >
-                              <div className="relative">
-                                <img
-                                  src={sub.logo}
-                                  alt={`${sub.name} logo`}
-                                  className="h-8 w-8 object-contain mr-3"
-                                />
-                                <div className="absolute -inset-1 bg-gradient-to-r from-teal to-navy rounded-full opacity-0 hover:opacity-10 transition-opacity duration-200"></div>
-                              </div>
-                              <span className="text-sm font-medium text-foreground hover:text-navy transition-colors">
-                                {sub.name}
-                              </span>
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </a>
-              ))}
+            {/* All clients with consistent alignment */}
+            <div className="mb-20">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                {sortedClients.map((client, index) => (
+                  <CompanyCard
+                    key={client.id}
+                    company={client}
+                    index={index}
+                    hasSubCompanies={
+                      client.subCompanies && client.subCompanies.length > 0
+                    }
+                    expanded={expandedClients[client.id]}
+                    onToggle={toggleClientExpansion}
+                    isPartner={false}
+                  />
+                ))}
+              </div>
             </div>
           </>
         )}
