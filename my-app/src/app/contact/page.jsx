@@ -149,7 +149,7 @@ const PageHeader = () => (
     initial="hidden"
     animate="visible"
   >
-    <div className="mb-12 sm:mb-16 text-center">
+    <div className="mt-12 mb-12 sm:mb-16 text-center">
       <motion.h1
         className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
         initial={{ opacity: 0, y: 30 }}

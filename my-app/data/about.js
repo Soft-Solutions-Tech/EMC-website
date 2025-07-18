@@ -1,54 +1,58 @@
 export const founders = [
   {
-    name: "Mr. El Sayed",
-    education: "Bachelor Degree in Electrical Engineering, Ain Shams University",
+    name: "Mr. Ahmed El Sayed",
+    education:
+      "Bachelor Degree in Electrical Engineering, Ain Shams University",
     career: [
       "Started career at Engineering Consultants Group (ECG)",
       "Continued career at General Electric",
       "Rejoined ECG in 1983",
       "Promoted to VP - Business Development in 1987",
       "Co-founded EMC in 1988",
-      "Chairman of ECG (current)"
-    ]
+      "Chairman of ECG (current)",
+    ],
+    image: "/team/Ahmed-El-Sayed.jpg",
   },
   {
     name: "Mr. Dessouky",
-    education: "Bachelor Degree in Electrical Engineering, Ain Shams University",
+    education:
+      "Bachelor Degree in Electrical Engineering, Ain Shams University",
     career: [
       "Started career at Engineering Consultants Group (ECG)",
       "Continued career at General Electric",
       "Co-founded EMC in 1988",
       "Became Executive Partner in 1992",
-      "Senior Partner & Managing Director since 2000"
-    ]
-  }
+      "Senior Partner & Managing Director since 2000",
+    ],
+    image: "team/Amr-dessouky.jpg",
+  },
 ];
 
 export const companyTimeline = [
   {
     year: 1988,
-    event: "EMC founded by Mr. El Sayed and Mr. Dessouky in Egypt"
+    event: "EMC founded by Mr. El Sayed and Mr. Dessouky in Egypt",
   },
   {
     year: 1992,
-    event: "Mr. Dessouky became Executive Partner"
+    event: "Mr. Dessouky became Executive Partner",
   },
   {
     year: 2000,
-    event: "Mr. Dessouky became Senior Partner and Managing Director"
+    event: "Mr. Dessouky became Senior Partner and Managing Director",
   },
   {
     year: 2012,
-    event: "EMC International established in Dubai"
+    event: "EMC International established in Dubai",
   },
   {
     year: 2020,
-    event: "EGP 300 Million turnover"
+    event: "EGP 300 Million turnover",
   },
   {
     year: 2022,
-    event: "Became Partner of KSB Service Egypt"
-  }
+    event: "Became Partner of KSB Service Egypt",
+  },
 ];
 
 export const companyOverview = {
@@ -59,5 +63,5 @@ export const companyOverview = {
   dubaiBranch: "EMC International Dubai (2012)",
   partnerSince: "Partner of KSB Service Egypt since 2022",
   focus: "Power market and Oil & Gas market in Egypt",
-  mission: "Deliver the highest end results to clients and partners"
+  mission: "Deliver the highest end results to clients and partners",
 };
