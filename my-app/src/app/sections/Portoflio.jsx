@@ -1,6 +1,10 @@
 "use client";
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { projects } from "../../../data/projects.js";
+import {
+  projects,
+  sectionHeadings,
+  portfolioTitle,
+} from "../../../data/projects.js";
 import {
   User,
   BriefcaseBusiness,
@@ -14,7 +18,6 @@ import { motion } from "framer-motion";
 // Constants
 const CAROUSEL_DURATION = 5000;
 const PROGRESS_UPDATE_INTERVAL = 30;
-const MAX_FEATURED_PROJECTS = 6;
 
 // Utility functions
 const formatDate = (dateStr) => {
@@ -28,40 +31,8 @@ const formatDate = (dateStr) => {
 };
 
 const getBorderColor = (index) => {
-  return index === 2 || index === 3 ? "#00263A" : "#00AEEF";
+  return index === 1 ? "#00263A" : "#00AEEF";
 };
-
-// Configuration
-const sectionHeadings = [
-  {
-    label: "EPC Projects",
-    idx: 0,
-    desc: [
-      "Complete EPC solutions for Diesel and hydrogen plants and District cooling plants",
-      "Including engineering, procurement, civil works, installation, and commissioning",
-    ],
-  },
-  {
-    label: "Consulting Projects",
-    idx: 2,
-    desc: [
-      "Identify opportunities",
-      "Influence specifications",
-      "Develop win strategies and target price",
-      "Leverage relationships with key decision makers and influencers to win major projects",
-      "Consulting and services for wind and solar projects on behalf of clients",
-    ],
-  },
-  {
-    label: "After Sales Projects",
-    idx: 4,
-    desc: [
-      "Technical advice",
-      "Repair and maintenance",
-      "Spare parts and overhauls",
-    ],
-  },
-];
 
 // Subcomponents
 const InfoBadge = ({ icon: Icon, text, className = "" }) => (
@@ -282,11 +253,6 @@ const ProjectContent = ({ project, index }) => {
     >
       <h3 className="text-xl font-semibold text-navy mb-2">{project.name}</h3>
       <p className="text-gray-600 mb-2">{project.description}</p>
-      <span className="inline-block bg-accent text-white text-xs px-3 py-1 rounded-full mb-2">
-        {project.type}
-      </span>
-      <span className="text-sm text-gray-500 mb-4">{project.location}</span>
-
       <InfoBar
         status={project.status}
         client={project.client}
@@ -312,7 +278,6 @@ const ProjectCard = ({ project, index }) => {
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={`grid grid-cols-1 sm:grid-cols-2 items-center gap-6 rounded-xl shadow p-6 min-h-[220px] sm:min-h-[400px] lg:min-h-[500px] ${
         isEvenIndex ? "bg-gray-50" : ""
@@ -341,10 +306,12 @@ const ProjectCard = ({ project, index }) => {
 
 // Main component
 const PortfolioSection = () => {
-  const featuredProjects = useMemo(
-    () => projects.slice(0, MAX_FEATURED_PROJECTS),
-    []
-  );
+  const featuredProjects = useMemo(() => {
+    const types = ["EPC", "CONSULTING", "AFTERSALES"];
+    return types
+      .map((type) => projects.find((project) => project.type === type))
+      .filter(Boolean);
+  }, []);
 
   return (
     <section className="py-16 bg-white">
@@ -355,17 +322,15 @@ const PortfolioSection = () => {
             className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            Our Projects Portfolio
+            {portfolioTitle}
           </motion.h2>
 
           <motion.div
             className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
             initial={{ width: 0 }}
             whileInView={{ width: 128 }}
-            viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.5 }}
           />
         </div>
