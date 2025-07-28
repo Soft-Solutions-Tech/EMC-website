@@ -1,4 +1,5 @@
 "use client";
+
 import * as React from "react";
 import { motion } from "framer-motion";
 import { companyTimeline } from "../../../data/about";
@@ -44,34 +45,35 @@ export function TimelineSection() {
       aria-label="Company Timeline"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Title */}
         <motion.h1
           className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.4 }}
+          animate="visible"
+          variants={containerVariants}
         >
           Our Journey Through Time
         </motion.h1>
+
         <motion.div
           className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-5"
           initial={{ width: 0 }}
-          animate={{ width: 128 }}
+          whileInView={{ width: 128 }}
+          viewport={{ once: false, amount: 0.4 }}
           transition={{ duration: 1, delay: 0.5 }}
         />
 
-        {/* Horizontal Timeline Container (Desktop) */}
         <div className="relative w-full">
-          {/* Timeline Line (Desktop) */}
           <motion.div
             variants={lineVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.4 }}
             className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-accent/20 via-accent to-accent/20 transform -translate-y-1/2 origin-left"
           />
 
-          {/* Desktop Layout */}
+          {/* Desktop Timeline */}
           <div className="hidden lg:block">
             <div className="flex justify-between items-center relative min-h-[400px] gap-4">
               {companyTimeline.map((item, index) => (
@@ -81,20 +83,17 @@ export function TimelineSection() {
                   variants={itemVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
+                  viewport={{ once: false, amount: 0.4 }}
                   className="relative flex flex-col items-center flex-1"
                   aria-labelledby={`timeline-event-${index}`}
                 >
-                  {/* Dot */}
                   <div className="z-10 w-6 h-6 bg-accent border-4 border-background rounded-full shadow-lg shadow-accent/30" />
 
-                  {/* Event Card */}
                   <div
                     className={`absolute w-full max-w-xs bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 shadow-lg ${
                       index % 2 === 0 ? "top-12" : "bottom-12"
                     }`}
                   >
-                    {/* Year Badge */}
                     <div
                       className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold shadow-md"
                       id={`timeline-event-${index}`}
@@ -102,7 +101,6 @@ export function TimelineSection() {
                       {item.year}
                     </div>
 
-                    {/* Connector Line */}
                     <div
                       className={`absolute left-1/2 transform -translate-x-1/2 w-1 bg-accent/60 ${
                         index % 2 === 0
@@ -111,7 +109,6 @@ export function TimelineSection() {
                       }`}
                     />
 
-                    {/* Event Description */}
                     <div className="mt-4 text-center">
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {item.event}
@@ -123,11 +120,9 @@ export function TimelineSection() {
             </div>
           </div>
 
-          {/* Mobile/Tablet Layout */}
+          {/* Mobile Timeline */}
           <div className="lg:hidden relative">
-            {/* Vertical Timeline Line (Mobile) - Now centered on circles */}
             <div className="absolute top-0 bottom-0 left-2 w-1 bg-gradient-to-b from-accent/20 via-accent to-accent/20" />
-
             <div className="space-y-12 sm:space-y-16">
               {companyTimeline.map((item, index) => (
                 <motion.div
@@ -136,24 +131,18 @@ export function TimelineSection() {
                   variants={itemVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
+                  viewport={{ once: false, amount: 0.4 }}
                   className="relative flex items-start"
                   aria-labelledby={`timeline-event-mobile-${index}`}
                 >
-                  {/* Dot */}
                   <div className="z-10 w-6 h-6 bg-accent border-4 border-background rounded-full shadow-lg shadow-accent/30 flex-shrink-0" />
-
-                  {/* Event Card */}
                   <div className="ml-8 w-full bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 shadow-lg">
-                    {/* Year */}
                     <div
                       className="text-lg font-bold text-accent mb-2"
                       id={`timeline-event-mobile-${index}`}
                     >
                       {item.year}
                     </div>
-
-                    {/* Event Description */}
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {item.event}
                     </p>

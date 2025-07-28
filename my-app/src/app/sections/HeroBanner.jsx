@@ -19,7 +19,7 @@ export function HeroBanner() {
     <section
       ref={ref}
       aria-label="Hero banner"
-      className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden mt-[4.5rem]"
+      className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden"
     >
       {/* === Background Effects === */}
       <div className="absolute inset-0 z-5">
