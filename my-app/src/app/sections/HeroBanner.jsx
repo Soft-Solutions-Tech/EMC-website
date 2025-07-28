@@ -1,213 +1,190 @@
 "use client";
+
 import * as React from "react";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { Send, LineChart } from "lucide-react";
+import { hero } from "../../../data/hero";
 
 export function HeroBanner() {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, {
+    once: false,
+    threshold: 0.3,
+    margin: "-100px",
+  });
+
   return (
     <section
+      ref={ref}
       aria-label="Hero banner"
-      className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-accent/20 to-background"
+      className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden mt-[4.5rem]"
     >
-      {/* === Grid Background === */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className="absolute inset-0 bg-[linear-gradient(rgba(0,174,239,0.4)_1px,transparent_1px),linear-gradient(90deg,rgba(0,174,239,0.4)_1px,transparent_1px)] bg-[size:50px_50px]"
-          style={{
-            animation: "grid-move 20s linear infinite",
-          }}
-        />
-      </div>
+      {/* === Background Effects === */}
+      <div className="absolute inset-0 z-5">
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/20 to-transparent transform -skew-y-12 animate-pulse" />
+          <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(90deg,transparent_24%,rgba(0,174,239,0.1)_25%,rgba(0,174,239,0.1)_26%,transparent_27%,transparent_74%,rgba(0,174,239,0.1)_75%,rgba(0,174,239,0.1)_76%,transparent_77%,transparent)] bg-[length:50px_50px]" />
+        </div>
 
-      {/* === Floating Geometric Shapes === */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-4 h-4 bg-accent/40 rotate-45"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-              rotate: [45, 405, 45],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
+        {/* Horizontal power lines */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-1/4 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent animate-pulse" />
+          <div
+            className="absolute top-3/4 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-teal to-transparent animate-pulse"
+            style={{ animationDelay: "1s" }}
           />
-        ))}
+        </div>
       </div>
 
-      {/* === Overlay Gradient === */}
+      {/* === Video Background === */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        src="/videos/mixkit-buildings-under-construction-aerial-view-4010-full-hd.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="/logos/EMC-LOGO.png"
+      />
+
+      {/* === Overlay Gradients === */}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-accent/40"
+        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 z-10"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-teal/5 z-15"
         aria-hidden="true"
       />
 
       {/* === Main Content === */}
-      <motion.div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <motion.div className="relative z-30 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="max-w-6xl mx-auto"
         >
-          {/* Badge */}
+          {/* === Badge === */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={
+              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }
+            }
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="inline-flex items-center gap-2 backdrop-blur-sm border border-accent/50 rounded-full px-6 py-3 mb-8"
+            className="inline-flex items-center gap-3 backdrop-blur-md border-2 border-accent/30 bg-black/20 rounded-full px-8 py-4 mb-8 shadow-[0_8px_32px_rgba(0,174,239,0.2)]"
           >
-            <div className="w-2 h-2 bg-teal rounded-full animate-pulse" />
-            <span className="text-navy font-medium">Trusted Since 1988</span>
+            <motion.div
+              className="flex items-center gap-2"
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            />
+            <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+            <span className="text-white font-semibold text-lg tracking-wide">
+              {hero.badge}
+            </span>
           </motion.div>
 
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 1 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-foreground leading-tight mb-8 tracking-tight"
-          >
-            Building the Future with{" "}
-            <motion.span
-              initial={{ scale: 0.9, rotateX: -90 }}
-              animate={{ scale: 1, rotateX: 0 }}
-              transition={{ delay: 0.8, duration: 0.8, ease: "backOut" }}
-              className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy bg-[length:200%] bg-[position:0%]"
+          {/* === Heading === */}
+          <motion.div className="relative mb-8">
+            <motion.h1
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ delay: 0.4, duration: 1 }}
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-tight tracking-tight"
             >
-              EMC
-            </motion.span>
-          </motion.h1>
+              <span className="relative">
+                {hero.heading}
+                <motion.span
+                  className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-teal/20 blur-xl"
+                  animate={{ opacity: [0.3, 0.7, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+              </span>
+              <motion.img
+                src="/logos/EMC-LOGO.png"
+                alt="EMC Logo"
+                className="inline-block h-16 sm:h-20 md:h-24 lg:h-28 w-auto filter drop-shadow-[0_0_20px_rgba(0,174,239,0.5)]"
+                initial={{
+                  scale: 0.9,
+                  rotateX: -90,
+                  filter: "brightness(0.5)",
+                }}
+                animate={
+                  isInView
+                    ? { scale: 1, rotateX: 0, filter: "brightness(1)" }
+                    : { scale: 0.9, rotateX: -90, filter: "brightness(0.5)" }
+                }
+                transition={{ delay: 0.8, duration: 0.8, ease: "backOut" }}
+              />
+            </motion.h1>
+          </motion.div>
 
-          {/* Subheading */}
+          {/* === Subheading === */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed"
+            className="text-xl sm:text-2xl md:text-3xl text-white/95 mb-12 max-w-4xl mx-auto leading-relaxed font-medium"
           >
-            Since 1988, EMC Construction has been a leader in Egypt's power and
-            oil & gas sectors, delivering innovative, high-quality projects with
-            unmatched precision.
+            {hero.subheading}
           </motion.p>
 
-          {/* Buttons */}
+          {/* === CTA Buttons === */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
             className="flex flex-col sm:flex-row justify-center gap-6"
           >
+            {/* Primary Button */}
             <motion.div
-              whileHover={{ scale: 1.05, y: -5 }}
+              whileHover={{ scale: 1.05, y: -8 }}
               whileTap={{ scale: 0.95 }}
             >
               <Button
                 asChild
                 size="lg"
-                className="bg-gradient-to-r from-accent to-teal text-accent-foreground hover:from-accent/80 hover:to-teal/80 border-0 rounded-2xl px-10 py-7 text-xl font-semibold transition-all duration-300 shadow-[0_20px_50px_rgba(0,174,239,0.3)] hover:shadow-[0_25px_60px_rgba(0,174,239,0.4)]"
+                className="relative overflow-hidden bg-gradient-to-r from-accent via-accent to-teal text-white border-0 rounded-2xl px-12 py-8 text-xl font-bold shadow-[0_20px_50px_rgba(0,174,239,0.4)] hover:shadow-[0_30px_70px_rgba(0,174,239,0.6)] group transition-all duration-500"
               >
-                <Link href="/contact" className="flex items-center gap-3">
-                  Contact Us <Send className="w-5 h-5" />
+                <Link
+                  href="/contact"
+                  className="flex items-center gap-3 relative z-10"
+                >
+                  {hero.ctaPrimary}
+                  <Send className="w-5 h-5" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </Link>
               </Button>
             </motion.div>
 
+            {/* Secondary Button */}
             <motion.div
-              whileHover={{ scale: 1.05, y: -5 }}
+              whileHover={{ scale: 1.05, y: -8 }}
               whileTap={{ scale: 0.95 }}
             >
               <Button
                 asChild
                 variant="outline"
                 size="lg"
-                className="text-accent border-2 border-accent/50 hover:bg-accent/10 hover:border-accent backdrop-blur-sm rounded-2xl px-10 py-7 text-xl font-semibold transition-all duration-300 shadow-[0_20px_50px_rgba(0,174,239,0.2)] hover:shadow-[0_25px_60px_rgba(0,174,239,0.3)]"
+                className="relative overflow-hidden text-accent border-2 border-accent/60 hover:bg-accent/15 backdrop-blur-md bg-black/10 rounded-2xl px-12 py-8 text-xl font-bold shadow-[0_20px_50px_rgba(0,174,239,0.3)] hover:shadow-[0_30px_70px_rgba(0,174,239,0.5)] group transition-all duration-500"
               >
-                <Link href="#timeline" className="flex items-center gap-3">
-                  Discover Our Story <LineChart className="w-5 h-5" />
+                <Link
+                  href="#timeline"
+                  className="flex items-center gap-3 relative z-10"
+                >
+                  {hero.ctaSecondary}
+                  <LineChart className="w-5 h-5" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </Link>
               </Button>
             </motion.div>
           </motion.div>
         </motion.div>
       </motion.div>
-
-      {/* === Animated Blobs === */}
-      <motion.div
-        className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-r from-accent/20 to-teal/20 rounded-full blur-3xl -z-10"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.4, 0.2],
-          x: [0, 50, 0],
-          y: [0, -30, 0],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-r from-teal/20 to-navy/20 rounded-full blur-3xl -z-10"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.5, 0.2],
-          x: [0, -40, 0],
-          y: [0, 40, 0],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-gradient-to-r from-chart-1/15 to-chart-2/15 rounded-full blur-2xl -z-10"
-        animate={{
-          scale: [1, 1.4, 1],
-          opacity: [0.1, 0.3, 0.1],
-          rotate: [0, 180, 360],
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      />
-
-      {/* === Floating Particles === */}
-      {[...Array(15)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-accent/60 rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -100, 0],
-            opacity: [0, 1, 0],
-            scale: [0, 1, 0],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 3,
-          }}
-        />
-      ))}
-
-      {/* === Grid Animation Keyframes === */}
-      <style jsx>{`
-        @keyframes grid-move {
-          0% {
-            background-position: 0 0, 0 0;
-          }
-          100% {
-            background-position: 50px 50px, 50px 50px;
-          }
-        }
-      `}</style>
     </section>
   );
 }
