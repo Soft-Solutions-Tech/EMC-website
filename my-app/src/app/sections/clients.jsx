@@ -52,16 +52,17 @@ const ClientsSection = () => {
     expanded,
     onToggle,
     isPartner = false,
+    className = "",
   }) => {
     const sectionType = isPartner ? "partner" : "client";
 
     return (
       <div
-        className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-border overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit"
+        className={`group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-border overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit ${className}`}
         style={{ animationDelay: `${index * 150}ms` }}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-teal-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal to-navy transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-xl"></div>
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal to-navy transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-2xl"></div>
 
         {/* Main card content with consistent height */}
         <div className="relative z-10 p-6 h-64 flex flex-col">
@@ -76,7 +77,7 @@ const ClientsSection = () => {
                 <img
                   src={company.logo}
                   alt={`${company.name} logo`}
-                  className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
+                  className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
             </div>
@@ -245,20 +246,47 @@ const ClientsSection = () => {
 
             {/* All partners with consistent alignment */}
             <div className="mb-20">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                {sortedPartners.map((partner, index) => (
-                  <CompanyCard
-                    key={partner.id}
-                    company={partner}
-                    index={index}
-                    hasSubCompanies={
-                      partner.subCompanies && partner.subCompanies.length > 0
-                    }
-                    expanded={expandedPartners[partner.id]}
-                    onToggle={togglePartnerExpansion}
-                    isPartner={true}
-                  />
-                ))}
+              <div className="wrapper">
+                <div className="scrollerTrack scrollRight">
+                  {[...sortedPartners, ...sortedPartners].map(
+                    (partner, index) => (
+                      <CompanyCard
+                        key={`right-${partner.id}-${index}`}
+                        company={partner}
+                        index={index}
+                        hasSubCompanies={
+                          partner.subCompanies &&
+                          partner.subCompanies.length > 0
+                        }
+                        expanded={expandedPartners[partner.id]}
+                        onToggle={togglePartnerExpansion}
+                        isPartner={true}
+                        className="item"
+                      />
+                    )
+                  )}
+                </div>
+              </div>
+              <div className="wrapper mt-6">
+                <div className="scrollerTrack scrollLeft">
+                  {[...sortedPartners, ...sortedPartners].map(
+                    (partner, index) => (
+                      <CompanyCard
+                        key={`left-${partner.id}-${index}`}
+                        company={partner}
+                        index={index}
+                        hasSubCompanies={
+                          partner.subCompanies &&
+                          partner.subCompanies.length > 0
+                        }
+                        expanded={expandedPartners[partner.id]}
+                        onToggle={togglePartnerExpansion}
+                        isPartner={true}
+                        className="item"
+                      />
+                    )
+                  )}
+                </div>
               </div>
             </div>
           </>

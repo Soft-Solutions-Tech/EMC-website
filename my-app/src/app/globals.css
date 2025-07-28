@@ -69,3 +69,89 @@
 html {
   scroll-behavior: smooth;
 }
+
+.wrapper {
+  margin: -10px 0;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  height: 252px;
+  overflow: hidden;
+  position: relative;
+}
+
+.scrollerTrack {
+  display: flex;
+  width: fit-content;
+  will-change: transform;
+  animation-timing-function: linear;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+}
+
+.scrollLeft {
+  animation-name: scrollLeft;
+}
+
+.scrollRight {
+  animation-name: scrollRight;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.item {
+  width: 400px;
+  height: 220px;
+  background: #FFFFFF;
+  flex-shrink: 0;
+  margin-right: 20px;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 2px solid #808080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.wrapper:hover .scrollerTrack {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    margin: 4px 0;
+    width: 100%;
+    margin-inline: 0;
+    height: 220px;
+  }
+
+  .item {
+    width: 325px;
+    height: 215px;
+    padding: 10px;
+    margin-right: 10px;
+  }
+
+  .scrollerTrack {
+    animation-duration: 20s;
+  }
+}
