@@ -1,7 +1,6 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Zap, Plug } from "lucide-react";
 import { emcInfo } from "../../../data/info.js";
 
 function AnimatedCounter({ target, suffix = "", isVisible, delay }) {
@@ -80,7 +79,7 @@ export default function InfoSection() {
         />
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-stretch min-h-[400px]">
           {/* Left Section */}
           <div className="space-y-6 sm:space-y-8">
             {/* Title & Underline */}
@@ -145,47 +144,14 @@ export default function InfoSection() {
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
               }`}
-            >
-              <div className="space-y-3 text-center lg:text-left group">
-                <div className="w-8 h-8 bg-background-icon1 rounded-sm flex items-center justify-center mx-auto lg:mx-0 transition-transform duration-300">
-                  <Zap className="h-4 w-4 text-white" />
-                </div>
-                <h3 className="font-semibold dark-text tracking-wide">
-                  {emcInfo.philosophyTitle}
-                </h3>
-                <p className="text-xs text-gray-500">{emcInfo.philosophySub}</p>
-              </div>
-              <div className="space-y-3 text-center lg:text-left group">
-                <div className="w-8 h-8 bg-background-icon1 rounded-sm flex items-center justify-center mx-auto lg:mx-0 transition-transform duration-300">
-                  <Plug className="h-4 w-4 text-white" />
-                </div>
-                <h3 className="font-semibold dark-text tracking-wide">
-                  {emcInfo.precisionTitle}
-                </h3>
-                <p className="text-xs text-gray-500">{emcInfo.precisionSub}</p>
-              </div>
-            </div>
+            ></div>
           </div>
 
           {/* Right Section */}
-          <div className="space-y-6 sm:space-y-8 mt-8 lg:mt-0">
-            {/* Quote Block */}
-            <div
-              style={{ borderLeft: "4px solid #00263A" }}
-              className={`bg-gray-50/50 p-6 sm:p-8 relative overflow-hidden transition-all duration-700 delay-300 ${
-                isPhilosophyVisible
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 translate-x-8"
-              }`}
-            >
-              <blockquote className="text-xl sm:text-2xl font-light text-gray-800 leading-relaxed italic relative z-10">
-                {emcInfo.philosophy}
-              </blockquote>
-            </div>
-
+          <div className="space-y-6 sm:space-y-8 mt-8 lg:mt-45 flex flex-col h-full">
             {/* Stats */}
             <div
-              className={`grid grid-cols-3 gap-4 sm:gap-6 transition-all duration-700 delay-500 justify-items-center ${
+              className={`grid grid-cols-3 gap-4 sm:gap-6 flex-grow transition-all duration-700 delay-500 ${
                 isPhilosophyVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
@@ -196,29 +162,34 @@ export default function InfoSection() {
                   idx % 2 === 0 ? "text-accent" : "text-primary";
                 const barClass = idx % 2 === 0 ? "bg-accent" : "bg-primary";
                 return (
-                  <div key={stat.label} className="text-center space-y-2 group">
-                    <div
-                      className={`text-2xl sm:text-3xl font-black ${numberClass} transition-all duration-500 delay-700`}
-                    >
-                      <AnimatedCounter
-                        target={stat.value}
-                        suffix={stat.suffix}
-                        isVisible={isPhilosophyVisible}
-                        delay={700 + idx * 150}
-                      />
-                    </div>
-                    <div className="text-xs sm:text-sm font-light tracking-wide uppercase text-gray-600">
-                      {stat.label}
-                    </div>
-                    <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    key={stat.label}
+                    className="text-center space-y-2 group flex flex-col justify-between h-full"
+                  >
+                    <div>
                       <div
-                        className={`h-full ${barClass} transition-all duration-1000 delay-1000 ${
-                          isPhilosophyVisible ? "w-full" : "w-0"
-                        }`}
-                      ></div>
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      {stat.description}
+                        className={`text-2xl sm:text-3xl font-black ${numberClass} transition-all duration-500 delay-700`}
+                      >
+                        <AnimatedCounter
+                          target={stat.value}
+                          suffix={stat.suffix}
+                          isVisible={isPhilosophyVisible}
+                          delay={700 + idx * 150}
+                        />
+                      </div>
+                      <div className="text-xs sm:text-sm font-light tracking-wide uppercase text-gray-600">
+                        {stat.label}
+                      </div>
+                      <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full ${barClass} transition-all duration-1000 delay-1000 ${
+                            isPhilosophyVisible ? "w-full" : "w-0"
+                          }`}
+                        ></div>
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {stat.description}
+                      </div>
                     </div>
                   </div>
                 );
@@ -229,11 +200,6 @@ export default function InfoSection() {
         {/* Decorative Side Lines - now inside the container */}
         <div
           className={`absolute top-24 sm:top-4 left-0 sm:left-4 w-0.5 sm:w-1 bg-secondary-bg-40 transition-all duration-1000 delay-1000 ${
-            isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"
-          }`}
-        />
-        <div
-          className={`absolute bottom-16 sm:bottom-2 right-0 w-0.5 sm:w-1 bg-black/20 transition-all duration-1000 delay-1100 ${
             isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"
           }`}
         />
