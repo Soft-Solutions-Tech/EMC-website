@@ -44,7 +44,27 @@ const ClientsSection = () => {
     return aHasSub - bHasSub;
   });
 
-  // Enhanced card component for consistent styling
+  // Animation variants for section elements
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: (index) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.5, delay: index * 0.1, ease: "easeOut" },
+    }),
+  };
+
+  // CompanyCard component
   const CompanyCard = ({
     company,
     index,
@@ -57,14 +77,17 @@ const ClientsSection = () => {
     const sectionType = isPartner ? "partner" : "client";
 
     return (
-      <div
+      <motion.div
         className={`group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-border overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit ${className}`}
-        style={{ animationDelay: `${index * 150}ms` }}
+        variants={cardVariants}
+        initial="hidden"
+        whileInView="visible"
+        custom={index}
+        viewport={{ once: false, amount: 0.3 }}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-teal-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal to-navy transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-2xl"></div>
 
-        {/* Main card content with consistent height */}
         <div className="relative z-10 p-6 h-64 flex flex-col">
           <a
             href={company.website}
@@ -93,7 +116,6 @@ const ClientsSection = () => {
             </p>
           </a>
 
-          {/* Enhanced dropdown section - positioned at bottom */}
           {hasSubCompanies && (
             <div className="mt-auto pt-4 border-t border-secondary">
               <button
@@ -133,7 +155,6 @@ const ClientsSection = () => {
           )}
         </div>
 
-        {/* Dropdown content - positioned outside main card */}
         {hasSubCompanies && (
           <AnimatePresence>
             {expanded && (
@@ -201,50 +222,50 @@ const ClientsSection = () => {
             )}
           </AnimatePresence>
         )}
-      </div>
+      </motion.div>
     );
   };
 
   return (
     <section className="py-20 bg-white relative overflow-hidden">
-      {/* Background decorative elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.02)_1px,transparent_0)] [background-size:24px_24px]"></div>
       <div className="absolute top-0 left-0 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-1000"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Partners Section */}
         {sortedPartners.length > 0 && (
           <>
-            <div className="text-center mb-16">
+            <motion.div
+              className="text-center mb-16"
+              variants={sectionVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.3 }}
+            >
               <div className="inline-block px-4 py-2 bg-teal-50 text-teal rounded-full text-sm font-semibold tracking-wider uppercase mb-4">
                 Strategic Partners
               </div>
               <motion.h2
                 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
+                variants={sectionVariants}
               >
                 Our Partners
               </motion.h2>
-
               <motion.div
                 className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
                 initial={{ width: 0 }}
                 whileInView={{ width: 128 }}
-                viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.5 }}
               />
-
-              <p className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold">
+              <motion.p
+                className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold"
+                variants={sectionVariants}
+              >
                 Collaborative partners driving innovation and growth through
                 shared expertise
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
 
-            {/* All partners with consistent alignment */}
             <div className="mb-20">
               <div className="wrapper">
                 <div className="scrollerTrack scrollRight">
@@ -292,38 +313,39 @@ const ClientsSection = () => {
           </>
         )}
 
-        {/* Clients Section */}
         {sortedClients.length > 0 && (
           <>
-            <div className="text-center mb-16">
+            <motion.div
+              className="text-center mb-16"
+              variants={sectionVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.3 }}
+            >
               <div className="inline-block px-4 py-2 bg-teal-50 text-teal rounded-full text-sm font-semibold tracking-wider uppercase mb-4">
                 Valued Clients
               </div>
               <motion.h2
                 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
+                variants={sectionVariants}
               >
                 Our Clients
               </motion.h2>
-
               <motion.div
                 className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
                 initial={{ width: 0 }}
                 whileInView={{ width: 128 }}
-                viewport={{ once: true }}
                 transition={{ duration: 1, delay: 0.5 }}
               />
-
-              <p className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold">
+              <motion.p
+                className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold"
+                variants={sectionVariants}
+              >
                 Trusted clients we empower with tailored solutions and
                 exceptional service
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
 
-            {/* All clients with consistent alignment */}
             <div className="mb-20">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
                 {sortedClients.map((client, index) => (

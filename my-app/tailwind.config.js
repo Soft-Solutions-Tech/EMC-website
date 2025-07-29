@@ -42,6 +42,8 @@ module.exports = {
         },
         navy: '#00263A',       // Deep Navy
         teal: '#006991',       // Teal Blue
+        emcBlue: '#006996',
+        emcGray: '#939598',
         blackish: '#222222',   // Near Black
         white: '#FFFFFF',
         destructive: {
