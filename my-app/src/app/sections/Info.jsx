@@ -46,6 +46,7 @@ export default function InfoSection() {
     const observer = new window.IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsPhilosophyVisible(true);
+        else setIsPhilosophyVisible(false); // Reset visibility when out of view
       },
       { threshold: 0.3 }
     );
@@ -64,7 +65,7 @@ export default function InfoSection() {
           className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }} // Changed to replay animation
           transition={{ duration: 0.8 }}
         >
           Who Are We
@@ -74,7 +75,7 @@ export default function InfoSection() {
           className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
           initial={{ width: 0 }}
           whileInView={{ width: 128 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }} // Changed to replay animation
           transition={{ duration: 1, delay: 0.5 }}
         />
       </div>
@@ -197,7 +198,7 @@ export default function InfoSection() {
             </div>
           </div>
         </div>
-        {/* Decorative Side Lines - now inside the container */}
+        {/* Decorative Side Lines */}
         <div
           className={`absolute top-24 sm:top-4 left-0 sm:left-4 w-0.5 sm:w-1 bg-secondary-bg-40 transition-all duration-1000 delay-1000 ${
             isPhilosophyVisible ? "h-16 sm:h-32 opacity-100" : "h-0 opacity-0"
