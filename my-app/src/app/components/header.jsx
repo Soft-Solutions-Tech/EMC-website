@@ -87,9 +87,15 @@ export function Header() {
           <Image
             src="/logos/EMC-LOGO.png"
             alt="EMC Logo"
-            width={32}
-            height={32}
-            className="h-8 w-auto"
+            width={64}
+            height={64}
+            quality={100}
+            priority
+            className="h-8 w-auto object-contain"
+            style={{
+              imageRendering: 'crisp-edges',
+              imageRendering: '-webkit-optimize-contrast',
+            }}
           />
         </Link>
 
