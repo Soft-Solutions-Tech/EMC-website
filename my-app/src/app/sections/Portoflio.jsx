@@ -20,7 +20,7 @@ const CAROUSEL_DURATION = 5000;
 const PROGRESS_UPDATE_INTERVAL = 30;
 
 // Utility functions
-const formatDate = (dateStr) => {
+export const formatDate = (dateStr) => {
   if (!dateStr) return "Present";
   const date = new Date(dateStr);
   return date.toLocaleDateString(undefined, {
@@ -45,15 +45,15 @@ const InfoBadge = ({ icon: Icon, text, className = "" }) => (
 );
 
 export const InfoBar = ({ status, client, value }) => (
-  <div className="flex flex-wrap gap-3 mb-6">
+  <div className="flex flex-wrap gap-3 mb-6 items-center justify-center">
     <InfoBadge icon={BriefcaseBusiness} text={status} />
-    <InfoBadge icon={User} text={client} />
     <InfoBadge icon={BadgeDollarSign} text={value} />
+    <InfoBadge icon={User} text={client} />
   </div>
 );
 
 export const Timeline = ({ start, end }) => (
-  <div className="flex items-center gap-3 mb-4 text-sm text-slate-600">
+  <div className="flex items-center gap-3 mb-4 text-sm text-slate-600 justify-center">
     <div className="flex items-center gap-2">
       <CalendarClock className="w-4 h-4 text-teal-600" />
       <span className="font-medium">{formatDate(start)}</span>
@@ -70,7 +70,7 @@ export const Partners = ({ partners }) => {
   if (!partners || partners.length === 0) return null;
 
   return (
-    <div className="flex items-start gap-3 mb-4 text-sm text-slate-600">
+    <div className="flex items-start gap-3 mb-4 text-sm text-slate-600 justify-center">
       <Users className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
       <div>
         <span className="font-medium text-slate-800">Partners: </span>
@@ -167,7 +167,7 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden group">
+    <div className="relative w-full h-full flex items-center justify-center overflow-hidden group rounded-lg">
       {/* Image container */}
       <div
         className="w-full h-full flex transition-transform duration-700"
@@ -178,7 +178,7 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
             key={`${projectName}-${idx}`}
             src={img}
             alt={`${projectName} image ${idx + 1}`}
-            className="w-full h-full object-cover rounded-lg flex-shrink-0"
+            className="w-full h-full object-cover flex-shrink-0"
             style={{ minWidth: "100%", minHeight: "100%" }}
             draggable={false}
           />
@@ -187,7 +187,7 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
 
       {/* Pagination dots */}
       {images.length > 1 && (
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {images.map((_, idx) => (
             <PaginationDot
               key={idx}
@@ -206,7 +206,7 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
 
 // Section heading component
 const SectionHeading = ({ heading, className = "" }) => (
-  <div className={`mb-8 text-center ${className}`}>
+  <div className={`mb-12 text-center ${className}`}>
     <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
       {heading.label}
     </h3>
@@ -225,16 +225,16 @@ const SectionHeading = ({ heading, className = "" }) => (
 
 // Project actions component
 const ProjectActions = ({ projectId, consultingCta }) => (
-  <div className="flex flex-col gap-3 w-full mt-4">
+  <div className="flex flex-col gap-3 w-full mt-6">
     <a
       href={`/projects/${projectId}`}
-      className="bg-accent text-white px-4 py-2 lg:py-4 rounded-lg font-semibold shadow hover:bg-accent/90 transition text-sm w-full text-center"
+      className="bg-accent text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-accent/90 transition text-sm w-full text-center"
     >
       Explore this project
     </a>
     <a
       href="/projects?type=CONSULTING"
-      className="bg-primary text-white px-4 py-2 lg:py-4 rounded-lg font-semibold shadow hover:bg-primary/90 transition text-sm w-full text-center"
+      className="bg-primary text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-primary/90 transition text-sm w-full text-center"
     >
       {consultingCta || "Explore our consulting projects"}
     </a>
@@ -243,16 +243,10 @@ const ProjectActions = ({ projectId, consultingCta }) => (
 
 // Project content component
 const ProjectContent = ({ project, index }) => {
-  const isEvenIndex = index % 2 === 0;
-
   return (
-    <div
-      className={`flex flex-col items-center justify-center text-center h-full ${
-        !isEvenIndex ? "order-2 sm:order-1" : "order-2"
-      }`}
-    >
-      <h3 className="text-xl font-semibold text-navy mb-2">{project.name}</h3>
-      <p className="text-gray-600 mb-2">{project.description}</p>
+    <div className="flex flex-col items-center justify-center text-center h-full p-6">
+      <h3 className="text-xl font-semibold text-navy mb-3">{project.name}</h3>
+      <p className="text-gray-600 mb-4 max-w-md">{project.description}</p>
       <InfoBar
         status={project.status}
         client={project.client}
@@ -260,7 +254,6 @@ const ProjectContent = ({ project, index }) => {
       />
       <Timeline start={project.startDate} end={project.endDate} />
       <Partners partners={project.partners} />
-
       <ProjectActions
         projectId={project.id}
         consultingCta={project.consultingCta}
@@ -279,16 +272,12 @@ const ProjectCard = ({ project, index }) => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`grid grid-cols-1 sm:grid-cols-2 items-center gap-6 rounded-xl shadow p-6 min-h-[220px] sm:min-h-[400px] lg:min-h-[500px] ${
-        isEvenIndex ? "bg-gray-50" : ""
+      className={`grid grid-cols-1 lg:grid-cols-2 items-center gap-8 rounded-xl shadow-lg p-8 min-h-[400px] w-full ${
+        isEvenIndex ? "bg-gray-50" : "bg-white"
       }`}
     >
       {/* Image Section */}
-      <div
-        className={`flex items-center justify-center h-full ${
-          !isEvenIndex ? "order-1 sm:order-2" : "order-1"
-        }`}
-      >
+      <div className="w-full h-[300px] lg:h-[400px] rounded-lg overflow-hidden">
         {project.images?.length > 0 && (
           <ProjectImageCarousel
             images={project.images}
@@ -317,16 +306,15 @@ const PortfolioSection = () => {
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <div className="mb-12 sm:mb-16 text-center">
+        <div className="mb-16 text-center">
           <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             {portfolioTitle}
           </motion.h2>
-
           <motion.div
             className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
             initial={{ width: 0 }}
@@ -336,7 +324,7 @@ const PortfolioSection = () => {
         </div>
 
         {/* Featured Projects */}
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-12">
           {featuredProjects.map((project, index) => {
             const heading = sectionHeadings.find((h) => h.idx === index);
 
@@ -345,7 +333,7 @@ const PortfolioSection = () => {
                 {heading && (
                   <SectionHeading
                     heading={heading}
-                    className={index === 0 ? "mt-0" : "mt-4"}
+                    className={index === 0 ? "mt-0" : "mt-8"}
                   />
                 )}
                 <ProjectCard project={project} index={index} />

@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import Image from "next/image";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -73,11 +74,28 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-transparent supports-[backdrop-filter]:bg-background/60 shadow-sm pointer-events-none">
       <div className="flex items-center justify-between p-4 pointer-events-auto">
-        <Link href="/" className="flex items-center">
-          <img
+        <Link
+          href="/"
+          className="flex items-center"
+          onClick={(e) => {
+            if (pathname === "/") {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+        >
+          <Image
             src="/logos/EMC-LOGO.png"
             alt="EMC Logo"
-            className="h-8 w-auto"
+            width={64}
+            height={64}
+            quality={100}
+            priority
+            className="h-8 w-auto object-contain"
+            style={{
+              imageRendering: 'crisp-edges',
+              imageRendering: '-webkit-optimize-contrast',
+            }}
           />
         </Link>
 
@@ -92,7 +110,7 @@ export function Header() {
                       className={cn(
                         "relative bg-transparent hover:bg-accent/10 text-muted-foreground hover:text-accent px-4 py-2 font-medium rounded-lg border-2 border-transparent hover:border-accent/20 transition-all duration-300",
                         pathname.startsWith("/projects") &&
-                        "text-accent font-semibold bg-accent/10 border-accent/30"
+                          "text-accent font-semibold bg-accent/10 border-accent/30"
                       )}
                     >
                       {item.name}
@@ -107,8 +125,8 @@ export function Header() {
                               className={cn(
                                 "block px-4 py-3 text-sm rounded-lg border border-transparent text-muted-foreground hover:text-accent hover:bg-accent/10 hover:border-accent/20 transition-all duration-300",
                                 pathname.startsWith("/projects") &&
-                                currentType === subItem.type &&
-                                "text-accent font-semibold bg-accent/10 border-accent/30"
+                                  currentType === subItem.type &&
+                                  "text-accent font-semibold bg-accent/10 border-accent/30"
                               )}
                             >
                               {subItem.name}
@@ -125,7 +143,7 @@ export function Header() {
                       className={cn(
                         "px-4 py-2 text-sm rounded-lg font-medium text-muted-foreground hover:text-accent hover:bg-accent/10 border-2 border-transparent hover:border-accent/20 transition-all duration-300",
                         pathname === item.href &&
-                        "text-accent font-semibold bg-accent/10 border-accent/30"
+                          "text-accent font-semibold bg-accent/10 border-accent/30"
                       )}
                     >
                       {item.name}
@@ -246,8 +264,8 @@ function MobileMenu({
                             className={cn(
                               "block px-4 py-3 text-sm rounded-lg border border-transparent text-muted-foreground hover:text-accent hover:bg-accent/10 hover:border-accent/20 transition-all duration-300",
                               pathname.startsWith("/projects") &&
-                              currentType === subItem.type &&
-                              "text-accent font-semibold bg-accent/10 border-accent/30"
+                                currentType === subItem.type &&
+                                "text-accent font-semibold bg-accent/10 border-accent/30"
                             )}
                           >
                             {subItem.name}
@@ -273,7 +291,7 @@ function MobileMenu({
                 className={cn(
                   "w-full inline-block py-4 px-6 text-lg font-medium rounded-xl border-2 border-transparent text-muted-foreground hover:text-accent hover:bg-accent/10 hover:border-accent/20 transition-all duration-300",
                   pathname === item.href &&
-                  "text-accent font-semibold bg-accent/10 border-accent/30"
+                    "text-accent font-semibold bg-accent/10 border-accent/30"
                 )}
               >
                 {item.name}
