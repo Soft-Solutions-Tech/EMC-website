@@ -135,7 +135,7 @@ export function TimelineSection() {
                   className="relative flex items-start"
                   aria-labelledby={`timeline-event-mobile-${index}`}
                 >
-                  <div className="z-10 w-6 h-6 bg-accent border-4 border-background rounded-full shadow-lg shadow-accent/30 flex-shrink-0" />
+                  <div className="z-10 w-6 h-6 bg-accent border-4 border-background rounded-full shadow-lg shadow-accent/30 flex-shrink-0 relative left-[-2px]" />
                   <div className="ml-8 w-full bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 shadow-lg">
                     <div
                       className="text-lg font-bold text-accent mb-2"

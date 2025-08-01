@@ -19,8 +19,31 @@ export function HeroBanner() {
     <section
       ref={ref}
       aria-label="Hero banner"
-      className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden bg-black"
     >
+      {/* === Video Background === */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-0 animate-fadeIn"
+        src="/videos/mixkit-buildings-under-construction-aerial-view-4010-full-hd.mp4"
+        width={1920}
+        height={1080}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+      />
+
+      {/* === Overlay Gradients === */}
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 z-10"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-teal/5 z-15"
+        aria-hidden="true"
+      />
+
       {/* === Background Effects === */}
       <div className="absolute inset-0 z-5">
         {/* Grid pattern */}
@@ -38,27 +61,6 @@ export function HeroBanner() {
           />
         </div>
       </div>
-
-      {/* === Video Background === */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        src="/videos/mixkit-buildings-under-construction-aerial-view-4010-full-hd.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster="/logos/EMC-LOGO.png"
-      />
-
-      {/* === Overlay Gradients === */}
-      <div
-        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 z-10"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-teal/5 z-15"
-        aria-hidden="true"
-      />
 
       {/* === Main Content === */}
       <motion.div className="relative z-30 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -109,14 +111,25 @@ export function HeroBanner() {
                 alt="EMC Logo"
                 className="inline-block h-16 sm:h-20 md:h-24 lg:h-28 w-auto filter drop-shadow-[0_0_20px_rgba(0,174,239,0.5)]"
                 initial={{
-                  scale: 0.9,
+                  scale: 0.8,
                   rotateX: -90,
                   filter: "brightness(0.5)",
+                  opacity: 0,
                 }}
                 animate={
                   isInView
-                    ? { scale: 1, rotateX: 0, filter: "brightness(1)" }
-                    : { scale: 0.9, rotateX: -90, filter: "brightness(0.5)" }
+                    ? {
+                        scale: 1,
+                        rotateX: 0,
+                        filter: "brightness(1)",
+                        opacity: 1,
+                      }
+                    : {
+                        scale: 0.8,
+                        rotateX: -90,
+                        filter: "brightness(0.5)",
+                        opacity: 0,
+                      }
                 }
                 transition={{ delay: 0.8, duration: 0.8, ease: "backOut" }}
               />
@@ -140,7 +153,6 @@ export function HeroBanner() {
             transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
             className="flex flex-col sm:flex-row justify-center gap-6"
           >
-            {/* Primary Button */}
             <motion.div
               whileHover={{ scale: 1.05, y: -8 }}
               whileTap={{ scale: 0.95 }}
@@ -161,7 +173,6 @@ export function HeroBanner() {
               </Button>
             </motion.div>
 
-            {/* Secondary Button */}
             <motion.div
               whileHover={{ scale: 1.05, y: -8 }}
               whileTap={{ scale: 0.95 }}

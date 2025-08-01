@@ -45,10 +45,10 @@ const InfoBadge = ({ icon: Icon, text, className = "" }) => (
 );
 
 export const InfoBar = ({ status, client, value }) => (
-  <div className="flex flex-wrap gap-3 mb-6">
+  <div className="flex flex-wrap gap-3 mb-6 items-center justify-center">
     <InfoBadge icon={BriefcaseBusiness} text={status} />
-    <InfoBadge icon={User} text={client} />
     <InfoBadge icon={BadgeDollarSign} text={value} />
+    <InfoBadge icon={User} text={client} />
   </div>
 );
 
