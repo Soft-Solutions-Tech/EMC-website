@@ -37,15 +37,15 @@ const getBorderColor = (index) => {
 // Subcomponents
 const InfoBadge = ({ icon: Icon, text, className = "" }) => (
   <span
-    className={`flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200 ${className}`}
+    className={`flex items-center gap-1.5 sm:gap-2 bg-slate-50 text-slate-700 rounded-full px-2.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium border border-slate-200 whitespace-nowrap ${className}`}
   >
-    <Icon className="w-4 h-4 text-accent" />
-    {text}
+    <Icon className="w-3 h-3 sm:w-4 sm:h-4 text-accent flex-shrink-0" />
+    <span className="truncate">{text}</span>
   </span>
 );
 
 export const InfoBar = ({ status, client, value }) => (
-  <div className="flex flex-wrap gap-3 mb-6 items-center justify-center">
+  <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6 items-center justify-center max-w-full">
     <InfoBadge icon={BriefcaseBusiness} text={status} />
     <InfoBadge icon={BadgeDollarSign} text={value} />
     <InfoBadge icon={User} text={client} />
@@ -53,14 +53,14 @@ export const InfoBar = ({ status, client, value }) => (
 );
 
 export const Timeline = ({ start, end }) => (
-  <div className="flex items-center gap-3 mb-4 text-sm text-slate-600">
-    <div className="flex items-center gap-2">
-      <CalendarClock className="w-4 h-4 text-teal-600" />
+  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-3 sm:mb-4 text-xs sm:text-sm text-slate-600">
+    <div className="flex items-center gap-1.5 sm:gap-2">
+      <CalendarClock className="w-3 h-3 sm:w-4 sm:h-4 text-teal-600 flex-shrink-0" />
       <span className="font-medium">{formatDate(start)}</span>
     </div>
-    <ArrowRight className="w-4 h-4 text-slate-400" />
-    <div className="flex items-center gap-2">
-      <CalendarClock className="w-4 h-4 text-teal-600" />
+    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-slate-400 hidden sm:block" />
+    <div className="flex items-center gap-1.5 sm:gap-2">
+      <CalendarClock className="w-3 h-3 sm:w-4 sm:h-4 text-teal-600 flex-shrink-0" />
       <span className="font-medium">{formatDate(end)}</span>
     </div>
   </div>
@@ -70,11 +70,11 @@ export const Partners = ({ partners }) => {
   if (!partners || partners.length === 0) return null;
 
   return (
-    <div className="flex items-start gap-3 mb-4 text-sm text-slate-600">
-      <Users className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
-      <div>
+    <div className="flex items-start gap-2 sm:gap-3 mb-3 sm:mb-4 text-xs sm:text-sm text-slate-600">
+      <Users className="w-3 h-3 sm:w-4 sm:h-4 text-teal-600 mt-0.5 flex-shrink-0" />
+      <div className="min-w-0 flex-1">
         <span className="font-medium text-slate-800">Partners: </span>
-        <span>{partners.join(", ")}</span>
+        <span className="break-words">{partners.join(", ")}</span>
       </div>
     </div>
   );
@@ -82,13 +82,13 @@ export const Partners = ({ partners }) => {
 
 // Carousel pagination dot component
 const PaginationDot = ({ index, isActive, progress, borderColor, onClick }) => {
-  const radius = 7;
+  const radius = 6;
   const circumference = 2 * Math.PI * radius;
   const dashoffset = isActive ? circumference * (1 - progress) : circumference;
 
   return (
     <button
-      className="relative w-4 h-4 flex items-center justify-center bg-transparent p-0 border-none outline-none"
+      className="relative w-3 h-3 sm:w-4 sm:h-4 flex items-center justify-center bg-transparent p-0 border-none outline-none touch-manipulation"
       onClick={() => onClick(index)}
       aria-label={`Go to image ${index + 1}`}
     >
@@ -98,10 +98,11 @@ const PaginationDot = ({ index, isActive, progress, borderColor, onClick }) => {
         }`}
       />
       <svg
-        width={16}
-        height={16}
+        width="100%"
+        height="100%"
         className="absolute top-0 left-0"
         style={{ pointerEvents: "none" }}
+        viewBox="0 0 16 16"
       >
         <circle
           cx={8}
@@ -118,7 +119,7 @@ const PaginationDot = ({ index, isActive, progress, borderColor, onClick }) => {
         />
       </svg>
       <span
-        className={`relative w-2 h-2 rounded-full bg-white ${
+        className={`relative w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white ${
           isActive ? "bg-accent" : ""
         }`}
       />
@@ -167,7 +168,7 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden group">
+    <div className="relative w-full aspect-video sm:aspect-square lg:aspect-video flex items-center justify-center overflow-hidden group rounded-lg">
       {/* Image container */}
       <div
         className="w-full h-full flex transition-transform duration-700"
@@ -178,7 +179,7 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
             key={`${projectName}-${idx}`}
             src={img}
             alt={`${projectName} image ${idx + 1}`}
-            className="w-full h-full object-cover rounded-lg flex-shrink-0"
+            className="w-full h-full object-cover flex-shrink-0"
             style={{ minWidth: "100%", minHeight: "100%" }}
             draggable={false}
           />
@@ -187,7 +188,7 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
 
       {/* Pagination dots */}
       {images.length > 1 && (
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        <div className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 z-10">
           {images.map((_, idx) => (
             <PaginationDot
               key={idx}
@@ -206,12 +207,12 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
 
 // Section heading component
 const SectionHeading = ({ heading, className = "" }) => (
-  <div className={`mb-8 text-center ${className}`}>
-    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
+  <div className={`mb-6 sm:mb-8 text-center px-4 ${className}`}>
+    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-tight pb-2">
       {heading.label}
     </h3>
     {heading.desc && (
-      <p className="text-lg text-slate-600 max-w-2xl mx-auto mt-6 leading-relaxed font-semibold">
+      <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mt-3 sm:mt-6 leading-relaxed font-medium px-2">
         {heading.desc.map((desc, index) => (
           <span key={index}>
             {desc}
@@ -225,18 +226,18 @@ const SectionHeading = ({ heading, className = "" }) => (
 
 // Project actions component
 const ProjectActions = ({ projectId, consultingCta }) => (
-  <div className="flex flex-col gap-3 w-full mt-4">
+  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full mt-3 sm:mt-4">
     <a
       href={`/projects/${projectId}`}
-      className="bg-accent text-white px-4 py-2 lg:py-4 rounded-lg font-semibold shadow hover:bg-accent/90 transition text-sm w-full text-center"
+      className="bg-accent text-white px-3 py-2 sm:px-4 sm:py-3 lg:py-4 rounded-lg font-semibold shadow hover:bg-accent/90 transition text-xs sm:text-sm w-full text-center touch-manipulation"
     >
       Explore this project
     </a>
     <a
       href="/projects?type=CONSULTING"
-      className="bg-primary text-white px-4 py-2 lg:py-4 rounded-lg font-semibold shadow hover:bg-primary/90 transition text-sm w-full text-center"
+      className="bg-primary text-white px-3 py-2 sm:px-4 sm:py-3 lg:py-4 rounded-lg font-semibold shadow hover:bg-primary/90 transition text-xs sm:text-sm w-full text-center touch-manipulation"
     >
-      {consultingCta || "Explore our consulting projects"}
+      {consultingCta || "Explore consulting"}
     </a>
   </div>
 );
@@ -247,19 +248,25 @@ const ProjectContent = ({ project, index }) => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center text-center h-full ${
-        !isEvenIndex ? "order-2 sm:order-1" : "order-2"
+      className={`flex flex-col items-center justify-center text-center h-full px-2 sm:px-4 ${
+        !isEvenIndex ? "order-2 lg:order-1" : "order-2"
       }`}
     >
-      <h3 className="text-xl font-semibold text-navy mb-2">{project.name}</h3>
-      <p className="text-gray-600 mb-2">{project.description}</p>
-      <InfoBar
-        status={project.status}
-        client={project.client}
-        value={project.value}
-      />
-      <Timeline start={project.startDate} end={project.endDate} />
-      <Partners partners={project.partners} />
+      <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-navy mb-2 sm:mb-3 leading-tight">
+        {project.name}
+      </h3>
+      <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 leading-relaxed px-2">
+        {project.description}
+      </p>
+      <div className="w-full max-w-md">
+        <InfoBar
+          status={project.status}
+          client={project.client}
+          value={project.value}
+        />
+        <Timeline start={project.startDate} end={project.endDate} />
+        <Partners partners={project.partners} />
+      </div>
 
       <ProjectActions
         projectId={project.id}
@@ -279,14 +286,14 @@ const ProjectCard = ({ project, index }) => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`grid grid-cols-1 sm:grid-cols-2 items-center gap-6 rounded-xl shadow p-6 min-h-[220px] sm:min-h-[400px] lg:min-h-[500px] ${
-        isEvenIndex ? "bg-gray-50" : ""
+      className={`grid grid-cols-1 lg:grid-cols-2 items-stretch gap-4 sm:gap-6 lg:gap-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 lg:p-8 min-h-[400px] sm:min-h-[450px] lg:min-h-[500px] ${
+        isEvenIndex ? "bg-gray-50" : "bg-white"
       }`}
     >
       {/* Image Section */}
       <div
-        className={`flex items-center justify-center h-full ${
-          !isEvenIndex ? "order-1 sm:order-2" : "order-1"
+        className={`flex items-center justify-center h-full min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] ${
+          !isEvenIndex ? "order-1 lg:order-2" : "order-1"
         }`}
       >
         {project.images?.length > 0 && (
@@ -314,12 +321,12 @@ const PortfolioSection = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-8 sm:py-12 lg:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <div className="mb-12 sm:mb-16 text-center">
+        <div className="mb-8 sm:mb-12 lg:mb-16 text-center">
           <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-tight pb-2"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -328,15 +335,15 @@ const PortfolioSection = () => {
           </motion.h2>
 
           <motion.div
-            className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
+            className="mt-3 sm:mt-4 mx-auto h-0.5 sm:h-1 w-16 sm:w-24 lg:w-32 bg-accent rounded-full shadow-accent shadow-md mb-2 sm:mb-3"
             initial={{ width: 0 }}
-            whileInView={{ width: 128 }}
+            whileInView={{ width: "auto" }}
             transition={{ duration: 1, delay: 0.5 }}
           />
         </div>
 
         {/* Featured Projects */}
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6 sm:gap-8 lg:gap-12">
           {featuredProjects.map((project, index) => {
             const heading = sectionHeadings.find((h) => h.idx === index);
 
@@ -345,7 +352,7 @@ const PortfolioSection = () => {
                 {heading && (
                   <SectionHeading
                     heading={heading}
-                    className={index === 0 ? "mt-0" : "mt-4"}
+                    className={index === 0 ? "mt-0" : "mt-2 sm:mt-4"}
                   />
                 )}
                 <ProjectCard project={project} index={index} />
