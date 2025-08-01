@@ -2,16 +2,70 @@
 
 import React, { useState, useMemo, useEffect, Suspense } from "react";
 import { projects, ProjectType } from "../../../data/projects";
-import { InfoBar, Timeline, Partners } from "../sections/Portoflio";
+import { formatDate } from "../sections/Portoflio";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowRight, Building2, MapPin } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  MapPin,
+  CalendarClock,
+  User,
+  Users,
+  BadgeDollarSign,
+  BriefcaseBusiness,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Head from "next/head";
+
+const InfoBadge = ({ icon: Icon, text, className = "" }) => (
+  <span
+    className={`flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200 ${className}`}
+  >
+    <Icon className="w-4 h-4 text-accent" />
+    {text}
+  </span>
+);
+
+const Timeline = ({ start, end }) => (
+  <div className="flex items-center gap-3 mb-4 text-sm text-slate-600">
+    <div className="flex items-center gap-2">
+      <CalendarClock className="w-4 h-4 text-teal-600" />
+      <span className="font-medium">{formatDate(start)}</span>
+    </div>
+    <ArrowRight className="w-4 h-4 text-slate-400" />
+    <div className="flex items-center gap-2">
+      <CalendarClock className="w-4 h-4 text-teal-600" />
+      <span className="font-medium">{formatDate(end)}</span>
+    </div>
+  </div>
+);
+
+const InfoBar = ({ status, client, value }) => (
+  <div className="flex flex-wrap gap-4 mb-6 items-center justify-start">
+    <InfoBadge icon={BriefcaseBusiness} text={status} />
+    <InfoBadge icon={BadgeDollarSign} text={value} />
+    <InfoBadge icon={User} text={client} />
+  </div>
+);
+
+const Partners = ({ partners }) => {
+  if (!partners || partners.length === 0) return null;
+
+  return (
+    <div className="flex items-start gap-3 mb-4 text-sm text-slate-600">
+      <Users className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
+      <div>
+        <span className="font-medium text-slate-800">Partners: </span>
+        <span>{partners.join(", ")}</span>
+      </div>
+    </div>
+  );
+};
 
 function ProjectCard({ project, index }) {
   return (
     <motion.div
-      className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden hover:border-slate-300 mb-8"
+      className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden hover:border-slate-300 mb-12"
       initial={{ opacity: 0, y: 60 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: index * 0.15 }}
@@ -27,7 +81,7 @@ function ProjectCard({ project, index }) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
-            <div className="absolute top-6 right-6">
+            <div className="absolute top-4 right-4">
               <span className="inline-block bg-sky-500 text-white text-sm px-4 py-2 rounded-full font-medium shadow-lg backdrop-blur-sm">
                 {project.type}
               </span>
@@ -35,9 +89,9 @@ function ProjectCard({ project, index }) {
           </div>
         )}
 
-        <div className="lg:w-3/5 p-8 lg:p-10">
-          <div className="flex items-start gap-3 mb-4">
-            <MapPin className="w-5 h-5 text-teal-600 mt-1 flex-shrink-0" />
+        <div className="lg:w-3/5 p-6 lg:p-8 flex flex-col">
+          <div className="flex items-center gap-3 mb-4">
+            <MapPin className="w-5 h-5 text-teal-600 flex-shrink-0" />
             <span className="text-slate-600 font-medium">
               {project.location}
             </span>
@@ -47,7 +101,7 @@ function ProjectCard({ project, index }) {
             {project.name}
           </h3>
 
-          <p className="text-slate-600 mb-6 text-base leading-relaxed">
+          <p className="text-slate-600 mb-6 text-base leading-relaxed flex-grow">
             {project.description}
           </p>
 
@@ -120,8 +174,8 @@ function ProjectsPageInner() {
   };
 
   return (
-    <section className="py-20 bg-white min-h-screen">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section className="py-24 bg-white min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
           <motion.h1
             className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
@@ -149,7 +203,7 @@ function ProjectsPageInner() {
         </div>
 
         <motion.div
-          className="mb-12 flex flex-wrap justify-center gap-3"
+          className="mb-12 flex flex-wrap justify-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -179,7 +233,7 @@ function ProjectsPageInner() {
         </motion.div>
 
         <AnimatePresence>
-          <div className="space-y-8">
+          <div className="space-y-12">
             {isLoading ? (
               <div className="flex items-center justify-center py-16">
                 <div className="animate-spin rounded-full h-16 w-16 border-4 border-sky-500 border-t-transparent"></div>
