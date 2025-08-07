@@ -101,7 +101,7 @@ const ClientsSection = () => {
                   src={company.logo}
                   alt={`${company.name} logo`}
                   className={`object-contain transition-transform duration-300 group-hover:scale-105 ${
-                    company.id === "p5" ? "h-50 w-50" : "h-14 w-14"
+                    company.id === "p5" ? "h-14 w-14" : "h-14 w-14"
                   }`}
                 />
               </div>

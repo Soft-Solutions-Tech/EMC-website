@@ -35,7 +35,7 @@ export const partners = [
     id: "p5",
     name: "Citmas Pipe",
     logo: "/partners/cimtas-pipe.jpg",
-    brief: "Global leader delivering integrated piping fabrication for energy, petrochemical, and offshore sectors.",
+    brief: "Global Leader piping leader for energy and offshore.",
     website: "https://www.cimtaspipe.com/",
     subCompanies: [],
   },
