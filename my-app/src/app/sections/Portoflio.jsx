@@ -303,46 +303,48 @@ const PortfolioSection = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Title */}
-        <div className="mb-16 text-center">
-          <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {portfolioTitle}
-          </motion.h2>
-          <motion.div
-            className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
-            initial={{ width: 0 }}
-            whileInView={{ width: 128 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          />
-        </div>
+    <>
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Title */}
+          <div className="mb-16 text-center">
+            <motion.h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              {portfolioTitle}
+            </motion.h2>
+            <motion.div
+              className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
+              initial={{ width: 0 }}
+              whileInView={{ width: 128 }}
+              transition={{ duration: 1, delay: 0.5 }}
+            />
+          </div>
 
-        {/* Featured Projects */}
-        <div className="flex flex-col gap-12">
-          {featuredProjects.map((project, index) => {
-            const heading = sectionHeadings.find((h) => h.idx === index);
+          {/* Featured Projects */}
+          <div className="flex flex-col ">
+            {featuredProjects.map((project, index) => {
+              const heading = sectionHeadings.find((h) => h.idx === index);
 
-            return (
-              <React.Fragment key={project.id}>
-                {heading && (
-                  <SectionHeading
-                    heading={heading}
-                    className={index === 0 ? "mt-0" : "mt-8"}
-                  />
-                )}
-                <ProjectCard project={project} index={index} />
-              </React.Fragment>
-            );
-          })}
+              return (
+                <React.Fragment key={project.id}>
+                  {heading && (
+                    <SectionHeading
+                      heading={heading}
+                      className={index === 0 ? "mt-0" : "mt-8"}
+                    />
+                  )}
+                  <ProjectCard project={project} index={index} />
+                </React.Fragment>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
