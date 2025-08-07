@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -56,18 +58,29 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
-    @apply border-border;
+    @apply border-border font-roboto;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-roboto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-montserrat;
   }
 }
+
 html {
   scroll-behavior: smooth;
+}
+
+@layer utilities {
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  .font-roboto {
+    font-family: 'Roboto', sans-serif;
+  }
 }
 
 .wrapper {
@@ -101,7 +114,6 @@ html {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
@@ -111,7 +123,6 @@ html {
   0% {
     transform: translateX(-50%);
   }
-
   100% {
     transform: translateX(0);
   }
@@ -122,7 +133,7 @@ html {
   height: 215px;
   background: #FFFFFF;
   flex-shrink: 0;
-  margin-right: 20px;
+  margin-right: 5px;
   box-sizing: border-box;
   padding: 20px;
   /* border: 2px solid #939598; */
@@ -156,8 +167,6 @@ html {
   }
 }
 
-
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -170,4 +179,3 @@ html {
 .animate-fadeIn {
   animation: fadeIn 0.7s ease-in-out forwards;
 }
-

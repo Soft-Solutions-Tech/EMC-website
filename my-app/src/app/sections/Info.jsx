@@ -130,7 +130,7 @@ export default function InfoSection() {
 
           {/* Stats Section */}
           <div
-            className={`grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-3xl mx-auto transition-all duration-700 delay-200 ${
+            className={`grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 max-w-3xl mx-auto transition-all duration-700 delay-200 ${
               isPhilosophyVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-6"
