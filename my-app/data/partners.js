@@ -1,6 +1,54 @@
 export const partners = [
   {
+    id: "p1",
+    name: "AquaTech",
+    logo: "/partners/aquatech.jpg",
+    brief: "Advanced water solutions for a sustainable future.",
+    website: "https://www.aquatech.com/",
+    subCompanies: [],
+  },
+  {
+    id: "p2",
+    name: "Man Diesel & Turbo",
+    logo: "/partners/man-logo.jpg",
+    brief: "Powerful engine solutions for land and sea.",
+    website: "https://www.man.eu/engines/en/homepage.html",
+    subCompanies: [],
+  },
+  {
     id: "p3",
+    name: "KSP Pumps",
+    logo: "/partners/ksbpumps.jpg",
+    brief: "Global leader crafting efficient pumps, valves, and sustainable fluid solutions.",
+    website: "https://www.ksb.com/en-global",
+    subCompanies: [],
+  },
+  {
+    id: "p4",
+    name: "AI Groups",
+    logo: "/partners/ai-group-opengraph.jpg",
+    brief: "Uniting Australian industry with advocacy, advice, training, and research.",
+    website: "https://www.aigroup.com.au/",
+    subCompanies: [],
+  },
+  {
+    id: "p5",
+    name: "Citmas Pipe",
+    logo: "/partners/cimtas-pipe.jpg",
+    brief: "Global leader delivering integrated piping fabrication for energy, petrochemical, and offshore sectors.",
+    website: "https://www.cimtaspipe.com/",
+    subCompanies: [],
+  },
+   {
+    id: "p6",
+    name: "NHVS India",
+    logo: "/partners/NHVS.jpg",
+    brief: "Delivering advanced high‑to‑ultra‑voltage GIS solutions for global energy infrastructure.",
+    website: "https://nhvsindia.com/",
+    subCompanies: [],
+  },
+  {
+    id: "p7",
     name: "Cimtas",
     logo: "/partners/cimtas.jpg",
     brief: "A global leader in piping and pressure vessel manufacturing.",
@@ -8,7 +56,7 @@ export const partners = [
     subCompanies: [],
   },
   {
-    id: "p4",
+    id: "p8",
     name: "Doosan",
     logo: "/partners/doosan.jpg",
     brief: "A multinational conglomerate specializing in energy and infrastructure.",
@@ -16,7 +64,7 @@ export const partners = [
     subCompanies: [],
   },
   {
-    id: "p5",
+    id: "p9",
     name: "Hamon",
     logo: "/partners/hamon.jpg",
     brief: "An expert in cooling systems and environmental technologies.",
@@ -24,12 +72,13 @@ export const partners = [
     subCompanies: [],
   },
   {
-    id: "p6",
+    id: "p10",
     name: "Prysmian",
     logo: "/partners/prysmian.jpg",
     brief: "A leading company in the energy and telecom cable systems industry.",
     website: "https://www.prysmiangroup.com",
     subCompanies: [],
   },
+
 ];
 
