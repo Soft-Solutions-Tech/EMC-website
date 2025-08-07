@@ -1,10 +1,7 @@
-// /data/hero.js or /data/hero.ts
-
 export const hero = {
   badge: "Trusted Since 1988",
-  heading: "Building the Future with",
   subheading:
-    "Since 1988, EMC Construction has been a leader in Egypt's power and oil & gas sectors, delivering innovative, high-quality projects with unmatched precision.",
-  ctaPrimary: "Contact Us",
-  ctaSecondary: "Discover Our Story",
+    "Powering Egypt's future since 1988 with cutting-edge electrical infrastructure, renewable energy solutions, and industrial powersystems that drive economic growth and sustainable development.",
+  ctaPrimary: "Our Services",
+  ctaSecondary: "Contact Us",
 };
