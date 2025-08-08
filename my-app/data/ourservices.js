@@ -42,3 +42,8 @@ export const services = [
     ],
   },
 ];
+export const servicesSection = {
+  title: "Our Services",
+  subtitle:
+    "Discover the three core service areas that define our expertise and deliver exceptional value to our clients across diverse industries.",
+};

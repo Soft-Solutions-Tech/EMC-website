@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { services } from "../../../data/ourservices";
+import { services, servicesSection } from "../../../data/ourservices";
 import { HardHat, Lightbulb, Wrench } from "lucide-react";
 
 // Map icon names to actual components
@@ -13,7 +13,7 @@ const iconMap = {
 
 const OurServicesSection = () => {
   return (
-<section id="services" className="py-16 scroll-mt-24">
+    <section id="services" className="py-16 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -22,7 +22,7 @@ const OurServicesSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
-            Our Services
+            {servicesSection.title}
           </h2>
           <motion.div
             className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
@@ -31,14 +31,12 @@ const OurServicesSection = () => {
             transition={{ duration: 1, delay: 0.5 }}
           />
           <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Discover the three core service areas that define our expertise and
-            deliver exceptional value to our clients across diverse industries.
+            {servicesSection.subtitle}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => {
-            // Get the icon component from iconMap using the service.icon string
             const IconComponent = iconMap[service.icon];
             return (
               <motion.div
@@ -71,7 +69,7 @@ const OurServicesSection = () => {
                 </p>
 
                 <ul className="space-y-3">
-                  {service.features.map((feature, idx) => (
+                  {service.features?.map((feature, idx) => (
                     <li
                       key={idx}
                       className="flex items-center text-sm text-slate-600"

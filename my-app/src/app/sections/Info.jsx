@@ -70,7 +70,7 @@ export default function InfoSection() {
             viewport={{ once: false }}
             transition={{ duration: 0.7 }}
           >
-            Who Are We
+            {emcInfo.headerTitle}
           </motion.h2>
           <motion.div
             className="mt-2 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md"
@@ -94,7 +94,7 @@ export default function InfoSection() {
             >
               <div className="w-10 h-0.5 bg-primary"></div>
               <span className="text-xs sm:text-sm font-light tracking-widest uppercase text-primary">
-                POWEREDGE
+                {emcInfo.poweredgeLabel}
               </span>
               <div className="w-10 h-0.5 bg-primary"></div>
             </div>
@@ -106,9 +106,9 @@ export default function InfoSection() {
               viewport={{ once: false }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Engineering Beyond
+              {emcInfo.engineeringTitle}
               <span className="block text-accent relative">
-                Limits
+                {emcInfo.limitsTitle}
                 <div
                   className={`absolute top-8 sm:top-10 left-1/2 transform -translate-x-1/2 h-1 bg-secondary-bg-40 transition-all duration-800 ${
                     isPhilosophyVisible ? "w-20" : "w-0"
@@ -176,16 +176,7 @@ export default function InfoSection() {
               );
             })}
           </div>
-
-          {/* Decorative Vertical Line */}
         </div>
-
-        {/* Decorative Circle Element */}
-        <div
-          className={`absolute bottom-4 right-4 w-12 h-12 bg-accent opacity-10 rounded-full transition-all duration-800 delay-1000 ${
-            isPhilosophyVisible ? "scale-100 opacity-10" : "scale-0 opacity-0"
-          }`}
-        />
       </div>
     </section>
   );
