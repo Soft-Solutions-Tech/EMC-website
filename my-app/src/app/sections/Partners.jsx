@@ -56,11 +56,10 @@ const PartnersSection = () => {
     className = "",
   }) => {
     return (
-      <motion.div
+      <div
         className={`group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-border overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit ${className}`}
         variants={cardVariants}
         initial="hidden"
-        whileInView="visible"
         custom={index}
         viewport={{ once: false, amount: 0.3 }}
       >
@@ -203,7 +202,7 @@ const PartnersSection = () => {
             )}
           </AnimatePresence>
         )}
-      </motion.div>
+      </div>
     );
   };
 
@@ -212,7 +211,7 @@ const PartnersSection = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.02)_1px,transparent_0)] [background-size:24px_24px]"></div>
       <div className="absolute top-0 left-0 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-   
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {sortedPartners.length > 0 && (
           <>
