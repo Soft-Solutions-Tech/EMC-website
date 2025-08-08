@@ -19,7 +19,8 @@ export const partners = [
     id: "p3",
     name: "KSP Pumps",
     logo: "/partners/ksbpumps.jpg",
-    brief: "Global leader crafting efficient pumps, valves, and sustainable fluid solutions.",
+    brief:
+      "Global leader crafting efficient pumps, valves, and sustainable fluid solutions.",
     website: "https://www.ksb.com/en-global",
     subCompanies: [],
   },
@@ -27,7 +28,8 @@ export const partners = [
     id: "p4",
     name: "AI Groups",
     logo: "/partners/ai-group-opengraph.jpg",
-    brief: "Uniting Australian industry with advocacy, advice, training, and research.",
+    brief:
+      "Uniting Australian industry with advocacy, advice, training, and research.",
     website: "https://www.aigroup.com.au/",
     subCompanies: [],
   },
@@ -39,11 +41,12 @@ export const partners = [
     website: "https://www.cimtaspipe.com/",
     subCompanies: [],
   },
-   {
+  {
     id: "p6",
     name: "NHVS India",
     logo: "/partners/NHVS.jpg",
-    brief: "Delivering advanced high‑to‑ultra‑voltage GIS solutions for global energy infrastructure.",
+    brief:
+      "Delivering advanced high‑to‑ultra‑voltage GIS solutions for global energy infrastructure.",
     website: "https://nhvsindia.com/",
     subCompanies: [],
   },
@@ -59,7 +62,8 @@ export const partners = [
     id: "p8",
     name: "Doosan",
     logo: "/partners/doosan.jpg",
-    brief: "A multinational conglomerate specializing in energy and infrastructure.",
+    brief:
+      "A multinational conglomerate specializing in energy and infrastructure.",
     website: "https://www.doosan.com",
     subCompanies: [],
   },
@@ -75,10 +79,16 @@ export const partners = [
     id: "p10",
     name: "Prysmian",
     logo: "/partners/prysmian.jpg",
-    brief: "A leading company in the energy and telecom cable systems industry.",
+    brief:
+      "A leading company in the energy and telecom cable systems industry.",
     website: "https://www.prysmiangroup.com",
     subCompanies: [],
   },
-
 ];
 
+export const partnersSection = {
+  title: "Our Partners",
+  subtitle:
+    "Collaborative partners driving innovation and growth through shared expertise",
+  label: "Strategic Partners",
+};
