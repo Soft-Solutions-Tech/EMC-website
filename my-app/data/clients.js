@@ -3,7 +3,8 @@ export const clients = [
     id: "c4",
     name: "Abu Qir",
     logo: "/clients/abuQir.jpg",
-    brief: "A key player in the fertilizer industry with a focus on sustainable production.",
+    brief:
+      "A key player in the fertilizer industry with a focus on sustainable production.",
     website: "https://www.abuqir.com",
     subCompanies: [],
   },
@@ -18,21 +19,24 @@ export const clients = [
         id: "c5-1",
         name: "Upper Egypt Electricity",
         logo: "/clients/electricity.jpg",
-        brief: "Electricity distribution and infrastructure development in Upper Egypt.",
+        brief:
+          "Electricity distribution and infrastructure development in Upper Egypt.",
         website: "https://www.ueepco.com.eg",
       },
       {
         id: "c5-2",
         name: "Canal Electricity",
         logo: "/clients/electricity.jpg",
-        brief: "Power services and maintenance in the Suez Canal and surrounding areas.",
+        brief:
+          "Power services and maintenance in the Suez Canal and surrounding areas.",
         website: "https://www.canalelectricity.com.eg",
       },
       {
         id: "c5-3",
         name: "South Delta Electricity",
         logo: "/clients/electricity.jpg",
-        brief: "Electric utility and grid support across the South Delta region.",
+        brief:
+          "Electric utility and grid support across the South Delta region.",
         website: "https://www.southdeltaelectric.com.eg",
       },
       {
@@ -61,3 +65,10 @@ export const clients = [
     subCompanies: [],
   },
 ];
+
+export const clientsSection = {
+  title: "Our Clients",
+  subtitle:
+    "Trusted clients we empower with tailored solutions and exceptional service",
+  label: "Valued Clients",
+};
