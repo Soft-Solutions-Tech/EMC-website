@@ -1,7 +1,8 @@
 import { HeroBanner } from "./sections/HeroBanner";
 import InfoSection from "./sections/Info";
 import PortoflioSection from "./sections/Portoflio";
-import ClientsSection from "./sections/Clients";
+import PartnersSection from "./sections/Partners";
+import ClientsSection from "./sections/ClientsSection";
 import OurServicesSection from "./sections/OurServicesSection";
 
 export default function Home() {
@@ -11,7 +12,8 @@ export default function Home() {
       <InfoSection />
       <OurServicesSection />
       <PortoflioSection />
-      <ClientsSection />
+      <PartnersSection />
+      <ClientsSection/>
     </div>
   );
 }

@@ -1,28 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import { clients } from "../../../data/clients";
-import { partners } from "../../../data/partners";
 import { motion, AnimatePresence } from "framer-motion";
 
 const ClientsSection = () => {
-  const [expandedPartners, setExpandedPartners] = useState(
-    partners
-      .filter((p) => p.subCompanies && p.subCompanies.length > 0)
-      .reduce((acc, partner) => ({ ...acc, [partner.id]: true }), {})
-  );
-
   const [expandedClients, setExpandedClients] = useState(
     clients
       .filter((c) => c.subCompanies && c.subCompanies.length > 0)
       .reduce((acc, client) => ({ ...acc, [client.id]: true }), {})
   );
-
-  const togglePartnerExpansion = (partnerId) => {
-    setExpandedPartners((prev) => ({
-      ...prev,
-      [partnerId]: !prev[partnerId],
-    }));
-  };
 
   const toggleClientExpansion = (clientId) => {
     setExpandedClients((prev) => ({
@@ -31,13 +17,7 @@ const ClientsSection = () => {
     }));
   };
 
-  // Sort companies: those with subCompanies first
-  const sortedPartners = [...partners].sort((a, b) => {
-    const aHasSub = a.subCompanies && a.subCompanies.length > 0 ? -1 : 1;
-    const bHasSub = b.subCompanies && b.subCompanies.length > 0 ? -1 : 1;
-    return aHasSub - bHasSub;
-  });
-
+  // Sort clients: those with subCompanies first
   const sortedClients = [...clients].sort((a, b) => {
     const aHasSub = a.subCompanies && a.subCompanies.length > 0 ? -1 : 1;
     const bHasSub = b.subCompanies && b.subCompanies.length > 0 ? -1 : 1;
@@ -74,8 +54,6 @@ const ClientsSection = () => {
     isPartner = false,
     className = "",
   }) => {
-    const sectionType = isPartner ? "partner" : "client";
-
     return (
       <motion.div
         className={`group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-border overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit ${className}`}
@@ -235,86 +213,6 @@ const ClientsSection = () => {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-1000"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {sortedPartners.length > 0 && (
-          <>
-            <motion.div
-              className="text-center mb-16"
-              variants={sectionVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
-            >
-              <div className="inline-block px-4 py-2 bg-teal-50 text-teal rounded-full text-sm font-semibold tracking-wider uppercase mb-4">
-                Strategic Partners
-              </div>
-              <motion.h2
-                className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
-                variants={sectionVariants}
-              >
-                Our Partners
-              </motion.h2>
-              <motion.div
-                className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
-                initial={{ width: 0 }}
-                whileInView={{ width: 128 }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
-              <motion.p
-                className="text-lg text-slate-600 text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold"
-                variants={sectionVariants}
-              >
-                Collaborative partners driving innovation and growth through
-                shared expertise
-              </motion.p>
-            </motion.div>
-
-            <div className="mb-20">
-              <div className="wrapper">
-                <div className="scrollerTrack scrollRight">
-                  {[...sortedPartners, ...sortedPartners].map(
-                    (partner, index) => (
-                      <CompanyCard
-                        key={`right-${partner.id}-${index}`}
-                        company={partner}
-                        index={index}
-                        hasSubCompanies={
-                          partner.subCompanies &&
-                          partner.subCompanies.length > 0
-                        }
-                        expanded={expandedPartners[partner.id]}
-                        onToggle={togglePartnerExpansion}
-                        isPartner={true}
-                        className="item"
-                      />
-                    )
-                  )}
-                </div>
-              </div>
-              <div className="wrapper mt-6">
-                <div className="scrollerTrack scrollLeft">
-                  {[...sortedPartners, ...sortedPartners].map(
-                    (partner, index) => (
-                      <CompanyCard
-                        key={`left-${partner.id}-${index}`}
-                        company={partner}
-                        index={index}
-                        hasSubCompanies={
-                          partner.subCompanies &&
-                          partner.subCompanies.length > 0
-                        }
-                        expanded={expandedPartners[partner.id]}
-                        onToggle={togglePartnerExpansion}
-                        isPartner={true}
-                        className="item"
-                      />
-                    )
-                  )}
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-
         {sortedClients.length > 0 && (
           <>
             <motion.div
