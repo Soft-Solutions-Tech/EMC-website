@@ -141,7 +141,7 @@ export function HeroBanner() {
                   className="relative overflow-hidden bg-gradient-to-r from-accent via-accent to-teal text-white border-0 rounded-xl sm:rounded-2xl px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-4 xl:px-14 xl:py-5 text-base sm:text-lg lg:text-lg xl:text-xl font-bold shadow-[0_15px_40px_rgba(0,174,239,0.4)] hover:shadow-[0_30px_70px_rgba(0,174,239,0.6)] transition-all duration-500 w-full sm:w-auto min-h-[56px] sm:min-h-[64px] lg:min-h-[56px] xl:min-h-[64px] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <Link
-                    href="/services"
+                    href="#services"
                     className="flex items-center justify-center gap-2 sm:gap-3 lg:gap-4 relative z-10"
                     aria-label="View our services"
                   >
