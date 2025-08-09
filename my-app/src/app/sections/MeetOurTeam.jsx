@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { founders } from "../../../data/about";
 
@@ -54,13 +53,13 @@ const animations = {
 // Components
 const PageHeader = () => (
   <motion.div
-    className="py-16 sm:py-20 text-center bg-gradient-to-b from-gray-50 to-white"
+    className="py-16 sm:py-20 text-center bg-gradient-to-b from-muted to-white"
     variants={animations.container}
     initial="hidden"
     animate="visible"
   >
     <motion.h1
-      className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#00AEEF] via-teal-500 to-[#00263A] leading-tight"
+      className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-tight"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -69,7 +68,7 @@ const PageHeader = () => (
       Meet Our Founders
     </motion.h1>
     <motion.div
-      className="mt-6 mx-auto h-1.5 w-32 bg-[#00AEEF] rounded-full shadow-md shadow-[#00AEEF]/50"
+      className="mt-6 mx-auto h-1.5 w-32 bg-primary rounded-full shadow-md shadow-primary/50"
       initial={{ width: 0 }}
       whileInView={{ width: 128 }}
       viewport={{ once: true }}
@@ -77,7 +76,7 @@ const PageHeader = () => (
     />
     <motion.p
       variants={animations.item}
-      className="mt-6 text-lg sm:text-xl md:text-2xl text-slate-700 max-w-4xl mx-auto px-6"
+      className="mt-6 text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto px-6"
     >
       Discover the visionaries driving our mission with expertise and
       innovation.
@@ -98,25 +97,25 @@ const FounderCard = ({ founder }) => (
       <motion.img
         src={founder.image}
         alt={founder.name}
-        className="w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover mb-6 border-4 border-[#00AEEF]/20 shadow-md"
+        className="w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover mb-6 border-4 border-primary/20 shadow-md"
         variants={animations.image}
       />
       <motion.h2
         id={`founder-${founder.name.replace(/\s+/g, "-").toLowerCase()}`}
         variants={animations.item}
-        className="text-2xl sm:text-3xl font-bold text-[#00263A] mb-3"
+        className="text-2xl sm:text-3xl font-bold text-primary mb-3"
       >
         {founder.name}
       </motion.h2>
       <motion.p
         variants={animations.item}
-        className="text-base sm:text-lg text-slate-600 mb-6 italic"
+        className="text-base sm:text-lg text-muted-foreground mb-6 italic"
       >
         {founder.education}
       </motion.p>
       <motion.ul
         variants={animations.container}
-        className="text-left text-sm sm:text-base text-slate-700 space-y-3 w-full"
+        className="text-left text-sm sm:text-base text-muted-foreground space-y-3 w-full"
       >
         {founder.career.map((item, index) => (
           <motion.li
@@ -124,7 +123,7 @@ const FounderCard = ({ founder }) => (
             variants={animations.item}
             className="flex items-start"
           >
-            <span className="mr-3 text-[#00AEEF] font-semibold">•</span>
+            <span className="mr-3 text-primary font-semibold">•</span>
             {item}
           </motion.li>
         ))}
@@ -135,13 +134,13 @@ const FounderCard = ({ founder }) => (
 
 const Footer = () => (
   <motion.div
-    className="py-8 text-center bg-gradient-to-t from-gray-50 to-white"
+    className="py-8 text-center bg-gradient-to-t from-muted to-white"
     variants={animations.item}
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true }}
   >
-    <p className="text-sm sm:text-base text-slate-600 max-w-3xl mx-auto px-4">
+    <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto px-4">
       Our founders' expertise shapes our vision for a sustainable and innovative
       future.
     </p>
@@ -151,7 +150,7 @@ const Footer = () => (
 // Main component
 export default function MeetOurTeam() {
   return (
-    <section className="bg-gray-50">
+    <section className="bg-muted">
       <PageHeader />
       <div className="py-16 px-4 sm:px-6 lg:px-8">
         <motion.div

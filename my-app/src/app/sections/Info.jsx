@@ -64,7 +64,7 @@ export default function InfoSection() {
         {/* Header Section */}
         <div className="text-center mb-4 sm:mb-6">
           <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.2]"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.2]"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
@@ -73,7 +73,7 @@ export default function InfoSection() {
             {emcInfo.headerTitle}
           </motion.h2>
           <motion.div
-            className="mt-2 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md"
+            className="mt-2 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: false }}
@@ -107,10 +107,10 @@ export default function InfoSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               {emcInfo.engineeringTitle}
-              <span className="block text-accent relative">
+              <span className="block text-primary relative">
                 {emcInfo.limitsTitle}
                 <div
-                  className={`absolute top-8 sm:top-10 left-1/2 transform -translate-x-1/2 h-1 bg-secondary-bg-40 transition-all duration-800 ${
+                  className={`absolute top-8 sm:top-10 left-1/2 transform -translate-x-1/2 h-1 bg-primary transition-all duration-800 ${
                     isPhilosophyVisible ? "w-20" : "w-0"
                   }`}
                 ></div>
@@ -118,7 +118,7 @@ export default function InfoSection() {
             </motion.h3>
 
             <motion.div
-              className="max-w-2xl mx-auto text-sm sm:text-base font-light text-gray-700 leading-relaxed"
+              className="max-w-2xl mx-auto text-sm sm:text-base font-light text-muted-foreground leading-relaxed"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
@@ -138,8 +138,8 @@ export default function InfoSection() {
           >
             {emcInfo.stats.map((stat, idx) => {
               const numberClass =
-                idx % 2 === 0 ? "text-accent" : "text-primary";
-              const barClass = idx % 2 === 0 ? "bg-accent" : "bg-primary";
+                idx % 2 === 0 ? "text-primary" : "text-secondary";
+              const barClass = idx % 2 === 0 ? "bg-primary" : "bg-secondary";
               return (
                 <motion.div
                   key={stat.label}
@@ -159,17 +159,17 @@ export default function InfoSection() {
                       delay={500 + idx * 100}
                     />
                   </div>
-                  <div className="text-xs sm:text-sm font-light tracking-wide uppercase text-gray-600">
+                  <div className="text-xs sm:text-sm font-light tracking-wide uppercase text-muted-foreground">
                     {stat.label}
                   </div>
-                  <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
                     <div
                       className={`h-full ${barClass} transition-all duration-1000 delay-1000 ${
                         isPhilosophyVisible ? "w-full" : "w-0"
                       }`}
                     ></div>
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-muted-foreground">
                     {stat.description}
                   </div>
                 </motion.div>

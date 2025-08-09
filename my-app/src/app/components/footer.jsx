@@ -28,7 +28,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-background via-accent/20 to-background py-12">
+    <footer className="bg-gradient-to-br from-background via-primary/20 to-background py-12">
       <div className="container mx-auto px-4">
         {/* Desktop Layout (lg and up) - 5 column grid */}
         <div className="hidden lg:block mb-8">
@@ -44,20 +44,20 @@ export const Footer = () => {
 
             {/* Column 2: Contact Information */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
+              <h4 className="text-lg font-semibold text-primary text-center">
                 {contact.title}
               </h4>
-              <div className="space-y-3 text-sm text-gray-700 text-center">
+              <div className="space-y-3 text-sm text-muted-foreground text-center">
                 <div className="flex items-center justify-center space-x-2">
-                  <Phone size={16} className="text-blue-400" />
+                  <Phone size={16} className="text-primary" />
                   <span>{contact.phone}</span>
                 </div>
                 <div className="flex items-start justify-center space-x-2">
-                  <MapPin size={16} className="text-blue-400 mt-0.5" />
+                  <MapPin size={16} className="text-primary mt-0.5" />
                   <span className="whitespace-pre-line">{contact.address}</span>
                 </div>
                 <div className="flex items-center justify-center space-x-2">
-                  <Mail size={16} className="text-blue-400" />
+                  <Mail size={16} className="text-primary" />
                   <span>{contact.email}</span>
                 </div>
               </div>
@@ -65,7 +65,7 @@ export const Footer = () => {
 
             {/* Column 3: Services */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
+              <h4 className="text-lg font-semibold text-primary text-center">
                 Services
               </h4>
               <div className="space-y-2 text-sm text-center">
@@ -73,7 +73,7 @@ export const Footer = () => {
                   <a
                     key={index}
                     href={link.href}
-                    className="text-navy hover:text-accent transition-colors duration-300 block"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
                   >
                     {link.name}
                   </a>
@@ -83,7 +83,7 @@ export const Footer = () => {
 
             {/* Column 4: Projects */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
+              <h4 className="text-lg font-semibold text-primary text-center">
                 {projects.title}
               </h4>
               <div className="space-y-2 text-sm text-center">
@@ -91,7 +91,7 @@ export const Footer = () => {
                   <a
                     key={index}
                     href={link.href}
-                    className="text-navy hover:text-accent transition-colors duration-300 block"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
                   >
                     {link.name}
                   </a>
@@ -101,7 +101,7 @@ export const Footer = () => {
 
             {/* Column 5: Quick Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
+              <h4 className="text-lg font-semibold text-primary text-center">
                 {quickLinks.title}
               </h4>
               <div className="space-y-2 text-sm text-center">
@@ -109,7 +109,7 @@ export const Footer = () => {
                   <a
                     key={index}
                     href={link.href}
-                    className="text-navy hover:text-accent transition-colors duration-300 block"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
                   >
                     {link.name}
                   </a>
@@ -134,22 +134,22 @@ export const Footer = () => {
           <div className="grid grid-cols-2 gap-6">
             {/* Contact Information */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
+              <h4 className="text-lg font-semibold text-primary text-center">
                 {contact.title}
               </h4>
-              <div className="space-y-3 text-sm text-gray-700 text-center">
+              <div className="space-y-3 text-sm text-muted-foreground text-center">
                 <div className="flex items-center justify-center space-x-2">
-                  <Phone size={16} className="text-blue-400" />
+                  <Phone size={16} className="text-primary" />
                   <span>{contact.phone}</span>
                 </div>
                 <div className="flex items-start justify-center space-x-2">
-                  <MapPin size={16} className="text-blue-400 mt-0.5" />
+                  <MapPin size={16} className="text-primary mt-0.5" />
                   <span className="whitespace-pre-line text-xs">
                     {contact.address}
                   </span>
                 </div>
                 <div className="flex items-center justify-center space-x-2">
-                  <Mail size={16} className="text-blue-400" />
+                  <Mail size={16} className="text-primary" />
                   <span className="text-xs">{contact.email}</span>
                 </div>
               </div>
@@ -157,7 +157,7 @@ export const Footer = () => {
 
             {/* Services */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
+              <h4 className="text-lg font-semibold text-primary text-center">
                 Services
               </h4>
               <div className="space-y-2 text-sm text-center">
@@ -165,7 +165,7 @@ export const Footer = () => {
                   <a
                     key={index}
                     href={link.href}
-                    className="text-navy hover:text-accent transition-colors duration-300 block"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
                   >
                     {link.name}
                   </a>
@@ -175,7 +175,7 @@ export const Footer = () => {
 
             {/* Projects */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
+              <h4 className="text-lg font-semibold text-primary text-center">
                 {projects.title}
               </h4>
               <div className="space-y-2 text-sm text-center">
@@ -183,7 +183,7 @@ export const Footer = () => {
                   <a
                     key={index}
                     href={link.href}
-                    className="text-navy hover:text-accent transition-colors duration-300 block"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
                   >
                     {link.name}
                   </a>
@@ -193,7 +193,7 @@ export const Footer = () => {
 
             {/* Quick Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
+              <h4 className="text-lg font-semibold text-primary text-center">
                 {quickLinks.title}
               </h4>
               <div className="space-y-2 text-sm text-center">
@@ -201,7 +201,7 @@ export const Footer = () => {
                   <a
                     key={index}
                     href={link.href}
-                    className="text-navy hover:text-accent transition-colors duration-300 block"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
                   >
                     {link.name}
                   </a>
@@ -212,7 +212,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-700 pt-2">
+        <div className="border-t border-muted pt-2">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Social Icons */}
             <div className="flex space-x-4">
@@ -226,10 +226,10 @@ export const Footer = () => {
                     rel="noopener noreferrer"
                     className="relative w-10 h-10 flex items-center justify-center group"
                   >
-                    <div className="absolute inset-0 bg-navy rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 ease-out"></div>
+                    <div className="absolute inset-0 bg-primary rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 ease-out"></div>
                     <Icon
                       size={24}
-                      className="relative z-10 text-navy group-hover:text-white transition-colors duration-300"
+                      className="relative z-10 text-primary group-hover:text-primary-foreground transition-colors duration-300"
                     />
                   </a>
                 );
@@ -237,19 +237,19 @@ export const Footer = () => {
             </div>
 
             {/* Production Information */}
-            <div className="text-sm text-gray-700 text-center">
+            <div className="text-sm text-muted-foreground text-center">
               <a
                 href={production.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-navy hover:text-accent transition-colors duration-300"
+                className="text-primary hover:text-primary-light transition-colors duration-300"
               >
                 {production.name}
               </a>
             </div>
 
             {/* Copyright */}
-            <div className="text-sm text-gray-700">{copyright}</div>
+            <div className="text-sm text-muted-foreground">{copyright}</div>
           </div>
         </div>
       </div>

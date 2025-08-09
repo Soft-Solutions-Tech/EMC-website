@@ -31,15 +31,15 @@ export const formatDate = (dateStr) => {
 };
 
 const getBorderColor = (index) => {
-  return index === 1 ? "#00263A" : "#00AEEF";
+  return index === 1 ? "#004d6e" : "#006996"; // Uses primary-dark and primary
 };
 
 // Subcomponents
 const InfoBadge = ({ icon: Icon, text, className = "" }) => (
   <span
-    className={`flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200 ${className}`}
+    className={`flex items-center gap-2 bg-white text-muted-foreground rounded-full px-4 py-2 text-sm font-medium border border-muted ${className}`}
   >
-    <Icon className="w-4 h-4 text-accent" />
+    <Icon className="w-4 h-4 text-primary" />
     {text}
   </span>
 );
@@ -53,14 +53,14 @@ export const InfoBar = ({ status, client, value }) => (
 );
 
 export const Timeline = ({ start, end }) => (
-  <div className="flex items-center gap-3 mb-4 text-sm text-slate-600 justify-center">
+  <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground justify-center">
     <div className="flex items-center gap-2">
-      <CalendarClock className="w-4 h-4 text-teal-600" />
+      <CalendarClock className="w-4 h-4 text-primary" />
       <span className="font-medium">{formatDate(start)}</span>
     </div>
-    <ArrowRight className="w-4 h-4 text-slate-400" />
+    <ArrowRight className="w-4 h-4 text-secondary" />
     <div className="flex items-center gap-2">
-      <CalendarClock className="w-4 h-4 text-teal-600" />
+      <CalendarClock className="w-4 h-4 text-primary" />
       <span className="font-medium">{formatDate(end)}</span>
     </div>
   </div>
@@ -70,10 +70,10 @@ export const Partners = ({ partners }) => {
   if (!partners || partners.length === 0) return null;
 
   return (
-    <div className="flex items-start gap-3 mb-4 text-sm text-slate-600 justify-center">
-      <Users className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
+    <div className="flex items-start gap-3 mb-4 text-sm text-muted-foreground justify-center">
+      <Users className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
       <div>
-        <span className="font-medium text-slate-800">Partners: </span>
+        <span className="font-medium text-primary">Partners: </span>
         <span>{partners.join(", ")}</span>
       </div>
     </div>
@@ -119,7 +119,7 @@ const PaginationDot = ({ index, isActive, progress, borderColor, onClick }) => {
       </svg>
       <span
         className={`relative w-2 h-2 rounded-full bg-white ${
-          isActive ? "bg-accent" : ""
+          isActive ? "bg-primary" : ""
         }`}
       />
     </button>
@@ -207,11 +207,11 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
 // Section heading component
 const SectionHeading = ({ heading, className = "" }) => (
   <div className={`mb-12 text-center ${className}`}>
-    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2">
+    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2">
       {heading.label}
     </h3>
     {heading.desc && (
-      <p className="text-lg text-slate-600 max-w-2xl mx-auto mt-6 leading-relaxed font-semibold">
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6 leading-relaxed font-semibold">
         {heading.desc.map((desc, index) => (
           <span key={index}>
             {desc}
@@ -228,13 +228,13 @@ const ProjectActions = ({ projectId, consultingCta }) => (
   <div className="flex flex-col gap-3 w-full mt-6">
     <a
       href={`/projects/${projectId}`}
-      className="bg-accent text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-accent/90 transition text-sm w-full text-center"
+      className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold shadow hover:bg-primary-dark transition text-sm w-full text-center"
     >
       Explore this project
     </a>
     <a
       href="/projects?type=CONSULTING"
-      className="bg-primary text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-primary/90 transition text-sm w-full text-center"
+      className="bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-semibold shadow hover:bg-secondary-dark transition text-sm w-full text-center"
     >
       {consultingCta || "Explore our consulting projects"}
     </a>
@@ -245,8 +245,12 @@ const ProjectActions = ({ projectId, consultingCta }) => (
 const ProjectContent = ({ project, index }) => {
   return (
     <div className="flex flex-col items-center justify-center text-center h-full p-6">
-      <h3 className="text-xl font-semibold text-navy mb-3">{project.name}</h3>
-      <p className="text-gray-600 mb-4 max-w-md">{project.description}</p>
+      <h3 className="text-xl font-semibold text-primary mb-3">
+        {project.name}
+      </h3>
+      <p className="text-muted-foreground mb-4 max-w-md">
+        {project.description}
+      </p>
       <InfoBar
         status={project.status}
         client={project.client}
@@ -273,7 +277,7 @@ const ProjectCard = ({ project, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={`grid grid-cols-1 lg:grid-cols-2 items-center gap-8 rounded-xl shadow-lg p-8 min-h-[400px] w-full ${
-        isEvenIndex ? "bg-gray-50" : "bg-white"
+        isEvenIndex ? "bg-muted" : "bg-white"
       }`}
     >
       {/* Image Section */}
@@ -309,7 +313,7 @@ const PortfolioSection = () => {
           {/* Section Title */}
           <div className="mb-16 text-center">
             <motion.h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -317,7 +321,7 @@ const PortfolioSection = () => {
               {portfolioTitle}
             </motion.h2>
             <motion.div
-              className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md mb-3"
+              className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md mb-3"
               initial={{ width: 0 }}
               whileInView={{ width: 128 }}
               transition={{ duration: 1, delay: 0.5 }}

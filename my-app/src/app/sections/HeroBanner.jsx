@@ -41,7 +41,7 @@ export function HeroBanner() {
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-teal/5 z-15"
+        className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 z-15"
         aria-hidden="true"
       />
 
@@ -63,9 +63,9 @@ export function HeroBanner() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="flex justify-center mb-4 sm:mb-5 md:mb-6 lg:mb-7 xl:mb-8"
             >
-              <div className="inline-flex items-center gap-2 sm:gap-3 backdrop-blur-md border border-accent/30 sm:border-2 bg-black/20 rounded-full px-6 py-2.5 sm:px-8 sm:py-3 lg:px-10 lg:py-4 shadow-[0_8px_32px_rgba(0,174,239,0.2)] hover:shadow-[0_12px_40px_rgba(0,174,239,0.3)] transition-shadow duration-300">
+              <div className="inline-flex items-center gap-2 sm:gap-3 backdrop-blur-md border border-primary/30 sm:border-2 bg-black/20 rounded-full px-6 py-2.5 sm:px-8 sm:py-3 lg:px-10 lg:py-4 shadow-[0_8px_32px_rgba(0,105,150,0.2)] hover:shadow-[0_12px_40px_rgba(0,105,150,0.3)] transition-shadow duration-300">
                 <motion.div
-                  className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-accent rounded-full flex-shrink-0"
+                  className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-primary rounded-full flex-shrink-0"
                   animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
                   transition={{
                     duration: 2,
@@ -73,7 +73,7 @@ export function HeroBanner() {
                     ease: "easeInOut",
                   }}
                 />
-                <span className="text-white font-semibold text-sm sm:text-base lg:text-lg xl:text-xl tracking-wide whitespace-nowrap">
+                <span className="text-primary-foreground font-semibold text-sm sm:text-base lg:text-lg xl:text-xl tracking-wide whitespace-nowrap">
                   {hero.badge}
                 </span>
               </div>
@@ -84,7 +84,7 @@ export function HeroBanner() {
               <motion.img
                 src="/logos/EMC-LOGO.png"
                 alt="EMC Company Logo"
-                className="mx-auto h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 2xl:h-36 w-auto filter drop-shadow-[0_0_20px_rgba(0,174,239,0.5)]"
+                className="mx-auto h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 2xl:h-36 w-auto filter drop-shadow-[0_0_20px_rgba(0,105,150,0.5)]"
                 initial={{
                   scale: 0.8,
                   rotateX: -90,
@@ -117,7 +117,7 @@ export function HeroBanner() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="mb-10 sm:mb-12 md:mb-14 lg:mb-16 xl:mb-18"
             >
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/90 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto leading-relaxed font-medium px-4 sm:px-6 md:px-8 lg:px-0">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-primary-foreground/90 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto leading-relaxed font-medium px-4 sm:px-6 md:px-8 lg:px-0">
                 {hero.subheading}
               </p>
             </motion.div>
@@ -138,7 +138,7 @@ export function HeroBanner() {
                 <Button
                   asChild
                   size="lg"
-                  className="relative overflow-hidden bg-gradient-to-r from-accent via-accent to-teal text-white border-0 rounded-xl sm:rounded-2xl px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-4 xl:px-14 xl:py-5 text-base sm:text-lg lg:text-lg xl:text-xl font-bold shadow-[0_15px_40px_rgba(0,174,239,0.4)] hover:shadow-[0_30px_70px_rgba(0,174,239,0.6)] transition-all duration-500 w-full sm:w-auto min-h-[56px] sm:min-h-[64px] lg:min-h-[56px] xl:min-h-[64px] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="relative overflow-hidden bg-gradient-to-r from-primary via-primary to-primary-dark text-primary-foreground border-0 rounded-xl sm:rounded-2xl px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-4 xl:px-14 xl:py-5 text-base sm:text-lg lg:text-lg xl:text-xl font-bold shadow-[0_15px_40px_rgba(0,105,150,0.4)] hover:shadow-[0_30px_70px_rgba(0,105,150,0.6)] transition-all duration-500 w-full sm:w-auto min-h-[56px] sm:min-h-[64px] lg:min-h-[56px] xl:min-h-[64px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <Link
                     href="#services"
@@ -147,7 +147,7 @@ export function HeroBanner() {
                   >
                     <span>{hero.ctaPrimary}</span>
                     <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 lg:w-6 lg:h-6" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary-foreground/0 via-primary-foreground/20 to-primary-foreground/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                   </Link>
                 </Button>
               </motion.div>
@@ -162,7 +162,7 @@ export function HeroBanner() {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="relative overflow-hidden text-accent border border-accent/60 sm:border-2 hover:bg-accent/15 backdrop-blur-md bg-black/10 rounded-xl sm:rounded-2xl px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-4 xl:px-14 xl:py-5 text-base sm:text-lg lg:text-lg xl:text-xl font-bold shadow-[0_15px_40px_rgba(0,174,239,0.3)] hover:shadow-[0_30px_70px_rgba(0,174,239,0.5)] transition-all duration-500 w-full sm:w-auto min-h-[56px] sm:min-h-[64px] lg:min-h-[56px] xl:min-h-[64px] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="relative overflow-hidden text-primary border border-primary/60 sm:border-2 hover:bg-primary/15 backdrop-blur-md bg-black/10 rounded-xl sm:rounded-2xl px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-4 xl:px-14 xl:py-5 text-base sm:text-lg lg:text-lg xl:text-xl font-bold shadow-[0_15px_40px_rgba(0,105,150,0.3)] hover:shadow-[0_30px_70px_rgba(0,105,150,0.5)] transition-all duration-500 w-full sm:w-auto min-h-[56px] sm:min-h-[64px] lg:min-h-[56px] xl:min-h-[64px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <Link
                     href="/contact"
@@ -171,7 +171,7 @@ export function HeroBanner() {
                   >
                     <span>{hero.ctaSecondary}</span>
                     <Send className="w-5 h-5 sm:w-6 sm:h-6 lg:w-6 lg:h-6" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                   </Link>
                 </Button>
               </motion.div>
