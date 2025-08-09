@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { Globe, Package, HardHat, Users, ClipboardCheck } from "lucide-react";
 import { activities } from "../../../data/activities";
@@ -13,7 +12,7 @@ const animations = {
       transition: {
         duration: 0.5,
         ease: "easeOut",
-        staggerChildren: 0.1, // Added stagger for smoother card reveal
+        staggerChildren: 0.1,
       },
     },
   },
@@ -55,23 +54,23 @@ const animations = {
 // Icon mapping for five activities with descriptive labels
 const activityIcons = [
   {
-    icon: <Globe className="w-8 h-8 sm:w-10 sm:h-10 text-[#00AEEF]" />,
+    icon: <Globe className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />,
     label: "International Representation",
   },
   {
-    icon: <Package className="w-8 h-8 sm:w-10 sm:h-10 text-[#00AEEF]" />,
+    icon: <Package className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />,
     label: "Equipment Import",
   },
   {
-    icon: <HardHat className="w-8 h-8 sm:w-10 sm:h-10 text-[#00AEEF]" />,
+    icon: <HardHat className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />,
     label: "Electromechanical Projects",
   },
   {
-    icon: <Users className="w-8 h-8 sm:w-10 sm:h-10 text-[#00AEEF]" />,
+    icon: <Users className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />,
     label: "Outsourcing Services",
   },
   {
-    icon: <ClipboardCheck className="w-8 h-8 sm:w-10 sm:h-10 text-[#00AEEF]" />,
+    icon: <ClipboardCheck className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />,
     label: "Project Management",
   },
 ];
@@ -79,13 +78,13 @@ const activityIcons = [
 // Components
 const PageHeader = () => (
   <motion.div
-    className="py-16 sm:py-20 text-center bg-gradient-to-b from-gray-50 to-white"
+    className="py-16 sm:py-20 text-center bg-gradient-to-b from-muted to-white"
     variants={animations.container}
     initial="hidden"
     animate="visible"
   >
     <motion.h1
-      className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#00AEEF] via-teal-500 to-[#00263A] leading-tight"
+      className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-tight"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -94,7 +93,7 @@ const PageHeader = () => (
       Our Activities
     </motion.h1>
     <motion.div
-      className="mt-6 mx-auto h-1.5 w-32 bg-[#00AEEF] rounded-full shadow-md shadow-[#00AEEF]/50"
+      className="mt-6 mx-auto h-1.5 w-32 bg-primary rounded-full shadow-md shadow-primary/50"
       initial={{ width: 0 }}
       whileInView={{ width: 128 }}
       viewport={{ once: true }}
@@ -102,7 +101,7 @@ const PageHeader = () => (
     />
     <motion.p
       variants={animations.item}
-      className="mt-6 text-base sm:text-lg md:text-xl text-slate-700 max-w-4xl mx-auto px-4 sm:px-6"
+      className="mt-6 text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto px-4 sm:px-6"
     >
       Explore the diverse range of services and projects we deliver with
       excellence.
@@ -112,11 +111,11 @@ const PageHeader = () => (
 
 const ActivityCard = ({ activity, index }) => (
   <motion.div
-    className="relative w-full max-w-[360px] mx-auto p-6 sm:p-8 bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100 focus-within:ring-2 focus-within:ring-[#00AEEF] focus-within:ring-offset-2"
+    className="relative w-full max-w-[360px] mx-auto p-6 sm:p-8 bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 border border-muted focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
     variants={animations.card}
     role="article"
     aria-labelledby={`activity-${activity.id}`}
-    tabIndex={0} // Added for keyboard accessibility
+    tabIndex={0}
   >
     <motion.div
       variants={animations.item}
@@ -124,22 +123,21 @@ const ActivityCard = ({ activity, index }) => (
     >
       <motion.div
         variants={animations.icon}
-        className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#00AEEF]/10 flex items-center justify-center"
-        aria-label={activityIcons[index].label} // Use exact index since we have 5 activities
+        className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary/10 flex items-center justify-center"
+        aria-label={activityIcons[index].label}
       >
         {activityIcons[index].icon}
       </motion.div>
       <motion.h2
         id={`activity-${activity.id}`}
         variants={animations.item}
-        className="text-lg sm:text-xl font-semibold text-[#00263A]"
-        // Removed sr-only to make title visible for better UX
+        className="text-lg sm:text-xl font-semibold text-primary"
       >
         {activityIcons[index].label}
       </motion.h2>
       <motion.p
         variants={animations.item}
-        className="text-sm sm:text-base text-slate-600 leading-relaxed"
+        className="text-sm sm:text-base text-muted-foreground leading-relaxed"
       >
         {activity.description}
       </motion.p>
@@ -149,13 +147,13 @@ const ActivityCard = ({ activity, index }) => (
 
 const Footer = () => (
   <motion.div
-    className="py-8 text-center bg-gradient-to-t from-gray-50 to-white"
+    className="py-8 text-center bg-gradient-to-t from-muted to-white"
     variants={animations.item}
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true }}
   >
-    <p className="text-sm sm:text-base text-slate-600 max-w-3xl mx-auto px-4">
+    <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto px-4">
       Our activities reflect our commitment to innovation and quality in every
       project we undertake.
     </p>
@@ -165,7 +163,7 @@ const Footer = () => (
 // Main component
 export default function OurActivities() {
   return (
-    <section className="bg-gray-50">
+    <section className="bg-muted">
       <PageHeader />
       <div className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -175,18 +173,9 @@ export default function OurActivities() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {activities.slice(0, 5).map(
-            (
-              activity,
-              index // Ensure exactly 5 activities
-            ) => (
-              <ActivityCard
-                key={activity.id}
-                activity={activity}
-                index={index}
-              />
-            )
-          )}
+          {activities.slice(0, 5).map((activity, index) => (
+            <ActivityCard key={activity.id} activity={activity} index={index} />
+          ))}
         </motion.div>
       </div>
       <Footer />

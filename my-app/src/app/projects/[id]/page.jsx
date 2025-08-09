@@ -10,7 +10,7 @@ import {
   User,
   Users,
   BadgeDollarSign,
-  BriefcaseBusiness
+  BriefcaseBusiness,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import Head from "next/head";
@@ -18,22 +18,22 @@ import { useRouter, useParams } from "next/navigation";
 
 const InfoBadge = ({ icon: Icon, text, className = "" }) => (
   <span
-    className={`flex items-center gap-2 bg-slate-50 text-slate-700 rounded-full px-4 py-2 text-sm font-medium border border-slate-200 ${className}`}
+    className={`flex items-center gap-2 bg-muted text-muted-foreground rounded-full px-4 py-2 text-sm font-medium border border-muted ${className}`}
   >
-    <Icon className="w-4 h-4 text-accent" />
+    <Icon className="w-4 h-4 text-primary" />
     {text}
   </span>
 );
 
 const Timeline = ({ start, end }) => (
-  <div className="flex items-center gap-3 mb-4 text-sm text-slate-600">
+  <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground">
     <div className="flex items-center gap-2">
-      <CalendarClock className="w-4 h-4 text-teal-600" />
+      <CalendarClock className="w-4 h-4 text-primary" />
       <span className="font-medium">{formatDate(start)}</span>
     </div>
-    <ArrowRight className="w-4 h-4 text-slate-400" />
+    <ArrowRight className="w-4 h-4 text-muted-foreground" />
     <div className="flex items-center gap-2">
-      <CalendarClock className="w-4 h-4 text-teal-600" />
+      <CalendarClock className="w-4 h-4 text-primary" />
       <span className="font-medium">{formatDate(end)}</span>
     </div>
   </div>
@@ -51,10 +51,10 @@ const Partners = ({ partners }) => {
   if (!partners || partners.length === 0) return null;
 
   return (
-    <div className="flex items-start gap-3 mb-4 text-sm text-slate-600">
-      <Users className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
+    <div className="flex items-start gap-3 mb-4 text-sm text-muted-foreground">
+      <Users className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
       <div>
-        <span className="font-medium text-slate-800">Partners: </span>
+        <span className="font-medium text-foreground">Partners: </span>
         <span>{partners.join(", ")}</span>
       </div>
     </div>
@@ -82,17 +82,17 @@ export default function ProjectDetailPage() {
       <section className="py-24 bg-white min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center py-16">
-            <Building2 className="w-16 h-16 text-slate-400 mx-auto mb-6" />
-            <h3 className="text-xl font-semibold text-slate-800 mb-4">
+            <Building2 className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
+            <h3 className="text-xl font-semibold text-foreground mb-4">
               Project Not Found
             </h3>
-            <p className="text-slate-600 text-lg mb-8">
+            <p className="text-muted-foreground text-lg mb-8">
               The project you're looking for does not exist. Redirecting to
               projects page...
             </p>
             <button
               onClick={() => router.push("/projects?type=ALL")}
-              className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3 mx-auto"
+              className="bg-primary hover:bg-primary-dark text-primary-foreground px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3 mx-auto"
             >
               <ArrowRight className="w-5 h-5 rotate-180" />
               Back to Projects
@@ -121,7 +121,7 @@ export default function ProjectDetailPage() {
           {/* Project Header */}
           <div className="mb-16 text-center">
             <motion.h1
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -129,13 +129,13 @@ export default function ProjectDetailPage() {
               {project.name}
             </motion.h1>
             <motion.div
-              className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md"
+              className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md"
               initial={{ width: 0 }}
               animate={{ width: 128 }}
               transition={{ duration: 1, delay: 0.5 }}
             />
             <motion.p
-              className="mt-6 text-slate-600 text-xl max-w-3xl mx-auto leading-relaxed"
+              className="mt-6 text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -154,7 +154,7 @@ export default function ProjectDetailPage() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="relative h-64 sm:h-72 bg-slate-100 rounded-xl overflow-hidden shadow-sm"
+                    className="relative h-64 sm:h-72 bg-muted rounded-xl overflow-hidden shadow-sm"
                   >
                     <img
                       src={image}
@@ -168,10 +168,10 @@ export default function ProjectDetailPage() {
           )}
 
           {/* Project Details */}
-          <div className="bg-slate-50 rounded-xl border border-slate-200 shadow-sm p-8 mb-12">
+          <div className="bg-muted rounded-xl border border-muted shadow-sm p-8 mb-12">
             <div className="flex items-center gap-3 mb-6">
-              <MapPin className="w-5 h-5 text-teal-600 flex-shrink-0" />
-              <span className="text-slate-600 font-medium">
+              <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+              <span className="text-muted-foreground font-medium">
                 {project.location}
               </span>
             </div>
@@ -187,10 +187,10 @@ export default function ProjectDetailPage() {
             <Partners partners={project.partners} />
 
             <div className="mt-8">
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">
+              <h2 className="text-2xl font-semibold text-foreground mb-4">
                 Project Overview
               </h2>
-              <p className="text-slate-600 text-base leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 {project.description}
               </p>
             </div>
@@ -200,7 +200,7 @@ export default function ProjectDetailPage() {
           <div className="text-center">
             <button
               onClick={() => router.push(`/projects?type=${project.type}`)}
-              className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3 mx-auto"
+              className="bg-primary hover:bg-primary-dark text-primary-foreground px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3 mx-auto"
             >
               <ArrowRight className="w-5 h-5 rotate-180" />
               Back to {project.type} Projects

@@ -1,291 +1,255 @@
 import React from "react";
 import {
   Facebook,
-  Linkedin,
   Instagram,
+  Linkedin,
   Phone,
   MapPin,
   Mail,
 } from "lucide-react";
+import footerData from "../../../data/footer";
 
 export const Footer = () => {
+  const {
+    company,
+    contact,
+    policies,
+    quickLinks,
+    projects,
+    social,
+    production,
+    copyright,
+  } = footerData;
+
+  const iconMap = {
+    Facebook: Facebook,
+    Instagram: Instagram,
+    Linkedin: Linkedin,
+  };
+
   return (
-    <footer className="bg-gradient-to-br from-background via-accent/20 to-background py-12">
+    <footer className="bg-gradient-to-br from-background via-primary/20 to-background py-12">
       <div className="container mx-auto px-4">
-        {/* 5-column grid for desktop (lg and up) */}
+        {/* Desktop Layout (lg and up) - 5 column grid */}
         <div className="hidden lg:block mb-8">
           <div className="grid grid-cols-5 gap-8">
-            {/* Column 1: EMC Header and Description */}
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-navy text-center">EMC</h3>
-              <p className="text-gray-700 text-sm leading-relaxed text-center">
-                EMC is a leading consulting firm specializing in business
-                solutions, strategic planning, and operational excellence. We
-                help organizations achieve their goals through innovative
-                approaches and proven methodologies.
-              </p>
+            {/* Column 1: EMC Logo */}
+            <div className="flex items-center justify-center">
+              <img
+                src="/logos/EMC-LOGO.png"
+                alt="EMC Logo"
+                className="h-16 w-auto object-contain"
+              />
             </div>
+
             {/* Column 2: Contact Information */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
-                Contact Info
+              <h4 className="text-lg font-semibold text-primary text-center">
+                {contact.title}
               </h4>
-              <div className="space-y-3 text-sm text-gray-700 text-center">
+              <div className="space-y-3 text-sm text-muted-foreground text-center">
                 <div className="flex items-center justify-center space-x-2">
-                  <Phone size={16} className="text-blue-400" />
-                  <span>+1 (555) 123-4567</span>
+                  <Phone size={16} className="text-primary" />
+                  <span>{contact.phone}</span>
                 </div>
                 <div className="flex items-start justify-center space-x-2">
-                  <MapPin size={16} className="text-blue-400 mt-0.5" />
-                  <span>
-                    123 Business Street, Suite 100
-                    <br />
-                    New York, NY 10001
-                  </span>
+                  <MapPin size={16} className="text-primary mt-0.5" />
+                  <span className="whitespace-pre-line">{contact.address}</span>
                 </div>
                 <div className="flex items-center justify-center space-x-2">
-                  <Mail size={16} className="text-blue-400" />
-                  <span>info@emcconsulting.com</span>
+                  <Mail size={16} className="text-primary" />
+                  <span>{contact.email}</span>
                 </div>
               </div>
             </div>
-            {/* Column 3: Policies */}
+
+            {/* Column 3: Services */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
-                Policies
+              <h4 className="text-lg font-semibold text-primary text-center">
+                Services
               </h4>
               <div className="space-y-2 text-sm text-center">
-                <a
-                  href="/terms"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  Terms of Service
-                </a>
-                <a
-                  href="/privacy"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  Privacy Policy
-                </a>
+                {policies.links.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
+                  >
+                    {link.name}
+                  </a>
+                ))}
               </div>
             </div>
-            {/* Column 4: Quick Links */}
+
+            {/* Column 4: Projects */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
-                Quick Links
+              <h4 className="text-lg font-semibold text-primary text-center">
+                {projects.title}
               </h4>
               <div className="space-y-2 text-sm text-center">
-                <a
-                  href="/about"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  About Us
-                </a>
-                <a
-                  href="/contact"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  Contact Us
-                </a>
+                {projects.links.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
+                  >
+                    {link.name}
+                  </a>
+                ))}
               </div>
             </div>
-            {/* Column 5: Projects by EMC */}
+
+            {/* Column 5: Quick Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
-                Projects by EMC
+              <h4 className="text-lg font-semibold text-primary text-center">
+                {quickLinks.title}
               </h4>
               <div className="space-y-2 text-sm text-center">
-                <a
-                  href="/projects?type=EPC"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  EPC
-                </a>
-                <a
-                  href="/projects?type=CONSULTING"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  Consulting
-                </a>
-                <a
-                  href="/projects?type=AFTERSALES"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  After Sales
-                </a>
+                {quickLinks.links.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
+                  >
+                    {link.name}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* 2x2 grid/centered layout for mobile/tablet (below lg) */}
+        {/* Mobile/Tablet Layout (below lg) */}
         <div className="block lg:hidden mb-8">
-          {/* Text Row */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-navy text-center">EMC</h3>
-            <p className="text-gray-700 text-sm leading-relaxed text-center">
-              EMC is a leading consulting firm specializing in business
-              solutions, strategic planning, and operational excellence. We help
-              organizations achieve their goals through innovative approaches
-              and proven methodologies.
-            </p>
+          {/* Logo Section */}
+          <div className="flex items-center justify-center mb-6">
+            <img
+              src="/logos/EMC-LOGO.png"
+              alt="EMC Logo"
+              className="h-16 w-auto object-contain"
+            />
           </div>
-          {/* 2x2 Grid for other columns */}
-          <div className="grid grid-cols-2 gap-6 mt-8">
-            {/* Contact Info */}
+
+          {/* 2x2 Grid for content sections */}
+          <div className="grid grid-cols-2 gap-6">
+            {/* Contact Information */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
-                Contact Info
+              <h4 className="text-lg font-semibold text-primary text-center">
+                {contact.title}
               </h4>
-              <div className="space-y-3 text-sm text-gray-700 text-center">
+              <div className="space-y-3 text-sm text-muted-foreground text-center">
                 <div className="flex items-center justify-center space-x-2">
-                  <Phone size={16} className="text-blue-400" />
-                  <span>+1 (555) 123-4567</span>
+                  <Phone size={16} className="text-primary" />
+                  <span>{contact.phone}</span>
                 </div>
                 <div className="flex items-start justify-center space-x-2">
-                  <MapPin size={16} className="text-blue-400 mt-0.5" />
-                  <span>
-                    123 Business Street, Suite 100
-                    <br />
-                    New York, NY 10001
+                  <MapPin size={16} className="text-primary mt-0.5" />
+                  <span className="whitespace-pre-line text-xs">
+                    {contact.address}
                   </span>
                 </div>
                 <div className="flex items-center justify-center space-x-2">
-                  <Mail size={16} className="text-blue-400" />
-                  <span>info@emcconsulting.com</span>
+                  <Mail size={16} className="text-primary" />
+                  <span className="text-xs">{contact.email}</span>
                 </div>
               </div>
             </div>
-            {/* Policies */}
+
+            {/* Services */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
-                Policies
+              <h4 className="text-lg font-semibold text-primary text-center">
+                Services
               </h4>
               <div className="space-y-2 text-sm text-center">
-                <a
-                  href="/terms"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  Terms of Service
-                </a>
-                <a
-                  href="/privacy"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  Privacy Policy
-                </a>
+                {policies.links.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
+                  >
+                    {link.name}
+                  </a>
+                ))}
               </div>
             </div>
+
+            {/* Projects */}
+            <div className="space-y-4">
+              <h4 className="text-lg font-semibold text-primary text-center">
+                {projects.title}
+              </h4>
+              <div className="space-y-2 text-sm text-center">
+                {projects.links.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+
             {/* Quick Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
-                Quick Links
+              <h4 className="text-lg font-semibold text-primary text-center">
+                {quickLinks.title}
               </h4>
               <div className="space-y-2 text-sm text-center">
-                <a
-                  href="/about"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  About Us
-                </a>
-                <a
-                  href="/services"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  Services
-                </a>
-                <a
-                  href="/contact"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  Contact Us
-                </a>
-              </div>
-            </div>
-            {/* Projects by EMC */}
-            <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-navy text-center">
-                Projects by EMC
-              </h4>
-              <div className="space-y-2 text-sm text-center">
-                <a
-                  href="/projects?type=EPC"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  EPC
-                </a>
-                <a
-                  href="/projects?type=CONSULTING"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  Consulting
-                </a>
-                <a
-                  href="/projects?type=AFTERSALES"
-                  className="text-navy hover:text-accent transition-colors duration-300 block"
-                >
-                  After Sales
-                </a>
+                {quickLinks.links.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
+                  >
+                    {link.name}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Section with Social Icons, Production Info, and Copyright */}
-        <div className="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          {/* Social Icons - Left */}
-          <div className="flex space-x-4">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative w-10 h-10 flex items-center justify-center group"
-            >
-              <div className="absolute inset-0 bg-navy rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 ease-out"></div>
-              <Facebook
-                size={24}
-                className="relative z-10 text-navy group-hover:text-white transition-colors duration-300"
-              />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative w-10 h-10 flex items-center justify-center group"
-            >
-              <div className="absolute inset-0 bg-navy rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 ease-out"></div>
-              <Linkedin
-                size={24}
-                className="relative z-10 text-navy group-hover:text-white transition-colors duration-300"
-              />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative w-10 h-10 flex items-center justify-center group"
-            >
-              <div className="absolute inset-0 bg-navy rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 ease-out"></div>
-              <Instagram
-                size={24}
-                className="relative z-10 text-navy group-hover:text-white transition-colors duration-300"
-              />
-            </a>
-          </div>
-          {/* Production Info - Center */}
-          <div className="text-sm text-gray-700 text-center">
-            <a
-              href="https://www.instagram.com/softsolutions.eg/?utm_source=ig_web_button_share_sheet"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-navy hover:text-accent transition-colors duration-300"
-            >
-              Production by Soft Solutions
-            </a>
-          </div>
-          {/* Copyright - Right */}
-          <div className="text-sm text-gray-700">
-            © 1988 EMC Consulting. All rights reserved.
+        {/* Bottom Section */}
+        <div className="border-t border-muted pt-2">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            {/* Social Icons */}
+            <div className="flex space-x-4">
+              {social.map((item, index) => {
+                const Icon = iconMap[item.icon];
+                return (
+                  <a
+                    key={index}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative w-10 h-10 flex items-center justify-center group"
+                  >
+                    <div className="absolute inset-0 bg-primary rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 ease-out"></div>
+                    <Icon
+                      size={24}
+                      className="relative z-10 text-primary group-hover:text-primary-foreground transition-colors duration-300"
+                    />
+                  </a>
+                );
+              })}
+            </div>
+
+            {/* Production Information */}
+            <div className="text-sm text-muted-foreground text-center">
+              <a
+                href={production.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary-light transition-colors duration-300"
+              >
+                {production.name}
+              </a>
+            </div>
+
+            {/* Copyright */}
+            <div className="text-sm text-muted-foreground">{copyright}</div>
           </div>
         </div>
       </div>

@@ -93,8 +93,8 @@ export function Header() {
             priority
             className="h-8 w-auto object-contain"
             style={{
-              imageRendering: 'crisp-edges',
-              imageRendering: '-webkit-optimize-contrast',
+              imageRendering: "crisp-edges",
+              imageRendering: "-webkit-optimize-contrast",
             }}
           />
         </Link>
@@ -108,9 +108,9 @@ export function Header() {
                   <NavigationMenuItem key={item.name}>
                     <NavigationMenuTrigger
                       className={cn(
-                        "relative bg-transparent hover:bg-accent/10 text-muted-foreground hover:text-accent px-4 py-2 font-medium rounded-lg border-2 border-transparent hover:border-accent/20 transition-all duration-300",
+                        "relative bg-transparent hover:bg-primary/10 text-muted-foreground hover:text-primary px-4 py-2 font-medium rounded-lg border-2 border-transparent hover:border-primary/20 transition-all duration-300",
                         pathname.startsWith("/projects") &&
-                          "text-accent font-semibold bg-accent/10 border-accent/30"
+                          "text-primary font-semibold bg-primary/10 border-primary/30"
                       )}
                     >
                       {item.name}
@@ -123,10 +123,10 @@ export function Header() {
                               href={subItem.href}
                               replace
                               className={cn(
-                                "block px-4 py-3 text-sm rounded-lg border border-transparent text-muted-foreground hover:text-accent hover:bg-accent/10 hover:border-accent/20 transition-all duration-300",
+                                "block px-4 py-3 text-sm rounded-lg border border-transparent text-muted-foreground hover:text-primary hover:bg-primary/10 hover:border-primary/20 transition-all duration-300",
                                 pathname.startsWith("/projects") &&
                                   currentType === subItem.type &&
-                                  "text-accent font-semibold bg-accent/10 border-accent/30"
+                                  "text-primary font-semibold bg-primary/10 border-primary/30"
                               )}
                             >
                               {subItem.name}
@@ -141,9 +141,9 @@ export function Header() {
                     <Link
                       href={item.href}
                       className={cn(
-                        "px-4 py-2 text-sm rounded-lg font-medium text-muted-foreground hover:text-accent hover:bg-accent/10 border-2 border-transparent hover:border-accent/20 transition-all duration-300",
+                        "px-4 py-2 text-sm rounded-lg font-medium text-muted-foreground hover:text-primary hover:bg-primary/10 border-2 border-transparent hover:border-primary/20 transition-all duration-300",
                         pathname === item.href &&
-                          "text-accent font-semibold bg-accent/10 border-accent/30"
+                          "text-primary font-semibold bg-primary/10 border-primary/30"
                       )}
                     >
                       {item.name}
@@ -160,7 +160,7 @@ export function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="z-50 ml-auto text-muted-foreground hover:bg-accent/10 hover:text-accent transition-all duration-300 border-2 border-transparent hover:border-accent/20 rounded-lg"
+            className="z-50 ml-auto text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 border-2 border-transparent hover:border-primary/20 rounded-lg"
             onClick={toggleMobileMenu}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
@@ -209,7 +209,7 @@ function MobileMenu({
         size="icon"
         onClick={onClose}
         aria-label="Close menu"
-        className="absolute top-5 right-4 z-50 text-muted-foreground hover:bg-accent/10 hover:text-accent border-2 border-transparent hover:border-accent/20 rounded-lg"
+        className="absolute top-5 right-4 z-50 text-muted-foreground hover:bg-primary/10 hover:text-primary border-2 border-transparent hover:border-primary/20 rounded-lg"
       >
         <motion.div animate={{ rotate: 180 }} transition={{ duration: 0.3 }}>
           <X size={28} />
@@ -229,7 +229,7 @@ function MobileMenu({
               <Button
                 variant="ghost"
                 onClick={toggleMobileDropdown}
-                className="w-full justify-center items-center text-lg font-medium text-muted-foreground hover:text-accent hover:bg-accent/8 py-4 px-6 transition-all duration-300 border-2 border-transparent hover:border-accent/20 rounded-xl"
+                className="w-full justify-center items-center text-lg font-medium text-muted-foreground hover:text-primary hover:bg-primary/10 py-4 px-6 transition-all duration-300 border-2 border-transparent hover:border-primary/20 rounded-xl"
               >
                 {item.name}
                 <motion.div
@@ -249,7 +249,7 @@ function MobileMenu({
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="flex flex-col gap-2 mt-4 p-4 bg-accent/5 rounded-xl border border-accent/20">
+                    <div className="flex flex-col gap-2 mt-4 p-4 bg-primary/5 rounded-xl border border-primary/20">
                       {item.items.map((subItem, subIndex) => (
                         <motion.div
                           key={subItem.href}
@@ -262,10 +262,10 @@ function MobileMenu({
                             replace
                             onClick={onClose}
                             className={cn(
-                              "block px-4 py-3 text-sm rounded-lg border border-transparent text-muted-foreground hover:text-accent hover:bg-accent/10 hover:border-accent/20 transition-all duration-300",
+                              "block px-4 py-3 text-sm rounded-lg border border-transparent text-muted-foreground hover:text-primary hover:bg-primary/10 hover:border-primary/20 transition-all duration-300",
                               pathname.startsWith("/projects") &&
                                 currentType === subItem.type &&
-                                "text-accent font-semibold bg-accent/10 border-accent/30"
+                                "text-primary font-semibold bg-primary/10 border-primary/30"
                             )}
                           >
                             {subItem.name}
@@ -289,9 +289,9 @@ function MobileMenu({
                 href={item.href}
                 onClick={onClose}
                 className={cn(
-                  "w-full inline-block py-4 px-6 text-lg font-medium rounded-xl border-2 border-transparent text-muted-foreground hover:text-accent hover:bg-accent/10 hover:border-accent/20 transition-all duration-300",
+                  "w-full inline-block py-4 px-6 text-lg font-medium rounded-xl border-2 border-transparent text-muted-foreground hover:text-primary hover:bg-primary/10 hover:border-primary/20 transition-all duration-300",
                   pathname === item.href &&
-                    "text-accent font-semibold bg-accent/10 border-accent/30"
+                    "text-primary font-semibold bg-primary/10 border-primary/30"
                 )}
               >
                 {item.name}
@@ -302,9 +302,9 @@ function MobileMenu({
       </nav>
 
       {/* Background blur circles */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/50 to-accent/5 -z-10" />
-      <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-accent/10 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-teal/10 rounded-full blur-2xl -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/50 to-primary/5 -z-10" />
+      <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-primary/10 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-primary/10 rounded-full blur-2xl -z-10" />
     </motion.div>
   );
 }

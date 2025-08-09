@@ -14,7 +14,6 @@ export const emcInfo = {
     {
       value: 100,
       suffix: "+",
-
       label: "Projects Delivered",
       description:
         "From diesel plants to district cooling—engineered to outlast.",
@@ -48,4 +47,8 @@ export const emcInfo = {
       description: "Pumps, valves, and unstoppable partnerships.",
     },
   ],
+  headerTitle: "Who Are We",
+  poweredgeLabel: "POWEREDGE",
+  engineeringTitle: "Engineering Beyond",
+  limitsTitle: "Limits",
 };

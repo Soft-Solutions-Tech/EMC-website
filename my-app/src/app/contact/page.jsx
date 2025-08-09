@@ -138,7 +138,7 @@ const LoadingSpinner = () => (
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
   >
-    <Loader2 className="h-12 w-12 text-[#00AEEF] animate-spin" />
+    <Loader2 className="h-12 w-12 text-primary animate-spin" />
   </motion.div>
 );
 
@@ -151,7 +151,7 @@ const PageHeader = () => (
   >
     <div className="mt-12 mb-12 sm:mb-16 text-center">
       <motion.h1
-        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-accent via-teal to-navy leading-[1.15] pb-2"
+        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -160,7 +160,7 @@ const PageHeader = () => (
         Contact Us
       </motion.h1>
       <motion.div
-        className="mt-4 mx-auto h-1 w-24 bg-accent rounded-full shadow-accent shadow-md"
+        className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md"
         initial={{ width: 0 }}
         whileInView={{ width: 128 }}
         viewport={{ once: true }}
@@ -169,7 +169,7 @@ const PageHeader = () => (
     </div>
     <motion.p
       variants={animations.item}
-      className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto px-4"
+      className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4"
     >
       We're here to help. Reach out via form, email, or phone.
     </motion.p>
@@ -183,24 +183,24 @@ const ContactInfoCard = ({
   isDisabled,
 }) => (
   <motion.div
-    className="p-6 sm:p-8 bg-gray-50 rounded-xl shadow-lg transition-all duration-300"
+    className="p-6 sm:p-8 bg-muted rounded-xl shadow-lg transition-all duration-300"
     variants={animations.card}
   >
     <motion.h2
       variants={animations.item}
-      className="text-2xl sm:text-3xl font-bold text-[#00263A] mb-6"
+      className="text-2xl sm:text-3xl font-bold text-primary mb-6"
     >
       Get in Touch
     </motion.h2>
     <motion.p
       variants={animations.item}
-      className="text-base sm:text-lg text-slate-600 mb-8"
+      className="text-base sm:text-lg text-muted-foreground mb-8"
     >
       Our team is ready to assist you. Expect a response within 24 hours.
     </motion.p>
     <motion.div className="space-y-8" variants={animations.container}>
       <ContactItem
-        icon={<Mail className="h-6 w-6 text-[#00AEEF] flex-shrink-0" />}
+        icon={<Mail className="h-6 w-6 text-primary flex-shrink-0" />}
         label="Email"
         value={CONTACT_INFO.email}
         copied={copiedEmail}
@@ -208,7 +208,7 @@ const ContactInfoCard = ({
         disabled={isDisabled}
       />
       <ContactItem
-        icon={<Phone className="h-6 w-6 text-[#00AEEF] flex-shrink-0" />}
+        icon={<Phone className="h-6 w-6 text-primary flex-shrink-0" />}
         label="Phone"
         value={CONTACT_INFO.phone}
         copied={copiedPhone}
@@ -226,10 +226,10 @@ const ContactItem = ({ icon, label, value, copied, onCopy, disabled }) => (
   >
     {icon}
     <div>
-      <span className="text-sm text-slate-600 block">{label}</span>
+      <span className="text-sm text-muted-foreground block">{label}</span>
       <motion.button
         onClick={onCopy}
-        className="flex items-center gap-2 text-[#00263A] hover:text-[#00AEEF] transition-colors relative group"
+        className="flex items-center gap-2 text-primary hover:text-primary-dark transition-colors relative group"
         title={`Copy ${label.toLowerCase()}`}
         whileHover={{ scale: disabled ? 1 : 1.05 }}
         whileTap={{ scale: disabled ? 1 : 0.95 }}
@@ -237,13 +237,13 @@ const ContactItem = ({ icon, label, value, copied, onCopy, disabled }) => (
       >
         {value}
         {copied ? (
-          <Check className="h-4 w-4 text-[#00AEEF]" />
+          <Check className="h-4 w-4 text-primary" />
         ) : (
-          <Copy className="h-4 w-4 text-slate-600 group-hover:text-[#00AEEF]" />
+          <Copy className="h-4 w-4 text-muted-foreground group-hover:text-primary-dark" />
         )}
         {copied && (
           <motion.span
-            className="absolute -top-10 left-1/2 -translate-x-1/2 bg-[#00AEEF] text-white text-xs py-1 px-3 rounded-full"
+            className="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs py-1 px-3 rounded-full"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -275,7 +275,7 @@ const FormField = ({
         onChange={onChange}
         rows={rows}
         disabled={disabled}
-        className="peer w-full text-lg pt-8 pb-3 px-5 rounded-lg border border-slate-200 focus:border-[#00AEEF] focus:ring-2 focus:ring-[#00AEEF]/50 transition-all duration-300 placeholder-transparent disabled:bg-slate-50 disabled:cursor-not-allowed hover:border-[#00AEEF]/50"
+        className="peer w-full text-lg pt-8 pb-3 px-5 rounded-lg border border-muted focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 placeholder-transparent disabled:bg-muted disabled:cursor-not-allowed hover:border-primary/50"
         {...props}
       />
     ) : (
@@ -286,11 +286,11 @@ const FormField = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
-        className="peer w-full h-16 text-lg pt-8 pb-3 px-5 rounded-lg border border-slate-200 focus:border-[#00AEEF] focus:ring-2 focus:ring-[#00AEEF]/50 transition-all duration-300 placeholder-transparent disabled:bg-slate-50 disabled:cursor-not-allowed hover:border-[#00AEEF]/50"
+        className="peer w-full h-16 text-lg pt-8 pb-3 px-5 rounded-lg border border-muted focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 placeholder-transparent disabled:bg-muted disabled:cursor-not-allowed hover:border-primary/50"
         {...props}
       />
     )}
-    <label className="absolute left-5 top-2 text-sm text-slate-600 peer-placeholder-shown:top-5 peer-placeholder-shown:text-lg peer-placeholder-shown:text-slate-600 peer-focus:top-2 peer-focus:text-sm peer-focus:text-[#00AEEF] transition-all duration-300">
+    <label className="absolute left-5 top-2 text-sm text-muted-foreground peer-placeholder-shown:top-5 peer-placeholder-shown:text-lg peer-placeholder-shown:text-muted-foreground peer-focus:top-2 peer-focus:text-sm peer-focus:text-primary transition-all duration-300">
       {label}
     </label>
   </motion.div>
@@ -303,17 +303,17 @@ const SubmitButton = ({ status }) => (
       disabled={status === "sending"}
       whileHover={{ scale: status === "sending" ? 1 : 1.05 }}
       whileTap={{ scale: status === "sending" ? 1 : 0.97 }}
-      className="group relative px-8 py-3 bg-[#00263A] border-2 border-white text-white rounded-lg flex items-center gap-2 overflow-hidden transition-all duration-300 disabled:bg-slate-50 disabled:text-slate-600 disabled:cursor-not-allowed"
+      className="group relative px-8 py-3 bg-primary border-2 border-white text-primary-foreground rounded-lg flex items-center gap-2 overflow-hidden transition-all duration-300 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed"
     >
       {status === "sending" ? (
-        <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin text-[#00AEEF]" />
+        <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin text-primary" />
       ) : (
         <>
-          <span className="relative z-10 group-hover:text-[#00263A] transition-colors duration-300">
+          <span className="relative z-10 group-hover:text-primary transition-colors duration-300">
             Send Message
           </span>
           <svg
-            className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:translate-x-1 transition-transform duration-200 relative z-10 group-hover:text-[#00263A]"
+            className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:translate-x-1 transition-transform duration-200 relative z-10 group-hover:text-primary"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -325,7 +325,7 @@ const SubmitButton = ({ status }) => (
               d="M9 5l7 7-7 7"
             />
           </svg>
-          <div className="absolute inset-0 bg-[#00AEEF] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+          <div className="absolute inset-0 bg-primary-dark transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
         </>
       )}
     </motion.button>
@@ -336,16 +336,16 @@ const StatusMessage = ({ status, errorMessage, onDismiss }) => {
   if (status === "success") {
     return (
       <motion.div
-        className="flex items-center gap-2 text-sm p-4 bg-slate-50 rounded-lg"
+        className="flex items-center gap-2 text-sm p-4 bg-muted rounded-lg"
         variants={animations.message}
         initial="hidden"
         animate="visible"
       >
-        <CheckCircle className="h-5 w-5 text-[#00AEEF]" />
-        <p className="text-[#00AEEF] flex-1">Message sent successfully!</p>
+        <CheckCircle className="h-5 w-5 text-primary" />
+        <p className="text-primary flex-1">Message sent successfully!</p>
         <motion.button
           onClick={onDismiss}
-          className="text-slate-600 hover:text-[#00263A]"
+          className="text-muted-foreground hover:text-primary"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -367,7 +367,7 @@ const StatusMessage = ({ status, errorMessage, onDismiss }) => {
         <p className="text-red-600 flex-1">{errorMessage}</p>
         <motion.button
           onClick={onDismiss}
-          className="text-slate-600 hover:text-red-600"
+          className="text-muted-foreground hover:text-red-600"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -389,7 +389,7 @@ const ContactForm = ({
   onDismiss,
 }) => (
   <motion.div
-    className="p-6 sm:p-8 bg-gray-50 rounded-xl shadow-lg"
+    className="p-6 sm:p-8 bg-muted rounded-xl shadow-lg"
     variants={animations.card}
   >
     <form onSubmit={onSubmit} className="space-y-8">
@@ -450,7 +450,7 @@ const Footer = () => (
     whileInView="visible"
     viewport={{ once: true }}
   >
-    <p className="text-sm text-slate-600">
+    <p className="text-sm text-muted-foreground">
       We aim to respond to all inquiries within 24 hours. Thank you for reaching
       out!
     </p>
@@ -463,7 +463,7 @@ export default function ContactPage() {
     name: "",
     email: "",
     message: "",
-    website: "", // Honeypot field
+    website: "",
   });
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
