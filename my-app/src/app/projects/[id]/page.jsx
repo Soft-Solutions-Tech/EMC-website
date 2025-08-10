@@ -79,7 +79,7 @@ export default function ProjectDetailPage() {
 
   if (!project) {
     return (
-      <section className="py-24 bg-white min-h-screen">
+      <section className="py-24 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center py-16">
             <Building2 className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
@@ -116,7 +116,7 @@ export default function ProjectDetailPage() {
           }.`}
         />
       </Head>
-      <section className="py-24 bg-white min-h-screen">
+      <section className="py-24 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Project Header */}
           <div className="mb-16 text-center">

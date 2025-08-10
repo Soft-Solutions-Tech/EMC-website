@@ -158,7 +158,7 @@ export default function CoreValues() {
             {actionCards.map((card, i) => (
               <motion.div
                 key={card.title}
-                className="flex-1 bg-white rounded-2xl shadow-md flex flex-col items-center p-6 min-w-[180px] max-w-xs mx-auto border border-muted hover:shadow-lg transition-shadow duration-300"
+                className="flex-1 rounded-2xl shadow-md flex flex-col items-center p-6 min-w-[180px] max-w-xs mx-auto border border-muted hover:shadow-lg transition-shadow duration-300"
                 custom={i}
                 initial="hidden"
                 whileInView="visible"

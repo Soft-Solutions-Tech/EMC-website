@@ -56,16 +56,18 @@ export function HeroBanner() {
           >
             {/* Badge: Trusted Since 1988 */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={
-                isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }
+                isInView
+                  ? { opacity: 1, scale: 1 }
+                  : { opacity: 0, scale: 0.85 }
               }
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="flex justify-center mb-4 sm:mb-5 md:mb-6 lg:mb-7 xl:mb-8"
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="flex justify-center mb-6 sm:mb-8"
             >
-              <div className="inline-flex items-center gap-2 sm:gap-3 backdrop-blur-md border border-primary/30 sm:border-2 bg-black/20 rounded-full px-6 py-2.5 sm:px-8 sm:py-3 lg:px-10 lg:py-4 shadow-[0_8px_32px_rgba(0,105,150,0.2)] hover:shadow-[0_12px_40px_rgba(0,105,150,0.3)] transition-shadow duration-300">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 backdrop-blur-md border border-primary/30 bg-black/20 rounded-full px-4 py-1.5 sm:px-5 sm:py-2 shadow-[0_4px_16px_rgba(0,105,150,0.15)] hover:shadow-[0_6px_20px_rgba(0,105,150,0.25)] transition-shadow duration-300">
                 <motion.div
-                  className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-primary rounded-full flex-shrink-0"
+                  className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-primary rounded-full flex-shrink-0"
                   animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
                   transition={{
                     duration: 2,
@@ -73,7 +75,7 @@ export function HeroBanner() {
                     ease: "easeInOut",
                   }}
                 />
-                <span className="text-primary-foreground font-semibold text-sm sm:text-base lg:text-lg xl:text-xl tracking-wide whitespace-nowrap">
+                <span className="text-primary-foreground font-semibold text-xs sm:text-sm tracking-wide whitespace-nowrap">
                   {hero.badge}
                 </span>
               </div>
@@ -84,11 +86,10 @@ export function HeroBanner() {
               <motion.img
                 src="/logos/EMC-LOGO.png"
                 alt="EMC Company Logo"
-                className="mx-auto h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 2xl:h-36 w-auto filter drop-shadow-[0_0_20px_rgba(0,105,150,0.5)]"
+                className="mx-auto h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto filter drop-shadow-[0_0_20px_rgba(0,105,150,0.5)]"
                 initial={{
                   scale: 0.8,
                   rotateX: -90,
-                  filter: "brightness(0.5)",
                   opacity: 0,
                 }}
                 animate={
@@ -96,28 +97,25 @@ export function HeroBanner() {
                     ? {
                         scale: 1,
                         rotateX: 0,
-                        filter: "brightness(1)",
                         opacity: 1,
                       }
                     : {
                         scale: 0.8,
                         rotateX: -90,
-                        filter: "brightness(0.5)",
                         opacity: 0,
                       }
                 }
                 transition={{ delay: 0.8, duration: 0.8, ease: "backOut" }}
               />
             </motion.div>
-
             {/* Vision Statement (Subheading) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="mb-10 sm:mb-12 md:mb-14 lg:mb-16 xl:mb-18"
+              className="mb-10 sm:mb-12 md:mb-14 lg:mb-16"
             >
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-primary-foreground/90 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto leading-relaxed font-medium px-4 sm:px-6 md:px-8 lg:px-0">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-primary-foreground/90 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto leading-relaxed font-medium px-4 sm:px-6 md:px-8 lg:px-0">
                 {hero.subheading}
               </p>
             </motion.div>
@@ -138,7 +136,7 @@ export function HeroBanner() {
                 <Button
                   asChild
                   size="lg"
-                  className="relative overflow-hidden bg-gradient-to-r from-primary via-primary to-primary-dark text-primary-foreground border-0 rounded-xl sm:rounded-2xl px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-4 xl:px-14 xl:py-5 text-base sm:text-lg lg:text-lg xl:text-xl font-bold shadow-[0_15px_40px_rgba(0,105,150,0.4)] hover:shadow-[0_30px_70px_rgba(0,105,150,0.6)] transition-all duration-500 w-full sm:w-auto min-h-[56px] sm:min-h-[64px] lg:min-h-[56px] xl:min-h-[64px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="relative overflow-hidden bg-gradient-to-r from-primary via-primary to-primary-dark text-primary-foreground border-0 rounded-xl sm:rounded-2xl px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-6 xl:px-14 xl:py-6 text-base sm:text-lg lg:text-xl font-bold shadow-[0_15px_40px_rgba(0,105,150,0.4)] hover:shadow-[0_30px_70px_rgba(0,105,150,0.6)] transition-all duration-500 w-full sm:w-auto min-h-[56px] sm:min-h-[64px] lg:min-h-[68px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <Link
                     href="#services"
@@ -162,7 +160,7 @@ export function HeroBanner() {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="relative overflow-hidden text-primary border border-primary/60 sm:border-2 hover:bg-primary/15 backdrop-blur-md bg-black/10 rounded-xl sm:rounded-2xl px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-4 xl:px-14 xl:py-5 text-base sm:text-lg lg:text-lg xl:text-xl font-bold shadow-[0_15px_40px_rgba(0,105,150,0.3)] hover:shadow-[0_30px_70px_rgba(0,105,150,0.5)] transition-all duration-500 w-full sm:w-auto min-h-[56px] sm:min-h-[64px] lg:min-h-[56px] xl:min-h-[64px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="relative overflow-hidden text-primary border border-primary/60 sm:border-2 hover:bg-primary/15 backdrop-blur-md bg-black/10 rounded-xl sm:rounded-2xl px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-6 xl:px-14 xl:py-6 text-base sm:text-lg lg:text-xl font-bold shadow-[0_15px_40px_rgba(0,105,150,0.3)] hover:shadow-[0_30px_70px_rgba(0,105,150,0.5)] transition-all duration-500 w-full sm:w-auto min-h-[56px] sm:min-h-[64px] lg:min-h-[68px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <Link
                     href="/contact"

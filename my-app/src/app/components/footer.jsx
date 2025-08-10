@@ -28,7 +28,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-background via-primary/20 to-background py-12">
+    <footer>
       <div className="container mx-auto px-4">
         {/* Desktop Layout (lg and up) - 5 column grid */}
         <div className="hidden lg:block mb-8">
@@ -212,7 +212,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-muted pt-2">
+        <div className="border-t pt-2 pb-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Social Icons */}
             <div className="flex space-x-4">

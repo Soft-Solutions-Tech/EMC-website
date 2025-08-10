@@ -58,7 +58,7 @@ export default function InfoSection() {
     <section
       id="philosophy"
       ref={philosophyRef}
-      className="min-h-[100vh] flex items-center bg-white relative overflow-hidden mt-2"
+      className="min-h-[100vh] flex items-center  relative overflow-hidden mt-2"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center h-full">
         {/* Header Section */}
@@ -92,11 +92,6 @@ export default function InfoSection() {
                   : "opacity-0 translate-y-4"
               }`}
             >
-              <div className="w-10 h-0.5 bg-primary"></div>
-              <span className="text-xs sm:text-sm font-light tracking-widest uppercase text-primary">
-                {emcInfo.poweredgeLabel}
-              </span>
-              <div className="w-10 h-0.5 bg-primary"></div>
             </div>
 
             <motion.h3

@@ -7,7 +7,7 @@ const PartnersSection = () => {
   const [expandedPartners, setExpandedPartners] = useState(
     partners
       .filter((p) => p.subCompanies && p.subCompanies.length > 0)
-      .reduce((acc, partner) => ({ ...acc, [p.id]: true }), {})
+      .reduce((acc, p) => ({ ...acc, [p.id]: true }), {})
   );
 
   const togglePartnerExpansion = (partnerId) => {
@@ -17,7 +17,6 @@ const PartnersSection = () => {
     }));
   };
 
-  // Sort partners: those with subCompanies first
   const sortedPartners = [...partners].sort((a, b) => {
     const aHasSub = a.subCompanies && a.subCompanies.length > 0 ? -1 : 1;
     const bHasSub = b.subCompanies && b.subCompanies.length > 0 ? -1 : 1;
@@ -51,21 +50,21 @@ const PartnersSection = () => {
     hasSubCompanies,
     expanded,
     onToggle,
-    isPartner = true,
     className = "",
   }) => {
     return (
       <div
-        className={`group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-muted overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit ${className}`}
+        className={`group relative rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-muted overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit ${className}`}
         variants={cardVariants}
         initial="hidden"
+        animate="visible"
         custom={index}
         viewport={{ once: false, amount: 0.3 }}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-primary/10 to-primary-dark/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-primary-dark transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-2xl"></div>
 
-        <div className="relative z-10 p-6 h-64 flex flex-col">
+        <div className="relative z-10 p-5 h-56 flex flex-col">
           <a
             href={company.website}
             target="_blank"
@@ -73,37 +72,35 @@ const PartnersSection = () => {
             className="block flex-1"
           >
             <div className="flex justify-center mb-4">
-              <div className="relative">
+              <div className="relative w-24 h-16 flex items-center justify-center">
                 <img
                   src={company.logo}
                   alt={`${company.name} logo`}
-                  className={`object-contain transition-transform duration-300 group-hover:scale-105 ${
-                    company.id === "p5" ? "h-14 w-14" : "h-14 w-14"
-                  }`}
+                  className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
             </div>
             <div className="text-center">
-              <h3 className="text-lg font-bold text-primary group-hover:text-primary-dark transition-colors">
+              <h3 className="text-base font-bold text-primary group-hover:text-primary-dark transition-colors">
                 {company.name}
               </h3>
               <div className="w-6 h-0.5 bg-gradient-to-r from-primary to-primary-dark mt-1 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
             </div>
 
-            <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors mb-4 line-clamp-3 flex-1 text-center">
+            <p className="text-xs text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors mb-3 line-clamp-2 flex-1 text-center mt-2">
               {company.brief}
             </p>
           </a>
 
           {hasSubCompanies && (
-            <div className="mt-auto pt-4 border-t border-muted">
+            <div className="mt-auto pt-3 border-t border-muted">
               <button
                 onClick={() => onToggle(company.id)}
-                className="flex items-center justify-between w-full text-left focus:outline-none group/button hover:bg-primary/10 rounded-lg p-2 -m-2 transition-colors duration-200"
+                className="flex items-center justify-between w-full text-left focus:outline-none group/button hover:bg-primary/10 rounded-lg p-1 -m-1 transition-colors duration-200"
               >
                 <div className="flex items-center">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-2 opacity-60"></div>
-                  <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2 opacity-60"></div>
+                  <h4 className="text-xs font-semibold text-primary uppercase tracking-wider">
                     Portfolio ({company.subCompanies.length})
                   </h4>
                 </div>
@@ -112,7 +109,7 @@ const PartnersSection = () => {
                     {expanded ? "Hide" : "Show"}
                   </span>
                   <svg
-                    className={`w-4 h-4 text-primary transform transition-all duration-300 ${
+                    className={`w-3 h-3 text-primary transform transition-all duration-300 ${
                       expanded
                         ? "rotate-180 scale-110"
                         : "group-hover/button:scale-110"
@@ -145,7 +142,7 @@ const PartnersSection = () => {
                 className="relative z-20 -mt-2 mx-2 overflow-hidden"
               >
                 <div className="bg-gradient-to-r from-primary/10 to-primary-dark/10 rounded-lg p-3 shadow-lg border border-primary/20">
-                  <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-muted">
+                  <div className="max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-muted">
                     {company.subCompanies.map((sub, subIndex) => (
                       <motion.div
                         key={sub.id}
@@ -159,11 +156,11 @@ const PartnersSection = () => {
                           rel="noopener noreferrer"
                           className="flex items-center p-2 rounded-lg bg-white hover:bg-primary/10 transition-all duration-200 shadow-sm hover:shadow-md group/sub border border-transparent hover:border-primary/20"
                         >
-                          <div className="relative mr-3 flex-shrink-0">
+                          <div className="relative mr-3 flex-shrink-0 w-8 h-6 flex items-center justify-center">
                             <img
                               src={sub.logo}
                               alt={`${sub.name} logo`}
-                              className="h-6 w-6 object-contain transition-transform duration-200 group-hover/sub:scale-110"
+                              className="max-w-full max-h-full object-contain transition-transform duration-200 group-hover/sub:scale-110"
                             />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -206,16 +203,12 @@ const PartnersSection = () => {
   };
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.02)_1px,transparent_0)] [background-size:24px_24px]"></div>
-      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-
+    <section className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {sortedPartners.length > 0 && (
           <>
             <motion.div
-              className="text-center mb-16"
+              className="text-center mb-14"
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
@@ -259,7 +252,6 @@ const PartnersSection = () => {
                         }
                         expanded={expandedPartners[partner.id]}
                         onToggle={togglePartnerExpansion}
-                        isPartner={true}
                         className="item"
                       />
                     )
@@ -280,7 +272,6 @@ const PartnersSection = () => {
                         }
                         expanded={expandedPartners[partner.id]}
                         onToggle={togglePartnerExpansion}
-                        isPartner={true}
                         className="item"
                       />
                     )

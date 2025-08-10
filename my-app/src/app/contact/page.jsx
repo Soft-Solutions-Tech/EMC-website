@@ -133,7 +133,7 @@ const useClipboard = () => {
 // Components
 const LoadingSpinner = () => (
   <motion.div
-    className="min-h-screen bg-white flex items-center justify-center"
+    className="min-h-screen flex items-center justify-center"
     initial={{ opacity: 0, scale: 0.5 }}
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
@@ -545,7 +545,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <PageHeader />
 
       <main className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
