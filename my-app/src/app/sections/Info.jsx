@@ -58,7 +58,7 @@ export default function InfoSection() {
     <section
       id="philosophy"
       ref={philosophyRef}
-      className="h-[100vh] flex items-center bg-white relative overflow-hidden"
+      className="min-h-[100vh] flex items-center bg-white relative overflow-hidden mt-2"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center h-full">
         {/* Header Section */}
