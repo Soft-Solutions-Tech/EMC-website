@@ -9,22 +9,54 @@ import { hero } from "../../../data/hero";
 
 export function HeroBanner() {
   const ref = React.useRef(null);
+  const videoRef = React.useRef(null);
+  const [videoLoaded, setVideoLoaded] = React.useState(false);
+
   const isInView = useInView(ref, {
     once: false,
     threshold: 0.3,
     margin: "-100px",
   });
 
+  // Immediate video load without delays
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.load();
+    }
+  }, []);
+
+  const handleVideoLoad = React.useCallback(() => {
+    setVideoLoaded(true);
+  }, []);
+
   return (
     <section
       ref={ref}
       aria-label="Hero banner"
-      className="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-black"
+      className="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-black"
     >
-      {/* Video Background */}
+      {/* Instant Fallback Background */}
+      <div
+        className={`absolute inset-0 z-5 transition-opacity duration-500 ${
+          videoLoaded ? "opacity-0" : "opacity-60"
+        }`}
+        style={{
+          backgroundImage: `
+            radial-gradient(circle at 25% 25%, rgba(0, 105, 150, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(0, 105, 150, 0.05) 0%, transparent 50%),
+            linear-gradient(135deg, transparent 0%, rgba(0, 105, 150, 0.03) 50%, transparent 100%)
+          `,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Optimized Video - No Delays */}
       <video
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-0 animate-fadeIn"
-        src="/videos/mixkit-buildings-under-construction-aerial-view-4010-full-hd.mp4"
+        ref={videoRef}
+        className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
+          videoLoaded ? "opacity-100" : "opacity-0"
+        }`}
         width={1920}
         height={1080}
         autoPlay
@@ -33,7 +65,18 @@ export function HeroBanner() {
         playsInline
         preload="auto"
         aria-hidden="true"
-      />
+        onLoadedData={handleVideoLoad}
+        onCanPlayThrough={handleVideoLoad}
+      >
+        <source
+          src="/videos/mixkit-buildings-under-construction-aerial-view-4010-full-hd.mp4"
+          type="video/mp4"
+        />
+        <source
+          src="/videos/mixkit-buildings-under-construction-aerial-view-4010-full-hd.webm"
+          type="video/webm"
+        />
+      </video>
 
       {/* Overlay Gradients */}
       <div
@@ -45,7 +88,7 @@ export function HeroBanner() {
         aria-hidden="true"
       />
 
-      {/* Main Content */}
+      {/* Main Content - Always Visible */}
       <motion.div className="relative z-30 w-full flex flex-col items-center justify-center">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <motion.div
@@ -54,7 +97,7 @@ export function HeroBanner() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="max-w-7xl mx-auto text-center"
           >
-            {/* Badge: Trusted Since 1988 */}
+            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={
@@ -106,9 +149,11 @@ export function HeroBanner() {
                       }
                 }
                 transition={{ delay: 0.8, duration: 0.8, ease: "backOut" }}
+                loading="eager"
               />
             </motion.div>
-            {/* Vision Statement (Subheading) */}
+
+            {/* Vision Statement */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -127,7 +172,7 @@ export function HeroBanner() {
               transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
               className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-0"
             >
-              {/* Primary CTA: Our Services */}
+              {/* Primary CTA */}
               <motion.div
                 whileHover={{ scale: 1.05, y: -8 }}
                 whileTap={{ scale: 0.95 }}
@@ -150,7 +195,7 @@ export function HeroBanner() {
                 </Button>
               </motion.div>
 
-              {/* Secondary CTA: Contact Us */}
+              {/* Secondary CTA */}
               <motion.div
                 whileHover={{ scale: 1.05, y: -8 }}
                 whileTap={{ scale: 0.95 }}
