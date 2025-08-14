@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import {
   Gem,
   FlaskConical,
@@ -12,7 +12,7 @@ import {
   Target,
   ChevronRight,
 } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // Base64-encoded SVGs for updated arrow cursors
 const leftArrowCursor = `url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LWxlZnQtaWNvbiBsdWNpZGUtYXJyb3ctbGVmdCI+PHBhdGggZD0ibTEyIDE5LTctNyA3LTciLz48cGF0aCBkPSJNMTkgMTJINSIvPjwvc3ZnPg=="), auto`;
@@ -23,6 +23,9 @@ export default function CoreValues() {
   const [hovering, setHovering] = useState(false);
   const [cursorSide, setCursorSide] = useState(null); // Track left/right half
   const cardRef = useRef(null); // Reference to the big card
+  const sectionRef = useRef(null); // Reference to the section
+  const controls = useAnimation(); // Animation controls
+  const isInView = useInView(sectionRef, { amount: 0.2 }); // Detect if section is in view
 
   const coreValues = [
     {
@@ -143,8 +146,20 @@ export default function CoreValues() {
   // Determine if swipe is enabled (mobile only)
   const isMobile = () => window.innerWidth < 1024;
 
+  // Reset and replay animations when section enters/leaves viewport
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible"); // Play animations when section enters viewport
+    } else {
+      controls.start("hidden"); // Reset animations when section leaves viewport
+    }
+  }, [isInView, controls]);
+
   return (
-    <section className="lg:h-[100vh] lg:max-h-[100vh] lg:overflow-auto bg-gradient-to-br from-gray-50 via-white to-slate-50 flex flex-col pt-6 pb-6">
+    <section
+      ref={sectionRef}
+      className="lg:h-[100vh] lg:max-h-[100vh] lg:overflow-auto bg-gradient-to-br from-gray-50 via-white to-slate-50 flex flex-col pt-6 pb-6"
+    >
       {/* Background blobs */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse"></div>
@@ -156,39 +171,29 @@ export default function CoreValues() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          animate={controls} // Use animation controls
           className="flex-1 flex flex-col"
         >
           {/* Header */}
           <div className="text-center mb-6">
             {/* Title */}
             <motion.h2
+              variants={itemVariants}
               className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.2]"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              transition={{ duration: 0.7 }}
             >
               Our Core Values
             </motion.h2>
 
             {/* Underline */}
             <motion.div
+              variants={itemVariants}
               className="mt-2 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: false }}
-              transition={{ duration: 0.8, delay: 0.3 }}
             />
 
             {/* Description */}
             <motion.p
+              variants={itemVariants}
               className="max-w-3xl mx-auto mt-4 text-sm sm:text-base font-light text-muted-foreground leading-relaxed"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              transition={{ duration: 0.6, delay: 0.3 }}
             >
               EMC is a leading engineering solutions provider with over 30 years
               of excellence in Egypt's power and oil & gas markets. Since our
