@@ -1,302 +1,359 @@
 "use client";
 import { motion } from "framer-motion";
-import { Gem, FlaskConical, CookingPot, Gavel } from "lucide-react";
+import {
+  Gem,
+  FlaskConical,
+  CookingPot,
+  Heart,
+  Shield,
+  Zap,
+  Users,
+  Eye,
+  Target,
+  ChevronRight,
+} from "lucide-react";
+import { useState, useRef } from "react";
 
-// Helper to create SVG arc path for a pie segment
-function describeArc(cx, cy, r, startAngle, endAngle) {
-  const start = polarToCartesian(cx, cy, r, endAngle);
-  const end = polarToCartesian(cx, cy, r, startAngle);
-  const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-  return [
-    "M",
-    cx,
-    cy,
-    "L",
-    start.x,
-    start.y,
-    "A",
-    r,
-    r,
-    0,
-    largeArcFlag,
-    0,
-    end.x,
-    end.y,
-    "Z",
-  ].join(" ");
-}
-function polarToCartesian(cx, cy, r, angleInDegrees) {
-  const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
-  return {
-    x: cx + r * Math.cos(angleInRadians),
-    y: cy + r * Math.sin(angleInRadians),
-  };
-}
-
-// Helper to split description into two lines if too long
-function splitDescription(desc, max = 22) {
-  if (desc.length <= max) return [desc];
-  const idx = desc.lastIndexOf(" ", max);
-  if (idx === -1) return [desc];
-  return [desc.slice(0, idx), desc.slice(idx + 1)];
-}
+// Base64-encoded SVGs for updated arrow cursors
+const leftArrowCursor = `url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LWxlZnQtaWNvbiBsdWNpZGUtYXJyb3ctbGVmdCI+PHBhdGggZD0ibTEyIDE5LTctNyA3LTciLz48cGF0aCBkPSJNMTkgMTJINSIvPjwvc3ZnPg=="), auto`;
+const rightArrowCursor = `url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LXJpZ2h0LWljb24gbHVjaWRlLWFycm93LXJpZ2h0Ij48cGF0aCBkPSJNNSAxMmgxNCIvPjxwYXRoIGQ9Im0xMiA1IDcgNy03IDciLz48L3N2Zz4="), auto`;
 
 export default function CoreValues() {
-  // Pie segments data
-  const segments = [
-    { text: "Integrity", desc: "We are trustworthy and act in good faith" },
-    { text: "Empathy", desc: "We care about all of our stakeholders" },
+  const [activeValue, setActiveValue] = useState(0);
+  const [hovering, setHovering] = useState(false);
+  const [cursorSide, setCursorSide] = useState(null); // Track left/right half
+  const cardRef = useRef(null); // Reference to the big card
+
+  const coreValues = [
+    {
+      text: "Integrity",
+      icon: Shield,
+      desc: "We are trustworthy and act in good faith",
+      fullDesc:
+        "Building uncompromising trust through transparent operations, ethical decision-making, and accountability at every level of our organization.",
+      color: "#006996", // EMC Blue
+      bgColor: "from-gray-200 to-gray-300", // EMC Gray tone
+    },
+    {
+      text: "Empathy",
+      icon: Heart,
+      desc: "We care about all of our stakeholders",
+      fullDesc:
+        "Fostering meaningful relationships with stakeholders through active listening, cultural sensitivity, and human-centered solutions.",
+      color: "#939598", // EMC Gray
+      bgColor: "from-blue-100 to-blue-200", // EMC Blue tone
+    },
     {
       text: "Resilience",
+      icon: Zap,
       desc: "We remain strong ensuring that we deliver quality",
+      fullDesc:
+        "Maintaining operational excellence and adaptability while navigating market challenges and emerging opportunities with confidence.",
+      color: "#939598", // EMC Gray
+      bgColor: "from-blue-100 to-blue-200 ",
     },
     {
       text: "Agility",
+      icon: Target,
       desc: "We challenge the status quo with open minds, focus and speed",
+      fullDesc:
+        "Driving innovation through strategic flexibility, rapid decision-making, and continuous transformation in our global operations.",
+      color: "#006996", // EMC Blue
+      bgColor: "from-gray-200 to-gray-300",
     },
-    { text: "Unity", desc: "We are stronger when we work together as a team" },
+    {
+      text: "Unity",
+      icon: Users,
+      desc: "We are stronger when we work together as a team",
+      fullDesc:
+        "Leveraging collective expertise across diverse teams to achieve exceptional results and sustainable competitive advantage.",
+      color: "#006996", // EMC Blue
+      bgColor: "from-gray-200 to-gray-300",
+    },
     {
       text: "Long Term View",
+      icon: Eye,
       desc: "We look beyond the present to deliver future value",
+      fullDesc:
+        "Making strategic investments and decisions that ensure sustainable growth, stakeholder value, and positive global impact.",
+      color: "#939598", // EMC Gray
+      bgColor: "from-blue-100 to-blue-200",
     },
   ];
-  const numSegments = segments.length;
-  const wheelRadius = 270;
-  const center = wheelRadius;
-  const segmentAngle = 360 / numSegments;
-  const labelRadius = wheelRadius * 0.66;
-  const primary = "#006996";
-  const primaryDark = "#004d6e";
 
-  // SVG gradient for center circle and gavel icon
-  const centerGradientId = "corevalues-center-gradient";
-
-  // Action cards data with solid brand color icons
-  const actionCards = [
-    {
-      icon: <Gem size={32} stroke={primary} />,
-      title: "Motivator",
-      desc: "Providing inspiration to get you charged up",
-    },
-    {
-      icon: <FlaskConical size={32} stroke={primary} />,
-      title: "Guidance",
-      desc: "Supporting you in all your activities. You are not alone",
-    },
-    {
-      icon: <CookingPot size={32} stroke={primary} />,
-      title: "Action",
-      desc: "We believe in doing and not speculation",
-    },
-  ];
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (i) => ({
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
       opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.2, duration: 0.6 },
-    }),
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    },
   };
 
-  return (
-    <section className="py-12 sm:py-24 relative overflow-hidden bg-gradient-to-br from-muted via-white to-muted">
-      <div className="absolute -z-10 left-1/2 top-0 -translate-x-1/2 w-[900px] h-[900px] bg-gradient-to-br from-primary/10 via-primary-dark/5 to-white rounded-full blur-3xl opacity-60" />
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center px-4 sm:px-6 lg:px-8">
-        {/* Left Side - Info style */}
-        <div className="space-y-8">
-          <div className="space-y-4 sm:space-y-6 text-center md:text-left relative">
-            <div className="flex items-center justify-center md:justify-start space-x-3 transition-all duration-700">
-              <div className="w-8 sm:w-12 h-0.5 bg-primary"></div>
-              <span className="text-xs sm:text-sm font-light tracking-widest uppercase text-primary">
-                COMPANY
-              </span>
-            </div>
-            <div className="transition-all duration-700 delay-200">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-[1.15]">
-                <span className="bg-clip-text font-black">Our Core</span>
-                <br />
-                <span className="block text-primary relative">
-                  Values
-                  <span className="block relative w-full">
-                    <span className="sr-only">underline</span>
-                    <motion.span
-                      className="absolute left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary-dark to-primary rounded-full mt-1"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "100%" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.5 }}
-                      style={{ display: "block" }}
-                    />
-                  </span>
-                </span>
-              </h2>
-            </div>
-            <div className="w-16 h-1 bg-primary mx-auto md:mx-0 mt-4 transition-all duration-1000 delay-700 opacity-100 scale-100"></div>
-          </div>
-          <motion.p
-            className="font-semibold text-muted-foreground text-lg md:text-xl mb-2"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            Our company culture is defined by our Core Values
-          </motion.p>
-          <motion.p
-            className="text-muted-foreground text-base md:text-lg max-w-2xl"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-          >
-            Company values are the set of guiding principles and fundamental
-            beliefs that help a group of people function together as a team and
-            work toward a common business goal.
-          </motion.p>
-          {/* Action Cards */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
-            {actionCards.map((card, i) => (
-              <motion.div
-                key={card.title}
-                className="flex-1 rounded-2xl shadow-md flex flex-col items-center p-6 min-w-[180px] max-w-xs mx-auto border border-muted hover:shadow-lg transition-shadow duration-300"
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                variants={cardVariants}
-              >
-                {card.icon}
-                <div className="font-bold text-lg mb-1 text-foreground">
-                  {card.title}
-                </div>
-                <div className="text-muted-foreground text-sm text-center">
-                  {card.desc}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
 
-        {/* Right Side: SVG Wheel */}
-        <div className="flex items-center justify-center w-full">
-          <motion.svg
-            width={wheelRadius * 2}
-            height={wheelRadius * 2}
-            viewBox={`0 0 ${wheelRadius * 2} ${wheelRadius * 2}`}
-            className="block drop-shadow-2xl"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
-            <defs>
-              <linearGradient id={centerGradientId} x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor={primary} />
-                <stop offset="50%" stopColor={primaryDark} />
-                <stop offset="100%" stopColor="#a5b4fc" />
-              </linearGradient>
-            </defs>
-            {/* Pie Segments */}
-            {segments.map((seg, i) => {
-              const startAngle = i * segmentAngle;
-              const endAngle = (i + 1) * segmentAngle;
-              const fill = i % 2 === 0 ? primary : primaryDark;
-              return (
-                <motion.path
-                  key={seg.text}
-                  d={describeArc(
-                    center,
-                    center,
-                    wheelRadius,
-                    startAngle,
-                    endAngle
-                  )}
-                  fill={fill}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: i * 0.12 }}
-                  style={{ filter: `drop-shadow(0 2px 12px ${primary}20)` }}
-                />
-              );
-            })}
-            {/* Center Circle */}
-            <circle
-              cx={center}
-              cy={center}
-              r={90}
-              fill="#fff"
-              stroke={`url(#${centerGradientId})`}
-              strokeWidth={8}
-              style={{ filter: `drop-shadow(0 0 24px ${primary}33)` }}
-            />
-            {/* Gavel Icon with gradient stroke */}
-            <g>
-              <Gavel
-                size={44}
-                stroke={`url(#${centerGradientId})`}
-                x={center - 22}
-                y={center - 28}
-              />
-            </g>
-            {/* Center Text with gradient fill */}
-            <text
-              x={center}
-              y={center + 48}
-              textAnchor="middle"
-              className="font-black"
-              fontSize={22}
-              fill={`url(#${centerGradientId})`}
-              style={{ letterSpacing: "1px" }}
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
+  };
+
+  const goNext = () => {
+    setActiveValue((prev) => (prev + 1) % coreValues.length);
+  };
+
+  const goPrev = () => {
+    setActiveValue(
+      (prev) => (prev - 1 + coreValues.length) % coreValues.length
+    );
+  };
+
+  // Handle mouse move to detect left/right half
+  const handleMouseMove = (e) => {
+    if (window.innerWidth < 1024) return; // Desktop-only
+    const rect = cardRef.current.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left; // Mouse X relative to card
+    const cardWidth = rect.width;
+    setCursorSide(mouseX < cardWidth / 2 ? "left" : "right");
+  };
+
+  // Handle click based on cursor position
+  const handleCardClick = (e) => {
+    if (window.innerWidth < 1024) return; // Desktop-only
+    const rect = cardRef.current.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const cardWidth = rect.width;
+    if (mouseX < cardWidth / 2) {
+      goPrev();
+    } else {
+      goNext();
+    }
+  };
+
+  // Determine if swipe is enabled (mobile only)
+  const isMobile = () => window.innerWidth < 1024;
+
+  return (
+    <section className="lg:h-[100vh] lg:max-h-[100vh] lg:overflow-auto bg-gradient-to-br from-gray-50 via-white to-slate-50 flex flex-col pt-6 pb-6">
+      {/* Background blobs */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse"></div>
+        <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse delay-1000"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-cyan-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse delay-2000"></div>
+      </div>
+
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative flex flex-col">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="flex-1 flex flex-col"
+        >
+          {/* Header */}
+          <div className="text-center mb-6">
+            {/* Title */}
+            <motion.h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.2]"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.7 }}
             >
-              Values
-            </text>
-            {/* Segment Labels */}
-            {segments.map((seg, i) => {
-              const angle = (i + 0.5) * segmentAngle - 90;
-              const rad = angle * (Math.PI / 180);
-              const x = center + labelRadius * Math.cos(rad);
-              const y = center + labelRadius * Math.sin(rad);
-              const descLines = splitDescription(seg.desc, 22);
-              return (
-                <g key={seg.text + "-label"}>
-                  <text
-                    x={x}
-                    y={y}
-                    textAnchor="middle"
-                    fontSize={13}
-                    fontWeight="bold"
-                    fill="white"
-                    style={{
-                      textShadow: "0 1px 4px rgba(0,0,0,0.25)",
-                      dominantBaseline: "middle",
-                      letterSpacing: "0.5px",
-                    }}
-                  >
-                    {seg.text}
-                  </text>
-                  {descLines.map((line, idx) => (
-                    <text
-                      key={idx}
-                      x={x}
-                      y={y + 20 + idx * 15}
-                      textAnchor="middle"
-                      fontSize={11}
-                      fill="#f1f5f9"
-                      style={{
-                        textShadow: "0 1px 4px rgba(0,0,0,0.18)",
-                        dominantBaseline: "middle",
-                        letterSpacing: "0.2px",
-                      }}
+              Our Core Values
+            </motion.h2>
+
+            {/* Underline */}
+            <motion.div
+              className="mt-2 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            />
+
+            {/* Description */}
+            <motion.p
+              className="max-w-3xl mx-auto mt-4 text-sm sm:text-base font-light text-muted-foreground leading-relaxed"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              EMC is a leading engineering solutions provider with over 30 years
+              of excellence in Egypt's power and oil & gas markets. Since our
+              founding in 1988, we've delivered EGP 300M in projects while
+              maintaining an uncompromising commitment to quality. Our expertise
+              spans turnkey EPC projects, technical consulting, and after-sales
+              services for energy infrastructure, specializing in
+              diesel/hydrogen plants and district systems.
+            </motion.p>
+          </div>
+
+          {/* Main Content */}
+          <div className="flex-1 flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-8 lg:items-stretch">
+            {/* Left Column */}
+            <div className="order-2 lg:order-1 flex flex-col">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+                {coreValues.map((value, i) => {
+                  const IconComponent = value.icon;
+                  return (
+                    <motion.div
+                      key={i}
+                      variants={itemVariants}
+                      className={`group cursor-pointer rounded-2xl p-4 border-2 transition-all duration-300 flex-1 ${
+                        activeValue === i
+                          ? `border-blue-200 bg-gradient-to-br ${value.bgColor} shadow-lg`
+                          : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-md"
+                      }`}
+                      onClick={() => setActiveValue(i)}
                     >
-                      {line}
-                    </text>
-                  ))}
-                </g>
-              );
-            })}
-          </motion.svg>
-        </div>
+                      <div className="flex items-start space-x-4">
+                        <div
+                          className={`p-3 rounded-xl ${
+                            activeValue === i
+                              ? "bg-white/80"
+                              : "bg-gray-50 group-hover:bg-gray-100"
+                          }`}
+                        >
+                          <IconComponent
+                            size={20}
+                            style={{
+                              color:
+                                activeValue === i ? value.color : "#6b7280",
+                            }}
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4
+                            className={`font-semibold text-base sm:text-lg mb-2 truncate ${
+                              activeValue === i
+                                ? "text-gray-900"
+                                : "text-gray-800"
+                            }`}
+                          >
+                            {value.text}
+                          </h4>
+                          <p
+                            className={`text-xs sm:text-sm leading-relaxed line-clamp-2 ${
+                              activeValue === i
+                                ? "text-gray-700"
+                                : "text-gray-600"
+                            }`}
+                          >
+                            {value.desc}
+                          </p>
+                        </div>
+                        {activeValue === i && (
+                          <ChevronRight
+                            size={16}
+                            className="text-blue-600 mt-1"
+                          />
+                        )}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Column (Big Card with mouse navigation and custom cursor) */}
+            <div className="order-1 lg:order-2 flex flex-col h-full">
+              <motion.div
+                variants={itemVariants}
+                className="relative w-full h-full"
+                onMouseEnter={() => setHovering(true)}
+                onMouseLeave={() => {
+                  setHovering(false);
+                  setCursorSide(null); // Reset cursor side on leave
+                }}
+                onMouseMove={handleMouseMove} // Track mouse position
+              >
+                <motion.div
+                  key={activeValue}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  drag={isMobile() ? "x" : false} // Enable drag only on mobile
+                  dragConstraints={{ left: 0, right: 0 }}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    if (!isMobile()) return; // Skip drag handling on desktop
+                    const swipe = offset.x * velocity.x;
+                    if (swipe < -1000) {
+                      goNext();
+                    } else if (swipe > 1000) {
+                      goPrev();
+                    }
+                  }}
+                  ref={cardRef}
+                  onClick={handleCardClick} // Handle click for navigation
+                  className="relative bg-white rounded-3xl p-6 shadow-xl border border-gray-100 overflow-hidden h-full flex flex-col justify-between"
+                  style={{
+                    cursor:
+                      hovering && cursorSide === "left"
+                        ? leftArrowCursor
+                        : hovering && cursorSide === "right"
+                        ? rightArrowCursor
+                        : "auto",
+                  }}
+                >
+                  {/* Background */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${coreValues[activeValue].bgColor} opacity-50`}
+                  ></div>
+
+                  {/* Icon + Text */}
+                  <div className="relative z-10 flex-1 flex flex-col justify-center">
+                    <div className="text-center mb-4">
+                      <div className="inline-flex p-4 rounded-2xl bg-white shadow-lg mb-4">
+                        {(() => {
+                          const IconComponent = coreValues[activeValue].icon;
+                          return (
+                            <IconComponent
+                              size={40}
+                              style={{ color: coreValues[activeValue].color }}
+                            />
+                          );
+                        })()}
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
+                        {coreValues[activeValue].text}
+                      </h3>
+                      <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+                        {coreValues[activeValue].fullDesc}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Dots */}
+                  <div className="flex justify-center space-x-2 mt-4 relative z-10">
+                    {coreValues.map((_, i) => (
+                      <div
+                        key={i}
+                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                          i === activeValue
+                            ? "w-8 bg-blue-600"
+                            : "w-2 bg-gray-300 hover:bg-gray-400"
+                        }`}
+                        onClick={() => setActiveValue(i)}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
