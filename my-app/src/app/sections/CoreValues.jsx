@@ -19,10 +19,20 @@ export default function CoreValues() {
   const [activeValue, setActiveValue] = useState(0);
   const [hovering, setHovering] = useState(false);
   const [cursorSide, setCursorSide] = useState(null);
+  const [isMobile, setIsMobile] = useState(false); // ✅ new state
+
   const cardRef = useRef(null);
   const sectionRef = useRef(null);
   const controls = useAnimation();
   const isInView = useInView(sectionRef, { amount: 0.2 });
+
+  // ✅ Detect mobile only on client
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const coreValues = [
     {
@@ -115,20 +125,18 @@ export default function CoreValues() {
     );
 
   const handleMouseMove = (e) => {
-    if (window.innerWidth < 1024) return;
+    if (isMobile) return;
     const rect = cardRef.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     setCursorSide(mouseX < rect.width / 2 ? "left" : "right");
   };
 
   const handleCardClick = (e) => {
-    if (window.innerWidth < 1024) return;
+    if (isMobile) return;
     const rect = cardRef.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     mouseX < rect.width / 2 ? goPrev() : goNext();
   };
-
-  const isMobile = () => window.innerWidth < 1024;
 
   useEffect(() => {
     isInView ? controls.start("visible") : controls.start("hidden");
@@ -186,7 +194,7 @@ export default function CoreValues() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
                 {coreValues.map((value, i) => {
                   const IconComponent = value.icon;
-                  const isEvenCard = i % 2 !== 0; // even visual position
+                  const isEvenCard = i % 2 !== 0;
                   const activeBorderColor = isEvenCard
                     ? "border-gray-300"
                     : "border-blue-200";
@@ -273,10 +281,10 @@ export default function CoreValues() {
                   variants={cardVariants}
                   initial="hidden"
                   animate="visible"
-                  drag={isMobile() ? "x" : false}
+                  drag={isMobile ? "x" : false}
                   dragConstraints={{ left: 0, right: 0 }}
                   onDragEnd={(e, { offset, velocity }) => {
-                    if (!isMobile()) return;
+                    if (!isMobile) return;
                     const swipe = offset.x * velocity.x;
                     if (swipe < -1000) goNext();
                     else if (swipe > 1000) goPrev();
