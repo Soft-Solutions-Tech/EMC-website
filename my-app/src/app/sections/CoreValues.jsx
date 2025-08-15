@@ -19,14 +19,13 @@ export default function CoreValues() {
   const [activeValue, setActiveValue] = useState(0);
   const [hovering, setHovering] = useState(false);
   const [cursorSide, setCursorSide] = useState(null);
-  const [isMobile, setIsMobile] = useState(false); // ✅ new state
+  const [isMobile, setIsMobile] = useState(false);
 
   const cardRef = useRef(null);
   const sectionRef = useRef(null);
   const controls = useAnimation();
   const isInView = useInView(sectionRef, { amount: 0.2 });
 
-  // ✅ Detect mobile only on client
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
@@ -98,7 +97,6 @@ export default function CoreValues() {
       transition: { staggerChildren: 0.1, delayChildren: 0.2 },
     },
   };
-
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -107,7 +105,6 @@ export default function CoreValues() {
       transition: { duration: 0.6, ease: "easeOut" },
     },
   };
-
   const cardVariants = {
     hidden: { opacity: 0, y: 20, scale: 0.95 },
     visible: {
@@ -145,13 +142,13 @@ export default function CoreValues() {
   return (
     <section
       ref={sectionRef}
-      className="lg:h-[100vh] lg:max-h-[100vh] lg:overflow-auto bg-gradient-to-br from-gray-50 via-white to-slate-50 flex flex-col pt-6 pb-6"
+      className="relative overflow-x-hidden lg:h-[100vh] lg:max-h-[100vh] lg:overflow-auto bg-gradient-to-br from-gray-50 via-white to-slate-50 flex flex-col pt-6 pb-6"
     >
       {/* Background blobs */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse"></div>
-        <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse delay-1000"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-cyan-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse delay-2000"></div>
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-[15%] w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse"></div>
+        <div className="absolute top-1/3 right-[15%] w-64 h-64 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse delay-1000"></div>
+        <div className="absolute bottom-1/4 left-[20%] w-64 h-64 bg-cyan-100 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse delay-2000"></div>
       </div>
 
       <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative flex flex-col">
@@ -313,9 +310,7 @@ export default function CoreValues() {
                           return (
                             <IconComponent
                               size={40}
-                              style={{
-                                color: coreValues[activeValue].color,
-                              }}
+                              style={{ color: coreValues[activeValue].color }}
                             />
                           );
                         })()}
