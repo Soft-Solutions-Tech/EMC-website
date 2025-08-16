@@ -11,9 +11,9 @@ export default function AboutPage() {
   return (
     <>
       <WhoWeAreSection />
-      <MeetOurTeam />
-      <TimelineSection />
       <CoreValues />
+      <TimelineSection />
+      <MeetOurTeam />
       <OurActivities />
     </>
   );
