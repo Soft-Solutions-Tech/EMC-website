@@ -53,7 +53,7 @@ export default function ActivitiesSection() {
             className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-primary"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: false, amount: 0.2 }} // replay on scroll
             transition={{ duration: 0.7 }}
           >
             Our Activities
@@ -62,21 +62,18 @@ export default function ActivitiesSection() {
             className="mt-2 mx-auto h-1 w-24 bg-primary rounded-full"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            viewport={{ once: false }}
+            viewport={{ once: false, amount: 0.2 }} // replay on scroll
             transition={{ duration: 0.8, delay: 0.3 }}
           />
         </div>
 
         {/* Timeline layout */}
         <div className="relative">
-          {/* Mobile vertical spine */}
-          <span className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-gray-300 hidden md:hidden sm:block"></span>
-
           <motion.div
             variants={animations.container}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }} // replay on scroll
             className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-20"
           >
             {activities.map((activity, index) => (
@@ -101,6 +98,11 @@ export default function ActivitiesSection() {
                 {/* Horizontal line for desktop */}
                 {index !== activities.length - 1 && (
                   <span className="hidden md:block absolute top-7 left-full w-20 h-[1px] bg-gray-300"></span>
+                )}
+
+                {/* Vertical line for mobile (from p -> next icon) */}
+                {index !== activities.length - 1 && (
+                  <span className="block md:hidden absolute left-1/2 top-full w-[2px] h-8 bg-gray-300"></span>
                 )}
               </motion.div>
             ))}
