@@ -45,7 +45,7 @@ const animations = {
 
 export default function ActivitiesSection() {
   return (
-    <section className="py-20 bg-white text-gray-900">
+    <section className="py-20 text-gray-900">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-4 sm:mb-6">
