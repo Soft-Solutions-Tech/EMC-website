@@ -4,28 +4,28 @@ import { Briefcase, Users, Globe, Lightbulb } from "lucide-react";
 
 const activities = [
   {
-    icon: <Briefcase className="w-7 h-7 text-primary" />,
+    icon: <Briefcase className="w-8 h-8 text-primary" />,
     title: "Business Consulting",
     description:
-      "Providing expert guidance to help organizations achieve strategic goals efficiently.",
+      "Providing expert guidance to help organizations achieve strategic goals efficiently and effectively.",
   },
   {
-    icon: <Users className="w-7 h-7 text-primary" />,
+    icon: <Users className="w-8 h-8 text-primary" />,
     title: "Team Development",
     description:
-      "Enhancing workforce capabilities through tailored training and workshops.",
+      "Enhancing workforce capabilities through tailored training programs and comprehensive workshops.",
   },
   {
-    icon: <Globe className="w-7 h-7 text-primary" />,
+    icon: <Globe className="w-8 h-8 text-primary" />,
     title: "Global Outreach",
     description:
-      "Building international partnerships to expand our market presence.",
+      "Building strategic international partnerships to expand our market presence worldwide.",
   },
   {
-    icon: <Lightbulb className="w-7 h-7 text-primary" />,
+    icon: <Lightbulb className="w-8 h-8 text-primary" />,
     title: "Innovation Projects",
     description:
-      "Driving new initiatives to foster creativity and future-ready solutions.",
+      "Driving cutting-edge initiatives to foster creativity and develop future-ready solutions.",
   },
 ];
 
@@ -34,76 +34,90 @@ const animations = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, duration: 0.6 },
+      transition: {
+        staggerChildren: 0.12,
+        duration: 0.5,
+      },
     },
   },
   item: {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
   },
 };
 
 export default function ActivitiesSection() {
   return (
-    <section className="py-20 text-gray-900">
-      <div className="container mx-auto px-4">
+    <section className="py-20 lg:py-24">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-4 sm:mb-6">
-          <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-primary"
+        <div className="text-center mb-20">
+          <motion.h1
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }} // replay on scroll
-            transition={{ duration: 0.7 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 0.6 }}
           >
             Our Activities
-          </motion.h2>
+          </motion.h1>
+
           <motion.div
-            className="mt-2 mx-auto h-1 w-24 bg-primary rounded-full"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: false, amount: 0.2 }} // replay on scroll
-            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md"
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 1, delay: 0.5 }}
           />
         </div>
 
-        {/* Timeline layout */}
-        <div className="relative">
+        {/* Activities Grid */}
+        <div className="relative max-w-6xl mx-auto">
           <motion.div
             variants={animations.container}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }} // replay on scroll
-            className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-20"
+            viewport={{ once: false, amount: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12"
           >
             {activities.map((activity, index) => (
               <motion.div
                 key={index}
                 variants={animations.item}
-                className="flex flex-col items-center text-center md:items-center md:text-center relative md:w-1/4"
+                whileHover={{
+                  y: -4,
+                  transition: { duration: 0.3, ease: "easeOut" },
+                }}
+                className="group relative flex flex-col h-full"
               >
-                {/* Icon */}
-                <div className="flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 z-10 relative">
-                  {activity.icon}
+                {/* Content Container */}
+                <div className="relative flex flex-col h-full min-h-[260px] text-center transition-all duration-300">
+                  {/* Icon Container */}
+                  <div className="flex justify-center mb-8">
+                    <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 transition-all duration-300 group-hover:bg-primary/15 group-hover:scale-105">
+                      {activity.icon}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex flex-col flex-1 space-y-4">
+                    <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                      {activity.title}
+                    </h3>
+
+                    <p className="text-muted-foreground text-sm leading-relaxed font-medium flex-1 max-w-sm mx-auto">
+                      {activity.description}
+                    </p>
+                  </div>
                 </div>
-                {/* Title */}
-                <h3 className="text-lg font-semibold mt-4 mb-2 text-gray-900">
-                  {activity.title}
-                </h3>
-                {/* Description */}
-                <p className="text-gray-600 text-sm leading-relaxed max-w-sm mb-6">
-                  {activity.description}
-                </p>
-
-                {/* Horizontal line for desktop */}
-                {index !== activities.length - 1 && (
-                  <span className="hidden md:block absolute top-7 left-full w-20 h-[1px] bg-gray-300"></span>
-                )}
-
-                {/* Vertical line for mobile (from p -> next icon) */}
-                {index !== activities.length - 1 && (
-                  <span className="block md:hidden absolute left-1/2 top-full w-[2px] h-8 bg-gray-300"></span>
-                )}
               </motion.div>
             ))}
           </motion.div>
