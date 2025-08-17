@@ -1,29 +1,35 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { founders } from "../../../data/about";
+import { founders, companyOverview } from "../../../data/about";
+import { X } from "lucide-react";
 
+// Animation variants for consistent motion
 const animations = {
   container: {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        duration: 0.6,
+        staggerChildren: 0.12,
+        duration: 0.5,
       },
     },
   },
   item: {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 24 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
         ease: "easeOut",
       },
     },
+  },
+  overlay: {
+    rest: { opacity: 0.3 },
+    hover: { opacity: 0.7 },
   },
 };
 
@@ -31,123 +37,159 @@ export default function MeetOurTeam() {
   const [activeIndex, setActiveIndex] = useState(null);
   const [modalIndex, setModalIndex] = useState(null);
 
+  // Calculate statistics
+  const totalExperience = founders.reduce(
+    (acc, founder) => acc + founder.career.length,
+    0
+  );
+  const yearsInBusiness =
+    new Date().getFullYear() - parseInt(companyOverview.established);
+
   return (
-    <section className="min-h-screen flex flex-col overflow-hidden">
-      {/* Header Section */}
-      <div className="text-center mb-6 sm:mb-8">
-        <motion.h2
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.2]"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.7 }}
-        >
-          Meet Our Leadership
-        </motion.h2>
-        <motion.div
-          className="mt-2 mx-auto h-1 w-24 bg-primary rounded-full shadow-md shadow-primary-light"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        />
-      </div>
+    <section className="min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 py-16 lg:px-8 lg:py-20">
+        {/* Section Header */}
+        <div className="text-center mb-20">
+          <motion.h1
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 0.6 }}
+          >
+            Meet Our Leadership
+          </motion.h1>
 
-      {/* Compact Header */}
-      <motion.div
-        className="px-4 sm:px-8 py-6 border-b border-border"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <div>
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
-              Experienced founders{" "}
-              <span className="text-primary">driving innovation</span>
-            </h1>
-          </div>
+          <motion.div
+            className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md mb-5"
+            initial={{ width: 0 }}
+            whileInView={{ width: 128 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          />
         </div>
-      </motion.div>
 
-      {/* Main Content - Horizontal Layout */}
-      <div className="flex-1 p-4 sm:p-8 overflow-hidden">
+        {/* Statistics Banner */}
         <motion.div
-          className="max-w-7xl mx-auto h-full"
+          className="mb-20"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex flex-wrap justify-center gap-12 text-center">
+            <div className="flex flex-col items-center">
+              <span className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary mb-2">
+                {yearsInBusiness}+
+              </span>
+              <span className="text-muted-foreground font-medium text-sm uppercase tracking-wide">
+                Years of Excellence
+              </span>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <span className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary mb-2">
+                {founders.length}
+              </span>
+              <span className="text-muted-foreground font-medium text-sm uppercase tracking-wide">
+                Founding Members
+              </span>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <span className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary mb-2">
+                {totalExperience}+
+              </span>
+              <span className="text-muted-foreground font-medium text-sm uppercase tracking-wide">
+                Combined Experience
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Team Grid */}
+        <motion.div
+          className="max-w-6xl mx-auto"
           variants={animations.container}
           initial="hidden"
           animate="visible"
         >
-          {/* Founders Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {founders.map((founder, index) => (
               <motion.div
                 key={index}
                 variants={animations.item}
-                className="relative group cursor-pointer h-[28rem] sm:h-[36rem] lg:h-[40rem] rounded-xl bg-card shadow-lg shadow-primary/10 overflow-hidden transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/20"
+                className="group cursor-pointer"
                 onMouseEnter={() => setActiveIndex(index)}
                 onMouseLeave={() => setActiveIndex(null)}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+                onClick={() => setModalIndex(index)}
               >
-                {/* Background Image */}
-                <div className="absolute inset-0">
-                  <img
-                    src={founder.image}
-                    alt={founder.name}
-                    className="w-full h-full object-contain object-center"
-                    style={{ imageRendering: "auto" }}
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-all duration-500"></div>
-                </div>
-
-                {/* Content Overlay */}
-                <div className="relative z-10 h-full flex flex-col justify-end p-6 sm:p-8">
-                  <motion.div
-                    className="text-white"
-                    animate={{
-                      y: activeIndex === index ? -20 : 0,
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">
-                      {founder.name}
-                    </h2>
-                    <p className="text-white/90 text-sm sm:text-base mb-4 font-medium">
-                      {founder.education}
-                    </p>
-
-                    {/* Experience Preview */}
-                    <motion.div
-                      className="space-y-2 overflow-hidden"
-                      animate={{
-                        height: activeIndex === index ? "auto" : "0",
-                        opacity: activeIndex === index ? 1 : 0,
+                <div className="relative overflow-hidden rounded-3xl bg-card/80 backdrop-blur-sm border border-muted shadow-xl shadow-primary/10 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
+                  {/* Image Container */}
+                  <div className="relative h-[500px] overflow-hidden">
+                    <img
+                      src={founder.image}
+                      alt={`${founder.name} - Leadership Team`}
+                      className="w-full h-full object-cover object-top"
+                      style={{
+                        imageRendering: "high-quality",
+                        objectPosition: "50% 20%",
                       }}
-                      transition={{ duration: 0.4 }}
+                      loading="lazy"
+                    />
+
+                    {/* Gradient Overlay */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"
+                      variants={animations.overlay}
+                      animate={activeIndex === index ? "hover" : "rest"}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
+
+                  {/* Content Section */}
+                  <div className="relative p-8 bg-gradient-to-br from-card to-muted/20">
+                    <motion.div
+                      animate={{
+                        y: activeIndex === index ? -6 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                      {founder.career.slice(0, 3).map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="text-white/80 text-xs sm:text-sm line-clamp-2"
-                        >
-                          {item}
+                      <h3 className="text-2xl font-bold text-foreground mb-3">
+                        {founder.name}
+                      </h3>
+
+                      <p className="text-muted-foreground text-base mb-6 leading-relaxed font-medium">
+                        {founder.education}
+                      </p>
+
+                      {/* Career Preview */}
+                      <motion.div
+                        className="space-y-3"
+                        animate={{
+                          height: activeIndex === index ? "auto" : "100px",
+                        }}
+                        style={{ overflow: "hidden" }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                      >
+                        <div className="space-y-3">
+                          {founder.career
+                            .slice(
+                              0,
+                              activeIndex === index ? founder.career.length : 3
+                            )
+                            .map((item, idx) => (
+                              <div
+                                key={idx}
+                                className="flex items-start gap-3 text-muted-foreground text-sm"
+                              >
+                                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                                <span className="leading-relaxed">{item}</span>
+                              </div>
+                            ))}
                         </div>
-                      ))}
-                      {founder.career.length > 3 && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setModalIndex(index);
-                          }}
-                          className="text-white/80 hover:text-white text-xs sm:text-sm italic underline"
-                        >
-                          +{founder.career.length - 3} more achievements
-                        </button>
-                      )}
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -155,77 +197,81 @@ export default function MeetOurTeam() {
         </motion.div>
       </div>
 
-      {/* Footer Stats */}
-      <motion.div
-        className="px-4 sm:px-8 py-4 border-t border-border"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-      >
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between text-sm text-muted-foreground gap-4 sm:gap-0">
-          <span>{founders.length} Founding Members</span>
-          <span>
-            Combined {founders.reduce((acc, f) => acc + f.career.length, 0)}+
-            Years Experience
-          </span>
-          <span>Industry Leaders</span>
-        </div>
-      </motion.div>
-
       {/* Modal */}
       <AnimatePresence>
         {modalIndex !== null && (
           <motion.div
-            className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={() => setModalIndex(null)}
           >
             <motion.div
-              className="bg-card rounded-xl shadow-xl max-w-lg w-full overflow-hidden"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              className="bg-card/80 backdrop-blur-sm border border-muted rounded-3xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Image Header */}
-              <div className="relative w-full h-[20rem] sm:h-[24rem] overflow-hidden">
+              {/* Modal Header */}
+              <div className="relative h-64 sm:h-80 overflow-hidden flex-shrink-0">
                 <img
                   src={founders[modalIndex].image}
-                  alt={founders[modalIndex].name}
-                  className="w-full h-full object-contain object-center"
-                  style={{ imageRendering: "auto" }}
-                  loading="lazy"
+                  alt={`${founders[modalIndex].name} - Leadership Profile`}
+                  className="w-full h-full object-cover object-top"
+                  style={{ objectPosition: "50% 20%" }}
                 />
-                <div className="absolute inset-0 bg-black/20"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h2 className="text-lg sm:text-xl font-bold">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                {/* Close Button */}
+                <button
+                  onClick={() => setModalIndex(null)}
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200 text-lg sm:text-xl font-bold"
+                  aria-label="Close modal"
+                >
+                  ×
+                </button>
+
+                {/* Modal Title */}
+                <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 text-white">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">
                     {founders[modalIndex].name}
                   </h2>
-                  <p className="text-white/80 text-sm">
+                  <p className="text-white/90 text-base sm:text-lg font-medium">
                     {founders[modalIndex].education}
                   </p>
                 </div>
-                <button
-                  onClick={() => setModalIndex(null)}
-                  className="absolute top-3 right-3 text-white text-2xl hover:text-white/80"
-                >
-                  &times;
-                </button>
               </div>
 
-              {/* Achievements List */}
-              <div className="p-6 max-h-[50vh] overflow-y-auto">
-                <h3 className="text-lg font-semibold mb-3 text-foreground">
-                  Achievements
+              {/* Modal Content */}
+              <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+                <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
+                  <div className="w-1.5 h-6 sm:h-8 bg-primary rounded-full" />
+                  Professional Journey
                 </h3>
-                <ul className="space-y-3">
+
+                <div className="space-y-4 pb-4">
                   {founders[modalIndex].career.map((item, idx) => (
-                    <li key={idx} className="text-foreground text-sm">
-                      {item}
-                    </li>
+                    <motion.div
+                      key={idx}
+                      className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl bg-muted/50 hover:bg-primary/10 transition-all duration-300"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.08 }}
+                    >
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/30">
+                        <span className="text-primary-foreground text-xs sm:text-sm font-bold">
+                          {idx + 1}
+                        </span>
+                      </div>
+                      <p className="text-muted-foreground text-sm sm:text-base leading-relaxed font-medium">
+                        {item}
+                      </p>
+                    </motion.div>
                   ))}
-                </ul>
+                </div>
               </div>
             </motion.div>
           </motion.div>
