@@ -40,7 +40,7 @@ export function TimelineSection() {
   return (
     <section
       id="timeline"
-      className="relative w-full py-12 sm:py-16 bg-background text-foreground overflow-hidden"
+      className="relative w-full py-12 sm:py-16 text-foreground overflow-hidden"
       aria-label="Company Timeline"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

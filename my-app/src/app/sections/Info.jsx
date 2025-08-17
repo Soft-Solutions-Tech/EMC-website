@@ -91,8 +91,7 @@ export default function InfoSection() {
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4"
               }`}
-            >
-            </div>
+            ></div>
 
             <motion.h3
               className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tighter text-primary"
