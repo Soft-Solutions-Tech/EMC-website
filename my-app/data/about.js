@@ -65,3 +65,8 @@ export const companyOverview = {
   focus: "Power market and Oil & Gas market in Egypt",
   mission: "Deliver the highest end results to clients and partners",
 };
+export const content = {
+  title: "Who We Are",
+  description:
+    "EMC is a leading engineering and construction company with over 25 years of experience. We specialize in delivering innovative solutions for industrial, energy, and infrastructure projects, combining technical expertise with a commitment to quality and client satisfaction.",
+};
