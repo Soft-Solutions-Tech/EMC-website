@@ -22,6 +22,7 @@ const NAV_ITEMS = [
   { name: "Contact Us", href: "/contact" },
   {
     name: "Projects",
+    href: "/projects?type=ALL",
     dropdown: true,
     items: [
       { name: "All", href: "/projects?type=ALL", type: "ALL" },
@@ -87,15 +88,16 @@ export function Header() {
           <Image
             src="/logos/EMC-LOGO.png"
             alt="EMC Logo"
-            width={64}
-            height={64}
+            width={128}
+            height={128}
             quality={100}
             priority
             className="h-8 w-auto object-contain"
             style={{
-              imageRendering: "crisp-edges",
-              imageRendering: "-webkit-optimize-contrast",
+              imageRendering: "auto",
+              imageRendering: "-webkit-optimize-quality",
             }}
+            unoptimized={false}
           />
         </Link>
 
@@ -112,6 +114,7 @@ export function Header() {
                         pathname.startsWith("/projects") &&
                           "text-primary font-semibold bg-primary/10 border-primary/30"
                       )}
+                      onClick={() => router.push(item.href)}
                     >
                       {item.name}
                     </NavigationMenuTrigger>
