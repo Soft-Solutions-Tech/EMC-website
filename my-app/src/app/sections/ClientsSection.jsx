@@ -1,215 +1,169 @@
 "use client";
-import React, { useState } from "react";
-import { clients, clientsSection } from "../../../data/clients";
+import React, { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { clients, clientsSection } from "../../../data/clients";
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
 
 const ClientsSection = () => {
-  const [expandedClients, setExpandedClients] = useState(
-    clients
-      .filter((c) => c.subCompanies && c.subCompanies.length > 0)
-      .reduce((acc, client) => ({ ...acc, [client.id]: true }), {})
-  );
+  const [modalClient, setModalClient] = useState(null);
 
-  const toggleClientExpansion = (clientId) => {
-    setExpandedClients((prev) => ({
-      ...prev,
-      [clientId]: !prev[clientId],
-    }));
-  };
+  const openModal = useCallback((client) => {
+    setModalClient(client);
+  }, []);
 
-  // Sort clients: those with subCompanies first
-  const sortedClients = [...clients].sort((a, b) => {
-    const aHasSub = a.subCompanies && a.subCompanies.length > 0 ? -1 : 1;
-    const bHasSub = b.subCompanies && b.subCompanies.length > 0 ? -1 : 1;
-    return aHasSub - bHasSub;
-  });
+  const closeModal = useCallback(() => {
+    setModalClient(null);
+  }, []);
 
-  // Animation variants for section elements
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
-  };
+  const sortedClients = useMemo(() => {
+    return [...clients].sort((a, b) => {
+      const aHasSub = a.subCompanies && a.subCompanies.length > 0 ? -1 : 1;
+      const bHasSub = b.subCompanies && b.subCompanies.length > 0 ? -1 : 1;
+      return aHasSub - bHasSub;
+    });
+  }, []);
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
-    visible: (index) => ({
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.5, delay: index * 0.1, ease: "easeOut" },
-    }),
-  };
-
-  // CompanyCard component
-  const CompanyCard = ({
-    company,
-    index,
-    hasSubCompanies,
-    expanded,
-    onToggle,
-    isPartner = false,
-    className = "",
-  }) => {
+  const CompanyItem = ({ company, hasSubCompanies }) => {
     return (
       <motion.div
-        className={`group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-muted overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit ${className}`}
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="visible"
-        custom={index}
-        viewport={{ once: false, amount: 0.3 }}
+        variants={itemVariants}
+        className="group h-full flex flex-col"
       >
-        <div className="relative z-10 p-6 h-64 flex flex-col">
-          <a
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <motion.div
+            className="w-28 h-28 bg-white backdrop-blur-sm rounded-3xl flex items-center justify-center shadow-sm border border-gray-100/50 group-hover:shadow-md transition-all duration-300"
+            whileHover={{ y: -2, scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <img
+              src={company.logo}
+              alt={`${company.name} logo`}
+              className="w-16 h-16 object-contain"
+              loading="lazy"
+            />
+          </motion.div>
+        </div>
+
+        {/* Company Name */}
+        <div className="text-center mb-4">
+          <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors duration-300">
+            {company.name}
+          </h3>
+          <div className="mt-2 w-8 h-0.5 bg-gray-200 rounded-full mx-auto group-hover:bg-primary transition-colors duration-300" />
+        </div>
+
+        {/* Description */}
+        <div className="flex-1 mb-6">
+          <p className="text-sm text-gray-600 leading-relaxed text-center">
+            {company.brief}
+          </p>
+        </div>
+
+        {/* Portfolio Button */}
+        {hasSubCompanies && (
+          <div className="mb-4">
+            <motion.button
+              onClick={() => openModal(company)}
+              className="flex items-center justify-center w-full p-3 rounded-lg border border-primary/20 hover:bg-primary/10 hover:border-primary/30 transition-all duration-200 group/portfolio"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+            >
+              <div className="flex items-center">
+                <div className="w-2 h-2 bg-primary rounded-full mr-3" />
+                <span className="text-sm font-medium text-gray-700 group-hover/portfolio:text-primary transition-colors duration-200">
+                  View Portfolio ({company.subCompanies?.length})
+                </span>
+              </div>
+            </motion.button>
+          </div>
+        )}
+
+        {/* Visit Website Button*/}
+        <div className="mt-auto">
+          <motion.a
             href={company.website}
             target="_blank"
             rel="noopener noreferrer"
-            className="block flex-1"
+            className="inline-flex items-center justify-center w-full py-3 px-6 bg-gradient-to-r from-primary to-primary-light text-white text-sm font-medium rounded-xl hover:shadow-lg transition-all duration-300 group/btn"
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <div className="flex justify-center mb-4">
-              <div className="relative">
-                <img
-                  src={company.logo}
-                  alt={`${company.name} logo`}
-                  className={`object-contain transition-transform duration-300 group-hover:scale-105 ${
-                    company.id === "p5" ? "h-14 w-14" : "h-14 w-14"
-                  }`}
-                />
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="text-lg font-bold text-primary group-hover:text-primary-dark transition-colors">
-                {company.name}
-              </h3>
-              <div className="w-6 h-0.5 bg-gradient-to-r from-primary to-primary-dark mt-1 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-            </div>
-
-            <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors mb-4 line-clamp-3 flex-1 text-center">
-              {company.brief}
-            </p>
-          </a>
-
-          {hasSubCompanies && (
-            <div className="mt-auto pt-4 border-t border-muted">
-              <button
-                onClick={() => onToggle(company.id)}
-                className="flex items-center justify-between w-full text-left focus:outline-none group/button hover:bg-primary/10 rounded-lg p-2 -m-2 transition-colors duration-200"
-              >
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-2 opacity-60"></div>
-                  <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">
-                    Portfolio ({company.subCompanies.length})
-                  </h4>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-xs text-muted-foreground mr-2 opacity-0 group-hover/button:opacity-100 transition-opacity duration-200">
-                    {expanded ? "Hide" : "Show"}
-                  </span>
-                  <svg
-                    className={`w-4 h-4 text-primary transform transition-all duration-300 ${
-                      expanded
-                        ? "rotate-180 scale-110"
-                        : "group-hover/button:scale-110"
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
-              </button>
-            </div>
-          )}
+            <span className="mr-2">Visit Website</span>
+            <motion.svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              initial={{ x: 0 }}
+              animate={{ x: 0 }}
+              whileHover={{ x: 2 }}
+              transition={{ duration: 0.2 }}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </motion.svg>
+          </motion.a>
         </div>
-
-        {hasSubCompanies && (
-          <AnimatePresence>
-            {expanded && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="relative z-20 -mt-2 mx-2 overflow-hidden"
-              >
-                <div className="bg-gradient-to-r from-primary/10 to-primary-dark/10 rounded-lg p-3 shadow-lg border border-primary/20">
-                  <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-muted">
-                    {company.subCompanies.map((sub, subIndex) => (
-                      <motion.div
-                        key={sub.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: subIndex * 0.1, duration: 0.3 }}
-                      >
-                        <a
-                          href={sub.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center p-2 rounded-lg bg-white hover:bg-primary/10 transition-all duration-200 shadow-sm hover:shadow-md group/sub border border-transparent hover:border-primary/20"
-                        >
-                          <div className="relative mr-3 flex-shrink-0">
-                            <img
-                              src={sub.logo}
-                              alt={`${sub.name} logo`}
-                              className="h-6 w-6 object-contain transition-transform duration-200 group-hover/sub:scale-110"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <span className="text-sm font-medium text-foreground group-hover/sub:text-primary-dark transition-colors block truncate">
-                              {sub.name}
-                            </span>
-                            {sub.brief && (
-                              <span className="text-xs text-muted-foreground group-hover/sub:text-foreground transition-colors block truncate">
-                                {sub.brief}
-                              </span>
-                            )}
-                          </div>
-                          <svg
-                            className="w-3 h-3 text-primary opacity-0 group-hover/sub:opacity-100 transition-opacity duration-200 flex-shrink-0"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                            />
-                          </svg>
-                        </a>
-                        {subIndex < company.subCompanies.length - 1 && (
-                          <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent my-1"></div>
-                        )}
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        )}
       </motion.div>
     );
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-20 relative">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), 
+                           radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.05) 0%, transparent 50%)`,
+          }}
+        />
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {sortedClients.length > 0 && (
           <>
+            {/* Header Section */}
             <motion.div
-              className="text-center mb-16"
+              className="text-center mb-14"
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
@@ -238,25 +192,151 @@ const ClientsSection = () => {
               </motion.p>
             </motion.div>
 
-            <div className="mb-20">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                {sortedClients.map((client, index) => (
-                  <CompanyCard
-                    key={client.id}
-                    company={client}
-                    index={index}
-                    hasSubCompanies={
-                      client.subCompanies && client.subCompanies.length > 0
-                    }
-                    expanded={expandedClients[client.id]}
-                    onToggle={toggleClientExpansion}
-                    isPartner={false}
-                  />
-                ))}
-              </div>
-            </div>
+            {/* Clients Grid */}
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {sortedClients.map((client) => (
+                <CompanyItem
+                  key={client.id}
+                  company={client}
+                  hasSubCompanies={
+                    client.subCompanies && client.subCompanies.length > 0
+                  }
+                />
+              ))}
+            </motion.div>
           </>
         )}
+
+        {/* Portfolio Modal */}
+        <AnimatePresence>
+          {modalClient && (
+            <motion.div
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeModal}
+              style={{ zIndex: 9999 }}
+            >
+              <motion.div
+                className="bg-white/95 backdrop-blur-md border border-gray-200 rounded-3xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col"
+                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                onClick={(e) => e.stopPropagation()}
+                style={{ zIndex: 10000 }}
+              >
+                {/* Modal Header */}
+                <div className="relative bg-gradient-to-r from-primary to-primary-light p-8 text-white">
+                  {/* Close Button */}
+                  <button
+                    onClick={closeModal}
+                    className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200 group"
+                    aria-label="Close modal"
+                    style={{ zIndex: 10001 }}
+                  >
+                    <svg
+                      className="w-5 h-5 transition-transform duration-200 group-hover:scale-110"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Modal Title */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center">
+                      <img
+                        src={modalClient.logo}
+                        alt={`${modalClient.name} logo`}
+                        className="w-10 h-10 object-contain"
+                      />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+                        {modalClient.name} Portfolio
+                      </h2>
+                      <p className="text-white/90 text-base">
+                        {modalClient.subCompanies?.length} Companies
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Modal Content */}
+                <div className="flex-1 p-6 lg:p-8 overflow-y-auto">
+                  <div className="space-y-4">
+                    {modalClient.subCompanies?.map((sub, idx) => (
+                      <motion.div
+                        key={sub.id}
+                        className="flex items-start gap-4 p-4 rounded-2xl bg-gray-50/50 hover:bg-primary/5 transition-all duration-300 border border-gray-100"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.08 }}
+                      >
+                        <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
+                          <img
+                            src={sub.logo}
+                            alt={`${sub.name} logo`}
+                            className="w-8 h-8 object-contain"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <h4 className="text-lg font-bold text-gray-900 mb-2">
+                                {sub.name}
+                              </h4>
+                              {sub.brief && (
+                                <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                                  {sub.brief}
+                                </p>
+                              )}
+                              <a
+                                href={sub.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 text-primary hover:text-primary-dark transition-colors duration-200 text-sm font-medium"
+                              >
+                                Visit Website
+                                <svg
+                                  className="w-4 h-4"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                  />
+                                </svg>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
