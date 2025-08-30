@@ -87,6 +87,20 @@ export const partners = [
     website: "https://www.alfalaval.com",
     subCompanies: [],
   },
+  {
+    id: "p12",
+    name: "Speco",
+    logo: "/partners/speco.jpg",
+    brief: "HV transformers",
+    subCompanies: [],
+  },
+  {
+    id: "p13",
+    name: "TK",
+    logo: "/partners/tk.jpg",
+    brief: "High voltage GIS",
+    subCompanies: [],
+  },
 ];
 
 export const partnersSection = {
