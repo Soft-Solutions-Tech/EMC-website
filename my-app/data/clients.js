@@ -29,7 +29,8 @@ export const clients = [
         logo: "/clients/electricity.jpg",
         brief:
           "Power services and maintenance in the Suez Canal and surrounding areas.",
-        website: "https://eehc.gov.eg/CMSEehc/en/consumer-information/geographical-distribution-of-electricity-distribution-companies/",
+        website:
+          "https://eehc.gov.eg/CMSEehc/en/consumer-information/geographical-distribution-of-electricity-distribution-companies/",
       },
       {
         id: "c5-3",
@@ -44,7 +45,8 @@ export const clients = [
         name: "Middle Egypt Electricity",
         logo: "/clients/electricity.jpg",
         brief: "Regional electricity service provider in Middle Egypt.",
-        website: "https://www.ricoh-europe.com/insights/case-studies/middle-egypt-electricity-distribution-company/",
+        website:
+          "https://www.ricoh-europe.com/insights/case-studies/middle-egypt-electricity-distribution-company/",
       },
     ],
   },
@@ -62,6 +64,24 @@ export const clients = [
     logo: "/clients/petrojet.jpg",
     brief: "A leading contractor in the oil and gas sector.",
     website: "https://www.petrojet.com.eg",
+    subCompanies: [],
+  },
+  {
+    id: "c8",
+    name: "GASCO",
+    logo: "/clients/gasco.jpg",
+    brief:
+      "Egyptian Natural Gas Company, a leader in natural gas processing and transmission.",
+    website: "https://www.gasco.com.eg",
+    subCompanies: [],
+  },
+  {
+    id: "c9",
+    name: "ETHYDCO",
+    logo: "/clients/ethydco.png",
+    brief:
+      "Egyptian Ethylene and Derivatives Company specializing in petrochemical production.",
+    website: "https://www.ethydco-eg.com",
     subCompanies: [],
   },
 ];

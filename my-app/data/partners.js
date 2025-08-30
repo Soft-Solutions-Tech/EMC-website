@@ -79,6 +79,14 @@ export const partners = [
     website: "https://www.prysmiangroup.com",
     subCompanies: [],
   },
+  {
+    id: "p11",
+    name: "Alfa Laval",
+    logo: "/partners/alfa-laval.png",
+    brief: "Global leader in heat transfer, separation, and fluid handling.",
+    website: "https://www.alfalaval.com",
+    subCompanies: [],
+  },
 ];
 
 export const partnersSection = {
