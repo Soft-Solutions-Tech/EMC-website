@@ -1,49 +1,46 @@
+import { ProjectType } from "./projects";
 export const services = [
   {
+    id: "1",
+    type: ProjectType.EPC,
     title: "EPC Projects",
-    type: "EPC",
-    icon: "HardHat", // Use string
     description:
-      "Complete Engineering, Procurement, and Construction solutions for diesel and hydrogen plants, district cooling systems, and industrial facilities. From initial design to final commissioning.",
-    features: [
-      "Engineering Design",
-      "Procurement",
-      "Civil Works",
-      "Installation",
-      "Commissioning",
-    ],
+      "Diesel & hydrogen plants, district cooling plants, including engineering, procurement, civil works, installation, and commissioning.",
+    icon: "HardHat",
+    features: ["Engineering", "Procurement", "Civil Works", "Installation"],
   },
   {
+    id: "2",
+    type: ProjectType.CONSULTING,
     title: "Consulting Services",
-    type: "CONSULTING",
-    icon: "Lightbulb", // Use string
     description:
-      "Strategic consulting to identify opportunities, influence specifications, and develop winning strategies for major projects in renewable energy and infrastructure.",
+      "Identifying opportunities, reviewing specifications, developing win strategies, and leveraging key relationships for major projects. Consulting and services for wind & solar projects on behalf of manufacturers.",
+    icon: "Lightbulb",
     features: [
-      "Opportunity Analysis",
-      "Specification Influence",
-      "Win Strategies",
-      "Target Pricing",
-      "Relationship Management",
+      "Opportunity Identification",
+      "Specification Review",
+      "Win Strategies Development",
+      "Consulting for Wind & Solar",
     ],
   },
   {
+    id: "3",
+    type: ProjectType.AFTERSALES,
     title: "After Sales Support",
-    type: "AFTERSALES",
-    icon: "Wrench", // Use string
     description:
-      "Comprehensive technical support including maintenance, repairs, spare parts, and overhauls to ensure optimal performance and longevity of your systems.",
+      "Providing technical advice, repair & maintenance, spare parts, and overhauls.",
+    icon: "Wrench",
     features: [
       "Technical Advice",
       "Repair & Maintenance",
-      "Spare Parts",
+      "Spare Parts Supply",
       "Overhauls",
-      "Performance Optimization",
     ],
   },
 ];
+
 export const servicesSection = {
-  title: "Our Services",
+  title: "Services",
   subtitle:
-    "Discover the three core service areas that define our expertise and deliver exceptional value to our clients across diverse industries.",
+    "EMC Energy focuses on the Power and Oil & Gas markets in Egypt, we aim to deliver top-tier solutions to our clients and partners",
 };
