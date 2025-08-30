@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import { clients, clientsSection } from "../../../data/clients";
 
 // Animation variants
@@ -9,34 +10,44 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.15,
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
     },
   },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+const listItemVariants = {
+  hidden: { opacity: 0, x: -20 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: {
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      duration: 0.4,
+      ease: "easeOut",
     },
+  },
+};
+
+const sidebarVariants = {
+  hidden: { opacity: 0, x: 20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
 const ClientsSection = () => {
+  const [selectedClient, setSelectedClient] = useState(null);
   const [modalClient, setModalClient] = useState(null);
 
   const openModal = useCallback((client) => {
@@ -47,6 +58,10 @@ const ClientsSection = () => {
     setModalClient(null);
   }, []);
 
+  const selectClient = useCallback((client) => {
+    setSelectedClient(client);
+  }, []);
+
   const sortedClients = useMemo(() => {
     return [...clients].sort((a, b) => {
       const aHasSub = a.subCompanies && a.subCompanies.length > 0 ? -1 : 1;
@@ -55,105 +70,22 @@ const ClientsSection = () => {
     });
   }, []);
 
-  const CompanyItem = ({ company, hasSubCompanies }) => {
-    return (
-      <motion.div
-        variants={itemVariants}
-        className="group h-full flex flex-col"
-      >
-        {/* Logo */}
-        <div className="flex justify-center mb-6">
-          <motion.div
-            className="w-28 h-28 bg-white backdrop-blur-sm rounded-3xl flex items-center justify-center shadow-sm border border-gray-100/50 group-hover:shadow-md transition-all duration-300"
-            whileHover={{ y: -2, scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <img
-              src={company.logo}
-              alt={`${company.name} logo`}
-              className="w-16 h-16 object-contain"
-              loading="lazy"
-            />
-          </motion.div>
-        </div>
-
-        {/* Company Name */}
-        <div className="text-center mb-4">
-          <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors duration-300">
-            {company.name}
-          </h3>
-          <div className="mt-2 w-8 h-0.5 bg-gray-200 rounded-full mx-auto group-hover:bg-primary transition-colors duration-300" />
-        </div>
-
-        {/* Description */}
-        <div className="flex-1 mb-6">
-          <p className="text-sm text-gray-600 leading-relaxed text-center">
-            {company.brief}
-          </p>
-        </div>
-
-        {/* Portfolio Button */}
-        {hasSubCompanies && (
-          <div className="mb-4">
-            <motion.button
-              onClick={() => openModal(company)}
-              className="flex items-center justify-center w-full p-3 rounded-lg border border-primary/20 hover:bg-primary/10 hover:border-primary/30 transition-all duration-200 group/portfolio"
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-            >
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-primary rounded-full mr-3" />
-                <span className="text-sm font-medium text-gray-700 group-hover/portfolio:text-primary transition-colors duration-200">
-                  View Portfolio ({company.subCompanies?.length})
-                </span>
-              </div>
-            </motion.button>
-          </div>
-        )}
-
-        {/* Visit Website Button*/}
-        <div className="mt-auto">
-          <motion.a
-            href={company.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-full py-3 px-6 bg-gradient-to-r from-primary to-primary-light text-white text-sm font-medium rounded-xl hover:shadow-lg transition-all duration-300 group/btn"
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span className="mr-2">Visit Website</span>
-            <motion.svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              initial={{ x: 0 }}
-              animate={{ x: 0 }}
-              whileHover={{ x: 2 }}
-              transition={{ duration: 0.2 }}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </motion.svg>
-          </motion.a>
-        </div>
-      </motion.div>
-    );
-  };
+  // Auto-select first client on mount
+  React.useEffect(() => {
+    if (sortedClients.length > 0 && !selectedClient) {
+      setSelectedClient(sortedClients[0]);
+    }
+  }, [sortedClients, selectedClient]);
 
   return (
-    <section className="py-20 relative">
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
+    <section className="py-20 relative min-h-screen flex flex-col">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-20">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), 
-                           radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.05) 0%, transparent 50%)`,
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.08) 0%, transparent 50%), 
+                           radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.08) 0%, transparent 50%)`,
           }}
         />
       </div>
@@ -163,15 +95,13 @@ const ClientsSection = () => {
           <>
             {/* Header Section */}
             <motion.div
-              className="text-center mb-14"
+              className="text-center"
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
             >
-              <div className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold tracking-wider uppercase mb-4">
-                {clientsSection.label}
-              </div>
+              
               <motion.h2
                 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
                 variants={sectionVariants}
@@ -181,7 +111,7 @@ const ClientsSection = () => {
               <motion.div
                 className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md mb-3"
                 initial={{ width: 0 }}
-                whileInView={{ width: 128 }}
+                whileInView={{ width: 96 }}
                 transition={{ duration: 1, delay: 0.5 }}
               />
               <motion.p
@@ -192,23 +122,240 @@ const ClientsSection = () => {
               </motion.p>
             </motion.div>
 
-            {/* Clients Grid */}
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {sortedClients.map((client) => (
-                <CompanyItem
-                  key={client.id}
-                  company={client}
-                  hasSubCompanies={
-                    client.subCompanies && client.subCompanies.length > 0
-                  }
-                />
-              ))}
-            </motion.div>
+            {/* Main Content Area */}
+            <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+              <div className="grid lg:grid-cols-5 min-h-[600px]">
+                
+                {/* Left Sidebar - Client List */}
+                <motion.div
+                  className="lg:col-span-2 bg-gray-50/50 border-r border-gray-200"
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                      <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                      Client Directory
+                    </h3>
+                    
+                    <div className="space-y-2">
+                      {sortedClients.map((client, index) => (
+                        <motion.div
+                          key={client.id}
+                          variants={listItemVariants}
+                          className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
+                            selectedClient?.id === client.id
+                              ? 'bg-primary text-white border-primary shadow-lg'
+                              : 'bg-white hover:bg-primary/5 border-gray-100 hover:border-primary/20'
+                          }`}
+                          onClick={() => selectClient(client)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                              selectedClient?.id === client.id 
+                                ? 'bg-white/20' 
+                                : 'bg-gray-50'
+                            }`}>
+                              <img
+                                src={client.logo}
+                                alt={`${client.name} logo`}
+                                className="w-8 h-8 object-contain"
+                              />
+                            </div>
+                            
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between">
+                                <h4 className={`font-semibold text-sm truncate ${
+                                  selectedClient?.id === client.id 
+                                    ? 'text-white' 
+                                    : 'text-gray-900'
+                                }`}>
+                                  {client.name}
+                                </h4>
+                                
+                                {client.subCompanies && client.subCompanies.length > 0 && (
+                                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                                    selectedClient?.id === client.id
+                                      ? 'bg-white/20 text-white'
+                                      : 'bg-primary/10 text-primary'
+                                  }`}>
+                                    +{client.subCompanies.length}
+                                  </span>
+                                )}
+                              </div>
+                              
+                              <p className={`text-xs mt-1 line-clamp-2 ${
+                                selectedClient?.id === client.id 
+                                  ? 'text-white/80' 
+                                  : 'text-gray-500'
+                              }`}>
+                                {client.brief}
+                              </p>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Right Content Area - Client Details */}
+                <motion.div
+                  className="lg:col-span-3 p-8"
+                  variants={sidebarVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <AnimatePresence mode="wait">
+                    {selectedClient ? (
+                      <motion.div
+                        key={selectedClient.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.4 }}
+                        className="h-full flex flex-col"
+                      >
+                        {/* Client Header */}
+                        <div className="flex items-start gap-6 mb-8">
+                          <motion.div
+                            className="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center border border-gray-200"
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <img
+                              src={selectedClient.logo}
+                              alt={`${selectedClient.name} logo`}
+                              className="w-12 h-12 object-contain"
+                            />
+                          </motion.div>
+                          
+                          <div className="flex-1">
+                            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                              {selectedClient.name}
+                            </h3>
+                            <div className="w-16 h-0.5 bg-primary rounded-full mb-4"></div>
+                            <p className="text-gray-600 leading-relaxed">
+                              {selectedClient.brief}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Portfolio Section */}
+                        {selectedClient.subCompanies && selectedClient.subCompanies.length > 0 && (
+                          <div className="mb-8">
+                            <div className="flex items-center justify-between mb-6">
+                              <h4 className="text-lg font-semibold text-gray-900 flex items-center">
+                                <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                                Portfolio Companies
+                              </h4>
+                              <button
+                                onClick={() => openModal(selectedClient)}
+                                className="text-sm text-primary hover:text-primary-dark transition-colors duration-200"
+                              >
+                                View All ({selectedClient.subCompanies.length})
+                              </button>
+                            </div>
+                            
+                            <div className="grid gap-3">
+                              {selectedClient.subCompanies.slice(0, 3).map((sub, idx) => (
+                                <motion.div
+                                  key={sub.id}
+                                  className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 hover:bg-primary/5 hover:border-primary/20 transition-all duration-300"
+                                  initial={{ opacity: 0, x: 20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: idx * 0.1 }}
+                                  whileHover={{ x: 4 }}
+                                >
+                                  <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center border border-gray-200">
+                                    <img
+                                      src={sub.logo}
+                                      alt={`${sub.name} logo`}
+                                      className="w-6 h-6 object-contain"
+                                    />
+                                  </div>
+                                  <div className="flex-1">
+                                    <h5 className="font-semibold text-gray-900 text-sm">
+                                      {sub.name}
+                                    </h5>
+                                    <p className="text-xs text-gray-500 mt-1">
+                                      {sub.brief}
+                                    </p>
+                                  </div>
+                                  <a
+                                    href={sub.website}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-primary hover:text-primary-dark transition-colors duration-200"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                  </a>
+                                </motion.div>
+                              ))}
+                              
+                              {selectedClient.subCompanies.length > 3 && (
+                                <button
+                                  onClick={() => openModal(selectedClient)}
+                                  className="p-3 text-center text-blue-600 hover:text-blue-700 text-sm font-medium rounded-xl border-2 border-dashed border-blue-200 hover:border-blue-300 transition-all duration-200"
+                                >
+                                  View {selectedClient.subCompanies.length - 3} more companies
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Action Buttons */}
+                        <div className="mt-auto border-t border-gray-100">
+                          <div className="flex gap-4">
+                            <motion.a
+                              href={selectedClient.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex-1 inline-flex items-center justify-center py-3 px-6 bg-gradient-to-r from-primary to-primary-light text-white text-sm font-medium rounded-xl hover:shadow-lg transition-all duration-300"
+                              whileHover={{ y: -1 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              <span className="mr-2">Visit Website</span>
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                              </svg>
+                            </motion.a>
+                            
+                            {selectedClient.subCompanies && selectedClient.subCompanies.length > 0 && (
+                              <motion.button
+                                onClick={() => openModal(selectedClient)}
+                                className="px-6 py-3 border border-primary/20 text-primary hover:bg-primary/10 hover:border-primary/30 text-sm font-medium rounded-xl transition-all duration-200"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                              >
+                                Portfolio
+                              </motion.button>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <div className="h-full flex items-center justify-center">
+                        <div className="text-center text-gray-500">
+                          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                          </div>
+                          <p>Select a client to view details</p>
+                        </div>
+                      </div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              </div>
+            </div>
           </>
         )}
 
@@ -224,7 +371,7 @@ const ClientsSection = () => {
               style={{ zIndex: 9999 }}
             >
               <motion.div
-                className="bg-white/95 backdrop-blur-md border border-gray-200 rounded-3xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col"
+                className="bg-white/95 backdrop-blur-md border border-gray-200 rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col"
                 initial={{ scale: 0.9, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -234,29 +381,16 @@ const ClientsSection = () => {
               >
                 {/* Modal Header */}
                 <div className="relative bg-gradient-to-r from-primary to-primary-light p-8 text-white">
-                  {/* Close Button */}
                   <button
                     onClick={closeModal}
                     className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200 group"
                     aria-label="Close modal"
-                    style={{ zIndex: 10001 }}
                   >
-                    <svg
-                      className="w-5 h-5 transition-transform duration-200 group-hover:scale-110"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
+                    <svg className="w-5 h-5 transition-transform duration-200 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
 
-                  {/* Modal Title */}
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center">
                       <img
@@ -278,14 +412,14 @@ const ClientsSection = () => {
 
                 {/* Modal Content */}
                 <div className="flex-1 p-6 lg:p-8 overflow-y-auto">
-                  <div className="space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
                     {modalClient.subCompanies?.map((sub, idx) => (
                       <motion.div
                         key={sub.id}
                         className="flex items-start gap-4 p-4 rounded-2xl bg-gray-50/50 hover:bg-primary/5 transition-all duration-300 border border-gray-100"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.08 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.05 }}
                       >
                         <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
                           <img
@@ -295,39 +429,25 @@ const ClientsSection = () => {
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <h4 className="text-lg font-bold text-gray-900 mb-2">
-                                {sub.name}
-                              </h4>
-                              {sub.brief && (
-                                <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                                  {sub.brief}
-                                </p>
-                              )}
-                              <a
-                                href={sub.website}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 text-primary hover:text-primary-dark transition-colors duration-200 text-sm font-medium"
-                              >
-                                Visit Website
-                                <svg
-                                  className="w-4 h-4"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                  />
-                                </svg>
-                              </a>
-                            </div>
-                          </div>
+                          <h4 className="text-lg font-bold text-gray-900 mb-2">
+                            {sub.name}
+                          </h4>
+                          {sub.brief && (
+                            <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                              {sub.brief}
+                            </p>
+                          )}
+                          <a
+                            href={sub.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-primary hover:text-primary-dark transition-colors duration-200 text-sm font-medium"
+                          >
+                            Visit Website
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </a>
                         </div>
                       </motion.div>
                     ))}
