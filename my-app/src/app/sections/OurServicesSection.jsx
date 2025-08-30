@@ -45,7 +45,7 @@ const OurServicesSection = () => {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 whileHover={{ scale: 1.0 }}
                 transition={{ duration: 0.3, delay: index * 0.2 }}
-                className="relative bg-white rounded-xl shadow-lg p-8 overflow-hidden border border-muted hover:shadow-xl transition-all duration-150"
+                className="relative bg-white rounded-xl shadow-lg p-8 overflow-hidden border border-muted hover:shadow-xl transition-all duration-150 flex flex-col h-full"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary-dark/10 opacity-0 group-hover:opacity-100 transition-opacity duration-150"></div>
                 <div className="relative text-center mb-6">
@@ -64,7 +64,7 @@ const OurServicesSection = () => {
                   </span>
                 </div>
 
-                <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
+                <p className="text-muted-foreground mb-6 leading-relaxed text-sm flex-1">
                   {service.description}
                 </p>
 
@@ -72,9 +72,9 @@ const OurServicesSection = () => {
                   {service.features?.map((feature, idx) => (
                     <li
                       key={idx}
-                      className="flex items-center text-sm text-muted-foreground"
+                      className="text-sm text-muted-foreground pl-5 relative"
                     >
-                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      <span className="absolute left-0 top-2 w-2 h-2 bg-primary rounded-full"></span>
                       {feature}
                     </li>
                   ))}
