@@ -1,4 +1,3 @@
-// REAL Activities section
 export const activities = [
   {
     id: "a1",

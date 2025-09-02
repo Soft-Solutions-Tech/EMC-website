@@ -27,9 +27,55 @@ const animations = {
       },
     },
   },
-  overlay: {
-    rest: { opacity: 0.3 },
-    hover: { opacity: 0.7 },
+  card: {
+    rest: {
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+    hover: {
+      y: -8,
+      scale: 1.02,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+  },
+  content: {
+    rest: {
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+    hover: {
+      y: -6,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+  },
+  careerSection: {
+    rest: {
+      height: "100px",
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
+    },
+    hover: {
+      height: "auto",
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
+    },
   },
 };
 
@@ -44,6 +90,22 @@ export default function MeetOurTeam() {
   );
   const yearsInBusiness =
     new Date().getFullYear() - parseInt(companyOverview.established);
+
+  const handleCardHover = (index) => {
+    setActiveIndex(index);
+  };
+
+  const handleCardLeave = () => {
+    setActiveIndex(null);
+  };
+
+  const openModal = (index) => {
+    setModalIndex(index);
+  };
+
+  const closeModal = () => {
+    setModalIndex(null);
+  };
 
   return (
     <section className="min-h-screen">
@@ -68,8 +130,7 @@ export default function MeetOurTeam() {
             transition={{ duration: 1, delay: 0.5 }}
           />
         </div>
-
-        {/* Statistics Banner */}
+        {/* stats banner
         <motion.div
           className="mb-20"
           initial={{ opacity: 0, y: -20 }}
@@ -105,7 +166,7 @@ export default function MeetOurTeam() {
             </div>
           </div>
         </motion.div>
-
+        */}
         {/* Team Grid */}
         <motion.div
           className="max-w-6xl mx-auto"
@@ -119,17 +180,21 @@ export default function MeetOurTeam() {
                 key={index}
                 variants={animations.item}
                 className="group cursor-pointer"
-                onMouseEnter={() => setActiveIndex(index)}
-                onMouseLeave={() => setActiveIndex(null)}
-                onClick={() => setModalIndex(index)}
+                onMouseEnter={() => handleCardHover(index)}
+                onMouseLeave={handleCardLeave}
+                onClick={() => openModal(index)}
               >
-                <div className="relative overflow-hidden rounded-3xl bg-card/80 backdrop-blur-sm border border-muted shadow-xl shadow-primary/10 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
+                <motion.div
+                  className="relative overflow-hidden rounded-3xl bg-card/80 backdrop-blur-sm border border-muted shadow-xl shadow-primary/10 transition-shadow duration-500 hover:shadow-2xl hover:shadow-primary/20"
+                  variants={animations.card}
+                  animate={activeIndex === index ? "hover" : "rest"}
+                >
                   {/* Image Container */}
                   <div className="relative h-[500px] overflow-hidden">
                     <img
                       src={founder.image}
                       alt={`${founder.name} - Leadership Team`}
-                      className="w-full h-full object-cover object-top"
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       style={{
                         imageRendering: "high-quality",
                         objectPosition: "50% 20%",
@@ -137,22 +202,15 @@ export default function MeetOurTeam() {
                       loading="lazy"
                     />
 
-                    {/* Gradient Overlay */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"
-                      variants={animations.overlay}
-                      animate={activeIndex === index ? "hover" : "rest"}
-                      transition={{ duration: 0.3 }}
-                    />
+                    {/* Subtle gradient for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
                   </div>
 
                   {/* Content Section */}
                   <div className="relative p-8 bg-gradient-to-br from-card to-muted/20">
                     <motion.div
-                      animate={{
-                        y: activeIndex === index ? -6 : 0,
-                      }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      variants={animations.content}
+                      animate={activeIndex === index ? "hover" : "rest"}
                     >
                       <h3 className="text-2xl font-bold text-foreground mb-3">
                         {founder.name}
@@ -164,33 +222,35 @@ export default function MeetOurTeam() {
 
                       {/* Career Preview */}
                       <motion.div
-                        className="space-y-3"
-                        animate={{
-                          height: activeIndex === index ? "auto" : "100px",
-                        }}
-                        style={{ overflow: "hidden" }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="space-y-3 overflow-hidden"
+                        variants={animations.careerSection}
+                        animate={activeIndex === index ? "hover" : "rest"}
                       >
                         <div className="space-y-3">
-                          {founder.career
-                            .slice(
-                              0,
-                              activeIndex === index ? founder.career.length : 3
-                            )
-                            .map((item, idx) => (
-                              <div
-                                key={idx}
-                                className="flex items-start gap-3 text-muted-foreground text-sm"
-                              >
-                                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                                <span className="leading-relaxed">{item}</span>
-                              </div>
-                            ))}
+                          {founder.career.map((item, idx) => (
+                            <motion.div
+                              key={idx}
+                              className="flex items-start gap-3 text-muted-foreground text-sm"
+                              initial={false}
+                              animate={{
+                                opacity:
+                                  idx < 3 || activeIndex === index ? 1 : 0,
+                                x: 0,
+                              }}
+                              transition={{
+                                duration: 0.3,
+                                delay: activeIndex === index ? idx * 0.05 : 0,
+                              }}
+                            >
+                              <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                              <span className="leading-relaxed">{item}</span>
+                            </motion.div>
+                          ))}
                         </div>
                       </motion.div>
                     </motion.div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
@@ -205,10 +265,10 @@ export default function MeetOurTeam() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setModalIndex(null)}
+            onClick={closeModal}
           >
             <motion.div
-              className="bg-card/80 backdrop-blur-sm border border-muted rounded-3xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col"
+              className="bg-card/95 backdrop-blur-md border border-muted rounded-3xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col"
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -223,23 +283,25 @@ export default function MeetOurTeam() {
                   className="w-full h-full object-cover object-top"
                   style={{ objectPosition: "50% 20%" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                {/* Subtle gradient for better text contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20" />
 
                 {/* Close Button */}
                 <button
-                  onClick={() => setModalIndex(null)}
-                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200 text-lg sm:text-xl font-bold"
+                  onClick={closeModal}
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200 group"
                   aria-label="Close modal"
                 >
-                  ×
+                  <X className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-200 group-hover:scale-110" />
                 </button>
 
                 {/* Modal Title */}
                 <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 text-white">
-                  <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 drop-shadow-lg">
                     {founders[modalIndex].name}
                   </h2>
-                  <p className="text-white/90 text-base sm:text-lg font-medium">
+                  <p className="text-white/95 text-base sm:text-lg font-medium drop-shadow-md">
                     {founders[modalIndex].education}
                   </p>
                 </div>

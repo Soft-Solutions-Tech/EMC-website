@@ -1,262 +1,265 @@
 "use client";
-import React, { useState } from "react";
-import { clients, clientsSection } from "../../../data/clients";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { clients, clientsSection } from "../../../data/clients";
+
+// Fallback logo image
+const FALLBACK_LOGO = "/clients/placeholder.jpg"; // Ensure this exists in your public folder or use an external URL
 
 const ClientsSection = () => {
-  const [expandedClients, setExpandedClients] = useState(
-    clients
-      .filter((c) => c.subCompanies && c.subCompanies.length > 0)
-      .reduce((acc, client) => ({ ...acc, [client.id]: true }), {})
-  );
+  const [spotlightIndex, setSpotlightIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const toggleClientExpansion = (clientId) => {
-    setExpandedClients((prev) => ({
-      ...prev,
-      [clientId]: !prev[clientId],
-    }));
+  // Filter out sub-companies, only use main clients with safety checks
+  const mainClients = (clients || []).map((client) => ({
+    id: client?.id || `client-${Math.random()}`, // Fallback ID
+    name: client?.name || "Unknown Client",
+    logo: client?.logo || FALLBACK_LOGO,
+    website: client?.website || "#",
+    brief: client?.brief || "",
+  }));
+
+  // Auto-cycle through clients
+  useEffect(() => {
+    if (!isHovered && mainClients.length > 0) {
+      const interval = setInterval(() => {
+        setSpotlightIndex((prev) => (prev + 1) % mainClients.length);
+      }, 3000); // Change every 3 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [isHovered, mainClients.length]);
+
+  const handleClientHover = (index) => {
+    if (mainClients[index]) {
+      setSpotlightIndex(index);
+      setIsHovered(true);
+    }
   };
 
-  // Sort clients: those with subCompanies first
-  const sortedClients = [...clients].sort((a, b) => {
-    const aHasSub = a.subCompanies && a.subCompanies.length > 0 ? -1 : 1;
-    const bHasSub = b.subCompanies && b.subCompanies.length > 0 ? -1 : 1;
-    return aHasSub - bHasSub;
-  });
-
-  // Animation variants for section elements
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
-    visible: (index) => ({
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.5, delay: index * 0.1, ease: "easeOut" },
-    }),
-  };
-
-  // CompanyCard component
-  const CompanyCard = ({
-    company,
-    index,
-    hasSubCompanies,
-    expanded,
-    onToggle,
-    isPartner = false,
-    className = "",
-  }) => {
+  // Prevent rendering if no clients are available
+  if (!mainClients.length) {
     return (
-      <motion.div
-        className={`group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-muted overflow-visible transform hover:-translate-y-1 flex-shrink-0 h-fit ${className}`}
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="visible"
-        custom={index}
-        viewport={{ once: false, amount: 0.3 }}
-      >
-        <div className="relative z-10 p-6 h-64 flex flex-col">
-          <a
-            href={company.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block flex-1"
-          >
-            <div className="flex justify-center mb-4">
-              <div className="relative">
-                <img
-                  src={company.logo}
-                  alt={`${company.name} logo`}
-                  className={`object-contain transition-transform duration-300 group-hover:scale-105 ${
-                    company.id === "p5" ? "h-14 w-14" : "h-14 w-14"
-                  }`}
-                />
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="text-lg font-bold text-primary group-hover:text-primary-dark transition-colors">
-                {company.name}
-              </h3>
-              <div className="w-6 h-0.5 bg-gradient-to-r from-primary to-primary-dark mt-1 mx-auto transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-            </div>
-
-            <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors mb-4 line-clamp-3 flex-1 text-center">
-              {company.brief}
-            </p>
-          </a>
-
-          {hasSubCompanies && (
-            <div className="mt-auto pt-4 border-t border-muted">
-              <button
-                onClick={() => onToggle(company.id)}
-                className="flex items-center justify-between w-full text-left focus:outline-none group/button hover:bg-primary/10 rounded-lg p-2 -m-2 transition-colors duration-200"
-              >
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-2 opacity-60"></div>
-                  <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">
-                    Portfolio ({company.subCompanies.length})
-                  </h4>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-xs text-muted-foreground mr-2 opacity-0 group-hover/button:opacity-100 transition-opacity duration-200">
-                    {expanded ? "Hide" : "Show"}
-                  </span>
-                  <svg
-                    className={`w-4 h-4 text-primary transform transition-all duration-300 ${
-                      expanded
-                        ? "rotate-180 scale-110"
-                        : "group-hover/button:scale-110"
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
-              </button>
-            </div>
-          )}
-        </div>
-
-        {hasSubCompanies && (
-          <AnimatePresence>
-            {expanded && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="relative z-20 -mt-2 mx-2 overflow-hidden"
-              >
-                <div className="bg-gradient-to-r from-primary/10 to-primary-dark/10 rounded-lg p-3 shadow-lg border border-primary/20">
-                  <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-muted">
-                    {company.subCompanies.map((sub, subIndex) => (
-                      <motion.div
-                        key={sub.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: subIndex * 0.1, duration: 0.3 }}
-                      >
-                        <a
-                          href={sub.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center p-2 rounded-lg bg-white hover:bg-primary/10 transition-all duration-200 shadow-sm hover:shadow-md group/sub border border-transparent hover:border-primary/20"
-                        >
-                          <div className="relative mr-3 flex-shrink-0">
-                            <img
-                              src={sub.logo}
-                              alt={`${sub.name} logo`}
-                              className="h-6 w-6 object-contain transition-transform duration-200 group-hover/sub:scale-110"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <span className="text-sm font-medium text-foreground group-hover/sub:text-primary-dark transition-colors block truncate">
-                              {sub.name}
-                            </span>
-                            {sub.brief && (
-                              <span className="text-xs text-muted-foreground group-hover/sub:text-foreground transition-colors block truncate">
-                                {sub.brief}
-                              </span>
-                            )}
-                          </div>
-                          <svg
-                            className="w-3 h-3 text-primary opacity-0 group-hover/sub:opacity-100 transition-opacity duration-200 flex-shrink-0"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                            />
-                          </svg>
-                        </a>
-                        {subIndex < company.subCompanies.length - 1 && (
-                          <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent my-1"></div>
-                        )}
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        )}
-      </motion.div>
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white text-center">
+        <p className="text-lg text-gray-600">
+          No clients available at the moment.
+        </p>
+      </section>
     );
-  };
+  }
 
   return (
     <section className="py-20 relative overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {sortedClients.length > 0 && (
-          <>
-            <motion.div
-              className="text-center mb-16"
-              variants={sectionVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
-            >
-              <div className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold tracking-wider uppercase mb-4">
-                {clientsSection.label}
-              </div>
-              <motion.h2
-                className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
-                variants={sectionVariants}
-              >
-                {clientsSection.title}
-              </motion.h2>
-              <motion.div
-                className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md mb-3"
-                initial={{ width: 0 }}
-                whileInView={{ width: 128 }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
-              <motion.p
-                className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold"
-                variants={sectionVariants}
-              >
-                {clientsSection.subtitle}
-              </motion.p>
-            </motion.div>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.03) 0%, transparent 50%), 
+                           radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.03) 0%, transparent 50%)`,
+          }}
+        />
+      </div>
 
-            <div className="mb-20">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                {sortedClients.map((client, index) => (
-                  <CompanyCard
-                    key={client.id}
-                    company={client}
-                    index={index}
-                    hasSubCompanies={
-                      client.subCompanies && client.subCompanies.length > 0
-                    }
-                    expanded={expandedClients[client.id]}
-                    onToggle={toggleClientExpansion}
-                    isPartner={false}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h2
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent text-center bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {clientsSection?.title || "Our Clients"}
+          </motion.h2>
+
+          <motion.div
+            className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md mb-6"
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          />
+
+          <motion.p
+            className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            {clientsSection?.subtitle || "Trusted partnerships driving success"}
+          </motion.p>
+        </motion.div>
+
+        {/* Logo Wall */}
+        <div className="relative">
+          {/* Spotlight Client - Large Display */}
+          <motion.div
+            className="flex justify-center mb-12"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <AnimatePresence mode="wait">
+              {mainClients[spotlightIndex] && (
+                <motion.div
+                  key={mainClients[spotlightIndex].id}
+                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: -20 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="text-center"
+                >
+                  <div className="relative group">
+                    {/* Spotlight Glow Effect */}
+                    <div className="absolute -inset-8 bg-gradient-to-r from-primary/20 via-transparent to-primary/20 rounded-full blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+
+                    {/* Logo Container */}
+                    <motion.div className="relative w-48 h-48 bg-white rounded-3xl shadow-2xl flex items-center justify-center mx-auto">
+                      <img
+                        src={mainClients[spotlightIndex].logo}
+                        alt={`${mainClients[spotlightIndex].name} logo`}
+                        className="w-32 h-32 object-contain filter drop-shadow-lg"
+                        onError={(e) => {
+                          e.target.src = FALLBACK_LOGO;
+                        }}
+                      />
+                    </motion.div>
+                  </div>
+
+                  <motion.h3
+                    className={`text-2xl font-bold text-gray-900 mt-6 mb-2 ${
+                      mainClients[spotlightIndex].name.split(" ").length > 3
+                        ? "ml-4"
+                        : "text-center"
+                    }`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    {mainClients[spotlightIndex].name}
+                  </motion.h3>
+
+                  <motion.a
+                    href={mainClients[spotlightIndex].website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium transition-colors duration-200"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    whileHover={{ x: 2 }}
+                  >
+                    Visit Website
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                  </motion.a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Client Grid - All Logos */}
+          <motion.div
+            className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-8 gap-4 max-w-6xl mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            onMouseLeave={handleMouseLeave}
+          >
+            {mainClients.map((client, index) => (
+              <motion.div
+                key={client.id}
+                className={`relative cursor-pointer transition-all duration-500 flex justify-center items-center ${
+                  spotlightIndex === index
+                    ? "opacity-100"
+                    : "opacity-60 hover:opacity-100"
+                }`}
+                onMouseEnter={() => handleClientHover(index)}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{
+                  opacity: spotlightIndex === index ? 1 : 0.6,
+                  scale: 1,
+                }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                {/* Selection Ring */}
+                {spotlightIndex === index && (
+                  <motion.div
+                    className="absolute -inset-2"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
                   />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
+                )}
+
+                {/* Logo Container */}
+                <div
+                  className={`w-20 h-20 bg-white rounded-2xl border flex items-center justify-center transition-all duration-300 ${
+                    spotlightIndex === index
+                      ? "border-primary shadow-lg"
+                      : "border-gray-200 shadow-sm hover:shadow-md"
+                  }`}
+                >
+                  <img
+                    src={client.logo}
+                    alt={`${client.name} logo`}
+                    className="w-12 h-12 object-contain"
+                    onError={(e) => {
+                      e.target.src = FALLBACK_LOGO;
+                    }}
+                  />
+                </div>
+
+                {/* Client Name on Hover */}
+                <motion.div
+                  className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-3 rounded-lg opacity-0 pointer-events-none whitespace-nowrap"
+                  whileHover={{ opacity: 1, y: -2 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {client.name}
+                </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Progress Indicators */}
+          <div className="flex justify-center mt-12 gap-2">
+            {mainClients.map((_, index) => (
+              <motion.button
+                key={index}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  spotlightIndex === index
+                    ? "bg-primary w-8"
+                    : "bg-gray-300 hover:bg-gray-400"
+                }`}
+                onClick={() => setSpotlightIndex(index)}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

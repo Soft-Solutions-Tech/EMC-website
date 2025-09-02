@@ -14,55 +14,64 @@ export const clients = [
     logo: "/clients/electricity.jpg",
     brief: "A major provider of electrical infrastructure and services.",
     website: "https://www.eehc.gov.eg",
-    subCompanies: [
-      {
-        id: "c5-1",
-        name: "Upper Egypt Electricity",
-        logo: "/clients/electricity.jpg",
-        brief:
-          "Electricity distribution and infrastructure development in Upper Egypt.",
-        website: "https://www.ueepco.com.eg",
-      },
-      {
-        id: "c5-2",
-        name: "Canal Electricity",
-        logo: "/clients/electricity.jpg",
-        brief:
-          "Power services and maintenance in the Suez Canal and surrounding areas.",
-        website: "https://www.canalelectricity.com.eg",
-      },
-      {
-        id: "c5-3",
-        name: "South Delta Electricity",
-        logo: "/clients/electricity.jpg",
-        brief:
-          "Electric utility and grid support across the South Delta region.",
-        website: "https://www.southdeltaelectric.com.eg",
-      },
-      {
-        id: "c5-4",
-        name: "Middle Egypt Electricity",
-        logo: "/clients/electricity.jpg",
-        brief: "Regional electricity service provider in Middle Egypt.",
-        website: "https://www.middleegyptelectric.com.eg",
-      },
-    ],
   },
   {
     id: "c6",
+    name: "Upper Egypt Electricity",
+    logo: "/clients/electricity.jpg",
+    brief: "Electricity distribution and infrastructure development in Upper Egypt.",
+    website: "https://egyptera.org/en/GeographicalScope.aspx",
+  },
+  {
+    id: "c7",
+    name: "Canal Electricity",
+    logo: "/clients/elec2.png",
+    brief: "Power services and maintenance in the Suez Canal and surrounding areas.",
+    website: "https://eehc.gov.eg/CMSEehc/en/consumer-information/geographical-distribution-of-electricity-distribution-companies/",
+  },
+  {
+    id: "c8",
+    name: "South Delta Electricity",
+    logo: "/clients/delta-elec.jpg",
+    brief: "Electric utility and grid support across the South Delta region.",
+    website: "https://sdedc.gov.eg/",
+  },
+  {
+    id: "c9",
+    name: "Middle Egypt Electricity",
+    logo: "/clients/elec.png",
+    brief: "Regional electricity service provider in Middle Egypt.",
+    website: "https://www.ricoh-europe.com/insights/case-studies/middle-egypt-electricity-distribution-company/",
+  },
+  {
+    id: "c10",
     name: "Military",
     logo: "/clients/military.jpg",
     brief: "A government entity overseeing defense-related projects.",
     website: "https://www.mod.gov.eg",
-    subCompanies: [],
   },
   {
-    id: "c7",
+    id: "c11",
     name: "Petrojet",
     logo: "/clients/petrojet.jpg",
     brief: "A leading contractor in the oil and gas sector.",
     website: "https://www.petrojet.com.eg",
-    subCompanies: [],
+  },
+  {
+    id: "c12",
+    name: "GASCO",
+    logo: "/clients/gasco.jpg",
+    brief:
+      "Egyptian Natural Gas Company, a leader in natural gas processing and transmission.",
+    website: "https://www.gasco.com.eg",
+  },
+  {
+    id: "c13",
+    name: "ETHYDCO",
+    logo: "/clients/ethydco.png",
+    brief:
+      "Egyptian Ethylene and Derivatives Company specializing in petrochemical production.",
+    website: "https://www.ethydco-eg.com",
   },
 ];
 

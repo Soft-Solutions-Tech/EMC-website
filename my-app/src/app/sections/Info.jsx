@@ -99,17 +99,7 @@ export default function InfoSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              {emcInfo.engineeringTitle}
-              <span className="block text-primary relative">
-                {emcInfo.limitsTitle}
-                <div
-                  className={`absolute top-8 sm:top-10 left-1/2 transform -translate-x-1/2 h-1 bg-primary transition-all duration-800 ${
-                    isPhilosophyVisible ? "w-20" : "w-0"
-                  }`}
-                ></div>
-              </span>
-            </motion.h3>
+            ></motion.h3>
 
             <motion.div
               className="max-w-2xl mx-auto text-sm sm:text-base font-light text-muted-foreground leading-relaxed"
