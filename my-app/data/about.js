@@ -6,25 +6,25 @@ export const founders = [
     career: [
       "Started career at Engineering Consultants Group (ECG)",
       "Continued career at General Electric",
-      "Rejoined ECG in 1983",
-      "Promoted to VP - Business Development in 1987",
+      "Re-joined ECG in 1983",
+      "Promoted to VP-Business Development in 1987",
       "Co-founded EMC in 1988",
       "Chairman of ECG (current)",
     ],
     image: "/team/Ahmed-El-Sayed.jpg",
   },
   {
-    name: "Mr. Dessouky",
+    name: "Mr. Amr Dessouky",
     education:
       "Bachelor Degree in Electrical Engineering, Ain Shams University",
     career: [
       "Started career at Engineering Consultants Group (ECG)",
       "Continued career at General Electric",
       "Co-founded EMC in 1988",
-      "Became Executive Partner in 1992",
-      "Senior Partner & Managing Director since 2000",
+      "Became Executive Partner in EMC in 1992",
+      "Senior Partner and Managing Director of EMC since 2000",
     ],
-    image: "team/Amr-dessouky.jpg",
+    image: "/team/Amr-dessouky.jpg",
   },
 ];
 
@@ -68,5 +68,5 @@ export const companyOverview = {
 export const content = {
   title: "Who We Are",
   description:
-    "EMC is a leading engineering and construction company with over 25 years of experience. We specialize in delivering innovative solutions for industrial, energy, and infrastructure projects, combining technical expertise with a commitment to quality and client satisfaction.",
+    "EMC is a leading engineering and construction company with over 30 years of experience. We specialize in delivering innovative solutions for industrial, energy, and infrastructure projects, combining technical expertise with a commitment to quality and client satisfaction.",
 };
