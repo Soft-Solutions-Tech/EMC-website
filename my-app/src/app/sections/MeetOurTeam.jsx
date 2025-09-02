@@ -130,8 +130,7 @@ export default function MeetOurTeam() {
             transition={{ duration: 1, delay: 0.5 }}
           />
         </div>
-
-        {/* Statistics Banner */}
+        {/* stats banner
         <motion.div
           className="mb-20"
           initial={{ opacity: 0, y: -20 }}
@@ -167,7 +166,7 @@ export default function MeetOurTeam() {
             </div>
           </div>
         </motion.div>
-
+        */}
         {/* Team Grid */}
         <motion.div
           className="max-w-6xl mx-auto"
