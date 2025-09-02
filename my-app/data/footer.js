@@ -5,8 +5,8 @@ const footerData = {
   },
   contact: {
     title: "Contact Info",
-    phone: "+1 (555) 123-4567",
-    address: "123 Business Street, Suite 100\nNew York, NY 10001",
+    phone: "+2 02 229 06773",
+    address: "24 Iskandar El-Akbar St., Heliopolis, Cairo, Egypt, 11341",
     email: "info@emcconsulting.com"
   },
   policies: {
@@ -33,9 +33,7 @@ const footerData = {
     ]
   },
   social: [
-    { name: "Facebook", href: "https://facebook.com", icon: "Facebook" },
-    { name: "LinkedIn", href: "https://linkedin.com", icon: "Linkedin" },
-    { name: "Instagram", href: "https://instagram.com", icon: "Instagram" }
+    { name: "LinkedIn", href: "https://www.linkedin.com/company/emc-energy-egypt/", icon: "Linkedin" },
   ],
   production: {
     name: "Production by Soft Solutions",
