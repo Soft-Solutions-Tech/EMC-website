@@ -11,12 +11,12 @@ const ClientsSection = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   // Filter out sub-companies, only use main clients with safety checks
-  const mainClients = (clients || []).map(client => ({
+  const mainClients = (clients || []).map((client) => ({
     id: client?.id || `client-${Math.random()}`, // Fallback ID
     name: client?.name || "Unknown Client",
     logo: client?.logo || FALLBACK_LOGO,
     website: client?.website || "#",
-    brief: client?.brief || ""
+    brief: client?.brief || "",
   }));
 
   // Auto-cycle through clients
@@ -45,7 +45,9 @@ const ClientsSection = () => {
   if (!mainClients.length) {
     return (
       <section className="py-20 bg-gradient-to-br from-gray-50 to-white text-center">
-        <p className="text-lg text-gray-600">No clients available at the moment.</p>
+        <p className="text-lg text-gray-600">
+          No clients available at the moment.
+        </p>
       </section>
     );
   }
@@ -80,14 +82,14 @@ const ClientsSection = () => {
           >
             {clientsSection?.title || "Our Clients"}
           </motion.h2>
-          
+
           <motion.div
             className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md mb-6"
             initial={{ width: 0 }}
             whileInView={{ width: 96 }}
             transition={{ duration: 1, delay: 0.5 }}
           />
-          
+
           <motion.p
             className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mt-0 leading-relaxed font-semibold"
             initial={{ opacity: 0 }}
@@ -120,25 +122,25 @@ const ClientsSection = () => {
                   <div className="relative group">
                     {/* Spotlight Glow Effect */}
                     <div className="absolute -inset-8 bg-gradient-to-r from-primary/20 via-transparent to-primary/20 rounded-full blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
-                    
+
                     {/* Logo Container */}
-                    <motion.div
-                      className="relative w-48 h-48 bg-white rounded-3xl shadow-2xl border border-blue-400 flex items-center justify-center mx-auto"
-                      whileHover={{ scale: 1.05, rotate: 1 }}
-                      transition={{ duration: 0.3 }}
-                    >
+                    <motion.div className="relative w-48 h-48 bg-white rounded-3xl shadow-2xl flex items-center justify-center mx-auto">
                       <img
                         src={mainClients[spotlightIndex].logo}
                         alt={`${mainClients[spotlightIndex].name} logo`}
                         className="w-32 h-32 object-contain filter drop-shadow-lg"
-                        onError={(e) => { e.target.src = FALLBACK_LOGO; }} // Fallback on image load error
+                        onError={(e) => {
+                          e.target.src = FALLBACK_LOGO;
+                        }}
                       />
                     </motion.div>
                   </div>
-                  
+
                   <motion.h3
                     className={`text-2xl font-bold text-gray-900 mt-6 mb-2 ${
-                      mainClients[spotlightIndex].name.split(' ').length > 3 ? 'ml-4' : 'text-center'
+                      mainClients[spotlightIndex].name.split(" ").length > 3
+                        ? "ml-4"
+                        : "text-center"
                     }`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -146,7 +148,7 @@ const ClientsSection = () => {
                   >
                     {mainClients[spotlightIndex].name}
                   </motion.h3>
-                  
+
                   <motion.a
                     href={mainClients[spotlightIndex].website}
                     target="_blank"
@@ -158,8 +160,18 @@ const ClientsSection = () => {
                     whileHover={{ x: 2 }}
                   >
                     Visit Website
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
                     </svg>
                   </motion.a>
                 </motion.div>
@@ -180,12 +192,15 @@ const ClientsSection = () => {
                 key={client.id}
                 className={`relative cursor-pointer transition-all duration-500 flex justify-center items-center ${
                   spotlightIndex === index
-                    ? 'opacity-100'
-                    : 'opacity-60 hover:opacity-100'
+                    ? "opacity-100"
+                    : "opacity-60 hover:opacity-100"
                 }`}
                 onMouseEnter={() => handleClientHover(index)}
                 initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: spotlightIndex === index ? 1 : 0.6, scale: 1 }}
+                whileInView={{
+                  opacity: spotlightIndex === index ? 1 : 0.6,
+                  scale: 1,
+                }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {/* Selection Ring */}
@@ -197,21 +212,25 @@ const ClientsSection = () => {
                     transition={{ duration: 0.3 }}
                   />
                 )}
-                
+
                 {/* Logo Container */}
-                <div className={`w-20 h-20 bg-white rounded-2xl border flex items-center justify-center transition-all duration-300 ${
-                  spotlightIndex === index
-                    ? 'border-blue-500 shadow-lg'
-                    : 'border-gray-200 shadow-sm hover:shadow-md'
-                }`}>
+                <div
+                  className={`w-20 h-20 bg-white rounded-2xl border flex items-center justify-center transition-all duration-300 ${
+                    spotlightIndex === index
+                      ? "border-primary shadow-lg"
+                      : "border-gray-200 shadow-sm hover:shadow-md"
+                  }`}
+                >
                   <img
                     src={client.logo}
                     alt={`${client.name} logo`}
                     className="w-12 h-12 object-contain"
-                    onError={(e) => { e.target.src = FALLBACK_LOGO; }} // Fallback on image load error
+                    onError={(e) => {
+                      e.target.src = FALLBACK_LOGO;
+                    }}
                   />
                 </div>
-                
+
                 {/* Client Name on Hover */}
                 <motion.div
                   className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-3 rounded-lg opacity-0 pointer-events-none whitespace-nowrap"
@@ -231,8 +250,8 @@ const ClientsSection = () => {
                 key={index}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   spotlightIndex === index
-                    ? 'bg-blue-600 w-8'
-                    : 'bg-gray-300 hover:bg-gray-400'
+                    ? "bg-primary w-8"
+                    : "bg-gray-300 hover:bg-gray-400"
                 }`}
                 onClick={() => setSpotlightIndex(index)}
                 whileHover={{ scale: 1.2 }}
