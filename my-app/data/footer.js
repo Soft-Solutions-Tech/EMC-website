@@ -1,7 +1,7 @@
 const footerData = {
   company: {
     name: "EMC",
-    description: "EMC is a leading consulting firm specializing in business solutions, strategic planning, and operational excellence. We help organizations achieve their goals through innovative approaches and proven methodologies."
+    description: "EMC Energy focus on the Power market as well as the Oil & Gas market in Egypt. EMC energy aims to deliver the highest end results to its clients & partners."
   },
   contact: {
     title: "Contact Info",

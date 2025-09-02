@@ -35,7 +35,7 @@ export const companyTimeline = [
   },
   {
     year: 1992,
-    event: "Mr. Dessouky became Executive Partner",
+    event: "Mr. Dessouky became Executive Partner in EMC",
   },
   {
     year: 2000,
@@ -56,17 +56,18 @@ export const companyTimeline = [
 ];
 
 export const companyOverview = {
-  established: "1988",
+  established: "1988 in Egypt",
   location: "Egypt",
   capital: "EGP 45 Million Paid-up Capital",
   turnover: "EGP 300 Million (2020)",
   dubaiBranch: "EMC International Dubai (2012)",
   partnerSince: "Partner of KSB Service Egypt since 2022",
-  focus: "Power market and Oil & Gas market in Egypt",
-  mission: "Deliver the highest end results to clients and partners",
+  focus: "EMC Energy focuses on the Power and Oil & Gas markets in Egypt",
+  mission: "Deliver top-tier solutions to clients and partners",
 };
+
 export const content = {
   title: "Who We Are",
   description:
-    "EMC is a leading engineering and construction company with over 30 years of experience. We specialize in delivering innovative solutions for industrial, energy, and infrastructure projects, combining technical expertise with a commitment to quality and client satisfaction.",
+    "EMC is a leading engineering company established in 1988, specializing in the Power and Oil & Gas markets through EMC Energy. With over 30 years of experience, we deliver top-tier solutions, combining technical expertise with a commitment to quality and client satisfaction.",
 };

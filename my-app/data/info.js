@@ -2,7 +2,7 @@ export const emcInfo = {
   summary:
     "EMC is a leading engineering solutions provider with over 30 years of excellence in Egypt's power and oil & gas markets. Since our founding in 1988, we've delivered EGP 300M in projects while maintaining an uncompromising commitment to quality. Our expertise spans turnkey EPC projects, technical consulting, and after-sales services for energy infrastructure, specializing in diesel/hydrogen plants and district cooling systems.",
   philosophy:
-    "EMC doesn't just build power plants—we electrify opportunities. Where others see specs, we see solutions. Where others follow trends, we set them. This isn’t engineering as usual—it’s execution with an edge.",
+    "EMC doesn't just build power plants—we electrify opportunities. Where others see specs, we see solutions. Where others follow trends, we set them. This isn't engineering as usual—it's execution with an edge.",
   philosophyTitle: "The Bold Disruptor",
   philosophyTagline: "Engineering, But Make It Electrifying",
   philosophySub:
@@ -21,7 +21,7 @@ export const emcInfo = {
     {
       value: 35,
       suffix: "+",
-      label: "Years in Egypt’s Grid",
+      label: "Years in Egypt's Grid",
       description: "Trusted since 1988 to keep the lights on.",
     },
     {
@@ -34,7 +34,7 @@ export const emcInfo = {
       value: 24,
       suffix: "/7",
       label: "After-Sales Support",
-      description: "Your equipment’s VIP hotline.",
+      description: "Your equipment's VIP hotline.",
     },
     {
       value: 2,
@@ -43,7 +43,7 @@ export const emcInfo = {
     },
     {
       value: 1,
-      label: "KSB’s Local Arm",
+      label: "KSB's Local Arm",
       description: "Pumps, valves, and unstoppable partnerships.",
     },
   ],
