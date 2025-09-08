@@ -1,33 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Briefcase, Users, Globe, Lightbulb } from "lucide-react";
-
-const activities = [
-  {
-    icon: <Briefcase className="w-8 h-8 text-primary" />,
-    title: "Business Consulting",
-    description:
-      "Providing expert guidance to help organizations achieve strategic goals efficiently and effectively.",
-  },
-  {
-    icon: <Users className="w-8 h-8 text-primary" />,
-    title: "Team Development",
-    description:
-      "Enhancing workforce capabilities through tailored training programs and comprehensive workshops.",
-  },
-  {
-    icon: <Globe className="w-8 h-8 text-primary" />,
-    title: "Global Outreach",
-    description:
-      "Building strategic international partnerships to expand our market presence worldwide.",
-  },
-  {
-    icon: <Lightbulb className="w-8 h-8 text-primary" />,
-    title: "Innovation Projects",
-    description:
-      "Driving cutting-edge initiatives to foster creativity and develop future-ready solutions.",
-  },
-];
+import { activities } from "../../../data/activities";
 
 const animations = {
   container: {
@@ -90,7 +63,7 @@ export default function ActivitiesSection() {
           >
             {activities.map((activity, index) => (
               <motion.div
-                key={index}
+                key={activity.id}
                 variants={animations.item}
                 whileHover={{
                   y: -4,
