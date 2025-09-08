@@ -4,6 +4,7 @@ import {
   projects,
   sectionHeadings,
   portfolioTitle,
+  ProjectType,
 } from "../../../data/projects.js";
 import {
   User,
@@ -34,37 +35,69 @@ const getBorderColor = (index) => {
   return index === 1 ? "#004d6e" : "#006996"; // Uses primary-dark and primary
 };
 
+// Get all available project types from data
+const getProjectTypes = () => {
+  return Object.values(ProjectType);
+};
+
+// Get featured project for each type (first project of each type)
+const getFeaturedProjectByType = (type) => {
+  return projects.find((project) => project.type === type);
+};
+
 // Subcomponents
-const InfoBadge = ({ icon: Icon, text, className = "" }) => (
-  <span
-    className={`flex items-center gap-2 text-muted-foreground rounded-full px-4 py-2 text-sm font-medium border border-muted ${className}`}
-  >
-    <Icon className="w-4 h-4 text-primary" />
-    {text}
-  </span>
-);
+const InfoBadge = ({ icon: Icon, text, className = "" }) => {
+  if (!text) return null;
 
-export const InfoBar = ({ status, client, value }) => (
-  <div className="flex flex-wrap gap-3 mb-6 items-center justify-center">
-    <InfoBadge icon={BriefcaseBusiness} text={status} />
-    <InfoBadge icon={BadgeDollarSign} text={value} />
-    <InfoBadge icon={User} text={client} />
-  </div>
-);
+  return (
+    <span
+      className={`flex items-center gap-2 text-muted-foreground rounded-full px-4 py-2 text-sm font-medium border border-muted ${className}`}
+    >
+      <Icon className="w-4 h-4 text-primary" />
+      {text}
+    </span>
+  );
+};
 
-export const Timeline = ({ start, end }) => (
-  <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground justify-center">
-    <div className="flex items-center gap-2">
-      <CalendarClock className="w-4 h-4 text-primary" />
-      <span className="font-medium">{formatDate(start)}</span>
+export const InfoBar = ({ status, client, value }) => {
+  const infoItems = [
+    { icon: BriefcaseBusiness, text: status },
+    { icon: BadgeDollarSign, text: value },
+    { icon: User, text: client },
+  ];
+
+  // Filter out items with no text
+  const validItems = infoItems.filter((item) => item.text);
+
+  if (validItems.length === 0) return null;
+
+  return (
+    <div className="flex flex-wrap gap-3 mb-6 items-center justify-center">
+      {validItems.map((item, index) => (
+        <InfoBadge key={index} icon={item.icon} text={item.text} />
+      ))}
     </div>
-    <ArrowRight className="w-4 h-4 text-secondary" />
-    <div className="flex items-center gap-2">
-      <CalendarClock className="w-4 h-4 text-primary" />
-      <span className="font-medium">{formatDate(end)}</span>
+  );
+};
+
+export const Timeline = ({ start, end }) => {
+  // Don't render if neither start nor end date exists
+  if (!start && !end) return null;
+
+  return (
+    <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground justify-center">
+      <div className="flex items-center gap-2">
+        <CalendarClock className="w-4 h-4 text-primary" />
+        <span className="font-medium">{formatDate(start) || "N/A"}</span>
+      </div>
+      <ArrowRight className="w-4 h-4 text-secondary" />
+      <div className="flex items-center gap-2">
+        <CalendarClock className="w-4 h-4 text-primary" />
+        <span className="font-medium">{formatDate(end)}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const Partners = ({ partners }) => {
   if (!partners || partners.length === 0) return null;
@@ -132,7 +165,7 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
   const [progress, setProgress] = useState(0);
   const timeoutRef = useRef(null);
   const intervalRef = useRef(null);
-  const numImages = images.length;
+  const numImages = images?.length || 0;
 
   // Cleanup function
   const cleanup = () => {
@@ -146,6 +179,8 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
   };
 
   useEffect(() => {
+    if (numImages <= 1) return;
+
     setProgress(0);
     cleanup();
 
@@ -164,7 +199,13 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
     return cleanup;
   }, [current, numImages]);
 
-  if (!images || images.length === 0) return null;
+  if (!images || images.length === 0) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-lg">
+        <span className="text-gray-500">No images available</span>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden group rounded-lg">
@@ -181,6 +222,9 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
             className="w-full h-full object-cover flex-shrink-0"
             style={{ minWidth: "100%", minHeight: "100%" }}
             draggable={false}
+            onError={(e) => {
+              e.target.style.display = "none";
+            }}
           />
         ))}
       </div>
@@ -205,62 +249,81 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
 };
 
 // Section heading component
-const SectionHeading = ({ heading, className = "" }) => (
-  <div className={`mb-12 text-center ${className}`}>
-    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2">
-      {heading.label}
-    </h3>
-    {heading.desc && (
-      <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6 leading-relaxed font-semibold">
-        {heading.desc.map((desc, index) => (
-          <span key={index}>
-            {desc}
-            {index < heading.desc.length - 1 ? ", " : "."}
-          </span>
-        ))}
-      </p>
-    )}
-  </div>
-);
+const SectionHeading = ({ heading, className = "" }) => {
+  if (!heading) return null;
+
+  return (
+    <div className={`mb-12 text-center ${className}`}>
+      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2">
+        {heading.label}
+      </h3>
+      {heading.desc && (
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6 leading-relaxed font-semibold">
+          {Array.isArray(heading.desc)
+            ? heading.desc.map((desc, index) => (
+                <span key={index}>
+                  {desc}
+                  {index < heading.desc.length - 1 ? ", " : "."}
+                </span>
+              ))
+            : heading.desc}
+        </p>
+      )}
+    </div>
+  );
+};
 
 // Project actions component
-const ProjectActions = ({ projectId, consultingCta }) => (
-  <div className="flex flex-col gap-3 w-full mt-6">
-    <a
-      href={`/projects/${projectId}`}
-      className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold shadow hover:bg-primary-dark transition text-sm w-full text-center"
-    >
-      Explore this project
-    </a>
-    <a
-      href="/projects?type=CONSULTING"
-      className="bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-semibold shadow hover:bg-secondary-dark transition text-sm w-full text-center"
-    >
-      {consultingCta || "Explore our consulting projects"}
-    </a>
-  </div>
-);
+const ProjectActions = ({ projectId, consultingCta, projectType }) => {
+  // Generate dynamic consulting CTA based on project type if none provided
+  const defaultConsultingCta = projectType
+    ? `Explore our ${projectType.toLowerCase()} projects`
+    : "Explore our consulting projects";
+
+  const finalConsultingCta = consultingCta || defaultConsultingCta;
+
+  return (
+    <div className="flex flex-col gap-3 w-full mt-6">
+      <a
+        href={`/projects/${projectId}`}
+        className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold shadow hover:bg-primary-dark transition text-sm w-full text-center"
+      >
+        Explore this project
+      </a>
+      <a
+        href={`/projects?type=${projectType || "CONSULTING"}`}
+        className="bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-semibold shadow hover:bg-secondary-dark transition text-sm w-full text-center"
+      >
+        {finalConsultingCta}
+      </a>
+    </div>
+  );
+};
 
 // Project content component
 const ProjectContent = ({ project, index }) => {
   return (
     <div className="flex flex-col items-center justify-center text-center h-full p-6">
       <h3 className="text-xl font-semibold text-primary mb-3">
-        {project.name}
+        {project.name || "Untitled Project"}
       </h3>
-      <p className="text-muted-foreground mb-4 max-w-md">
-        {project.description}
-      </p>
+      {project.description && (
+        <p className="text-muted-foreground mb-4 max-w-md">
+          {project.description}
+        </p>
+      )}
       <InfoBar
         status={project.status}
         client={project.client}
         value={project.value}
+        location={project.location}
       />
       <Timeline start={project.startDate} end={project.endDate} />
       <Partners partners={project.partners} />
       <ProjectActions
         projectId={project.id}
         consultingCta={project.consultingCta}
+        projectType={project.type}
       />
     </div>
   );
@@ -268,6 +331,8 @@ const ProjectContent = ({ project, index }) => {
 
 // Project card component
 const ProjectCard = ({ project, index }) => {
+  if (!project) return null;
+
   const isEvenIndex = index % 2 === 0;
   const borderColor = getBorderColor(index);
 
@@ -282,13 +347,11 @@ const ProjectCard = ({ project, index }) => {
     >
       {/* Image Section */}
       <div className="w-full h-[300px] lg:h-[400px] rounded-lg overflow-hidden">
-        {project.images?.length > 0 && (
-          <ProjectImageCarousel
-            images={project.images}
-            projectName={project.name}
-            borderColor={borderColor}
-          />
-        )}
+        <ProjectImageCarousel
+          images={project.images}
+          projectName={project.name}
+          borderColor={borderColor}
+        />
       </div>
 
       {/* Content Section */}
@@ -300,11 +363,39 @@ const ProjectCard = ({ project, index }) => {
 // Main component
 const PortfolioSection = () => {
   const featuredProjects = useMemo(() => {
-    const types = ["EPC", "CONSULTING", "AFTERSALES"];
-    return types
-      .map((type) => projects.find((project) => project.type === type))
+    const availableTypes = getProjectTypes();
+
+    return availableTypes
+      .map((type) => getFeaturedProjectByType(type))
       .filter(Boolean);
   }, []);
+
+  const getSectionHeadingForType = (projectType, index) => {
+    const headingByType = sectionHeadings.find(
+      (h) =>
+        h.label.toUpperCase().includes(projectType.toUpperCase()) ||
+        projectType
+          .toUpperCase()
+          .includes(h.label.toUpperCase().replace(" PROJECTS", ""))
+    );
+
+    // Fall back to index-based matching
+    const headingByIndex = sectionHeadings.find((h) => h.idx === index);
+
+    // Final fallback: create a basic heading
+    return (
+      headingByType ||
+      headingByIndex || {
+        label: `${
+          projectType.charAt(0) + projectType.slice(1).toLowerCase()
+        } Projects`,
+        idx: index,
+        desc: [
+          `Our ${projectType.toLowerCase()} project solutions and services`,
+        ],
+      }
+    );
+  };
 
   return (
     <>
@@ -318,7 +409,7 @@ const PortfolioSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {portfolioTitle}
+              {portfolioTitle || "Our Projects Portfolio"}
             </motion.h2>
             <motion.div
               className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md mb-3"
@@ -329,23 +420,30 @@ const PortfolioSection = () => {
           </div>
 
           {/* Featured Projects */}
-          <div className="flex flex-col ">
+          <div className="flex flex-col">
             {featuredProjects.map((project, index) => {
-              const heading = sectionHeadings.find((h) => h.idx === index);
+              const heading = getSectionHeadingForType(project.type, index);
 
               return (
                 <React.Fragment key={project.id}>
-                  {heading && (
-                    <SectionHeading
-                      heading={heading}
-                      className={index === 0 ? "mt-0" : "mt-8"}
-                    />
-                  )}
+                  <SectionHeading
+                    heading={heading}
+                    className={index === 0 ? "mt-0" : "mt-8"}
+                  />
                   <ProjectCard project={project} index={index} />
                 </React.Fragment>
               );
             })}
           </div>
+
+          {/* Show message if no projects found */}
+          {featuredProjects.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-lg text-muted-foreground">
+                No featured projects available at this time.
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </>
