@@ -18,7 +18,7 @@ import { motion } from "framer-motion";
 // Constants
 const CONTACT_INFO = {
   email: "emc-eg.com",
-  phone: "+20 100 501 8000",
+  phone: "+2 02 229 06773",
 };
 
 const FORM_LIMITS = {

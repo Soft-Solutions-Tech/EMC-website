@@ -61,6 +61,100 @@ const Partners = ({ partners }) => {
   );
 };
 
+const ImageGallery = ({ images, projectName }) => {
+  // Return null if no images exist or array is empty
+  if (!images || !Array.isArray(images) || images.length === 0) {
+    return null;
+  }
+
+  // Filter out any invalid/empty image URLs
+  const validImages = images.filter((img) => img && img.trim() !== "");
+
+  if (validImages.length === 0) {
+    return null;
+  }
+
+  // Determine grid layout based on image count
+  const getGridLayout = (count) => {
+    if (count === 1) return "grid-cols-1 max-w-2xl mx-auto";
+    if (count === 2) return "grid-cols-1 sm:grid-cols-2 max-w-4xl mx-auto";
+    if (count === 3) return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+    if (count === 4)
+      return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4";
+    if (count <= 6) return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+    return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
+  };
+
+  // Determine image height based on count and layout
+  const getImageHeight = (count) => {
+    if (count === 1) return "h-80 sm:h-96";
+    if (count === 2) return "h-72 sm:h-80";
+    return "h-64 sm:h-72";
+  };
+
+  const gridLayout = getGridLayout(validImages.length);
+  const imageHeight = getImageHeight(validImages.length);
+
+  return (
+    <motion.div
+      className="mb-12"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.4 }}
+    >
+      <div className={`grid ${gridLayout} gap-4 sm:gap-6`}>
+        {validImages.map((image, idx) => (
+          <motion.div
+            key={idx}
+            className={`relative ${imageHeight} bg-muted rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group`}
+          >
+            <img
+              src={image}
+              alt={`${projectName} - Image ${idx + 1}`}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                // Fallback for broken images
+                e.target.style.display = "none";
+                e.target.nextSibling.style.display = "flex";
+              }}
+            />
+            {/* Fallback content for broken images */}
+            <div className="absolute inset-0 bg-muted hidden items-center justify-center">
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground">
+                  Image unavailable
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Show a subtle indicator if original array had more images than valid ones */}
+      {images.length !== validImages.length && validImages.length > 0 && (
+        <p className="text-xs text-muted-foreground mt-4 text-center">
+          Showing {validImages.length} of {images.length} images
+        </p>
+      )}
+    </motion.div>
+  );
+};
+
+const NoImagesPlaceholder = ({ projectName }) => (
+  <motion.div
+    className="mb-12 text-center py-8"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5, delay: 0.4 }}
+  >
+    <div className="bg-muted rounded-xl border border-muted p-8">
+      <p className="text-muted-foreground">
+        No images available for this project at the moment.
+      </p>
+    </div>
+  </motion.div>
+);
+
 export default function ProjectDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -103,6 +197,12 @@ export default function ProjectDetailPage() {
     );
   }
 
+  // Check if project has valid images
+  const hasValidImages =
+    project.images &&
+    Array.isArray(project.images) &&
+    project.images.some((img) => img && img.trim() !== "");
+
   return (
     <>
       <Head>
@@ -144,31 +244,20 @@ export default function ProjectDetailPage() {
             </motion.p>
           </div>
 
-          {/* Image Gallery */}
-          {project.images && project.images.length > 0 && (
-            <div className="mb-12">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {project.images.map((image, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="relative h-64 sm:h-72 bg-muted rounded-xl overflow-hidden shadow-sm"
-                  >
-                    <img
-                      src={image}
-                      alt={`${project.name} image ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+          {/* Conditional Image Gallery or Placeholder */}
+          {hasValidImages ? (
+            <ImageGallery images={project.images} projectName={project.name} />
+          ) : (
+            <NoImagesPlaceholder projectName={project.name} />
           )}
 
           {/* Project Details */}
-          <div className="bg-muted rounded-xl border border-muted shadow-sm p-8 mb-12">
+          <motion.div
+            className="bg-muted rounded-xl border border-muted shadow-sm p-8 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: hasValidImages ? 0.8 : 0.6 }}
+          >
             <div className="flex items-center gap-3 mb-6">
               <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
               <span className="text-muted-foreground font-medium">
@@ -194,7 +283,7 @@ export default function ProjectDetailPage() {
                 {project.description}
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Back Button */}
           <div className="text-center">
