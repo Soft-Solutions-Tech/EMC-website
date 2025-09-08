@@ -9,7 +9,7 @@ export const rightArrowCursor = `url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0i
 export const companyInfo = {
   title: "Our Core Values",
   description:
-    "EMC is a leading engineering solutions provider with over 30 years of excellence in Egypt's power and oil & gas markets. Since our founding in 1988, we've delivered EGP 300M in projects while maintaining an uncompromising commitment to quality. Our expertise spans turnkey EPC projects, technical consulting, and after-sales services for energy infrastructure, specializing in diesel/hydrogen plants and district systems.",
+    "EMC Energy focuses on the Power and Oil & Gas markets in Egypt, we aim to deliver top-tier solutions to our clients and partners.",
 };
 
 // Core values data
@@ -69,31 +69,3 @@ export const coreValues = [
     bgColor: "from-primary/10 to-primary/15",
   },
 ];
-
-// Animation variants
-export const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-  },
-};
-
-export const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
-export const cardVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.4, ease: "easeOut" },
-  },
-};

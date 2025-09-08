@@ -59,9 +59,9 @@ export default function ActivitiesSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12"
           >
-            {activities.map((activity, index) => (
+            {activities.map((activity) => (
               <motion.div
                 key={activity.id}
                 variants={animations.item}
