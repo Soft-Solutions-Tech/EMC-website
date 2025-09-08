@@ -413,8 +413,7 @@ function ProjectsPageInner() {
   );
 }
 
-// Final export: wrap inner page in Suspense
-export default function ProjectsPage() {
+function ProjectsPageMeta() {
   const searchParams = useSearchParams();
   const currentType = searchParams?.get("type")?.toUpperCase() || "ALL";
 
@@ -447,27 +446,31 @@ export default function ProjectsPage() {
   };
 
   return (
-    <>
-      <Head>
-        <title>{getMetaTitle()}</title>
-        <meta name="description" content={getMetaDescription()} />
-        <meta
-          name="keywords"
-          content={`${currentType.toLowerCase()} projects, engineering solutions, portfolio`}
-        />
-      </Head>
-      <Suspense
-        fallback={
-          <div className="flex items-center justify-center py-20 min-h-screen">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
-              <p className="text-muted-foreground">Loading projects...</p>
-            </div>
+    <Head>
+      <title>{getMetaTitle()}</title>
+      <meta name="description" content={getMetaDescription()} />
+      <meta
+        name="keywords"
+        content={`${currentType.toLowerCase()} projects, engineering solutions, portfolio`}
+      />
+    </Head>
+  );
+}
+
+export default function ProjectsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center py-20 min-h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading projects...</p>
           </div>
-        }
-      >
-        <ProjectsPageInner />
-      </Suspense>
-    </>
+        </div>
+      }
+    >
+      <ProjectsPageMeta />
+      <ProjectsPageInner />
+    </Suspense>
   );
 }
