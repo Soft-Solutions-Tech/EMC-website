@@ -19,15 +19,18 @@ export const clients = [
     id: "c6",
     name: "Upper Egypt Electricity",
     logo: "/clients/electricity.jpg",
-    brief: "Electricity distribution and infrastructure development in Upper Egypt.",
+    brief:
+      "Electricity distribution and infrastructure development in Upper Egypt.",
     website: "https://egyptera.org/en/GeographicalScope.aspx",
   },
   {
     id: "c7",
     name: "Canal Electricity",
     logo: "/clients/elec2.png",
-    brief: "Power services and maintenance in the Suez Canal and surrounding areas.",
-    website: "https://eehc.gov.eg/CMSEehc/en/consumer-information/geographical-distribution-of-electricity-distribution-companies/",
+    brief:
+      "Power services and maintenance in the Suez Canal and surrounding areas.",
+    website:
+      "https://eehc.gov.eg/CMSEehc/en/consumer-information/geographical-distribution-of-electricity-distribution-companies/",
   },
   {
     id: "c8",
@@ -41,7 +44,8 @@ export const clients = [
     name: "Middle Egypt Electricity",
     logo: "/clients/elec.png",
     brief: "Regional electricity service provider in Middle Egypt.",
-    website: "https://www.ricoh-europe.com/insights/case-studies/middle-egypt-electricity-distribution-company/",
+    website:
+      "https://www.ricoh-europe.com/insights/case-studies/middle-egypt-electricity-distribution-company/",
   },
   {
     id: "c10",
