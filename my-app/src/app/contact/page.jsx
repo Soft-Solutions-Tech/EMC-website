@@ -303,13 +303,13 @@ const SubmitButton = ({ status }) => (
       disabled={status === "sending"}
       whileHover={{ scale: status === "sending" ? 1 : 1.05 }}
       whileTap={{ scale: status === "sending" ? 1 : 0.97 }}
-      className="group relative px-8 py-3 bg-primary border-2 border-white text-primary-foreground rounded-lg flex items-center gap-2 overflow-hidden transition-all duration-300 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed"
+      className="group w-full relative px-8 py-3 bg-primary border-2 border-white text-primary-foreground rounded-lg flex items-center gap-2 overflow-hidden transition-all duration-300 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed"
     >
       {status === "sending" ? (
         <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin text-primary" />
       ) : (
         <>
-          <span className="relative z-10 group-hover:text-primary transition-colors duration-300">
+          <span className="relative text-center z-10 group-hover:text-primary transition-colors duration-300">
             Send Message
           </span>
           <svg
@@ -550,26 +550,43 @@ export default function ContactPage() {
 
       <main className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="w-full max-w-7xl mx-auto grid gap-8 sm:grid-cols-1 lg:grid-cols-2"
+          className="w-full max-w-7xl mx-auto space-y-8"
           variants={animations.container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <ContactInfoCard
-            copiedEmail={copiedEmail}
-            copiedPhone={copiedPhone}
-            copyToClipboard={copyToClipboard}
-            isDisabled={status === "sending"}
-          />
-          <ContactForm
-            formData={formData}
-            onFormChange={handleFormChange}
-            onSubmit={handleSubmit}
-            status={status}
-            errorMessage={errorMessage}
-            onDismiss={dismissMessage}
-          />
+          <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-2">
+            <ContactInfoCard
+              copiedEmail={copiedEmail}
+              copiedPhone={copiedPhone}
+              copyToClipboard={copyToClipboard}
+              isDisabled={status === "sending"}
+            />
+            <ContactForm
+              formData={formData}
+              onFormChange={handleFormChange}
+              onSubmit={handleSubmit}
+              status={status}
+              errorMessage={errorMessage}
+              onDismiss={dismissMessage}
+            />
+          </div>
+          <motion.div
+            className="w-full bg-muted rounded-xl shadow-lg overflow-hidden"
+            variants={animations.card}
+          >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.2059085066676!2d31.3274294!3d30.088288699999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e216c7ab29d%3A0x94859a50b2f2408a!2sEmc!5e0!3m2!1sen!2seg!4v1757522980194!5m2!1sen!2seg"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full"
+            ></iframe>
+          </motion.div>
         </motion.div>
       </main>
 

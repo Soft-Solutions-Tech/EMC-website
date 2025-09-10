@@ -50,15 +50,32 @@ export const Footer = () => {
               <div className="space-y-3 text-sm text-muted-foreground text-center">
                 <div className="flex items-center justify-center space-x-2">
                   <Phone size={16} className="text-primary" />
-                  <span>{contact.phone}</span>
-                </div>
-                <div className="flex items-start justify-center space-x-2">
-                  <MapPin size={16} className="text-primary mt-0.5" />
-                  <span className="whitespace-pre-line">{contact.address}</span>
+                  <a
+                    href={`tel:${contact.phone}`}
+                    className="text-primary hover:text-primary-light transition-colors duration-300"
+                  >
+                    {contact.phone}
+                  </a>
                 </div>
                 <div className="flex items-center justify-center space-x-2">
                   <Mail size={16} className="text-primary" />
-                  <span>{contact.email}</span>
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="text-primary hover:text-primary-light transition-colors duration-300"
+                  >
+                    {contact.email}
+                  </a>
+                </div>
+                <div className="flex items-start justify-center space-x-2">
+                  <MapPin size={16} className="text-primary mt-0.5" />
+                  <a
+                    href="https://maps.app.goo.gl/awsrZKi68wX8mgC49"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 whitespace-pre-line"
+                  >
+                    {contact.address}
+                  </a>
                 </div>
               </div>
             </div>
@@ -121,17 +138,32 @@ export const Footer = () => {
               <div className="space-y-3 text-sm text-muted-foreground text-center">
                 <div className="flex items-center justify-center space-x-2">
                   <Phone size={16} className="text-primary" />
-                  <span className="text-xs">{contact.phone}</span>
+                  <a
+                    href={`tel:${contact.phone}`}
+                    className="text-primary hover:text-primary-light transition-colors duration-300 text-xs"
+                  >
+                    {contact.phone}
+                  </a>
                 </div>
                 <div className="flex items-start justify-center space-x-2">
                   <MapPin size={16} className="text-primary mt-0.5" />
-                  <span className="whitespace-pre-line text-xs">
+                  <a
+                    href="https://maps.app.goo.gl/awsrZKi68wX8mgC49"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 whitespace-pre-line text-xs"
+                  >
                     {contact.address}
-                  </span>
+                  </a>
                 </div>
                 <div className="flex items-center justify-center space-x-2">
                   <Mail size={16} className="text-primary" />
-                  <span className="text-xs">{contact.email}</span>
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="text-primary hover:text-primary-light transition-colors duration-300 text-xs"
+                  >
+                    {contact.email}
+                  </a>
                 </div>
               </div>
             </div>
