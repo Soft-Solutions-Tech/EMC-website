@@ -30,9 +30,9 @@ export const Footer = () => {
   return (
     <footer>
       <div className="container mx-auto px-4">
-        {/* Desktop Layout (lg and up) - 5 column grid */}
+        {/* Desktop Layout (lg and up) - 4 column grid */}
         <div className="hidden lg:block mb-8">
-          <div className="grid grid-cols-5 gap-8">
+          <div className="grid grid-cols-4 gap-8">
             {/* Column 1: EMC Logo */}
             <div className="flex items-center justify-center">
               <img
@@ -63,25 +63,7 @@ export const Footer = () => {
               </div>
             </div>
 
-            {/* Column 3: Services */}
-            <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-primary text-center">
-                Services
-              </h4>
-              <div className="space-y-2 text-sm text-center">
-                {policies.links.map((link, index) => (
-                  <a
-                    key={index}
-                    href={link.href}
-                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Column 4: Projects */}
+            {/* Column 3: Projects */}
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-primary text-center">
                 {projects.title}
@@ -99,7 +81,7 @@ export const Footer = () => {
               </div>
             </div>
 
-            {/* Column 5: Quick Links */}
+            {/* Column 4: Quick Links */}
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-primary text-center">
                 {quickLinks.title}
@@ -119,20 +101,19 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Mobile/Tablet Layout (below lg) */}
+        {/* Mobile/Tablet Layout (below lg) - 2x2 grid */}
         <div className="block lg:hidden mb-8">
-          {/* Logo Section */}
-          <div className="flex items-center justify-center mb-6">
-            <img
-              src="/logos/EMC-LOGO.png"
-              alt="EMC Logo"
-              className="h-16 w-auto object-contain"
-            />
-          </div>
-
-          {/* 2x2 Grid for content sections */}
           <div className="grid grid-cols-2 gap-6">
-            {/* Contact Information */}
+            {/* Cell 1: EMC Logo */}
+            <div className="flex items-center justify-center">
+              <img
+                src="/logos/EMC-LOGO.png"
+                alt="EMC Logo"
+                className="h-12 w-auto object-contain"
+              />
+            </div>
+
+            {/* Cell 2: Contact Information */}
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-primary text-center">
                 {contact.title}
@@ -140,7 +121,7 @@ export const Footer = () => {
               <div className="space-y-3 text-sm text-muted-foreground text-center">
                 <div className="flex items-center justify-center space-x-2">
                   <Phone size={16} className="text-primary" />
-                  <span>{contact.phone}</span>
+                  <span className="text-xs">{contact.phone}</span>
                 </div>
                 <div className="flex items-start justify-center space-x-2">
                   <MapPin size={16} className="text-primary mt-0.5" />
@@ -155,25 +136,7 @@ export const Footer = () => {
               </div>
             </div>
 
-            {/* Services */}
-            <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-primary text-center">
-                Services
-              </h4>
-              <div className="space-y-2 text-sm text-center">
-                {policies.links.map((link, index) => (
-                  <a
-                    key={index}
-                    href={link.href}
-                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Projects */}
+            {/* Cell 3: Projects */}
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-primary text-center">
                 {projects.title}
@@ -183,7 +146,7 @@ export const Footer = () => {
                   <a
                     key={index}
                     href={link.href}
-                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block text-xs"
                   >
                     {link.name}
                   </a>
@@ -191,7 +154,7 @@ export const Footer = () => {
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Cell 4: Quick Links */}
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-primary text-center">
                 {quickLinks.title}
@@ -201,7 +164,7 @@ export const Footer = () => {
                   <a
                     key={index}
                     href={link.href}
-                    className="text-primary hover:text-primary-light transition-colors duration-300 block"
+                    className="text-primary hover:text-primary-light transition-colors duration-300 block text-xs"
                   >
                     {link.name}
                   </a>
