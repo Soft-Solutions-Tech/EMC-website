@@ -69,11 +69,11 @@ export function HeroBanner() {
         onCanPlayThrough={handleVideoLoad}
       >
         <source
-          src="/videos/mixkit-buildings-under-construction-aerial-view-4010-full-hd.mp4"
+          src="/videos/homepage-video.mp4"
           type="video/mp4"
         />
         <source
-          src="/videos/mixkit-buildings-under-construction-aerial-view-4010-full-hd.webm"
+          src="/videos/homepage-video.webm"
           type="video/webm"
         />
       </video>

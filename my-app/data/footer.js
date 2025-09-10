@@ -10,13 +10,13 @@ const footerData = {
     address: "24 Iskandar El-Akbar St., Heliopolis, Cairo, Egypt, 11341",
     email: "info@emcconsulting.com",
   },
-  policies: {
+  /* policies: {
     title: "Policies",
     links: [
       { name: "Terms of Service", href: "/terms" },
       { name: "Privacy Policy", href: "/privacy" },
     ],
-  },
+  }, */
   quickLinks: {
     title: "Quick Links",
     links: [
