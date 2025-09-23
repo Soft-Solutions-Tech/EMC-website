@@ -10,6 +10,10 @@ public_folder: "/uploads"
 
 publish_mode: editorial_workflow
 
+# Enable preview
+preview_path: /admin
+preview_path_date_field: date
+
 collections:
   - name: site
     label: Site Content
@@ -19,7 +23,7 @@ collections:
         file: data/hero.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - label: Hero
             name: hero
@@ -29,12 +33,13 @@ collections:
               - { label: Subheading, name: subheading, widget: text }
               - { label: Primary CTA, name: ctaPrimary, widget: string }
               - { label: Secondary CTA, name: ctaSecondary, widget: string }
+
       - name: about
         label: About
         file: data/about.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - label: Founders
             name: founders
@@ -71,12 +76,13 @@ collections:
             fields:
               - { label: Title, name: title, widget: string }
               - { label: Description, name: description, widget: text }
+
       - name: info
         label: Info Stats
         file: data/info.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - label: Summary
             name: summary
@@ -90,12 +96,13 @@ collections:
               - { label: Label, name: label, widget: string }
               - { label: Description, name: description, widget: string }
           - { label: Header Title, name: headerTitle, widget: string }
+
       - name: services
         label: Services
         file: data/ourservices.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - label: Services
             name: services
@@ -115,12 +122,13 @@ collections:
             fields:
               - { label: Title, name: title, widget: string }
               - { label: Subtitle, name: subtitle, widget: text }
+
       - name: activities
         label: Activities
         file: data/activities.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - label: Activities
             name: activities
@@ -130,12 +138,13 @@ collections:
               - { label: Title, name: title, widget: string }
               - { label: Description, name: description, widget: text }
               - { label: Icon, name: icon, widget: string }
+
       - name: coreValues
         label: Core Values
         file: data/coreValues.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - label: Company Info
             name: companyInfo
@@ -153,12 +162,13 @@ collections:
               - { label: Full Description, name: fullDesc, widget: text }
               - { label: Color, name: color, widget: string }
               - { label: Background Color, name: bgColor, widget: string }
+
       - name: partners
         label: Partners
         file: data/partners.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - label: Partners
             name: partners
@@ -180,12 +190,13 @@ collections:
               - { label: Title, name: title, widget: string }
               - { label: Subtitle, name: subtitle, widget: text }
               - { label: Label, name: label, widget: string }
+
       - name: clients
         label: Clients
         file: data/clients.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - label: Clients
             name: clients
@@ -207,12 +218,13 @@ collections:
               - { label: Title, name: title, widget: string }
               - { label: Subtitle, name: subtitle, widget: text }
               - { label: Label, name: label, widget: string }
+
       - name: projects
         label: Projects
         file: data/projects.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - label: Section Title
             name: portfolioTitle
@@ -250,12 +262,13 @@ collections:
                 widget: list
                 field: { label: Image, name: image, widget: string }
               - { label: Consulting CTA, name: consultingCta, widget: string, required: false }
+
       - name: privacy
         label: Privacy
         file: data/privacy.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - { label: Title, name: title, widget: string }
           - { label: Last Updated, name: lastUpdated, widget: string }
@@ -268,12 +281,13 @@ collections:
                 label: Content
                 widget: list
                 field: { label: Paragraph, name: paragraph, widget: text }
+
       - name: terms
         label: Terms
         file: data/terms.json
         format: json
         editor:
-          preview: false
+          preview: true
         fields:
           - { label: Title, name: title, widget: string }
           - { label: Last Updated, name: lastUpdated, widget: string }
@@ -287,4 +301,29 @@ collections:
                 widget: list
                 field: { label: Paragraph, name: paragraph, widget: text }
 
-
+  # Separate collection for adding new projects
+  - name: newProjects
+    label: Add New Project
+    folder: data/projects
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: ID, name: id, widget: string, hint: "Unique project ID (e.g., p64)" }
+      - { label: Name, name: name, widget: string }
+      - { label: Type, name: type, widget: select, options: [EPC, CONSULTING, AFTERSALES] }
+      - { label: Description, name: description, widget: text }
+      - { label: Start Date, name: startDate, widget: string, required: false, hint: "YYYY-MM-DD format" }
+      - { label: End Date, name: endDate, widget: string, required: false, hint: "YYYY-MM-DD format" }
+      - { label: Status, name: status, widget: select, options: [Active, Finished, Planning] }
+      - { label: Client, name: client, widget: string, required: false }
+      - name: partners
+        label: Partners
+        widget: list
+        field: { label: Partner, name: partner, widget: string }
+      - { label: Value, name: value, widget: string, required: false }
+      - { label: Location, name: location, widget: string, required: false }
+      - name: images
+        label: Images
+        widget: list
+        field: { label: Image Path, name: image, widget: string, hint: "e.g., /projects/project-name.jpg" }
+      - { label: Consulting CTA, name: consultingCta, widget: string, required: false }
