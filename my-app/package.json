@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cms:export": "node scripts/export-data-to-json.cjs",
+    "cms:generate": "node scripts/generate-js-from-json.cjs",
+    "postinstall": "npm run cms:export && npm run cms:generate"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

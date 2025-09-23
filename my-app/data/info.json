@@ -1,0 +1,42 @@
+{
+  "emcInfo": {
+    "summary": "EMC Energy focuses on the Power and Oil & Gas markets in Egypt, aiming to deliver top-tier solutions to our clients and partners. Established in 1988, we have over 30 years of experience, achieving EGP 300 Million turnover (2020) while maintaining an uncompromising commitment to quality. Our expertise spans turnkey EPC projects, technical consulting, and after-sales services for energy infrastructure, specializing in diesel/hydrogen plants and district cooling systems.",
+    "stats": [
+      {
+        "value": 100,
+        "suffix": "+",
+        "label": "Projects Delivered",
+        "description": "From diesel plants to district cooling—engineered to outlast."
+      },
+      {
+        "value": 37,
+        "suffix": "+",
+        "label": "Years in Egypt's Grid",
+        "description": "Trusted since 1988 to keep the lights on."
+      },
+      {
+        "value": 300,
+        "suffix": "M+",
+        "label": "EGP Annual Turnover",
+        "description": "Growth that speaks in megawatts."
+      },
+      {
+        "value": 24,
+        "suffix": "/7",
+        "label": "After-Sales Support",
+        "description": "Your equipment's VIP hotline."
+      },
+      {
+        "value": 2,
+        "label": "Continents Operating",
+        "description": "Cairo to Dubai, wired for impact."
+      },
+      {
+        "value": 1,
+        "label": "KSB's Local Arm",
+        "description": "Pumps, valves, and unstoppable partnerships."
+      }
+    ],
+    "headerTitle": "Who We Are"
+  }
+}
