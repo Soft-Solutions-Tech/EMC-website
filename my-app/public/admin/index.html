@@ -4,12 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Content Manager</title>
-    <link rel="preconnect" href="https://unpkg.com"/>
+    <link rel="preconnect" href="https://unpkg.com" />
   </head>
   <body>
+    <!-- Load Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Initialize Netlify Identity to work with Decap CMS -->
+    <script>
+      // Ensure Netlify Identity works globally
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            // No user logged in → show login modal
+            window.netlifyIdentity.open();
+          }
+        });
+      }
+
+      // Enable Decap CMS debug mode for detailed console logs
+      window.CMS_ENV = { DEBUG: true };
+    </script>
+
+    <!-- Load Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.3.0/dist/decap-cms.js"></script>
   </body>
 </html>
-
-
