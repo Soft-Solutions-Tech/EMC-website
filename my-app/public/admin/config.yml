@@ -1,0 +1,95 @@
+backend:
+  name: git-gateway
+  branch: netlify
+  identity: true
+
+site_url: https://emc-n.netlify.app
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: site
+    label: Site Content
+    files:
+      - name: hero
+        label: Hero
+        file: data/hero.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: about
+        label: About
+        file: data/about.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: info
+        label: Info Stats
+        file: data/info.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: services
+        label: Services
+        file: data/ourservices.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: activities
+        label: Activities
+        file: data/activities.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: coreValues
+        label: Core Values
+        file: data/coreValues.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: partners
+        label: Partners
+        file: data/partners.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: clients
+        label: Clients
+        file: data/clients.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: projects
+        label: Projects
+        file: data/projects.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: privacy
+        label: Privacy
+        file: data/privacy.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+      - name: terms
+        label: Terms
+        file: data/terms.json
+        editor:
+          preview: false
+        fields:
+          - { label: Json, name: raw, widget: code, output_code_only: true, default_language: json }
+
+
