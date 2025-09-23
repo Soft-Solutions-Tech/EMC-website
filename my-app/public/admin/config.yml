@@ -1,6 +1,9 @@
 backend:
   name: git-gateway
   branch: netlify
+  identity: true
+
+site_url: https://emc-n.netlify.app
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
