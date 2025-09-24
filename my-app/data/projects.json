@@ -47,7 +47,7 @@
       "status": "Finished",
       "location": "Manshiyat Naser, Egypt",
       "images": [
-        "/projects/manshiyat.jpg"
+        "/uploads/projects/manshiyat.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -66,7 +66,7 @@
       "status": "Active",
       "location": "Imbaba, Egypt",
       "images": [
-        "/projects/imbaba.png"
+        "/uploads/projects/imbaba.png"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -85,7 +85,7 @@
       "status": "Active",
       "location": "East Port Said, Egypt",
       "images": [
-        "/projects/east-port.png"
+        "/uploads/projects/east-port.png"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -104,9 +104,9 @@
       "status": "Finished",
       "location": "Siwa & Habata & Bir Khamsa, Egypt",
       "images": [
-        "/projects/siwa.png",
-        "/projects/siwa.png",
-        "/projects/siwa.png"
+        "/uploads/projects/siwa.png",
+        "/uploads/projects/siwa.png",
+        "/uploads/projects/siwa.png"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -125,7 +125,7 @@
       "status": "Finished",
       "location": "Farafra, Egypt",
       "images": [
-        "/projects/farafra.png"
+        "/uploads/projects/farafra.png"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -144,9 +144,9 @@
       "status": "Active",
       "location": "Seychelles",
       "images": [
-        "/projects/sychells.png",
-        "/projects/sychells.png",
-        "/projects/sychells.png"
+        "/uploads/projects/sychells.png",
+        "/uploads/projects/sychells.png",
+        "/uploads/projects/sychells.png"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -163,9 +163,9 @@
       "status": "Finished",
       "location": "AlGalala, Egypt",
       "images": [
-        "/projects/algalala.png",
-        "/projects/algalala.png",
-        "/projects/algalala.png"
+        "/uploads/projects/algalala.png",
+        "/uploads/projects/algalala.png",
+        "/uploads/projects/algalala.png"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -182,7 +182,7 @@
       "status": "Finished",
       "location": "AlKayan, Egypt",
       "images": [
-        "/projects/alkayan.png"
+        "/uploads/projects/alkayan.png"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -201,8 +201,8 @@
       "status": "Finished",
       "location": "Assuit West, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -221,8 +221,8 @@
       "status": "Finished",
       "location": "East Port Said, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -241,8 +241,8 @@
       "status": "Finished",
       "location": "Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -261,8 +261,8 @@
       "status": "Finished",
       "location": "Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -281,8 +281,8 @@
       "status": "Finished",
       "location": "East Port Said, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -301,8 +301,8 @@
       "status": "Finished",
       "location": "Siwa, Habata, Bir Khamsa, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -319,8 +319,8 @@
       "status": "Finished",
       "location": "El Kayan, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -337,8 +337,8 @@
       "status": "Finished",
       "location": "El Galala, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -357,8 +357,8 @@
       "status": "Finished",
       "location": "Assuit West, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -377,8 +377,8 @@
       "status": "Finished",
       "location": "Farafra, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -397,8 +397,8 @@
       "status": "Finished",
       "location": "Abu Sultan, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -417,8 +417,8 @@
       "status": "Finished",
       "location": "Siwa, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -437,8 +437,8 @@
       "status": "Finished",
       "location": "Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -457,8 +457,8 @@
       "status": "Finished",
       "location": "Ataka, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -477,8 +477,8 @@
       "status": "Finished",
       "location": "East Owinat, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -497,8 +497,8 @@
       "status": "Finished",
       "location": "Farafra, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -517,8 +517,8 @@
       "status": "Finished",
       "location": "Abu Sultan, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -537,8 +537,8 @@
       "status": "Finished",
       "location": "Wau, South Sudan",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -557,8 +557,8 @@
       "status": "Finished",
       "location": "Tasluja, Kurdistan",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -577,8 +577,8 @@
       "status": "Finished",
       "location": "Mout, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -597,8 +597,8 @@
       "status": "Finished",
       "location": "El Tur and El Qusseir, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -617,8 +617,8 @@
       "status": "Finished",
       "location": "Mout, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
@@ -635,7 +635,7 @@
       "status": "Finished",
       "location": "Egypt",
       "images": [
-        "/projects/npc-saltwater.png"
+        "/uploads/projects/npc-saltwater.png"
       ],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
@@ -652,7 +652,7 @@
       "status": "Active",
       "location": "Egypt",
       "images": [
-        "/projects/npc-creek.png"
+        "/uploads/projects/npc-creek.png"
       ],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
@@ -669,7 +669,7 @@
       "status": "Finished",
       "location": "Cairo, Egypt",
       "images": [
-        "/projects/cairo-north.jpg"
+        "/uploads/projects/cairo-north.jpg"
       ],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
@@ -686,7 +686,7 @@
       "status": "Finished",
       "location": "Tebbin, Egypt",
       "images": [
-        "/projects/tebbin-water.jpg"
+        "/uploads/projects/tebbin-water.jpg"
       ],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
@@ -705,7 +705,7 @@
       "status": "Finished",
       "location": "Abu Sultan, Egypt",
       "images": [
-        "/projects/abu-sultan-pp.png"
+        "/uploads/projects/abu-sultan-pp.png"
       ],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
@@ -724,7 +724,7 @@
       "status": "Finished",
       "location": "New Abu Qir, Egypt",
       "images": [
-        "/projects/new-abuqir.png"
+        "/uploads/projects/new-abuqir.png"
       ],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
@@ -743,7 +743,7 @@
       "status": "Finished",
       "location": "Egypt",
       "images": [
-        "/projects/amoc-cooling.jpg"
+        "/uploads/projects/amoc-cooling.jpg"
       ],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
@@ -762,8 +762,8 @@
       "status": "Finished",
       "location": "Abu Zaabal, Egypt",
       "images": [
-        "/projects/azfc-cooling.png",
-        "/projects/azfc-cooling2.png"
+        "/uploads/projects/azfc-cooling.png",
+        "/uploads/projects/azfc-cooling2.png"
       ],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
@@ -782,8 +782,8 @@
       "status": "Finished",
       "location": "Abu Sultan, Egypt",
       "images": [
-        "/projects/abu-sultan-h2.jpg",
-        "/projects/abu-sultan-h2-2.jpg"
+        "/uploads/projects/abu-sultan-h2.jpg",
+        "/uploads/projects/abu-sultan-h2-2.jpg"
       ],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
@@ -804,8 +804,8 @@
       "status": "Finished",
       "location": "Cairo, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -826,8 +826,8 @@
       "status": "Finished",
       "location": "West Damietta, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -848,8 +848,8 @@
       "status": "Finished",
       "location": "Sharjah, UAE",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -870,8 +870,8 @@
       "status": "Finished",
       "location": "Sharjah, UAE",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -891,8 +891,8 @@
       "status": "Finished",
       "location": "Sohag, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -911,8 +911,8 @@
       "status": "Finished",
       "location": "Assuit & Cairo West, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -931,8 +931,8 @@
       "status": "Finished",
       "location": "Assuit & Cairo West, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -951,8 +951,8 @@
       "status": "Finished",
       "location": "Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -973,8 +973,8 @@
       "status": "Finished",
       "location": "Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -993,8 +993,8 @@
       "status": "Finished",
       "location": "Helwan South, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1013,8 +1013,8 @@
       "status": "Finished",
       "location": "Helwan South, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1033,8 +1033,8 @@
       "status": "Finished",
       "location": "Helwan South, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1053,8 +1053,8 @@
       "status": "Finished",
       "location": "Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1073,8 +1073,8 @@
       "status": "Finished",
       "location": "Ain El Sokhna, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1093,8 +1093,8 @@
       "status": "Finished",
       "location": "El Tibbin, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1113,8 +1113,8 @@
       "status": "Finished",
       "location": "Abu Qir, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1133,8 +1133,8 @@
       "status": "Finished",
       "location": "Sidi Krir & El-Atf, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1153,8 +1153,8 @@
       "status": "Finished",
       "location": "Berber, North Sudan",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1173,8 +1173,8 @@
       "status": "Finished",
       "location": "Cairo West, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1193,8 +1193,8 @@
       "status": "Finished",
       "location": "Cairo West, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1213,8 +1213,8 @@
       "status": "Finished",
       "location": "El Kuriemat, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1234,8 +1234,8 @@
       "status": "Finished",
       "location": "El Kuriemat, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1255,8 +1255,8 @@
       "status": "Finished",
       "location": "Sidi Krir to Cairo, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1275,8 +1275,8 @@
       "status": "Finished",
       "location": "El Nubaria, Egypt",
       "images": [
-        "/projects/assuit.jpg",
-        "/projects/assuit2.jpg"
+        "/uploads/projects/assuit.jpg",
+        "/uploads/projects/assuit2.jpg"
       ],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
@@ -1295,7 +1295,7 @@
       "status": "Finished",
       "location": "Beity",
       "images": [
-        "my-app/public/uploads/softsolutions.jpg"
+        "/uploads/softsolutions.jpg"
       ],
       "type": "CONSULTING",
       "id": "p64",
