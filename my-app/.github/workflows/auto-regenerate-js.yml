@@ -3,7 +3,7 @@ name: Auto-regenerate JS from JSON
 on:
   push:
     paths:
-      - 'data/*.json'
+      - 'my-app/data/*.json'
   workflow_dispatch:
 
 jobs:
@@ -21,11 +21,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: my-app/package-lock.json
         
     - name: Install dependencies
+      working-directory: my-app
       run: npm ci
       
     - name: Regenerate JS files from JSON
+      working-directory: my-app
       run: node scripts/generate-js-from-json.cjs
       
     - name: Check for changes
@@ -42,6 +46,6 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add data/*.js
+        git add my-app/data/*.js
         git commit -m "Auto-regenerate JS files from JSON changes"
         git push
