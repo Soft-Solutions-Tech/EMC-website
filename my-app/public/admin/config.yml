@@ -109,7 +109,12 @@ collections:
             widget: list
             fields:
               - { label: ID, name: id, widget: string }
-              - { label: Type, name: type, widget: select, options: [EPC, CONSULTING, AFTERSALES] }
+              - {
+                  label: Type,
+                  name: type,
+                  widget: select,
+                  options: [EPC, CONSULTING, AFTERSALES],
+                }
               - { label: Title, name: title, widget: string }
               - { label: Description, name: description, widget: text }
               - label: Features
@@ -178,7 +183,12 @@ collections:
               - { label: Name, name: name, widget: string }
               - { label: Logo, name: logo, widget: string }
               - { label: Brief, name: brief, widget: string }
-              - { label: Website, name: website, widget: string, required: false }
+              - {
+                  label: Website,
+                  name: website,
+                  widget: string,
+                  required: false,
+                }
               - name: subCompanies
                 label: Sub Companies
                 widget: list
@@ -206,7 +216,12 @@ collections:
               - { label: Name, name: name, widget: string }
               - { label: Logo, name: logo, widget: string }
               - { label: Brief, name: brief, widget: string }
-              - { label: Website, name: website, widget: string, required: false }
+              - {
+                  label: Website,
+                  name: website,
+                  widget: string,
+                  required: false,
+                }
               - name: subCompanies
                 label: Sub Companies
                 widget: list
@@ -245,10 +260,25 @@ collections:
             fields:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
-              - { label: Type, name: type, widget: select, options: [EPC, CONSULTING, AFTERSALES] }
+              - {
+                  label: Type,
+                  name: type,
+                  widget: select,
+                  options: [EPC, CONSULTING, AFTERSALES],
+                }
               - { label: Description, name: description, widget: text }
-              - { label: Start Date, name: startDate, widget: string, required: false }
-              - { label: End Date, name: endDate, widget: string, required: false }
+              - {
+                  label: Start Date,
+                  name: startDate,
+                  widget: string,
+                  required: false,
+                }
+              - {
+                  label: End Date,
+                  name: endDate,
+                  widget: string,
+                  required: false,
+                }
               - { label: Status, name: status, widget: string }
               - { label: Client, name: client, widget: string, required: false }
               - name: partners
@@ -256,50 +286,22 @@ collections:
                 widget: list
                 field: { label: Partner, name: partner, widget: string }
               - { label: Value, name: value, widget: string, required: false }
-              - { label: Location, name: location, widget: string, required: false }
+              - {
+                  label: Location,
+                  name: location,
+                  widget: string,
+                  required: false,
+                }
               - name: images
                 label: Images
                 widget: list
                 field: { label: Image, name: image, widget: string }
-              - { label: Consulting CTA, name: consultingCta, widget: string, required: false }
-
-      - name: privacy
-        label: Privacy
-        file: my-app/data/privacy.json
-        format: json
-        editor:
-          preview: true
-        fields:
-          - { label: Title, name: title, widget: string }
-          - { label: Last Updated, name: lastUpdated, widget: string }
-          - label: Sections
-            name: sections
-            widget: list
-            fields:
-              - { label: Title, name: title, widget: string }
-              - name: content
-                label: Content
-                widget: list
-                field: { label: Paragraph, name: paragraph, widget: text }
-
-      - name: terms
-        label: Terms
-        file: my-app/data/terms.json
-        format: json
-        editor:
-          preview: true
-        fields:
-          - { label: Title, name: title, widget: string }
-          - { label: Last Updated, name: lastUpdated, widget: string }
-          - label: Sections
-            name: sections
-            widget: list
-            fields:
-              - { label: Title, name: title, widget: string }
-              - name: content
-                label: Content
-                widget: list
-                field: { label: Paragraph, name: paragraph, widget: text }
+              - {
+                  label: Consulting CTA,
+                  name: consultingCta,
+                  widget: string,
+                  required: false,
+                }
 
   # Separate collection for adding new projects
   - name: newProjects
@@ -308,13 +310,40 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: ID, name: id, widget: string, hint: "Unique project ID (e.g., p64)" }
+      - {
+          label: ID,
+          name: id,
+          widget: string,
+          hint: "Unique project ID (e.g., p64)",
+        }
       - { label: Name, name: name, widget: string }
-      - { label: Type, name: type, widget: select, options: [EPC, CONSULTING, AFTERSALES] }
+      - {
+          label: Type,
+          name: type,
+          widget: select,
+          options: [EPC, CONSULTING, AFTERSALES],
+        }
       - { label: Description, name: description, widget: text }
-      - { label: Start Date, name: startDate, widget: string, required: false, hint: "YYYY-MM-DD format" }
-      - { label: End Date, name: endDate, widget: string, required: false, hint: "YYYY-MM-DD format" }
-      - { label: Status, name: status, widget: select, options: [Active, Finished, Planning] }
+      - {
+          label: Start Date,
+          name: startDate,
+          widget: string,
+          required: false,
+          hint: "YYYY-MM-DD format",
+        }
+      - {
+          label: End Date,
+          name: endDate,
+          widget: string,
+          required: false,
+          hint: "YYYY-MM-DD format",
+        }
+      - {
+          label: Status,
+          name: status,
+          widget: select,
+          options: [Active, Finished, Planning],
+        }
       - { label: Client, name: client, widget: string, required: false }
       - name: partners
         label: Partners
@@ -325,5 +354,16 @@ collections:
       - name: images
         label: Images
         widget: list
-        field: { label: Image Path, name: image, widget: string, hint: "e.g., /projects/project-name.jpg" }
-      - { label: Consulting CTA, name: consultingCta, widget: string, required: false }
+        field:
+          {
+            label: Image Path,
+            name: image,
+            widget: string,
+            hint: "e.g., /projects/project-name.jpg",
+          }
+      - {
+          label: Consulting CTA,
+          name: consultingCta,
+          widget: string,
+          required: false,
+        }

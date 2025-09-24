@@ -127,7 +127,7 @@ export function HeroBanner() {
             {/* Logo */}
             <motion.div className="mb-6 sm:mb-7 md:mb-8 lg:mb-9 xl:mb-10">
               <motion.img
-                src="/logos/EMC-LOGO.png"
+                src="/uploads/logos/EMC-LOGO.png"
                 alt="EMC Company Logo"
                 className="mx-auto h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto filter drop-shadow-[0_0_20px_rgba(0,105,150,0.5)]"
                 initial={{
