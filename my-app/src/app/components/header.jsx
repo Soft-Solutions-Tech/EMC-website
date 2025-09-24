@@ -17,6 +17,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { ProjectType } from "../../../data/projects.js";
 
+const projectTypeEntries = ProjectType ? Object.entries(ProjectType) : [];
+
 const NAV_ITEMS = [
   { name: "About Us", href: "/about" },
   { name: "Contact Us", href: "/contact" },
@@ -26,7 +28,7 @@ const NAV_ITEMS = [
     dropdown: true,
     items: [
       { name: "All", href: "/projects?type=ALL", type: "ALL" },
-      ...Object.entries(ProjectType).map(([key, value]) => ({
+      ...projectTypeEntries.map(([key, value]) => ({
         name: value,
         href: `/projects?type=${key}`,
         type: key,
