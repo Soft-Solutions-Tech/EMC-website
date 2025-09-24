@@ -75,6 +75,9 @@ export async function GET(req: NextRequest) {
           }
         }
         // Minimal payload expected by Decap CMS GitHub backend
+        // 1) Legacy string format used by some Decap/Netlify CMS OAuth servers
+        send('authorization:github:success:' + '${token}');
+        // 2) JSON payload format supported by newer versions
         send({ token: '${token}' });
         window.close();
       })();
