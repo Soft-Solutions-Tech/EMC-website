@@ -7,7 +7,7 @@ import {
   MapPin,
   Mail,
 } from "lucide-react";
-import footerData from "../../../data/footer";
+import footerData from "../../../data/footer.js";
 
 export const Footer = () => {
   const {

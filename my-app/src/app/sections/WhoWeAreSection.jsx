@@ -1,6 +1,6 @@
 import * as React from "react";
 import { motion, useInView } from "framer-motion";
-import { content } from "../../../data/about";
+import { content } from "../../../data/about.js";
 
 export function WhoWeAreSection() {
   const ref = React.useRef(null);

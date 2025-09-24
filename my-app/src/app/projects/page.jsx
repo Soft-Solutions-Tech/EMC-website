@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect, Suspense } from "react";
-import { projects, ProjectType } from "../../../data/projects";
+import { projects, ProjectType } from "../../../data/projects.js";
 import { formatDate } from "../sections/Portoflio";
 import { useRouter, useSearchParams } from "next/navigation";
 import {

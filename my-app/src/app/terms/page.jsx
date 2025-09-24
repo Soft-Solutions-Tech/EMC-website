@@ -1,4 +1,4 @@
-import { termsContent } from "../../../data/terms";
+import { termsContent } from "../../../data/terms.js";
 
 export default function TermsOfService() {
   return (

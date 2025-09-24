@@ -8,7 +8,9 @@ import {
   rightArrowCursor,
   companyInfo,
   coreValues,
-} from "../../../data/coreValues";
+} from "../../../data/coreValues.js";
+// note: explicit .js ensures consistent resolution in some CI/CD environments
+// keeping the same export names from the data module
 // Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },

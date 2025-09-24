@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { founders, companyOverview } from "../../../data/about";
+import { founders, companyOverview } from "../../../data/about.js";
 import { X } from "lucide-react";
 
 // Animation variants for consistent motion

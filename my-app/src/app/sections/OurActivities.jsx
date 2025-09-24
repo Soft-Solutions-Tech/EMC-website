@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { activities } from "../../../data/activities";
+import { activities } from "../../../data/activities.js";
 import * as Icons from "lucide-react";
 
 const animations = {

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { services, servicesSection } from "../../../data/ourservices";
+import { services, servicesSection } from "../../../data/ourservices.js";
 import { HardHat, Lightbulb, Wrench } from "lucide-react";
 
 // Map icon names to actual components

@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { ProjectType } from "../../../data/projects";
+import { ProjectType } from "../../../data/projects.js";
 
 const NAV_ITEMS = [
   { name: "About Us", href: "/about" },

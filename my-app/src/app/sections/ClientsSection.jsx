@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { clients, clientsSection } from "../../../data/clients";
+import { clients, clientsSection } from "../../../data/clients.js";
 
 // Fallback logo image
 const FALLBACK_LOGO = "/clients/placeholder.jpg"; // Ensure this exists in your public folder or use an external URL

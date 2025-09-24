@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { partners, partnersSection } from "../../../data/partners";
+import { partners, partnersSection } from "../../../data/partners.js";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PartnersSection = () => {

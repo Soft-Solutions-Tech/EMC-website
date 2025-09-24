@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { motion } from "framer-motion";
-import { companyTimeline } from "../../../data/about";
+import { companyTimeline } from "../../../data/about.js";
 
 export function TimelineSection() {
   const containerVariants = {

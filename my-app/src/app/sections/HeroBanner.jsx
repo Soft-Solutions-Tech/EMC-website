@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Send, Briefcase } from "lucide-react";
-import { hero } from "../../../data/hero";
+import { hero } from "../../../data/hero.js";
 
 export function HeroBanner() {
   const ref = React.useRef(null);
