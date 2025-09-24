@@ -10,16 +10,18 @@ import {
 import footerData from "../../../data/footer.js";
 
 export const Footer = () => {
+  // Defensive fallback in case data module fails to resolve during prerender
+  const safeData = footerData || {};
   const {
-    company,
-    contact,
-    policies,
-    quickLinks,
-    projects,
-    social,
-    production,
-    copyright,
-  } = footerData;
+    company = {},
+    contact = {},
+    policies = [],
+    quickLinks = {},
+    projects = {},
+    social = [],
+    production = {},
+    copyright = "",
+  } = safeData;
 
   const iconMap = {
     Facebook: Facebook,
