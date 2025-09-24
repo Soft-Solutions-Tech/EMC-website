@@ -7,22 +7,9 @@
     <link rel="preconnect" href="https://unpkg.com" />
   </head>
   <body>
-    <!-- Load Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <!-- Initialize Netlify Identity to work with Decap CMS -->
+    <!-- Decap CMS -->
     <script>
-      // Ensure Netlify Identity works globally
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            // No user logged in → show login modal
-            window.netlifyIdentity.open();
-          }
-        });
-      }
-
-      // Enable Decap CMS debug mode for detailed console logs
+      // Optional: enable Decap CMS debug logs
       window.CMS_ENV = { DEBUG: true };
     </script>
 
