@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { activities } from "../../../data/activities";
+import * as Icons from "lucide-react";
 
 const animations = {
   container: {
@@ -76,7 +77,10 @@ export default function ActivitiesSection() {
                   {/* Icon Container */}
                   <div className="flex justify-center mb-8">
                     <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 transition-all duration-300 group-hover:bg-primary/15 group-hover:scale-105">
-                      {activity.icon}
+                      {(() => {
+                        const IconComp = Icons[activity.icon] || Icons.HelpCircle;
+                        return <IconComp className="w-8 h-8 text-primary" />;
+                      })()}
                     </div>
                   </div>
 

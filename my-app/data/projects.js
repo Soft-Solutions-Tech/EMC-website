@@ -1,65 +1,11 @@
-/* This file is auto-generated from the matching .json file. Do not edit manually. */
-export const ProjectType = {
-  "EPC": "EPC",
-  "CONSULTING": "CONSULTING",
-  "AFTERSALES": "AFTER SALES"
-};
-export const portfolioTitle = "Our Projects Portfolio";
-export const sectionHeadings = [
-  {
-    "label": "EPC Projects",
-    "idx": 0,
-    "desc": [
-      "Complete EPC solutions for Diesel and hydrogen plants and District cooling plants",
-      "Including engineering, procurement, civil works, installation, and commissioning"
-    ]
-  },
-  {
-    "label": "After Sales Projects",
-    "idx": 1,
-    "desc": [
-      "Technical advice",
-      "Repair and maintenance",
-      "Spare parts and overhauls"
-    ]
-  },
-  {
-    "label": "Consulting Projects",
-    "idx": 2,
-    "desc": [
-      "Identify opportunities",
-      "Influence specifications",
-      "Develop win strategies and target price",
-      "Leverage relationships with key decision makers and influencers to win major projects",
-      "Consulting and services for wind and solar projects on behalf of clients"
-    ]
-  }
-];
-export const projects = [
-  {
-    "id": "p1",
-    "name": "Manshiyat Naser Extension",
-    "type": "EPC",
-    "description": "EPC installation of two 66KV GIS bays including control, protection and civil work. This project involved comprehensive electrical infrastructure development for power distribution enhancement.",
-    "endDate": "2023-12-31",
-    "status": "Finished",
-    "client": "EETC",
-    "partners": [
-      "TAIKAI"
-    ],
-    "value": "$2M",
-    "location": "Manshiyat Naser, Egypt",
-    "images": [
-      "/projects/manshiyat.jpg"
-    ],
-    "consultingCta": "Explore our EPC projects"
-  },
-  {
-    "id": "p2",
-    "name": "Imbaba Substation Extension",
-    "type": "EPC",
-    "description": "EPC installation of 2 66KV GIS bays and 220/66 kv transformer including control, protection and civil work. This project enhanced the electrical distribution capacity for the Imbaba district.",
-    "startDate": "2023-01-01",
+import projectsJson from './projects.json';
+
+export const ProjectType = projectsJson.ProjectType;
+export const portfolioTitle = projectsJson.portfolioTitle;
+export const sectionHeadings = projectsJson.sectionHeadings;
+export const projects = projectsJson.projects;
+
+/*
     "endDate": null,
     "status": "Active",
     "client": "EETC",
@@ -1284,3 +1230,4 @@ export const projects = [
     "consultingCta": "Explore our Consulting projects"
   }
 ];
+*/

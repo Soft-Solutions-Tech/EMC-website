@@ -1,6 +1,7 @@
 "use client";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import * as Icons from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import {
   leftArrowCursor,
@@ -34,6 +35,12 @@ const cardVariants = {
     scale: 1,
     transition: { duration: 0.4, ease: "easeOut" },
   },
+};
+// Resolve icon components from string names coming from JSON
+const getIconComponent = (name) => {
+  if (!name) return Icons.HelpCircle;
+  const Icon = Icons[name];
+  return Icon || Icons.HelpCircle;
 };
 export default function CoreValues() {
   const [activeValue, setActiveValue] = useState(0);
@@ -134,7 +141,7 @@ export default function CoreValues() {
             <div className="order-2 lg:order-1 flex flex-col">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
                 {coreValues.map((value, i) => {
-                  const IconComponent = value.icon;
+                  const IconComponent = getIconComponent(value.icon);
 
                   return (
                     <motion.div
@@ -242,7 +249,9 @@ export default function CoreValues() {
                     <div className="text-center mb-4">
                       <div className="inline-flex p-4 rounded-2xl bg-card/90 backdrop-blur-sm shadow-lg shadow-primary/20 mb-4 border border-primary/10">
                         {(() => {
-                          const IconComponent = coreValues[activeValue].icon;
+                          const IconComponent = getIconComponent(
+                            coreValues[activeValue].icon
+                          );
                           return (
                             <IconComponent size={40} className="text-primary" />
                           );

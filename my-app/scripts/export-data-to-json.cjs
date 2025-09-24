@@ -14,9 +14,24 @@ function readDirectoryFiles(directoryPath) {
     .map((dirent) => path.join(directoryPath, dirent.name));
 }
 
-function extractExports(sourceCode) {
-  // Remove ESM imports including multiline blocks
-  let code = sourceCode
+function extractExports(sourceCode, filePath) {
+  // Inline JSON imports like: import heroJson from './hero.json'
+  // We replace them with: const heroJson = { ...contents of hero.json... };
+  const dir = path.dirname(filePath);
+  let code = sourceCode.replace(/\bimport\s+(\w+)\s+from\s+['"](.+?\.json)['"];?/g, (m, varName, relPath) => {
+    try {
+      const jsonPath = path.resolve(dir, relPath);
+      const jsonText = fs.readFileSync(jsonPath, 'utf8');
+      // Use the raw JSON text as a literal assignment
+      return `const ${varName} = ${jsonText};`;
+    } catch (e) {
+      // If anything goes wrong, fall back to removing the import to avoid breaking
+      return '';
+    }
+  });
+
+  // Remove remaining ESM imports including multiline blocks
+  code = code
     .replace(/^\s*import[\s\S]*?;\s*$/gm, '')
     .replace(/^\s*import[\s\S]*?from\s+['"][^'"]+['"][\s]*$/gm, '');
   // Replace JSX icon tags like <Users .../> with "Users"
@@ -58,7 +73,7 @@ function main() {
   const files = readDirectoryFiles(dataDir);
   files.forEach((filePath) => {
     const src = fs.readFileSync(filePath, 'utf8');
-    const { transformed, exportedNames } = extractExports(src);
+    const { transformed, exportedNames } = extractExports(src, filePath);
     if (exportedNames.length === 0) {
       return;
     }

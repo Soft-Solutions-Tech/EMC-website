@@ -1,33 +1,3 @@
-/* This file is auto-generated from the matching .json file. Do not edit manually. */
-export const activities = [
-  {
-    "id": "a1",
-    "title": "Supplier Representation",
-    "description": "Representation of international suppliers and contractors.",
-    "icon": "Users"
-  },
-  {
-    "id": "a2",
-    "title": "Equipment Import & Sales",
-    "description": "Import and resale of equipment and spare parts in local currency.",
-    "icon": "Package"
-  },
-  {
-    "id": "a3",
-    "title": "EPC Projects",
-    "description": "Execution of small to medium electromechanical projects, including diesel power stations, district cooling plants, and hydrogen plants including Engineering, Procurement & Construction (EPC).",
-    "icon": "Factory"
-  },
-  {
-    "id": "a4",
-    "title": "Outsourcing Services",
-    "description": "Technical and personnel outsourcing services.",
-    "icon": "UserCheck"
-  },
-  {
-    "id": "a5",
-    "title": "Project Management",
-    "description": "Project management for new power plant projects.",
-    "icon": "ClipboardList"
-  }
-];
+import activitiesJson from './activities.json';
+
+export const activities = activitiesJson.activities;
