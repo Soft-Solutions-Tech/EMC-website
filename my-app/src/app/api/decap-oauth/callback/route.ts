@@ -5,6 +5,9 @@ function getEnv(name: string): string {
   if (!v) throw new Error(`${name} is not set`);
   return v;
 }
+function getEnvOptional(name: string): string | undefined {
+  return process.env[name] || undefined;
+}
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
@@ -59,6 +62,55 @@ export async function GET(req: NextRequest) {
   }
 
   const token = tokenJson.access_token;
+
+  // --- Allowlist: only permit specific GitHub usernames if ALLOWED_GITHUB_USERS is set ---
+  const allowedUsersEnv = (getEnvOptional("ALLOWED_GITHUB_USERS") || "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  if (allowedUsersEnv.length > 0) {
+    // Fetch the authenticated user's login
+    let userLogin = "";
+    try {
+      const meRes = await fetch("https://api.github.com/user", {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!meRes.ok) {
+        const msg = await meRes.text();
+        return new NextResponse(`Failed to fetch user: ${meRes.status} ${msg}`, { status: 500 });
+      }
+      const me = (await meRes.json()) as { login?: string };
+      userLogin = (me.login || "").toLowerCase();
+    } catch (e) {
+      return new NextResponse(`Failed to fetch user: ${(e as Error).message}`, { status: 500 });
+    }
+
+    if (!allowedUsersEnv.includes(userLogin)) {
+      const htmlUnauthorized = `<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Unauthorized</title></head>
+<body>
+  <script>
+    (function(){
+      try {
+        if (window.opener) {
+          window.opener.postMessage('authorization:github:error:unauthorized', '*');
+          window.opener.postMessage({ error: 'unauthorized', provider: 'github', user: '${"${userLogin}"}' }, '*');
+        }
+      } catch (e) {}
+      try { window.close(); } catch (e) {}
+    })();
+  </script>
+  <p>Access denied for user: ${"${userLogin}"}. Please contact the site administrator.</p>
+</body></html>`;
+      return new NextResponse(htmlUnauthorized, {
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+        status: 403,
+      });
+    }
+  }
 
   const html = `<!DOCTYPE html>
 <html>
