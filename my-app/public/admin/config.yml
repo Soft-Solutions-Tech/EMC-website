@@ -84,18 +84,27 @@ collections:
         editor:
           preview: true
         fields:
-          - label: Summary
-            name: summary
-            widget: text
-          - label: Stats
-            name: stats
-            widget: list
+          - label: EMC Info
+            name: emcInfo
+            widget: object
             fields:
-              - { label: Value, name: value, widget: number }
-              - { label: Suffix, name: suffix, widget: string, required: false }
-              - { label: Label, name: label, widget: string }
-              - { label: Description, name: description, widget: string }
-          - { label: Header Title, name: headerTitle, widget: string }
+              - label: Summary
+                name: summary
+                widget: text
+              - label: Stats
+                name: stats
+                widget: list
+                fields:
+                  - { label: Value, name: value, widget: number }
+                  - {
+                      label: Suffix,
+                      name: suffix,
+                      widget: string,
+                      required: false,
+                    }
+                  - { label: Label, name: label, widget: string }
+                  - { label: Description, name: description, widget: string }
+              - { label: Header Title, name: headerTitle, widget: string }
 
       - name: services
         label: Services
@@ -359,7 +368,7 @@ collections:
             label: Image Path,
             name: image,
             widget: string,
-            hint: "e.g., /projects/project-name.jpg",
+            hint: "e.g., /uploads/projects/project-name.jpg",
           }
       - {
           label: Consulting CTA,
