@@ -36,27 +36,69 @@
           if (isAuthMsg(e.data)) {
             window.__cmsAuthMsg = e;
             log('Captured OAuth message from popup', e.origin, e.data ? (typeof e.data === 'string' ? '[string]' : Object.keys(e.data)) : e.data);
-          }
-        });
-        function replayIfNeeded() {
-          if (window.__cmsAuthMsg) {
-            const msg = window.__cmsAuthMsg.data;
+            // Immediately replay to CMS as soon as we capture it
             try {
-              // Repost to current window so Decap's internal listener can process it
-              window.postMessage(msg, '*');
-              log('Replayed OAuth message to CMS');
-              // Clear to avoid loops
-              window.__cmsAuthMsg = null;
+              const token = extractToken(e.data);
+              if (token) {
+                window.postMessage('authorization:github:success:' + token, '*');
+                window.postMessage({ token }, '*');
+                log('Immediately replayed OAuth token to CMS (both formats)');
+                try {
+                  // Persist token to localStorage under common keys used by Netlify/Decap CMS
+                  const payload = JSON.stringify({ token, backendName: 'github' });
+                  localStorage.setItem('netlify-cms-user', payload);
+                  localStorage.setItem('decap-cms-user', payload);
+                  log('Stored token in localStorage for CMS');
+                  // Give CMS a moment to initialize, then reload to ensure it picks up the token from storage
+                  setTimeout(() => { try { window.location.reload(); } catch (_) {} }, 500);
+                } catch (e2) {
+                  log('Failed to persist token to localStorage', e2);
+                }
+              } else {
+                window.postMessage(e.data, '*');
+                log('Immediately replayed original OAuth message to CMS');
+              }
             } catch (err) {
-              log('Failed to replay OAuth message', err);
+              log('Immediate replay failed', err);
             }
           }
+        });
+        function extractToken(data) {
+          if (!data) return null;
+          if (typeof data === 'object' && data.token) return data.token;
+          if (typeof data === 'string' && data.startsWith('authorization:github:success:')) {
+            return data.split('authorization:github:success:')[1] || null;
+          }
+          return null;
         }
-        // Replay on DOMContentLoaded and after a short delay to cover async CMS boot
+        function replayIfNeeded(retriesLeft) {
+          if (!window.__cmsAuthMsg) return;
+          const msg = window.__cmsAuthMsg.data;
+          const token = extractToken(msg);
+          try {
+            if (token) {
+              // Post both formats to maximize compatibility
+              window.postMessage('authorization:github:success:' + token, '*');
+              window.postMessage({ token }, '*');
+              log('Replayed OAuth token to CMS (both formats). Retries left:', retriesLeft);
+            } else {
+              // Unknown format; just repost original
+              window.postMessage(msg, '*');
+              log('Replayed original OAuth message to CMS. Retries left:', retriesLeft);
+            }
+          } catch (err) {
+            log('Failed to replay OAuth message', err);
+          }
+          if (retriesLeft > 0) {
+            setTimeout(() => replayIfNeeded(retriesLeft - 1), 1000);
+          } else {
+            // Stop retrying after duration
+            window.__cmsAuthMsg = null;
+          }
+        }
+        // Replay on DOMContentLoaded and for a few seconds to cover async CMS boot
         document.addEventListener('DOMContentLoaded', function () {
-          setTimeout(replayIfNeeded, 300);
-          setTimeout(replayIfNeeded, 1000);
-          setTimeout(replayIfNeeded, 2000);
+          setTimeout(() => replayIfNeeded(8), 300);
         });
       })();
     </script>
