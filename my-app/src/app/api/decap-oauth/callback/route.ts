@@ -21,6 +21,7 @@ export async function GET(req: NextRequest) {
 
   const clientId = getEnv("GITHUB_CLIENT_ID");
   const clientSecret = getEnv("GITHUB_CLIENT_SECRET");
+  const redirectUri = `${url.origin}/api/decap-oauth/callback`;
 
   const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
@@ -32,6 +33,7 @@ export async function GET(req: NextRequest) {
       client_id: clientId,
       client_secret: clientSecret,
       code,
+      redirect_uri: redirectUri,
     }),
   });
 
@@ -68,7 +70,8 @@ export async function GET(req: NextRequest) {
       (function() {
         function send(msg) {
           if (window.opener) {
-            window.opener.postMessage(msg, window.location.origin);
+            // Use '*' to maximize compatibility with Decap CMS postMessage handling
+            window.opener.postMessage(msg, '*');
           }
         }
         // Minimal payload expected by Decap CMS GitHub backend
