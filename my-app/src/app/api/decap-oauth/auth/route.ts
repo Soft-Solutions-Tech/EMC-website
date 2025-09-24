@@ -11,7 +11,8 @@ function getEnv(name: string): string {
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const clientId = getEnv("GITHUB_CLIENT_ID");
-  const scope = url.searchParams.get("scope") || "repo,user";
+  // Minimal scope: use 'repo' for private repos (or 'public_repo' if your repo is public only)
+  const scope = url.searchParams.get("scope") || "repo";
   const state = crypto.randomUUID();
 
   // Persist state in a cookie to validate on callback
