@@ -36,7 +36,7 @@ export const Footer = () => {
             {/* Column 1: EMC Logo */}
             <div className="flex items-center justify-center">
               <img
-                src="/logos/EMC-LOGO.png"
+                src="/uploads/logos/EMC-LOGO.png"
                 alt="EMC Logo"
                 className="h-16 w-auto object-contain"
               />
@@ -124,7 +124,7 @@ export const Footer = () => {
             {/* Cell 1: EMC Logo */}
             <div className="flex items-center justify-center">
               <img
-                src="/logos/EMC-LOGO.png"
+                src="/uploads/logos/EMC-LOGO.png"
                 alt="EMC Logo"
                 className="h-12 w-auto object-contain"
               />

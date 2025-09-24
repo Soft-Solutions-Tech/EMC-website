@@ -69,11 +69,11 @@ export function HeroBanner() {
         onCanPlayThrough={handleVideoLoad}
       >
         <source
-          src="/videos/homepage-video.mp4"
+          src="/uploads/videos/homepage-video.mp4"
           type="video/mp4"
         />
         <source
-          src="/videos/homepage-video.webm"
+          src="/uploads/videos/homepage-video.webm"
           type="video/webm"
         />
       </video>

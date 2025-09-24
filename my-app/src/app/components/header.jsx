@@ -88,7 +88,7 @@ export function Header() {
           }}
         >
           <Image
-            src="/logos/EMC-LOGO.png"
+            src="/uploads/logos/EMC-LOGO.png"
             alt="EMC Logo"
             width={128}
             height={128}

@@ -1282,24 +1282,6 @@
       "type": "CONSULTING",
       "id": "p63",
       "description": "Consulting services for a turnkey 500 KV switchyard, including 220/500 KV transformers."
-    },
-    {
-      "endDate": "2011-01-01",
-      "partners": [
-        "Mohamed Ashraf"
-      ],
-      "name": "Youssef Test",
-      "client": "Shadyy",
-      "startDate": "2010-01-01",
-      "value": "$14M",
-      "status": "Finished",
-      "location": "Beity",
-      "images": [
-        "/uploads/softsolutions.jpg"
-      ],
-      "type": "CONSULTING",
-      "id": "p64",
-      "description": "testingggg"
     }
   ]
 }

@@ -61,11 +61,11 @@ export function WhoWeAreSection() {
         onCanPlayThrough={handleVideoLoad}
       >
         <source
-          src="/videos/aboutus-video.mp4"
+          src="/uploads/videos/aboutus-video.mp4"
           type="video/mp4"
         />
         <source
-          src="/videos/aboutus-video.webm"
+          src="/uploads/videos/aboutus-video.webm"
           type="video/webm"
         />
       </video>

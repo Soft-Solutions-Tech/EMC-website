@@ -3,7 +3,7 @@
     {
       "id": "p1",
       "name": "AquaTech",
-      "logo": "/partners/aquatech.jpg",
+      "logo": "/uploads/partners/aquatech.jpg",
       "brief": "Advanced water solutions for sustainability.",
       "website": "https://www.aquatech.com/",
       "subCompanies": []
@@ -11,7 +11,7 @@
     {
       "id": "p2",
       "name": "Man Diesel & Turbo",
-      "logo": "/partners/man-logo.jpg",
+      "logo": "/uploads/partners/man-logo.jpg",
       "brief": "Powerful engine solutions for land and sea.",
       "website": "https://www.man.eu/engines/en/homepage.html",
       "subCompanies": []
@@ -19,7 +19,7 @@
     {
       "id": "p3",
       "name": "KSP Pumps",
-      "logo": "/partners/ksbpumps.jpg",
+      "logo": "/uploads/partners/ksbpumps.jpg",
       "brief": "Global leader in efficient pumps and valves.",
       "website": "https://www.ksb.com/en-global",
       "subCompanies": []
@@ -27,7 +27,7 @@
     {
       "id": "p4",
       "name": "AI Groups",
-      "logo": "/partners/ai-group-opengraph.jpg",
+      "logo": "/uploads/partners/ai-group-opengraph.jpg",
       "brief": "Uniting Australian industry with advocacy and training.",
       "website": "https://www.aigroup.com.au/",
       "subCompanies": []
@@ -35,7 +35,7 @@
     {
       "id": "p5",
       "name": "Citmas Pipe",
-      "logo": "/partners/cimtas-pipe.jpg",
+      "logo": "/uploads/partners/cimtas-pipe.jpg",
       "brief": "Global piping leader for energy and offshore.",
       "website": "https://www.cimtaspipe.com/",
       "subCompanies": []
@@ -43,7 +43,7 @@
     {
       "id": "p6",
       "name": "NHVS India",
-      "logo": "/partners/NHVS.jpg",
+      "logo": "/uploads/partners/NHVS.jpg",
       "brief": "Advanced high-voltage GIS solutions globally.",
       "website": "https://nhvsindia.com/",
       "subCompanies": []
@@ -51,7 +51,7 @@
     {
       "id": "p7",
       "name": "Cimtas",
-      "logo": "/partners/cimtas.jpg",
+      "logo": "/uploads/partners/cimtas.jpg",
       "brief": "Global leader in piping and pressure vessels.",
       "website": "https://www.cimtas.com",
       "subCompanies": []
@@ -59,7 +59,7 @@
     {
       "id": "p8",
       "name": "Doosan",
-      "logo": "/partners/doosan.jpg",
+      "logo": "/uploads/partners/doosan.jpg",
       "brief": "Multinational conglomerate in energy infrastructure.",
       "website": "https://www.doosan.com",
       "subCompanies": []
@@ -67,7 +67,7 @@
     {
       "id": "p9",
       "name": "Hamon",
-      "logo": "/partners/hamon.jpg",
+      "logo": "/uploads/partners/hamon.jpg",
       "brief": "Expert in cooling systems and environmental tech.",
       "website": "https://www.hamon.com",
       "subCompanies": []
@@ -75,7 +75,7 @@
     {
       "id": "p10",
       "name": "Prysmian",
-      "logo": "/partners/prysmian.jpg",
+      "logo": "/uploads/partners/prysmian.jpg",
       "brief": "Leading energy and telecom cable systems.",
       "website": "https://www.prysmiangroup.com",
       "subCompanies": []
@@ -83,7 +83,7 @@
     {
       "id": "p11",
       "name": "Alfa Laval",
-      "logo": "/partners/alfa-laval.png",
+      "logo": "/uploads/partners/alfa-laval.png",
       "brief": "Global leader in heat transfer, separation, and fluid handling.",
       "website": "https://www.alfalaval.com",
       "subCompanies": []
@@ -91,14 +91,14 @@
     {
       "id": "p12",
       "name": "Speco",
-      "logo": "/partners/speco.jpg",
+      "logo": "/uploads/partners/speco.jpg",
       "brief": "HV transformers",
       "subCompanies": []
     },
     {
       "id": "p13",
       "name": "TK",
-      "logo": "/partners/tk.jpg",
+      "logo": "/uploads/partners/tk.jpg",
       "brief": "High voltage GIS",
       "subCompanies": []
     }
