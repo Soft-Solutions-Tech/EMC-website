@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: Soft-Solutions-Tech/EMC-website
-  branch: vercel
+  branch: main
   base_url: https://emc-vert.vercel.app/
   auth_endpoint: /api/decap-oauth/auth
 
