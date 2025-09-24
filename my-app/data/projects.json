@@ -1295,7 +1295,7 @@
       "status": "Finished",
       "location": "Beity",
       "images": [
-        "softsolutions.jpg"
+        "my-app/public/uploads/softsolutions.jpg"
       ],
       "type": "CONSULTING",
       "id": "p64",
