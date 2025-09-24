@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
   const cookieState = req.cookies.get("decap_oauth_state")?.value;
+  const debug = url.searchParams.get("debug") === "1";
 
   if (!code) {
     return new NextResponse("Missing code", { status: 400 });
@@ -79,10 +80,11 @@ export async function GET(req: NextRequest) {
         send('authorization:github:success:' + '${token}');
         // 2) JSON payload format supported by newer versions
         send({ token: '${token}' });
-        window.close();
+        ${debug ? "" : "try { window.close(); } catch (e) {}"}
       })();
     </script>
-    <p>Authentication complete. You can close this window.</p>
+    <p>Authentication complete.</p>
+    ${debug ? `<pre id="token">Token: ${token.replace(/</g, '&lt;')}</pre>` : `<p>You can close this window.</p>`}
   </body>
 </html>`;
 

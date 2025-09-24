@@ -11,14 +11,16 @@ function getEnv(name: string): string {
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const clientId = getEnv("GITHUB_CLIENT_ID");
-  // Minimal scope: use 'repo' for private repos (or 'public_repo' if your repo is public only)
-  const scope = url.searchParams.get("scope") || "repo";
+  // Minimal scope: use 'public_repo' for public repositories
+  const scope = url.searchParams.get("scope") || "public_repo";
   const state = crypto.randomUUID();
+  const debug = url.searchParams.get("debug") === "1";
+  const redirectUri = `${url.origin}/api/decap-oauth/callback${debug ? "?debug=1" : ""}`;
 
   // Persist state in a cookie to validate on callback
   const res = NextResponse.redirect(
     `${GITHUB_AUTHORIZE_URL}?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(
-      `${url.origin}/api/decap-oauth/callback`
+      redirectUri
     )}&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(state)}`
   );
   res.cookies.set("decap_oauth_state", state, {
