@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Content Manager</title>
     <link rel="preconnect" href="https://unpkg.com" />
+    <!-- Tell Decap CMS exactly where the config file is -->
+    <link rel="cms-config-url" href="/admin/config.yml" />
   </head>
   <body>
     <!-- Decap CMS -->
     <script>
       // Optional: enable Decap CMS debug logs
       window.CMS_ENV = { DEBUG: true };
-      // Explicitly point CMS to the config file to avoid any relative path issues
-      window.CMS_CONFIG_PATH = "/admin/config.yml";
     </script>
 
     <!-- Load Decap CMS -->
