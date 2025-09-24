@@ -17,6 +17,48 @@
       window.CMS_ENV = { DEBUG: true };
       // Belt-and-suspenders: explicitly set the config path for all versions
       window.CMS_CONFIG_PATH = "/admin/config.yml";
+      
+      // OAuth message compatibility shim:
+      // Capture token messages from the popup even if CMS hasn't finished booting yet,
+      // then replay them after CMS loads so login completes reliably.
+      (function () {
+        const isAuthMsg = (data) => {
+          if (!data) return false;
+          if (typeof data === 'string') return data.startsWith('authorization:github:success:');
+          if (typeof data === 'object') return !!data.token;
+          return false;
+        };
+        function log(...args) {
+          try { console.log('[CMS OAuth]', ...args); } catch (_) {}
+        }
+        window.__cmsAuthMsg = null;
+        window.addEventListener('message', function (e) {
+          if (isAuthMsg(e.data)) {
+            window.__cmsAuthMsg = e;
+            log('Captured OAuth message from popup', e.origin, e.data ? (typeof e.data === 'string' ? '[string]' : Object.keys(e.data)) : e.data);
+          }
+        });
+        function replayIfNeeded() {
+          if (window.__cmsAuthMsg) {
+            const msg = window.__cmsAuthMsg.data;
+            try {
+              // Repost to current window so Decap's internal listener can process it
+              window.postMessage(msg, '*');
+              log('Replayed OAuth message to CMS');
+              // Clear to avoid loops
+              window.__cmsAuthMsg = null;
+            } catch (err) {
+              log('Failed to replay OAuth message', err);
+            }
+          }
+        }
+        // Replay on DOMContentLoaded and after a short delay to cover async CMS boot
+        document.addEventListener('DOMContentLoaded', function () {
+          setTimeout(replayIfNeeded, 300);
+          setTimeout(replayIfNeeded, 1000);
+          setTimeout(replayIfNeeded, 2000);
+        });
+      })();
     </script>
 
     <!-- Load Decap CMS -->
