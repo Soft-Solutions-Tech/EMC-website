@@ -11,6 +11,8 @@
     <script>
       // Optional: enable Decap CMS debug logs
       window.CMS_ENV = { DEBUG: true };
+      // Explicitly point CMS to the config file to avoid any relative path issues
+      window.CMS_CONFIG_PATH = "/admin/config.yml";
     </script>
 
     <!-- Load Decap CMS -->
