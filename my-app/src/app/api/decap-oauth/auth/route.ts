@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
   // Persist state in a cookie to validate on callback
   const res = NextResponse.redirect(
     `${GITHUB_AUTHORIZE_URL}?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(
-      `${url.origin}/admin/callback`
+      `${url.origin}/api/decap-oauth/callback`
     )}&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(state)}`
   );
   res.cookies.set("decap_oauth_state", state, {
