@@ -8,18 +8,11 @@ import {
   Mail,
 } from "lucide-react";
 import footerData from "../../../data/footer.js";
+import { hero } from "../../../data/hero.js";
 
 export const Footer = () => {
-  const {
-    company,
-    contact,
-    policies,
-    quickLinks,
-    projects,
-    social,
-    production,
-    copyright,
-  } = footerData;
+  const { contact, quickLinks, projects, social, production, copyright } =
+    footerData;
 
   const iconMap = {
     Facebook: Facebook,
@@ -36,7 +29,7 @@ export const Footer = () => {
             {/* Column 1: EMC Logo */}
             <div className="flex items-center justify-center">
               <img
-                src="/uploads/logos/EMC-LOGO.png"
+                src={hero.logo}
                 alt="EMC Logo"
                 className="h-16 w-auto object-contain"
               />
@@ -124,7 +117,7 @@ export const Footer = () => {
             {/* Cell 1: EMC Logo */}
             <div className="flex items-center justify-center">
               <img
-                src="/uploads/logos/EMC-LOGO.png"
+                src={hero.logo}
                 alt="EMC Logo"
                 className="h-12 w-auto object-contain"
               />

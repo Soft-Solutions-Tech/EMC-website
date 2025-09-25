@@ -16,6 +16,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { ProjectType } from "../../../data/projects.js";
+import { hero } from "../../../data/hero.js";
 
 const projectTypeEntries = ProjectType ? Object.entries(ProjectType) : [];
 
@@ -88,7 +89,7 @@ export function Header() {
           }}
         >
           <Image
-            src="/uploads/logos/EMC-LOGO.png"
+            src={hero.logo}
             alt="EMC Logo"
             width={128}
             height={128}
