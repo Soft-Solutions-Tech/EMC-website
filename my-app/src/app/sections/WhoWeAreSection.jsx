@@ -60,14 +60,7 @@ export function WhoWeAreSection() {
         onLoadedData={handleVideoLoad}
         onCanPlayThrough={handleVideoLoad}
       >
-        <source
-          src="/uploads/videos/aboutus-video.mp4"
-          type="video/mp4"
-        />
-        <source
-          src="/uploads/videos/aboutus-video.webm"
-          type="video/webm"
-        />
+        <source src={content.video.mp4} type="video/mp4" />
       </video>
 
       <div

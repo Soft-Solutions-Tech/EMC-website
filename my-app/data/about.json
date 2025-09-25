@@ -11,7 +11,7 @@
         "Co-founded EMC in 1988",
         "Chairman of ECG (current)"
       ],
-      "image": "/uploads/team/Ahmed-El-Sayed.jpg"
+      "image": "/Uploads/team/Ahmed-El-Sayed.jpg"
     },
     {
       "name": "Mr. Amr Dessouky",
@@ -23,7 +23,7 @@
         "Became Executive Partner in EMC in 1992",
         "Senior Partner and Managing Director of EMC since 2000"
       ],
-      "image": "/uploads/team/Amr-dessouky.jpg"
+      "image": "/Uploads/team/Amr-dessouky.jpg"
     }
   ],
   "companyTimeline": [
@@ -64,6 +64,9 @@
   },
   "content": {
     "title": "Who We Are",
-    "description": "EMC is a leading engineering company established in 1988, specializing in the Power and Oil & Gas markets through EMC Energy. With over 30 years of experience, we deliver top-tier solutions, combining technical expertise with a commitment to quality and client satisfaction."
+    "description": "EMC is a leading engineering company established in 1988, specializing in the Power and Oil & Gas markets through EMC Energy. With over 30 years of experience, we deliver top-tier solutions, combining technical expertise with a commitment to quality and client satisfaction.",
+    "video": {
+      "mp4": "/Uploads/videos/aboutus-video.mp4"
+    }
   }
 }

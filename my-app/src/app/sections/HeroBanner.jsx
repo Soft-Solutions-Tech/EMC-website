@@ -18,7 +18,6 @@ export function HeroBanner() {
     margin: "-100px",
   });
 
-  // Immediate video load without delays
   React.useEffect(() => {
     const video = videoRef.current;
     if (video) {
@@ -36,7 +35,6 @@ export function HeroBanner() {
       aria-label="Hero banner"
       className="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-black"
     >
-      {/* Instant Fallback Background */}
       <div
         className={`absolute inset-0 z-5 transition-opacity duration-500 ${
           videoLoaded ? "opacity-0" : "opacity-60"
@@ -51,7 +49,6 @@ export function HeroBanner() {
         aria-hidden="true"
       />
 
-      {/* Optimized Video - No Delays */}
       <video
         ref={videoRef}
         className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
@@ -68,17 +65,9 @@ export function HeroBanner() {
         onLoadedData={handleVideoLoad}
         onCanPlayThrough={handleVideoLoad}
       >
-        <source
-          src="/uploads/videos/homepage-video.mp4"
-          type="video/mp4"
-        />
-        <source
-          src="/uploads/videos/homepage-video.webm"
-          type="video/webm"
-        />
+        <source src={hero.video.mp4} type="video/mp4" />
       </video>
 
-      {/* Overlay Gradients */}
       <div
         className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"
         aria-hidden="true"
@@ -97,7 +86,6 @@ export function HeroBanner() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="max-w-7xl mx-auto text-center"
           >
-            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={
@@ -127,7 +115,7 @@ export function HeroBanner() {
             {/* Logo */}
             <motion.div className="mb-6 sm:mb-7 md:mb-8 lg:mb-9 xl:mb-10">
               <motion.img
-                src="/uploads/logos/EMC-LOGO.png"
+                src={hero.logo}
                 alt="EMC Company Logo"
                 className="mx-auto h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto filter drop-shadow-[0_0_20px_rgba(0,105,150,0.5)]"
                 initial={{

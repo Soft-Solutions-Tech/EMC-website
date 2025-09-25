@@ -12,7 +12,6 @@ public_folder: "/uploads"
 
 publish_mode: editorial_workflow
 
-# Enable preview
 preview_path: /admin
 preview_path_date_field: date
 
@@ -35,6 +34,22 @@ collections:
               - { label: Subheading, name: subheading, widget: text }
               - { label: Primary CTA, name: ctaPrimary, widget: string }
               - { label: Secondary CTA, name: ctaSecondary, widget: string }
+              - {
+                  label: Logo,
+                  name: logo,
+                  widget: string,
+                  hint: "Path to logo image, e.g., /Uploads/logos/EMC-LOGO.png",
+                }
+              - label: Video
+                name: video
+                widget: object
+                fields:
+                  - {
+                      label: MP4 Video Path,
+                      name: mp4,
+                      widget: string,
+                      hint: "Path to MP4 video, e.g., /Uploads/videos/homepage-video.mp4",
+                    }
 
       - name: about
         label: About
@@ -66,6 +81,16 @@ collections:
             fields:
               - { label: Title, name: title, widget: string }
               - { label: Description, name: description, widget: text }
+              - label: Video
+                name: video
+                widget: object
+                fields:
+                  - {
+                      label: MP4 Video Path,
+                      name: mp4,
+                      widget: string,
+                      hint: "Path to MP4 video, e.g., /Uploads/videos/aboutus-video.mp4",
+                    }
 
       - name: info
         label: Info Stats
@@ -302,7 +327,6 @@ collections:
                   required: false,
                 }
 
-  # Separate collection for adding new projects
   - name: newProjects
     label: Add New Project
     folder: my-app/data/projects
