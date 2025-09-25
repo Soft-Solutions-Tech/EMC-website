@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { founders, companyOverview } from "../../../data/about.js";
+import { founders } from "../../../data/about.js";
 import { X } from "lucide-react";
 
 // Animation variants for consistent motion
@@ -82,14 +82,6 @@ const animations = {
 export default function MeetOurTeam() {
   const [activeIndex, setActiveIndex] = useState(null);
   const [modalIndex, setModalIndex] = useState(null);
-
-  // Calculate statistics
-  const totalExperience = founders.reduce(
-    (acc, founder) => acc + founder.career.length,
-    0
-  );
-  const yearsInBusiness =
-    new Date().getFullYear() - parseInt(companyOverview.established);
 
   const handleCardHover = (index) => {
     setActiveIndex(index);

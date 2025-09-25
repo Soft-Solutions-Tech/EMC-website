@@ -60,18 +60,6 @@ collections:
             fields:
               - { label: Year, name: year, widget: number }
               - { label: Event, name: event, widget: string }
-          - label: Company Overview
-            name: companyOverview
-            widget: object
-            fields:
-              - { label: Established, name: established, widget: string }
-              - { label: Location, name: location, widget: string }
-              - { label: Capital, name: capital, widget: string }
-              - { label: Turnover, name: turnover, widget: string }
-              - { label: Dubai Branch, name: dubaiBranch, widget: string }
-              - { label: Partner Since, name: partnerSince, widget: string }
-              - { label: Focus, name: focus, widget: string }
-              - { label: Mission, name: mission, widget: string }
           - label: Content
             name: content
             widget: object
