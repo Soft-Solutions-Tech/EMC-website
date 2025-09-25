@@ -1,15 +1,15 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-function getEnv(name: string): string {
+function getEnv(name) {
   const v = process.env[name];
   if (!v) throw new Error(`${name} is not set`);
   return v;
 }
-function getEnvOptional(name: string): string | undefined {
+function getEnvOptional(name) {
   return process.env[name] || undefined;
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req) {
   const url = new URL(req.url);
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
@@ -46,13 +46,7 @@ export async function GET(req: NextRequest) {
     return new NextResponse(`Token exchange failed: ${txt}`, { status: 500 });
   }
 
-  const tokenJson = (await tokenRes.json()) as {
-    access_token?: string;
-    error?: string;
-    error_description?: string;
-    scope?: string;
-    token_type?: string;
-  };
+  const tokenJson = await tokenRes.json();
 
   if (!tokenJson.access_token) {
     return new NextResponse(
@@ -82,10 +76,10 @@ export async function GET(req: NextRequest) {
         const msg = await meRes.text();
         return new NextResponse(`Failed to fetch user: ${meRes.status} ${msg}`, { status: 500 });
       }
-      const me = (await meRes.json()) as { login?: string };
+      const me = await meRes.json();
       userLogin = (me.login || "").toLowerCase();
     } catch (e) {
-      return new NextResponse(`Failed to fetch user: ${(e as Error).message}`, { status: 500 });
+      return new NextResponse(`Failed to fetch user: ${e?.message || e}`, { status: 500 });
     }
 
     if (!allowedUsersEnv.includes(userLogin)) {

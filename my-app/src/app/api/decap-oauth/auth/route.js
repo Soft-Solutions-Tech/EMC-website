@@ -1,14 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 const GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize";
 
-function getEnv(name: string): string {
+function getEnv(name) {
   const v = process.env[name];
   if (!v) throw new Error(`${name} is not set`);
   return v;
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req) {
   const url = new URL(req.url);
   const clientId = getEnv("GITHUB_CLIENT_ID");
   // Minimal scope: use 'public_repo' for public repositories
