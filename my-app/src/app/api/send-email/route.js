@@ -72,9 +72,10 @@ export async function POST(req) {
         pass: process.env.EMAIL_PASS,
       },
     });
-    
-    const mailOptions = {
-      from: sanitizedEmail,
+
+    // Try to send as the user directly
+    let mailOptions = {
+      from: `"${sanitizedName}" <${sanitizedEmail}>`, // risky: may fail SPF/DKIM
       to: process.env.EMAIL_TO,
       subject: `New message from ${sanitizedName}`,
       html: `
@@ -83,11 +84,33 @@ export async function POST(req) {
         <p><strong>Message:</strong><br/>${sanitizedMessage}</p>
       `,
     };
-    
 
-    const info = await transporter.sendMail(mailOptions);
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      return NextResponse.json({ success: true, data: info });
+    } catch (err) {
+      console.warn("Direct from user failed, retrying with fallback:", err);
 
-    return NextResponse.json({ success: true, data: info });
+      // Fallback: send from your Orange mailbox, but keep user's email in replyTo
+      mailOptions = {
+        from: `"${sanitizedName}" <${process.env.EMAIL_USER}>`,
+        replyTo: sanitizedEmail,
+        to: process.env.EMAIL_TO,
+        subject: `New message from ${sanitizedName}`,
+        html: `
+          <p><strong>Name:</strong> ${sanitizedName}</p>
+          <p><strong>Email:</strong> ${sanitizedEmail}</p>
+          <p><strong>Message:</strong><br/>${sanitizedMessage}</p>
+        `,
+      };
+
+      const info = await transporter.sendMail(mailOptions);
+      return NextResponse.json({
+        success: true,
+        data: info,
+        warning: "Direct from user failed, fallback used",
+      });
+    }
   } catch (error) {
     console.error("Email error:", error);
     return NextResponse.json(
