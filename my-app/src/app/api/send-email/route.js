@@ -64,22 +64,18 @@ export async function POST(req) {
     const sanitizedMessage = validator.escape(message);
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.hostinger.com",
-      port: 587,
-      secure: false,
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      secure: process.env.SMTP_SECURE === "true",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-      tls: { rejectUnauthorized: true },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
     });
-
+    
     const mailOptions = {
-      from: `"Info EMC" <${process.env.EMAIL_USER}>`,
-      to: "softsolutions.tech.eg@gmail.com",
-      replyTo: sanitizedEmail,
+      from: sanitizedEmail,
+      to: process.env.EMAIL_TO,
       subject: `New message from ${sanitizedName}`,
       html: `
         <p><strong>Name:</strong> ${sanitizedName}</p>
@@ -87,6 +83,7 @@ export async function POST(req) {
         <p><strong>Message:</strong><br/>${sanitizedMessage}</p>
       `,
     };
+    
 
     const info = await transporter.sendMail(mailOptions);
 
