@@ -327,6 +327,58 @@ collections:
                   required: false,
                 }
 
+      - name: contact
+        label: Contact
+        file: my-app/data/contact.json
+        format: json
+        editor:
+          preview: true
+        fields:
+          - label: Contact Info
+            name: contactInfo
+            widget: object
+            fields:
+              - { label: Email, name: email, widget: string }
+              - { label: Phone, name: phone, widget: string }
+          - label: Map
+            name: map
+            widget: object
+            fields:
+              - {
+                  label: Embed URL,
+                  name: embedUrl,
+                  widget: string,
+                  hint: "Google Maps embed URL",
+                }
+          - label: Text Content
+            name: text
+            widget: object
+            fields:
+              - label: Page Header
+                name: pageHeader
+                widget: object
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Description, name: description, widget: text }
+              - label: Contact Info Card
+                name: contactInfoCard
+                widget: object
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Description, name: description, widget: text }
+              - label: Footer
+                name: footer
+                widget: object
+                fields:
+                  - { label: Description, name: description, widget: text }
+              - label: Form Labels
+                name: formLabels
+                widget: object
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Email, name: email, widget: string }
+                  - { label: Message, name: message, widget: string }
+
   - name: newProjects
     label: Add New Project
     folder: my-app/data/projects
