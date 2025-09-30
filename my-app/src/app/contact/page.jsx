@@ -1,5 +1,5 @@
 "use client";
-
+import { contactInfo, map, text } from "../../../data/contact";
 import { useState, useEffect, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,12 +14,6 @@ import {
   X,
 } from "lucide-react";
 import { motion } from "framer-motion";
-
-// Constants
-const CONTACT_INFO = {
-  email: "info@emcenergy.net",
-  phone: "+2 02 229 06773",
-};
 
 const FORM_LIMITS = {
   name: 100,
@@ -157,7 +151,7 @@ const PageHeader = () => (
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        Contact Us
+        {text.pageHeader.title}
       </motion.h1>
       <motion.div
         className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md"
@@ -171,7 +165,7 @@ const PageHeader = () => (
       variants={animations.item}
       className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4"
     >
-      We're here to help. Reach out via form, email, or phone.
+      {text.pageHeader.description}
     </motion.p>
   </motion.div>
 );
@@ -190,29 +184,29 @@ const ContactInfoCard = ({
       variants={animations.item}
       className="text-2xl sm:text-3xl font-bold text-primary mb-6"
     >
-      Get in Touch
+      {text.contactInfoCard.title}
     </motion.h2>
     <motion.p
       variants={animations.item}
       className="text-base sm:text-lg text-muted-foreground mb-8"
     >
-      Our team is ready to assist you. Expect a response within 24 hours.
+      {text.contactInfoCard.description}
     </motion.p>
     <motion.div className="space-y-8" variants={animations.container}>
       <ContactItem
         icon={<Mail className="h-6 w-6 text-primary flex-shrink-0" />}
         label="Email"
-        value={CONTACT_INFO.email}
+        value={contactInfo.email}
         copied={copiedEmail}
-        onCopy={() => copyToClipboard(CONTACT_INFO.email, "email")}
+        onCopy={() => copyToClipboard(contactInfo.email, "email")}
         disabled={isDisabled}
       />
       <ContactItem
         icon={<Phone className="h-6 w-6 text-primary flex-shrink-0" />}
         label="Phone"
-        value={CONTACT_INFO.phone}
+        value={contactInfo.phone}
         copied={copiedPhone}
-        onCopy={() => copyToClipboard(CONTACT_INFO.phone, "phone")}
+        onCopy={() => copyToClipboard(contactInfo.phone, "phone")}
         disabled={isDisabled}
       />
     </motion.div>
@@ -398,7 +392,7 @@ const ContactForm = ({
         value={formData.name}
         onChange={onFormChange}
         disabled={status === "sending"}
-        label="Your Name"
+        label={text.formLabels.name}
         required
       />
       <FormField
@@ -407,7 +401,7 @@ const ContactForm = ({
         value={formData.email}
         onChange={onFormChange}
         disabled={status === "sending"}
-        label="Your Email"
+        label={text.formLabels.email}
         required
       />
       <FormField
@@ -416,7 +410,7 @@ const ContactForm = ({
         value={formData.message}
         onChange={onFormChange}
         disabled={status === "sending"}
-        label="Your Message"
+        label={text.formLabels.message}
         rows={10}
         required
       />
@@ -450,10 +444,7 @@ const Footer = () => (
     whileInView="visible"
     viewport={{ once: true }}
   >
-    <p className="text-sm text-muted-foreground">
-      We aim to respond to all inquiries within 24 hours. Thank you for reaching
-      out!
-    </p>
+    <p className="text-sm text-muted-foreground">{text.footer.description}</p>
   </motion.div>
 );
 
@@ -577,7 +568,7 @@ export default function ContactPage() {
             variants={animations.card}
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.2059085066676!2d31.3274294!3d30.088288699999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e216c7ab29d%3A0x94859a50b2f2408a!2sEmc!5e0!3m2!1sen!2seg!4v1757522980194!5m2!1sen!2seg"
+              src={map.embedUrl}
               width="100%"
               height="400"
               style={{ border: 0 }}
