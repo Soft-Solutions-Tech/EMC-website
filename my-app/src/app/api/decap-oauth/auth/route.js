@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+/*import { NextResponse } from "next/server";
 
 const GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize";
 
@@ -32,3 +32,4 @@ export async function GET(req) {
   });
   return res;
 }
+*/

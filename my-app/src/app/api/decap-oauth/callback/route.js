@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+/*import { NextResponse } from "next/server";
 
 function getEnv(name) {
   const v = process.env[name];
@@ -146,3 +146,4 @@ export async function GET(req) {
   res.cookies.set("decap_oauth_state", "", { maxAge: 0, path: "/" });
   return res;
 }
+*/
