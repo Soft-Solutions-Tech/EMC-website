@@ -1,4 +1,4 @@
-/*import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 const GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize";
 
@@ -15,11 +15,15 @@ export async function GET(req) {
   const scope = url.searchParams.get("scope") || "public_repo";
   const state = crypto.randomUUID();
   const debug = url.searchParams.get("debug") === "1";
-  const redirectUri = `${url.origin}/api/decap-oauth/callback${debug ? "?debug=1" : ""}`;
+  const redirectUri = `${url.origin}/api/decap-oauth/callback${
+    debug ? "?debug=1" : ""
+  }`;
 
   // Persist state in a cookie to validate on callback
   const res = NextResponse.redirect(
-    `${GITHUB_AUTHORIZE_URL}?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(
+    `${GITHUB_AUTHORIZE_URL}?client_id=${encodeURIComponent(
+      clientId
+    )}&redirect_uri=${encodeURIComponent(
       redirectUri
     )}&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(state)}`
   );
@@ -32,4 +36,3 @@ export async function GET(req) {
   });
   return res;
 }
-*/

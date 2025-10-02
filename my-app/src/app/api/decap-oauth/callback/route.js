@@ -1,4 +1,4 @@
-/*import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 function getEnv(name) {
   const v = process.env[name];
@@ -74,12 +74,17 @@ export async function GET(req) {
       });
       if (!meRes.ok) {
         const msg = await meRes.text();
-        return new NextResponse(`Failed to fetch user: ${meRes.status} ${msg}`, { status: 500 });
+        return new NextResponse(
+          `Failed to fetch user: ${meRes.status} ${msg}`,
+          { status: 500 }
+        );
       }
       const me = await meRes.json();
       userLogin = (me.login || "").toLowerCase();
     } catch (e) {
-      return new NextResponse(`Failed to fetch user: ${e?.message || e}`, { status: 500 });
+      return new NextResponse(`Failed to fetch user: ${e?.message || e}`, {
+        status: 500,
+      });
     }
 
     if (!allowedUsersEnv.includes(userLogin)) {
@@ -132,7 +137,11 @@ export async function GET(req) {
       })();
     </script>
     <p>Authentication complete.</p>
-    ${debug ? `<pre id="token">Token: ${token.replace(/</g, '&lt;')}</pre>` : `<p>You can close this window.</p>`}
+    ${
+      debug
+        ? `<pre id="token">Token: ${token.replace(/</g, "&lt;")}</pre>`
+        : `<p>You can close this window.</p>`
+    }
   </body>
 </html>`;
 
@@ -146,4 +155,3 @@ export async function GET(req) {
   res.cookies.set("decap_oauth_state", "", { maxAge: 0, path: "/" });
   return res;
 }
-*/

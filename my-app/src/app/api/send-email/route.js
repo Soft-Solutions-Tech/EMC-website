@@ -1,38 +1,21 @@
-/*import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 import validator from "validator";
 
-// Redis backend for Upstash
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
-
-const ratelimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(3, "1m"),
-  analytics: true,
-});
+// Allowed origins check
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
 
 export async function POST(req) {
-  const ip = req.headers.get("x-forwarded-for") || "anonymous";
   const origin = req.headers.get("origin");
 
-  // Allow only your frontend
-  if (!origin || !origin.includes(process.env.ALLOWED_ORIGIN)) {
+  // Check if origin is allowed
+  if (allowedOrigins.length > 0 && !allowedOrigins.includes(origin)) {
     return NextResponse.json(
       { success: false, error: "Forbidden" },
       { status: 403 }
-    );
-  }
-
-  const { success } = await ratelimit.limit(ip);
-  if (!success) {
-    return NextResponse.json(
-      { success: false, error: "Too many requests" },
-      { status: 429 }
     );
   }
 
@@ -40,6 +23,7 @@ export async function POST(req) {
     const body = await req.json();
     const { name, email, message, website } = body;
 
+    // Honeypot field
     if (website) {
       return NextResponse.json(
         { success: false, error: "Bot detected" },
@@ -75,7 +59,7 @@ export async function POST(req) {
 
     // Try to send as the user directly
     let mailOptions = {
-      from: `"${sanitizedName}" <${sanitizedEmail}>`, // risky: may fail SPF/DKIM
+      from: `"${sanitizedName}" <${sanitizedEmail}>`,
       to: process.env.EMAIL_TO,
       subject: `New message from ${sanitizedName}`,
       html: `
@@ -91,7 +75,7 @@ export async function POST(req) {
     } catch (err) {
       console.warn("Direct from user failed, retrying with fallback:", err);
 
-      // Fallback: send from your Orange mailbox, but keep user's email in replyTo
+      // Fallback: send from your server mailbox
       mailOptions = {
         from: `"${sanitizedName}" <${process.env.EMAIL_USER}>`,
         replyTo: sanitizedEmail,
@@ -119,4 +103,3 @@ export async function POST(req) {
     );
   }
 }
-*/
