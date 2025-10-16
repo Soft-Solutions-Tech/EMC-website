@@ -7,7 +7,7 @@ backend:
 
 site_url: https://www.emc-egypt.net
 
-media_folder: "my-app/public/uploads"
+media_folder: "/public/uploads"
 public_folder: "/uploads"
 
 publish_mode: editorial_workflow
@@ -21,7 +21,7 @@ collections:
     files:
       - name: hero
         label: Hero
-        file: my-app/data/hero.json
+        file: /data/hero.json
         format: json
         editor:
           preview: true
@@ -53,7 +53,7 @@ collections:
 
       - name: about
         label: About
-        file: my-app/data/about.json
+        file: /data/about.json
         format: json
         editor:
           preview: true
@@ -94,7 +94,7 @@ collections:
 
       - name: info
         label: Info Stats
-        file: my-app/data/info.json
+        file: /data/info.json
         format: json
         editor:
           preview: true
@@ -123,7 +123,7 @@ collections:
 
       - name: services
         label: Services
-        file: my-app/data/ourservices.json
+        file: /data/ourservices.json
         format: json
         editor:
           preview: true
@@ -154,7 +154,7 @@ collections:
 
       - name: activities
         label: Activities
-        file: my-app/data/activities.json
+        file: /data/activities.json
         format: json
         editor:
           preview: true
@@ -170,7 +170,7 @@ collections:
 
       - name: coreValues
         label: Core Values
-        file: my-app/data/coreValues.json
+        file: /data/coreValues.json
         format: json
         editor:
           preview: true
@@ -194,7 +194,7 @@ collections:
 
       - name: partners
         label: Partners
-        file: my-app/data/partners.json
+        file: /data/partners.json
         format: json
         editor:
           preview: true
@@ -227,7 +227,7 @@ collections:
 
       - name: clients
         label: Clients
-        file: my-app/data/clients.json
+        file: /data/clients.json
         format: json
         editor:
           preview: true
@@ -260,7 +260,7 @@ collections:
 
       - name: projects
         label: Projects
-        file: my-app/data/projects.json
+        file: /data/projects.json
         format: json
         editor:
           preview: true
@@ -329,7 +329,7 @@ collections:
 
       - name: contact
         label: Contact
-        file: my-app/data/contact.json
+        file: /data/contact.json
         format: json
         editor:
           preview: true
@@ -381,7 +381,7 @@ collections:
 
   - name: newProjects
     label: Add New Project
-    folder: my-app/data/projects
+    folder: /data/projects
     create: true
     slug: "{{slug}}"
     fields:
