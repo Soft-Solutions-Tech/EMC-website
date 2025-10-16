@@ -2,10 +2,10 @@ backend:
   name: github
   repo: Soft-Solutions-Tech/EMC-website
   branch: main
-  base_url: https://emc-vert.vercel.app
+  base_url: https://www.emc-egypt.net
   auth_endpoint: /api/decap-oauth/auth
 
-site_url: https://emc-vert.vercel.app
+site_url: https://www.emc-egypt.net
 
 media_folder: "my-app/public/uploads"
 public_folder: "/uploads"
