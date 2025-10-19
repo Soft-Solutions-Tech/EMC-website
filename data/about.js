@@ -1,5 +1,71 @@
-import aboutJson from './about.json';
-
-export const founders = aboutJson.founders;
-export const companyTimeline = aboutJson.companyTimeline;
-export const content = aboutJson.content;
+/* This file is auto-generated from the matching .json file. Do not edit manually. */
+export const founders = [
+  {
+    "name": "Mr. Ahmed El Sayed",
+    "education": "Bachelor Degree in Electrical Engineering, Ain Shams University",
+    "career": [
+      "Started career at Engineering Consultants Group (ECG)",
+      "Continued career at General Electric",
+      "Re-joined ECG in 1983",
+      "Promoted to VP-Business Development in 1987",
+      "Co-founded EMC in 1988",
+      "Chairman of ECG (current)"
+    ],
+    "image": "/Uploads/team/Ahmed-El-Sayed.jpg"
+  },
+  {
+    "name": "Mr. Amr Dessouky",
+    "education": "Bachelor Degree in Electrical Engineering, Ain Shams University",
+    "career": [
+      "Started career at Engineering Consultants Group (ECG)",
+      "Continued career at General Electric",
+      "Co-founded EMC in 1988",
+      "Became Executive Partner in EMC in 1992",
+      "Senior Partner and Managing Director of EMC since 2000"
+    ],
+    "image": "/Uploads/team/Amr-dessouky.jpg"
+  }
+];
+export const companyTimeline = [
+  {
+    "year": 1988,
+    "event": "EMC founded by Mr. El Sayed and Mr. Dessouky in Egypt"
+  },
+  {
+    "year": 1992,
+    "event": "Mr. Dessouky became Executive Partner in EMC"
+  },
+  {
+    "year": 2000,
+    "event": "Mr. Dessouky became Senior Partner and Managing Director"
+  },
+  {
+    "year": 2012,
+    "event": "EMC International established in Dubai"
+  },
+  {
+    "year": 2020,
+    "event": "EGP 300 Million turnover"
+  },
+  {
+    "year": 2022,
+    "event": "Became Partner of KSB Service Egypt"
+  }
+];
+export const companyOverview = {
+  "established": "1988 in Egypt",
+  "location": "Egypt",
+  "capital": "EGP 45 Million Paid-up Capital",
+  "turnover": "EGP 300 Million (2020)",
+  "dubaiBranch": "EMC International Dubai (2012)",
+  "partnerSince": "Partner of KSB Service Egypt since 2022",
+  "focus": "EMC Energy focuses on the Power and Oil & Gas markets in Egypt",
+  "mission": "Deliver top-tier solutions to clients and partners"
+};
+export const content = {
+  "title": "Who We Are",
+  "description": "EMC is a leading engineering company established in 1988, specializing in the Power and Oil & Gas markets through EMC Energy. With over 30 years of experience, we deliver top-tier solutions, combining technical expertise with a commitment to quality and client satisfaction.",
+  "video": {
+    "mp4": "/uploads/videos/aboutus-video.mp4"
+  }
+};

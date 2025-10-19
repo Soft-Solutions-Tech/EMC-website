@@ -1,6 +1,26 @@
 /* This file is auto-generated from the matching .json file. Do not edit manually. */
-import contactInfoJson from "./contact.json";
-
-export const contactInfo = contactInfoJson.contactInfo;
-export const map = contactInfoJson.map;
-export const text = contactInfoJson.text;
+export const contactInfo = {
+  "email": "website@emcenergy.net",
+  "phone": "+2 02 229 06773"
+};
+export const map = {
+  "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.2059085066676!2d31.3274294!3d30.088288699999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e216c7ab29d%3A0x94859a50b2f2408a!2sEmc!5e0!3m2!1sen!2seg!4v1757522980194!5m2!1sen!2seg"
+};
+export const text = {
+  "pageHeader": {
+    "title": "Contact Us",
+    "description": "We're here to help. Reach out via form, email, or phone."
+  },
+  "contactInfoCard": {
+    "title": "Get in Touch",
+    "description": "Our team is ready to assist you. Expect a response within 24 hours."
+  },
+  "footer": {
+    "description": "We aim to respond to all inquiries within 24 hours. Thank you for reaching out!"
+  },
+  "formLabels": {
+    "name": "Your Name",
+    "email": "Your Email",
+    "message": "Your Message"
+  }
+};
