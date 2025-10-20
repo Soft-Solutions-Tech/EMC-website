@@ -2,10 +2,10 @@ backend:
   name: github
   repo: Soft-Solutions-Tech/EMC-website
   branch: main
-  base_url: emc-egypt.net
+  base_url: https://www.emc-egypt.net
   auth_endpoint: /api/decap-oauth/auth
 
-site_url: emc-egypt.net
+site_url: https://www.emc-egypt.net
 
 media_folder: "/public/uploads"
 public_folder: "/uploads"

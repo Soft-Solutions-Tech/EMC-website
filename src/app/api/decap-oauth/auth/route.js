@@ -11,8 +11,7 @@ function getEnv(name) {
 export async function GET(req) {
   const url = new URL(req.url);
   const clientId = getEnv("GITHUB_CLIENT_ID");
-  // Minimal scope: use 'public_repo' for public repositories
-  const scope = url.searchParams.get("scope") || "public_repo";
+  const scope = url.searchParams.get("scope") || "repo";
   const state = crypto.randomUUID();
   const debug = url.searchParams.get("debug") === "1";
   const redirectUri = `${url.origin}/api/decap-oauth/callback${
