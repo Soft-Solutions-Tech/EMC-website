@@ -1,6 +1,6 @@
 /* This file is auto-generated from the matching .json file. Do not edit manually. */
 export const contactInfo = {
-  "email": "website@emcenergy.net",
+  "email": "Info@emcenergy.net",
   "phone": "+2 02 229 06773"
 };
 export const map = {
