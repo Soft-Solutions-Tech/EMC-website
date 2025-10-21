@@ -26,7 +26,6 @@ export async function GET(req) {
   const clientId = getEnv("GITHUB_CLIENT_ID");
   const clientSecret = getEnv("GITHUB_CLIENT_SECRET");
   const origin = getEnv("BASE_URL");
-  console.log("[DEBUG] BASE_URL in callback:", origin); // Debug log to verify BASE_URL
   const redirectUri = `${origin}/api/decap-oauth/callback`;
 
   const tokenRes = await fetch("https://github.com/login/oauth/access_token", {

@@ -16,7 +16,6 @@ export async function GET(req) {
   const state = crypto.randomUUID();
   const debug = url.searchParams.get("debug") === "1";
   const origin = getEnv("BASE_URL");
-  console.log("[DEBUG] BASE_URL in auth:", origin); // Debug log to verify BASE_URL
   const redirectUri = `${origin}/api/decap-oauth/callback${
     debug ? "?debug=1" : ""
   }`;
