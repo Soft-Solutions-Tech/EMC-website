@@ -11,10 +11,14 @@ function getEnvOptional(name) {
 
 export async function GET(req) {
   const url = new URL(req.url);
-  const code = url.searchParams.get("code");
-  const state = url.searchParams.get("state");
-  const cookieState = req.cookies.get("decap_oauth_state")?.value;
+  const clientId = getEnv("GITHUB_CLIENT_ID");
+  const scope = url.searchParams.get("scope") || "public_repo";
+  const state = crypto.randomUUID();
   const debug = url.searchParams.get("debug") === "1";
+  const origin = getEnv("BASE_URL");
+  const redirectUri = `${origin}/api/decap-oauth/callback${
+    debug ? "?debug=1" : ""
+  }`;
 
   if (!code) {
     return new NextResponse("Missing code", { status: 400 });
@@ -23,9 +27,7 @@ export async function GET(req) {
     return new NextResponse("Invalid state", { status: 400 });
   }
 
-  const clientId = getEnv("GITHUB_CLIENT_ID");
   const clientSecret = getEnv("GITHUB_CLIENT_SECRET");
-  const redirectUri = `${url.origin}/api/decap-oauth/callback`;
 
   const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
