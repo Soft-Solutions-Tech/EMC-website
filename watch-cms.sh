@@ -1,6 +1,3 @@
-sudo systemctl stop cms-watcher
-
-cat > /var/www/nextjs/watch-cms.sh << 'FINAL_EOF'
 #!/bin/bash
 set -euo pipefail
 
@@ -9,15 +6,15 @@ readonly UPDATE_SCRIPT="/var/www/nextjs/update.sh"
 readonly LOG_FILE="/var/log/cms-watcher.log"
 readonly LOCK_FILE="/tmp/cms-update.lock"
 readonly TRIGGER_FILE="/tmp/cms-trigger.flag"
-readonly DEBOUNCE_TIME=3
+readonly DEBOUNCE_TIME=5
 readonly CHECK_INTERVAL=1
 
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG_FILE"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"
 }
 
 log_error() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: $*" >> "$LOG_FILE"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: $*" | tee -a "$LOG_FILE" >&2
 }
 
 validate_environment() {
@@ -30,15 +27,19 @@ validate_environment() {
 
 should_process_file() {
     local file="$1"
+    # Ignore temp files
     [[ "$file" =~ \.(swp|tmp|bak|~|lock)$ ]] && return 1
     [[ "$(basename "$file")" =~ ^\. ]] && return 1
-    [[ "$file" =~ \.(json|js)$ ]] && return 0
+    
+    # ONLY process JSON files - CMS writes JSON, not JS
+    [[ "$file" =~ \.json$ ]] && return 0
+    
     return 1
 }
 
 trigger_update() {
     touch "$TRIGGER_FILE"
-    log "Change detected"
+    log "JSON changed - debouncing ${DEBOUNCE_TIME}s"
 }
 
 process_pending_trigger() {
@@ -49,21 +50,21 @@ process_pending_trigger() {
     local age=$((current_time - last_modified))
     
     if [ "$age" -ge "$DEBOUNCE_TIME" ]; then
-        [ -f "$LOCK_FILE" ] && return 0
+        [ -f "$LOCK_FILE" ] && { log "Update running - skip"; return 0; }
         
         rm -f "$TRIGGER_FILE"
-        log "Executing update"
+        log "Starting update..."
         
-        if "$UPDATE_SCRIPT" >> "$LOG_FILE" 2>&1; then
-            log "Update completed"
+        if "$UPDATE_SCRIPT"; then
+            log "✓ Update complete"
         else
-            log_error "Update failed"
+            log_error "✗ Update failed ($?)"
         fi
     fi
 }
 
 cleanup() {
-    log "Shutting down"
+    log "Shutdown"
     rm -f "$TRIGGER_FILE"
     exit 0
 }
@@ -71,51 +72,38 @@ cleanup() {
 trap cleanup SIGINT SIGTERM
 
 main() {
-    log "========================================="
+    log "========================================"
     log "Watcher started (PID: $$)"
-    log "Watching: $WATCH_DIR"
-    log "========================================="
+    log "Watching: $WATCH_DIR/*.json ONLY"
+    log "========================================"
     
     validate_environment || exit 1
-    
     rm -f "$TRIGGER_FILE"
     
-    # Start background checker
+    # Background checker
     while true; do
         sleep "$CHECK_INTERVAL"
         process_pending_trigger
     done &
     local checker_pid=$!
     
-    log "Ready (Checker PID: $checker_pid)"
+    log "Ready (Checker: $checker_pid)"
     
-    # Main watch loop - this should never exit unless killed
+    # Watch ONLY JSON files
     inotifywait -m -r \
         -e modify,create,delete,move,close_write \
         --format '%w%f %e' \
         "$WATCH_DIR" 2>/dev/null | while IFS= read -r line; do
         
         local file=$(echo "$line" | awk '{print $1}')
-        
         should_process_file "$file" || continue
         
-        log "Changed: $(basename "$file")"
+        log "JSON changed: $(basename "$file")"
         trigger_update
     done
     
-    # If we get here, inotifywait died
-    log_error "inotifywait died unexpectedly"
+    log_error "Watch loop exited"
     kill $checker_pid 2>/dev/null || true
-    exit 1
 }
 
 main
-FINAL_EOF
-
-chmod +x /var/www/nextjs/watch-cms.sh
-
-# Now start it
-sudo systemctl start cms-watcher
-
-# Watch logs
-tail -f /var/log/cms-watcher.log
