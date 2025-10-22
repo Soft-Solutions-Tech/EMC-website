@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail  # Exit on error, undefined vars, pipe failures
+set -euo pipefail
 
 # ============================================================================
 # Configuration
@@ -8,8 +8,9 @@ readonly WATCH_DIR="/var/www/nextjs/data"
 readonly UPDATE_SCRIPT="/var/www/nextjs/update.sh"
 readonly LOG_FILE="/var/log/cms-watcher.log"
 readonly LOCK_FILE="/tmp/cms-update.lock"
-readonly DEBOUNCE_TIME=5
-readonly COOLDOWN_TIME=10
+readonly TRIGGER_FILE="/tmp/cms-trigger.flag"
+readonly DEBOUNCE_TIME=3
+readonly CHECK_INTERVAL=1
 
 # ============================================================================
 # Logging Functions
@@ -50,36 +51,60 @@ validate_environment() {
 # ============================================================================
 # File Filtering
 # ============================================================================
-should_ignore_file() {
+should_process_file() {
     local file="$1"
     
     # Ignore temporary and backup files
-    [[ "$file" =~ \.(swp|tmp|bak|~)$ ]] && return 0
+    [[ "$file" =~ \.(swp|tmp|bak|~)$ ]] && return 1
     
     # Ignore hidden files
-    [[ "$(basename "$file")" =~ ^\. ]] && return 0
+    [[ "$(basename "$file")" =~ ^\. ]] && return 1
     
     # Ignore lock files
-    [[ "$file" =~ \.lock$ ]] && return 0
+    [[ "$file" =~ \.lock$ ]] && return 1
+    
+    # Only process JSON files (since CMS writes JSON)
+    [[ "$file" =~ \.json$ ]] && return 0
     
     return 1
 }
 
 # ============================================================================
-# Update Trigger
+# Update Trigger with Debouncing
 # ============================================================================
 trigger_update() {
-    if [ -f "$LOCK_FILE" ]; then
-        log "Update already running, skipping trigger"
+    # Mark that a trigger is pending
+    touch "$TRIGGER_FILE"
+    log "Change detected, trigger marked (debouncing for ${DEBOUNCE_TIME}s)"
+}
+
+process_pending_trigger() {
+    if [ ! -f "$TRIGGER_FILE" ]; then
         return 0
     fi
     
-    log "Triggering update script..."
+    # Check how long ago the trigger file was last modified
+    local last_modified=$(stat -c %Y "$TRIGGER_FILE" 2>/dev/null || echo 0)
+    local current_time=$(date +%s)
+    local age=$((current_time - last_modified))
     
-    if "$UPDATE_SCRIPT"; then
-        log "Update completed successfully"
-    else
-        log_error "Update script failed with exit code $?"
+    # If trigger file is older than debounce time, execute update
+    if [ "$age" -ge "$DEBOUNCE_TIME" ]; then
+        if [ -f "$LOCK_FILE" ]; then
+            log "Update already running, will retry after it completes"
+            return 0
+        fi
+        
+        # Remove trigger file before executing
+        rm -f "$TRIGGER_FILE"
+        
+        log "Debounce period elapsed, executing update..."
+        
+        if "$UPDATE_SCRIPT"; then
+            log "Update completed successfully"
+        else
+            log_error "Update script failed with exit code $?"
+        fi
     fi
 }
 
@@ -88,7 +113,7 @@ trigger_update() {
 # ============================================================================
 cleanup() {
     log "Watcher shutting down gracefully..."
-    rm -f "$LOCK_FILE"
+    rm -f "$TRIGGER_FILE"
     exit 0
 }
 
@@ -99,41 +124,50 @@ trap cleanup SIGINT SIGTERM EXIT
 # ============================================================================
 main() {
     log "========================================="
-    log "CMS File Watcher Started"
+    log "CMS File Watcher Started (Improved)"
     log "Watching directory: $WATCH_DIR"
     log "Update script: $UPDATE_SCRIPT"
     log "Debounce time: ${DEBOUNCE_TIME}s"
-    log "Cooldown time: ${COOLDOWN_TIME}s"
+    log "Check interval: ${CHECK_INTERVAL}s"
     log "========================================="
     
     validate_environment
     
-    # Remove stale lock on startup
-    rm -f "$LOCK_FILE"
+    # Remove stale files on startup
+    rm -f "$TRIGGER_FILE"
+    
+    # Start background process to check for pending triggers
+    (
+        while true; do
+            sleep "$CHECK_INTERVAL"
+            process_pending_trigger
+        done
+    ) &
+    local checker_pid=$!
     
     # Start watching for file changes
+    log "Starting file watcher (PID: $$, Checker PID: $checker_pid)"
+    
     inotifywait -m -r \
-        -e modify,create,delete,move \
+        -e modify,create,delete,move,close_write \
         --format '%w%f %e' \
         "$WATCH_DIR" 2>> "$LOG_FILE" | while read -r file event; do
         
-        # Skip ignored files
-        if should_ignore_file "$file"; then
+        # Log all events for debugging
+        log "Event detected: $(basename "$file") ($event)"
+        
+        # Skip non-JSON files
+        if ! should_process_file "$file"; then
+            log "Skipping: $(basename "$file") (filtered)"
             continue
         fi
         
-        log "Change detected: $(basename "$file") ($event)"
-        
-        # Wait for rapid changes to settle
-        sleep "$DEBOUNCE_TIME"
-        
-        # Trigger update
+        log "Processing: $(basename "$file") ($event)"
         trigger_update
-        
-        # Cooldown to prevent rapid re-triggers
-        log "Cooldown period: ${COOLDOWN_TIME}s"
-        sleep "$COOLDOWN_TIME"
     done
+    
+    # If we exit the loop, kill the checker process
+    kill $checker_pid 2>/dev/null || true
 }
 
 # Run main function
