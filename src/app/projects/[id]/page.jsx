@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import Image from "next/image";
 import { projects, ProjectType } from "../../../../data/projects";
 import { formatDate } from "@/app/sections/Portoflio";
 import {
@@ -159,14 +160,18 @@ const ImageGallery = ({ images, projectName }) => {
             key={`${projectName}-${idx}`}
             className={`relative ${imageHeight} bg-muted rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group`}
           >
-            <img
+            <Image
               src={image}
               alt={`${projectName || "Project"} - Image ${idx + 1}`}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onError={(e) => {
                 // Fallback for broken images
                 e.target.style.display = "none";
-                e.target.nextElementSibling.style.display = "flex";
+                if (e.target.nextElementSibling) {
+                  e.target.nextElementSibling.style.display = "flex";
+                }
               }}
             />
             {/* Fallback content for broken images */}
@@ -219,7 +224,8 @@ const ProjectNotFound = ({ router }) => (
           Project Not Found
         </h3>
         <p className="text-muted-foreground text-lg mb-8">
-          The project you're looking for does not exist or may have been moved.
+          The project you&apos;re looking for does not exist or may have been
+          moved.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <button

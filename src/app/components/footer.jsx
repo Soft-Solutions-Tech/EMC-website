@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   Facebook,
   Instagram,
@@ -28,9 +29,11 @@ export const Footer = () => {
           <div className="grid grid-cols-4 gap-8">
             {/* Column 1: EMC Logo */}
             <div className="flex items-center justify-center">
-              <img
+              <Image
                 src={hero.logo}
                 alt="EMC Logo"
+                width={200}
+                height={64}
                 className="h-16 w-auto object-contain"
               />
             </div>
@@ -116,9 +119,11 @@ export const Footer = () => {
           <div className="grid grid-cols-2 gap-6">
             {/* Cell 1: EMC Logo */}
             <div className="flex items-center justify-center">
-              <img
+              <Image
                 src={hero.logo}
                 alt="EMC Logo"
+                width={150}
+                height={48}
                 className="h-12 w-auto object-contain"
               />
             </div>

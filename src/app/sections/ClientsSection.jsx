@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { clients, clientsSection } from "../../../data/clients.js";
 
 // Fallback logo image
-const FALLBACK_LOGO = "/clients/placeholder.jpg"; // Ensure this exists in your public folder or use an external URL
+const FALLBACK_LOGO = "/clients/placeholder.jpg";
 
 const ClientsSection = () => {
   const [spotlightIndex, setSpotlightIndex] = useState(0);
@@ -12,7 +13,7 @@ const ClientsSection = () => {
 
   // Filter out sub-companies, only use main clients with safety checks
   const mainClients = (clients || []).map((client) => ({
-    id: client?.id || `client-${Math.random()}`, // Fallback ID
+    id: client?.id || `client-${Math.random()}`,
     name: client?.name || "Unknown Client",
     logo: client?.logo || FALLBACK_LOGO,
     website: client?.website || "#",
@@ -24,7 +25,7 @@ const ClientsSection = () => {
     if (!isHovered && mainClients.length > 0) {
       const interval = setInterval(() => {
         setSpotlightIndex((prev) => (prev + 1) % mainClients.length);
-      }, 3000); // Change every 3 seconds
+      }, 3000);
 
       return () => clearInterval(interval);
     }
@@ -125,9 +126,11 @@ const ClientsSection = () => {
 
                     {/* Logo Container */}
                     <motion.div className="relative w-48 h-48 bg-white rounded-3xl shadow-2xl flex items-center justify-center mx-auto">
-                      <img
+                      <Image
                         src={mainClients[spotlightIndex].logo}
                         alt={`${mainClients[spotlightIndex].name} logo`}
+                        width={128}
+                        height={128}
                         className="w-32 h-32 object-contain filter drop-shadow-lg"
                         onError={(e) => {
                           e.target.src = FALLBACK_LOGO;
@@ -221,9 +224,11 @@ const ClientsSection = () => {
                       : "border-gray-200 shadow-sm hover:shadow-md"
                   }`}
                 >
-                  <img
+                  <Image
                     src={client.logo}
                     alt={`${client.name} logo`}
+                    width={48}
+                    height={48}
                     className="w-12 h-12 object-contain"
                     onError={(e) => {
                       e.target.src = FALLBACK_LOGO;

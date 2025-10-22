@@ -1,6 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 import { founders } from "../../../data/about.js";
 import { X } from "lucide-react";
 
@@ -122,43 +123,7 @@ export default function MeetOurTeam() {
             transition={{ duration: 1, delay: 0.5 }}
           />
         </div>
-        {/* stats banner
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex flex-wrap justify-center gap-12 text-center">
-            <div className="flex flex-col items-center">
-              <span className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary mb-2">
-                {yearsInBusiness}+
-              </span>
-              <span className="text-muted-foreground font-medium text-sm uppercase tracking-wide">
-                Years of Excellence
-              </span>
-            </div>
 
-            <div className="flex flex-col items-center">
-              <span className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary mb-2">
-                {founders.length}
-              </span>
-              <span className="text-muted-foreground font-medium text-sm uppercase tracking-wide">
-                Founding Members
-              </span>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <span className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary mb-2">
-                {totalExperience}+
-              </span>
-              <span className="text-muted-foreground font-medium text-sm uppercase tracking-wide">
-                Combined Experience
-              </span>
-            </div>
-          </div>
-        </motion.div>
-        */}
         {/* Team Grid */}
         <motion.div
           className="max-w-6xl mx-auto"
@@ -183,15 +148,15 @@ export default function MeetOurTeam() {
                 >
                   {/* Image Container */}
                   <div className="relative h-[500px] overflow-hidden">
-                    <img
+                    <Image
                       src={founder.image}
                       alt={`${founder.name} - Leadership Team`}
-                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       style={{
-                        imageRendering: "high-quality",
                         objectPosition: "50% 20%",
                       }}
-                      loading="lazy"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                     />
 
                     {/* Subtle gradient for text readability */}
@@ -269,11 +234,13 @@ export default function MeetOurTeam() {
             >
               {/* Modal Header */}
               <div className="relative h-64 sm:h-80 overflow-hidden flex-shrink-0">
-                <img
+                <Image
                   src={founders[modalIndex].image}
                   alt={`${founders[modalIndex].name} - Leadership Profile`}
-                  className="w-full h-full object-cover object-top"
+                  fill
+                  className="object-cover object-top"
                   style={{ objectPosition: "50% 20%" }}
+                  sizes="(max-width: 768px) 100vw, 896px"
                 />
 
                 {/* Subtle gradient for better text contrast */}

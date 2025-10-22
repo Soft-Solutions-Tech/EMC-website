@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef, useMemo } from "react";
+import Image from "next/image";
 import {
   projects,
   sectionHeadings,
@@ -32,7 +33,7 @@ export const formatDate = (dateStr) => {
 };
 
 const getBorderColor = (index) => {
-  return index === 1 ? "#004d6e" : "#006996"; // Uses primary-dark and primary
+  return index === 1 ? "#004d6e" : "#006996";
 };
 
 // Get all available project types from data
@@ -66,7 +67,6 @@ export const InfoBar = ({ status, client, value }) => {
     { icon: User, text: client },
   ];
 
-  // Filter out items with no text
   const validItems = infoItems.filter((item) => item.text);
 
   if (validItems.length === 0) return null;
@@ -81,7 +81,6 @@ export const InfoBar = ({ status, client, value }) => {
 };
 
 export const Timeline = ({ start, end }) => {
-  // Don't render if neither start nor end date exists
   if (!start && !end) return null;
 
   return (
@@ -215,17 +214,22 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {images.map((img, idx) => (
-          <img
+          <div
             key={`${projectName}-${idx}`}
-            src={img}
-            alt={`${projectName} image ${idx + 1}`}
-            className="w-full h-full object-cover flex-shrink-0"
+            className="relative w-full h-full flex-shrink-0"
             style={{ minWidth: "100%", minHeight: "100%" }}
-            draggable={false}
-            onError={(e) => {
-              e.target.style.display = "none";
-            }}
-          />
+          >
+            <Image
+              src={img}
+              alt={`${projectName} image ${idx + 1}`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
+            />
+          </div>
         ))}
       </div>
 
@@ -275,7 +279,6 @@ const SectionHeading = ({ heading, className = "" }) => {
 
 // Project actions component
 const ProjectActions = ({ projectId, consultingCta, projectType }) => {
-  // Generate dynamic consulting CTA based on project type if none provided
   const defaultConsultingCta = projectType
     ? `Explore our ${projectType.toLowerCase()} projects`
     : "Explore our consulting projects";
@@ -379,10 +382,8 @@ const PortfolioSection = () => {
           .includes(h.label.toUpperCase().replace(" PROJECTS", ""))
     );
 
-    // Fall back to index-based matching
     const headingByIndex = sectionHeadings.find((h) => h.idx === index);
 
-    // Final fallback: create a basic heading
     return (
       headingByType ||
       headingByIndex || {

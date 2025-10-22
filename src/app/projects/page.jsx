@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect, Suspense } from "react";
+import Image from "next/image";
 import { projects, ProjectType } from "../../../data/projects.js";
 import { formatDate } from "../sections/Portoflio";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -140,14 +141,19 @@ const ProjectImage = ({ images, name, type }) => {
   return (
     <div className="lg:w-2/5 relative">
       <div className="relative h-64 lg:h-full bg-muted">
-        <img
+        <Image
           src={images[0]}
           alt={`${name} thumbnail`}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 40vw"
           onError={(e) => {
-            e.target.style.display = "none";
-            e.target.parentElement.innerHTML =
-              '<div class="w-full h-full flex items-center justify-center bg-muted"><svg class="w-16 h-16 text-muted-foreground/50" fill="currentColor" viewBox="0 0 24 24"><path d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"/></svg></div>';
+            e.currentTarget.style.display = "none";
+            const parent = e.currentTarget.parentElement;
+            if (parent) {
+              parent.innerHTML =
+                '<div class="w-full h-full flex items-center justify-center bg-muted"><svg class="w-16 h-16 text-muted-foreground/50" fill="currentColor" viewBox="0 0 24 24"><path d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"/></svg></div>';
+            }
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />

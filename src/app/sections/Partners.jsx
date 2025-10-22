@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { partners, partnersSection } from "../../../data/partners.js";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -73,9 +74,11 @@ const PartnersSection = () => {
           >
             <div className="flex justify-center mb-4">
               <div className="relative w-24 h-16 flex items-center justify-center">
-                <img
+                <Image
                   src={company.logo}
                   alt={`${company.name} logo`}
+                  width={96}
+                  height={64}
                   className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
@@ -157,9 +160,11 @@ const PartnersSection = () => {
                           className="flex items-center p-2 rounded-lg bg-white hover:bg-primary/10 transition-all duration-200 shadow-sm hover:shadow-md group/sub border border-transparent hover:border-primary/20"
                         >
                           <div className="relative mr-3 flex-shrink-0 w-8 h-6 flex items-center justify-center">
-                            <img
+                            <Image
                               src={sub.logo}
                               alt={`${sub.name} logo`}
+                              width={32}
+                              height={24}
                               className="max-w-full max-h-full object-contain transition-transform duration-200 group-hover/sub:scale-110"
                             />
                           </div>
