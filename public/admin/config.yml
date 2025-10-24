@@ -37,7 +37,7 @@ collections:
               - {
                   label: Logo,
                   name: logo,
-                  widget: string,
+                  widget: image,
                   hint: "Path to logo image, e.g., /uploads/logos/EMC-LOGO.png",
                 }
               - label: Video
@@ -207,7 +207,7 @@ collections:
             fields:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
-              - { label: Logo, name: logo, widget: string, hint: "e.g., /uploads/partners/logo.jpg" }
+              - { label: Logo, name: logo, widget: image, hint: "e.g., /uploads/partners/logo.jpg" }
               - { label: Brief, name: brief, widget: string }
               - {
                   label: Website,
@@ -242,7 +242,7 @@ collections:
             fields:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
-              - { label: Logo, name: logo, widget: string, hint: "e.g., /uploads/clients/logo.jpg" }
+              - { label: Logo, name: logo, widget: image, hint: "e.g., /uploads/clients/logo.jpg" }
               - { label: Brief, name: brief, widget: string }
               - {
                   label: Website,
@@ -325,7 +325,7 @@ collections:
               - name: images
                 label: Images
                 widget: list
-                field: { label: Image, name: image, widget: string, hint: "e.g., /uploads/projects/image.jpg" }
+                field: { label: Image, name: image, widget: image }
               - {
                   label: Consulting CTA,
                   name: consultingCta,
@@ -441,8 +441,7 @@ collections:
           {
             label: Image Path,
             name: image,
-            widget: string,
-            hint: "e.g., /uploads/projects/project-name.jpg",
+            widget: image,
           }
       - {
           label: Consulting CTA,
