@@ -5,6 +5,7 @@ readonly PROJECT_DIR="/var/www/nextjs"
 readonly LOG_FILE="/var/log/nextjs-update.log"
 readonly LOCK_FILE="/tmp/cms-update.lock"
 readonly LOCK_TIMEOUT=600
+readonly ECOSYSTEM_FILE="$PROJECT_DIR/ecosystem.config.js"
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"
@@ -122,22 +123,34 @@ build_app() {
 }
 
 restart_app() {
+    if [ ! -f "$ECOSYSTEM_FILE" ]; then
+        log_error "ecosystem.config.js not found"
+        return 1
+    fi
+    
     log "Restarting application"
     
-    # Clean up all instances to avoid multiples/errored states
+    # Full cleanup for reliability
     pm2 delete nextjs-app >> "$LOG_FILE" 2>&1 || true
+    pm2 kill >> "$LOG_FILE" 2>&1 || true
     
-    # Start with correct option placement; rely on PM2 for restarts
-    pm2 start npm \
-        --interpreter bash \
-        --name "nextjs-app" \
-        --update-env \
-        --exp-backoff-restart-delay=100 \
-        -- run start >> "$LOG_FILE" 2>&1 || { log_error "PM2 start failed"; return 1; }
+    # Source .env for shell context (redundant but safe)
+    if [ -f "$PROJECT_DIR/.env" ]; then
+        # shellcheck source=/dev/null
+        source "$PROJECT_DIR/.env"
+    else
+        log_error ".env not found - env vars may not load"
+    fi
     
-    # Wait for startup and verify
-    sleep 10
+    # Start using ecosystem file
+    pm2 start "$ECOSYSTEM_FILE" --env production >> "$LOG_FILE" 2>&1 || { log_error "PM2 start failed"; return 1; }
+    
+    # Wait and verify
+    sleep 15  # Increased for slower startups
     pm2 list >> "$LOG_FILE" 2>&1
+    
+    # Append recent PM2 logs for debugging
+    pm2 logs nextjs-app --lines 20 >> "$LOG_FILE" 2>&1
     
     if pm2 list | grep -q "nextjs-app.*online"; then
         log "Application restarted successfully"
