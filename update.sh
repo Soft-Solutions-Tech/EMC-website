@@ -131,12 +131,30 @@ build_app() {
 
 restart_app() {
     log "Restarting application"
-    if pm2 restart nextjs-app --update-env >> "$LOG_FILE" 2>&1; then
-        log "Restart successful"
+    
+    # Check if process exists and is running
+    if pm2 describe nextjs-app >> "$LOG_FILE" 2>&1; then
+        log "Stopping existing process"
+        pm2 stop nextjs-app >> "$LOG_FILE" 2>&1
+        sleep 2  # Brief wait for clean shutdown
+    else
+        log "No existing process found - proceeding to start"
+    fi
+    
+    # Start fresh
+    if pm2 start nextjs-app --update-env >> "$LOG_FILE" 2>&1; then
+        log "Start successful"
         return 0
     else
-        log_error "Restart failed"
-        return 1
+        log_error "Start failed - retrying once"
+        sleep 2
+        if pm2 start nextjs-app --update-env >> "$LOG_FILE" 2>&1; then
+            log "Retry successful"
+            return 0
+        else
+            log_error "Retry failed - manual intervention needed"
+            return 1
+        fi
     fi
 }
 
