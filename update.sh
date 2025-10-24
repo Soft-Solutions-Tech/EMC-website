@@ -51,6 +51,8 @@ has_changes() {
 }
 
 commit_and_push() {
+    local commit_msg="$1"  # Allow custom message
+
     if ! has_changes; then
         log "No changes to commit"
         return 0
@@ -60,7 +62,7 @@ commit_and_push() {
     git add . >> "$LOG_FILE" 2>&1
     
     log "Creating commit"
-    git commit -m "Auto-regenerate JS files after CMS update: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE" 2>&1
+    git commit -m "$commit_msg: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE" 2>&1
     
     log "Pushing to GitHub"
     if git push origin main >> "$LOG_FILE" 2>&1; then
@@ -151,9 +153,19 @@ main() {
     }
     
     load_git_credentials
-    sync_remote  # Pull first to get latest JSON
-    generate_js_files  # Regenerate JS from pulled JSON
-    commit_and_push  # Commit/push new JS if changed
+    
+    # Commit and push any existing local changes first
+    commit_and_push "Pre-update: Commit local changes"
+    
+    # Now sync (pull) remote changes safely
+    sync_remote
+    
+    # Generate JS from latest JSON (may create new changes)
+    generate_js_files
+    
+    # Commit and push any new changes from generation
+    commit_and_push "Auto-regenerate JS files after CMS update"
+    
     install_dependencies
     build_app
     restart_app
