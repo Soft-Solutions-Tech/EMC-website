@@ -1,12 +1,10 @@
 #!/bin/bash
-set -uo pipefail  # Remove set -e to allow continuing on non-critical failures
+set -euo pipefail
 
 readonly PROJECT_DIR="/var/www/nextjs"
 readonly LOG_FILE="/var/log/nextjs-update.log"
 readonly LOCK_FILE="/tmp/cms-update.lock"
 readonly LOCK_TIMEOUT=600
-readonly MAX_RETRIES=3
-readonly RETRY_DELAY=5
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"
@@ -18,7 +16,7 @@ log_error() {
 
 acquire_lock() {
     if [ -f "$LOCK_FILE" ]; then
-        local lock_age=$(($(date +%s) - $(stat -c %Y "$LOCK_FILE" 2>/dev/null || echo 0)))
+        local lock_age=$(( $(date +%s) - $(stat -c %Y "$LOCK_FILE" 2>/dev/null || echo 0) ))
         if [ "$lock_age" -gt "$LOCK_TIMEOUT" ]; then
             log "Removing stale lock (${lock_age}s old)"
             rm -f "$LOCK_FILE"
@@ -33,46 +31,54 @@ acquire_lock() {
 }
 
 load_git_credentials() {
-    [ ! -f "$PROJECT_DIR/.env" ] && { log_error "No .env file found"; return 1; }
+    if [ ! -f "$PROJECT_DIR/.env" ]; then
+        log_error "No .env file found"
+        return 1
+    fi
     
-    set +u
+    # shellcheck source=/dev/null
     source "$PROJECT_DIR/.env"
-    set -u
     
-    if [ -n "${GITHUB_USERNAME:-}" ] && [ -n "${GITHUB_TOKEN:-}" ]; then
-        git remote set-url origin "https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/Soft-Solutions-Tech/EMC-website.git" 2>/dev/null || true
-        log "Git credentials loaded"
-    else
+    if [ -z "${GITHUB_USERNAME:-}" ] || [ -z "${GITHUB_TOKEN:-}" ]; then
         log_error "Git credentials not found in .env"
         return 1
     fi
+    
+    git remote set-url origin "https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/Soft-Solutions-Tech/EMC-website.git" || {
+        log_error "Failed to set git remote URL"
+        return 1
+    }
+    log "Git credentials loaded"
 }
 
 has_changes() {
-    [[ -n $(git status -s 2>/dev/null) ]]
+    [ -n "$(git status -s)" ]
 }
 
 commit_and_push() {
     local commit_msg="$1"
-
+    
     if ! has_changes; then
         log "No changes to commit"
         return 0
     fi
     
     log "Staging changes"
-    git add . >> "$LOG_FILE" 2>&1 || log_error "Git add failed"
+    git add . || { log_error "Git add failed"; return 1; }
     
     log "Creating commit"
-    git commit -m "$commit_msg: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE" 2>&1 || log_error "Git commit failed"
+    GIT_AUTHOR_NAME="CMS Updater" GIT_AUTHOR_EMAIL="updater@emc-egypt.net" \
+    GIT_COMMITTER_NAME="CMS Updater" GIT_COMMITTER_EMAIL="updater@emc-egypt.net" \
+    git commit -m "$commit_msg: $(date '+%Y-%m-%d %H:%M:%S')" || { log_error "Git commit failed"; return 1; }
     
     log "Pushing to GitHub"
-    git push origin main >> "$LOG_FILE" 2>&1 && log "Push successful" || log_error "Push failed"
+    git push origin main || { log_error "Push failed"; return 1; }
+    log "Push successful"
 }
 
 sync_remote() {
     log "Fetching remote changes"
-    git fetch origin main >> "$LOG_FILE" 2>&1 || log_error "Git fetch failed"
+    git fetch origin main >> "$LOG_FILE" 2>&1 || { log_error "Git fetch failed"; return 1; }
     
     local local_commit=$(git rev-parse @ 2>/dev/null || echo "")
     local remote_commit=$(git rev-parse @{u} 2>/dev/null || echo "")
@@ -83,13 +89,15 @@ sync_remote() {
     fi
     
     log "Pulling remote changes"
-    git pull --rebase origin main >> "$LOG_FILE" 2>&1 && log "Remote sync successful" || log_error "Pull failed"
+    git pull --rebase origin main >> "$LOG_FILE" 2>&1 || { log_error "Pull failed"; return 1; }
+    log "Remote sync successful"
 }
 
 install_dependencies() {
     if git diff HEAD~1 --name-only 2>/dev/null | grep -q "package.json\|package-lock.json"; then
         log "Installing dependencies"
-        npm ci >> "$LOG_FILE" 2>&1 && log "Dependencies installed" || log_error "npm ci failed"
+        npm ci >> "$LOG_FILE" 2>&1 || { log_error "npm ci failed"; return 1; }
+        log "Dependencies installed"
     else
         log "No dependency changes"
     fi
@@ -103,75 +111,39 @@ generate_js_files() {
     fi
     
     log "Generating JS from JSON"
-    node "$script" >> "$LOG_FILE" 2>&1 && log "JS files generated" || log_error "JS generation failed"
+    node "$script" >> "$LOG_FILE" 2>&1 || { log_error "JS generation failed"; return 1; }
+    log "JS files generated"
 }
 
 build_app() {
     log "Building application"
-    npm run build >> "$LOG_FILE" 2>&1 && log "Build successful" || { log_error "Build failed"; return 1; }
-}
-
-process_exists() {
-    pm2 list | grep -q "nextjs-app"
-}
-
-process_online() {
-    pm2 list | grep "nextjs-app" | grep -q "online"
+    npm run build >> "$LOG_FILE" 2>&1 || { log_error "Build failed"; return 1; }
+    log "Build successful"
 }
 
 restart_app() {
     log "Restarting application"
     
-    local retry=0
-    while [ $retry -lt $MAX_RETRIES ]; do
-        # Attempt to stop if exists
-        if process_exists; then
-            log "Stopping existing process (attempt $((retry+1)))"
-            pm2 stop nextjs-app >> "$LOG_FILE" 2>&1
-            
-            sleep $RETRY_DELAY
-            
-            if process_exists; then
-                log "Stop failed - forcing delete (attempt $((retry+1)))"
-                pm2 delete nextjs-app >> "$LOG_FILE" 2>&1
-                sleep $RETRY_DELAY
-            fi
-        else
-            log "No existing process found"
-        fi
-        
-        # Start with full command, setting cwd explicitly
-        cd "$PROJECT_DIR"
-        log "Starting process (attempt $((retry+1)))"
-        pm2 start npm --name "nextjs-app" --interpreter bash -- run start --update-env --exp-backoff-restart-delay=100 >> "$LOG_FILE" 2>&1
-        
-        sleep $((RETRY_DELAY * 2))  # Longer wait for startup
-        
-        pm2 list >> "$LOG_FILE" 2>&1
-        
-        if process_exists && process_online; then
-            log "Start successful and process is online"
-            pm2 save >> "$LOG_FILE" 2>&1 || log_error "pm2 save failed"
-            return 0
-        fi
-        
-        log_error "Process not online after start - retrying"
-        retry=$((retry + 1))
-    done
+    # Clean up all instances to avoid multiples/errored states
+    pm2 delete nextjs-app >> "$LOG_FILE" 2>&1 || true
     
-    log_error "All restart attempts failed - restarting PM2 daemon as fallback"
-    pm2 kill >> "$LOG_FILE" 2>&1
-    sleep 2
-    cd "$PROJECT_DIR"
-    pm2 start npm --name "nextjs-app" --interpreter bash -- run start --update-env --exp-backoff-restart-delay=100 >> "$LOG_FILE" 2>&1
-    sleep $((RETRY_DELAY * 2))
+    # Start with correct option placement; rely on PM2 for restarts
+    pm2 start npm \
+        --interpreter bash \
+        --name "nextjs-app" \
+        --update-env \
+        --exp-backoff-restart-delay=100 \
+        -- run start >> "$LOG_FILE" 2>&1 || { log_error "PM2 start failed"; return 1; }
+    
+    # Wait for startup and verify
+    sleep 10
     pm2 list >> "$LOG_FILE" 2>&1
-    if process_exists && process_online; then
-        log "Daemon restart successful"
+    
+    if pm2 list | grep -q "nextjs-app.*online"; then
+        log "Application restarted successfully"
         pm2 save >> "$LOG_FILE" 2>&1 || log_error "pm2 save failed"
-        return 0
     else
-        log_error "Fallback failed - manual intervention needed. Check pm2 logs: pm2 logs nextjs-app"
+        log_error "Application failed to go online - manual intervention needed. Check pm2 logs: pm2 logs nextjs-app"
         return 1
     fi
 }
@@ -183,30 +155,23 @@ main() {
     
     acquire_lock
     
-    cd "$PROJECT_DIR" || {
-        log_error "Cannot change to project directory"
-        exit 1
-    }
+    cd "$PROJECT_DIR" || { log_error "Cannot change to project directory"; exit 1; }
     
-    # Suppress git committer warning
-    git config --local user.name "CMS Updater" 2>/dev/null || true
-    git config --local user.email "updater@emc-egypt.net" 2>/dev/null || true
+    load_git_credentials || { log_error "Failed to load git credentials"; exit 1; }
     
-    load_git_credentials || log_error "Failed to load git credentials - continuing"
+    commit_and_push "Pre-update: Commit local changes" || exit 1
     
-    commit_and_push "Pre-update: Commit local changes"
+    sync_remote || exit 1
     
-    sync_remote
+    generate_js_files || exit 1
     
-    generate_js_files
+    commit_and_push "Auto-regenerate JS files after CMS update" || exit 1
     
-    commit_and_push "Auto-regenerate JS files after CMS update"
+    install_dependencies || exit 1
     
-    install_dependencies
+    build_app || exit 1
     
-    build_app || exit 1  # Fail if build fails
-    
-    restart_app
+    restart_app || exit 1
     
     log "========================================"
     log "Update Completed"
