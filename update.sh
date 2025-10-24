@@ -132,28 +132,45 @@ build_app() {
 restart_app() {
     log "Restarting application"
     
-    # Check if process exists and is running
-    if pm2 describe nextjs-app >> "$LOG_FILE" 2>&1; then
+    # Check if process exists
+    if pm2 describe nextjs-app > /dev/null 2>&1; then
         log "Stopping existing process"
-        pm2 stop nextjs-app >> "$LOG_FILE" 2>&1
-        sleep 2  # Brief wait for clean shutdown
+        if pm2 stop nextjs-app >> "$LOG_FILE" 2>&1; then
+            sleep 2  # Wait for clean shutdown
+        else
+            log_error "Stop failed - forcing delete"
+            pm2 delete nextjs-app >> "$LOG_FILE" 2>&1
+        fi
     else
         log "No existing process found - proceeding to start"
     fi
     
-    # Start fresh
-    if pm2 start nextjs-app --update-env >> "$LOG_FILE" 2>&1; then
-        log "Start successful"
+    # Start fresh with exponential backoff for crashes
+    log "Starting process"
+    if pm2 start nextjs-app --update-env --exp-backoff-restart-delay=100 >> "$LOG_FILE" 2>&1 && sleep 5 && [ "$(pm2 status nextjs-app | grep -c 'online')" -eq 1 ]; then
+        log "Start successful and process is online"
         return 0
     else
-        log_error "Start failed - retrying once"
+        log_error "Start failed - retrying"
         sleep 2
-        if pm2 start nextjs-app --update-env >> "$LOG_FILE" 2>&1; then
+        pm2 restart nextjs-app --update-env --exp-backoff-restart-delay=100 >> "$LOG_FILE" 2>&1
+        sleep 5
+        if [ "$(pm2 status nextjs-app | grep -c 'online')" -eq 1 ]; then
             log "Retry successful"
             return 0
         else
-            log_error "Retry failed - manual intervention needed"
-            return 1
+            log_error "Retry failed - restarting PM2 daemon"
+            pm2 kill >> "$LOG_FILE" 2>&1
+            sleep 2
+            pm2 resurrect >> "$LOG_FILE" 2>&1 || pm2 start nextjs-app --update-env --exp-backoff-restart-delay=100 >> "$LOG_FILE" 2>&1
+            sleep 5
+            if [ "$(pm2 status nextjs-app | grep -c 'online')" -eq 1 ]; then
+                log "Daemon restart successful"
+                return 0
+            else
+                log_error "All attempts failed - check PM2 logs for details (pm2 logs nextjs-app). Manual intervention needed."
+                return 1
+            fi
         fi
     fi
 }
