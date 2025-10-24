@@ -112,7 +112,11 @@ build_app() {
 }
 
 process_exists() {
-    pm2 pid nextjs-app | grep -q -v "0"
+    pm2 list | grep -q "nextjs-app"
+}
+
+process_online() {
+    pm2 list | grep "nextjs-app" | grep -q "online"
 }
 
 restart_app() {
@@ -123,28 +127,29 @@ restart_app() {
         # Attempt to stop if exists
         if process_exists; then
             log "Stopping existing process (attempt $((retry+1)))"
-            pm2 stop nextjs-app >> "$LOG_FILE" 2>&1 || true  # Ignore failure
+            pm2 stop nextjs-app >> "$LOG_FILE" 2>&1
             
             sleep $RETRY_DELAY
             
             if process_exists; then
                 log "Stop failed - forcing delete (attempt $((retry+1)))"
-                pm2 delete nextjs-app >> "$LOG_FILE" 2>&1 || true  # Ignore failure
+                pm2 delete nextjs-app >> "$LOG_FILE" 2>&1
                 sleep $RETRY_DELAY
             fi
         else
             log "No existing process found"
         fi
         
-        # Always attempt to start with full command
+        # Start with full command, setting cwd explicitly
+        cd "$PROJECT_DIR"
         log "Starting process (attempt $((retry+1)))"
-        pm2 start npm --name "nextjs-app" -- run start --update-env --exp-backoff-restart-delay=100 >> "$LOG_FILE" 2>&1
+        pm2 start npm --name "nextjs-app" --interpreter bash -- run start --update-env --exp-backoff-restart-delay=100 >> "$LOG_FILE" 2>&1
         
-        sleep $RETRY_DELAY
+        sleep $((RETRY_DELAY * 2))  # Longer wait for startup
         
-        # Check if online
-        pm2 status >> "$LOG_FILE" 2>&1
-        if process_exists && [ "$(pm2 status | grep nextjs-app | grep -c 'online')" -eq 1 ]; then
+        pm2 list >> "$LOG_FILE" 2>&1
+        
+        if process_exists && process_online; then
             log "Start successful and process is online"
             pm2 save >> "$LOG_FILE" 2>&1 || log_error "pm2 save failed"
             return 0
@@ -154,13 +159,21 @@ restart_app() {
         retry=$((retry + 1))
     done
     
-    log_error "All restart attempts failed - manual intervention needed. Check pm2 logs: pm2 logs nextjs-app"
-    # Optional: pm2 kill && pm2 resurrect or start daemon
-    pm2 kill >> "$LOG_FILE" 2>&1 || true
+    log_error "All restart attempts failed - restarting PM2 daemon as fallback"
+    pm2 kill >> "$LOG_FILE" 2>&1
     sleep 2
-    pm2 start npm --name "nextjs-app" -- run start --update-env --exp-backoff-restart-delay=100 >> "$LOG_FILE" 2>&1
-    pm2 save >> "$LOG_FILE" 2>&1 || log_error "pm2 save failed"
-    return 1
+    cd "$PROJECT_DIR"
+    pm2 start npm --name "nextjs-app" --interpreter bash -- run start --update-env --exp-backoff-restart-delay=100 >> "$LOG_FILE" 2>&1
+    sleep $((RETRY_DELAY * 2))
+    pm2 list >> "$LOG_FILE" 2>&1
+    if process_exists && process_online; then
+        log "Daemon restart successful"
+        pm2 save >> "$LOG_FILE" 2>&1 || log_error "pm2 save failed"
+        return 0
+    else
+        log_error "Fallback failed - manual intervention needed. Check pm2 logs: pm2 logs nextjs-app"
+        return 1
+    fi
 }
 
 main() {
@@ -191,7 +204,7 @@ main() {
     
     install_dependencies
     
-    build_app || exit 1
+    build_app || exit 1  # Fail if build fails
     
     restart_app
     
