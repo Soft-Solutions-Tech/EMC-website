@@ -38,7 +38,7 @@ collections:
                   label: Logo,
                   name: logo,
                   widget: string,
-                  hint: "Path to logo image, e.g., /Uploads/logos/EMC-LOGO.png",
+                  hint: "Path to logo image, e.g., /uploads/logos/EMC-LOGO.png",
                 }
               - label: Video
                 name: video
@@ -48,7 +48,7 @@ collections:
                       label: MP4 Video Path,
                       name: mp4,
                       widget: string,
-                      hint: "Path to MP4 video, e.g., /Uploads/videos/homepage-video.mp4",
+                      hint: "Path to MP4 video, e.g., /uploads/videos/homepage-video.mp4",
                     }
 
       - name: about
@@ -89,7 +89,7 @@ collections:
                       label: MP4 Video Path,
                       name: mp4,
                       widget: string,
-                      hint: "Path to MP4 video, e.g., /Uploads/videos/aboutus-video.mp4",
+                      hint: "Path to MP4 video, e.g., /uploads/videos/aboutus-video.mp4",
                     }
 
       - name: info
@@ -194,6 +194,8 @@ collections:
 
       - name: partners
         label: Partners
+        media_folder: "/public/uploads/partners"
+        public_folder: "/uploads/partners"
         file: /data/partners.json
         format: json
         editor:
@@ -205,7 +207,7 @@ collections:
             fields:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
-              - { label: Logo, name: logo, widget: string }
+              - { label: Logo, name: logo, widget: string, hint: "e.g., /uploads/partners/logo.jpg" }
               - { label: Brief, name: brief, widget: string }
               - {
                   label: Website,
@@ -227,6 +229,8 @@ collections:
 
       - name: clients
         label: Clients
+        media_folder: "/public/uploads/clients"
+        public_folder: "/uploads/clients"
         file: /data/clients.json
         format: json
         editor:
@@ -238,7 +242,7 @@ collections:
             fields:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
-              - { label: Logo, name: logo, widget: string }
+              - { label: Logo, name: logo, widget: string, hint: "e.g., /uploads/clients/logo.jpg" }
               - { label: Brief, name: brief, widget: string }
               - {
                   label: Website,
@@ -260,6 +264,8 @@ collections:
 
       - name: projects
         label: Projects
+        media_folder: "/public/uploads/projects"
+        public_folder: "/uploads/projects"
         file: /data/projects.json
         format: json
         editor:
@@ -319,7 +325,7 @@ collections:
               - name: images
                 label: Images
                 widget: list
-                field: { label: Image, name: image, widget: string }
+                field: { label: Image, name: image, widget: string, hint: "e.g., /uploads/projects/image.jpg" }
               - {
                   label: Consulting CTA,
                   name: consultingCta,
@@ -381,6 +387,8 @@ collections:
 
   - name: newProjects
     label: Add New Project
+    media_folder: "/public/uploads/projects"
+    public_folder: "/uploads/projects"
     folder: /data/projects
     create: true
     slug: "{{slug}}"
