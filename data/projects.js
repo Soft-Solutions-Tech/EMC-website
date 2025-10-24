@@ -1285,7 +1285,7 @@ export const projects = [
   },
   {
     "images": [
-      "public/uploads/rest.jpg"
+      "uploads/projects/rest.jpg"
     ],
     "id": "p64",
     "name": "Testinnggg",
