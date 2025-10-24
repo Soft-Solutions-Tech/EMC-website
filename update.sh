@@ -60,7 +60,7 @@ commit_and_push() {
     git add . >> "$LOG_FILE" 2>&1
     
     log "Creating commit"
-    git commit -m "CMS update: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE" 2>&1
+    git commit -m "Auto-regenerate JS files after CMS update: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE" 2>&1
     
     log "Pushing to GitHub"
     if git push origin main >> "$LOG_FILE" 2>&1; then
@@ -151,9 +151,9 @@ main() {
     }
     
     load_git_credentials
-    generate_js_files
-    commit_and_push
-    sync_remote
+    sync_remote  # Pull first to get latest JSON
+    generate_js_files  # Regenerate JS from pulled JSON
+    commit_and_push  # Commit/push new JS if changed
     install_dependencies
     build_app
     restart_app
