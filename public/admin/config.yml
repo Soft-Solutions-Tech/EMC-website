@@ -54,7 +54,6 @@ collections:
                       widget: file,
                       media_folder: "/public/uploads/videos",
                       public_folder: "/uploads/videos",
-                      media_type: "video/*",
                       hint: "Path to MP4 video, e.g., /uploads/videos/homepage-video.mp4",
                     }
 
@@ -100,7 +99,6 @@ collections:
                       widget: file,
                       media_folder: "/public/uploads/videos",
                       public_folder: "/uploads/videos",
-                      media_type: "video/*",
                       hint: "Path to MP4 video, e.g., /uploads/videos/aboutus-video.mp4",
                     }
 
