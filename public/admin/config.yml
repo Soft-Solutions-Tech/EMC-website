@@ -38,6 +38,8 @@ collections:
                   label: Logo,
                   name: logo,
                   widget: image,
+                  media_folder: "/public/uploads/logos",
+                  public_folder: "/uploads/logos",
                   hint: "Path to logo image, e.g., /uploads/logos/EMC-LOGO.png",
                 }
               - label: Video
@@ -50,6 +52,9 @@ collections:
                       label: MP4 Video Path,
                       name: mp4,
                       widget: file,
+                      media_folder: "/public/uploads/videos",
+                      public_folder: "/uploads/videos",
+                      media_type: "video/*",
                       hint: "Path to MP4 video, e.g., /uploads/videos/homepage-video.mp4",
                     }
 
@@ -70,7 +75,7 @@ collections:
                 name: career
                 widget: list
                 field: { label: Item, name: item, widget: string }
-              - { label: Image, name: image, widget: image }
+              - { label: Image, name: image, widget: image, media_folder: "/public/uploads/team", public_folder: "/uploads/team" }
           - label: Company Timeline
             name: companyTimeline
             widget: list
@@ -93,6 +98,9 @@ collections:
                       label: MP4 Video Path,
                       name: mp4,
                       widget: file,
+                      media_folder: "/public/uploads/videos",
+                      public_folder: "/uploads/videos",
+                      media_type: "video/*",
                       hint: "Path to MP4 video, e.g., /uploads/videos/aboutus-video.mp4",
                     }
 
@@ -329,7 +337,7 @@ collections:
               - name: images
                 label: Images
                 widget: list
-                field: { label: Image, name: image, widget: image }
+                field: { label: Image, name: image, widget: image, media_folder: "/public/uploads/projects", public_folder: "/uploads/projects" }
               - {
                   label: Consulting CTA,
                   name: consultingCta,
@@ -446,6 +454,8 @@ collections:
             label: Image Path,
             name: image,
             widget: image,
+            media_folder: "/public/uploads/projects",
+            public_folder: "/uploads/projects",
           }
       - {
           label: Consulting CTA,
