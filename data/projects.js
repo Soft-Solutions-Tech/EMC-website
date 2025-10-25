@@ -1282,5 +1282,24 @@ export const projects = [
     "type": "CONSULTING",
     "id": "p63",
     "description": "Consulting services for a turnkey 500 KV switchyard, including 220/500 KV transformers."
+  },
+  {
+    "endDate": "",
+    "partners": [
+      "shaddyyy joseph "
+    ],
+    "name": "Testingggggg",
+    "client": "youssef",
+    "startDate": "2004-07-05",
+    "value": "$1.2M",
+    "status": "Active",
+    "location": "masrrrrrrf",
+    "images": [
+      "/uploads/projects/rest.jpg"
+    ],
+    "consultingCta": "Explore our After Sales projects",
+    "type": "AFTERSALES",
+    "id": "p64",
+    "description": "ouuuuuuuuuuuuuuuuuuuuuuuu testinggggggg"
   }
 ];
