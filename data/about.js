@@ -11,7 +11,7 @@ export const founders = [
       "Co-founded EMC in 1988",
       "Chairman of ECG (current)"
     ],
-    "image": "/Uploads/team/Ahmed-El-Sayed.jpg"
+    "image": "/uploads/team/Ahmed-El-Sayed.jpg"
   },
   {
     "name": "Mr. Amr Dessouky",
@@ -23,7 +23,7 @@ export const founders = [
       "Became Executive Partner in EMC in 1992",
       "Senior Partner and Managing Director of EMC since 2000"
     ],
-    "image": "/Uploads/team/Amr-dessouky.jpg"
+    "image": "/uploads/team/Amr-dessouky.jpg"
   }
 ];
 export const companyTimeline = [

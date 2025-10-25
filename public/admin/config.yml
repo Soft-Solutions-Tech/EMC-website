@@ -47,7 +47,7 @@ collections:
                   - {
                       label: MP4 Video Path,
                       name: mp4,
-                      widget: string,
+                      widget: file,
                       hint: "Path to MP4 video, e.g., /uploads/videos/homepage-video.mp4",
                     }
 
@@ -68,7 +68,7 @@ collections:
                 name: career
                 widget: list
                 field: { label: Item, name: item, widget: string }
-              - { label: Image, name: image, widget: string }
+              - { label: Image, name: image, widget: image }
           - label: Company Timeline
             name: companyTimeline
             widget: list
@@ -88,7 +88,7 @@ collections:
                   - {
                       label: MP4 Video Path,
                       name: mp4,
-                      widget: string,
+                      widget: file,
                       hint: "Path to MP4 video, e.g., /uploads/videos/aboutus-video.mp4",
                     }
 
