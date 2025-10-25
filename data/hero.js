@@ -6,6 +6,6 @@ export const hero = {
   "ctaSecondary": "Contact Us",
   "logo": "/uploads/logos/EMC-LOGO.png",
   "video": {
-    "mp4": "/uploads/videos/homepage-video.mp4"
+    "mp4": "/uploads/videos/testt.mp4"
   }
 };
