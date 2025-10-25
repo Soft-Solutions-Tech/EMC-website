@@ -43,6 +43,8 @@ collections:
               - label: Video
                 name: video
                 widget: object
+                media_folder: "/public/uploads/videos"
+                public_folder: "/uploads/videos"
                 fields:
                   - {
                       label: MP4 Video Path,
@@ -84,6 +86,8 @@ collections:
               - label: Video
                 name: video
                 widget: object
+                media_folder: "/public/uploads/videos"
+                public_folder: "/uploads/videos"
                 fields:
                   - {
                       label: MP4 Video Path,
