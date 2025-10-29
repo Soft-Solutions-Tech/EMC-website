@@ -290,7 +290,7 @@ export const projects = [
     "description": "Supply and installation of the main transformer and its components for the East Port Said substation extension, enhancing electrical infrastructure."
   },
   {
-    "endDate": "2020-12-31",
+    "endDate": "2020-12-30",
     "partners": [
       "MAN Energy Solutions"
     ],
