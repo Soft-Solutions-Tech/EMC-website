@@ -804,8 +804,7 @@ export const projects = [
     "status": "Finished",
     "location": "Cairo, Egypt",
     "images": [
-      "/uploads/projects/assuit.jpg",
-      "/uploads/projects/assuit2.jpg"
+      "/uploads/projects/assuit.jpg"
     ],
     "consultingCta": "Explore our Consulting projects",
     "type": "CONSULTING",
