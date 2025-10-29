@@ -1298,7 +1298,7 @@ export const projects = [
       "/uploads/projects/rest.jpg"
     ],
     "consultingCta": "Explore our After Sales projects",
-    "type": "AFTERSALES",
+    "type": "CONSULTING",
     "id": "p64",
     "description": "ouuuuuuuuuuuuuuuuuuuuuuuu testinggggggg"
   }
