@@ -71,7 +71,7 @@
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p2",
-      "description": "EPC installation of 2 66KV GIS bays and 220/66 kv transformer including control, protection and civil work. This project enhanced the electrical distribution capacity for the Imbaba district."
+      "description": "EMC install 2 66KV GIS bays and 220/66 kv transformer including control, protection and civil work. This project enhanced the electrical distribution capacity for the Imbaba district."
     },
     {
       "endDate": "2025-12-31",
@@ -90,7 +90,7 @@
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p3",
-      "description": "EPC installation of two core 220/22 kV transformer and replaced damaged GIB. Including control, protection and civil work. This project modernized the electrical infrastructure for the East Port Said industrial area."
+      "description": "EPC installation of two core 220/22 KV transformer and replaced damaged GIB. Including control, protection and civil work. This project modernized the electrical infrastructure for the East Port Said industrial area."
     },
     {
       "endDate": "2020-12-31",
@@ -194,7 +194,7 @@
       "partners": [
         "SPIRARE Energy"
       ],
-      "name": "Assuit West CC Hydrogen Generation Unit",
+      "name": "Assuit West H2 Hydrogen Generation Unit",
       "client": "Upper Egypt Electricity Production Co.",
       "startDate": "2018-01-01",
       "value": "EGP 70M",
@@ -212,29 +212,9 @@
     {
       "endDate": "2023-12-31",
       "partners": [
-        "TAIKAI"
-      ],
-      "name": "East PortSaid Substation Extension",
-      "client": "EETC",
-      "startDate": "2023-01-01",
-      "value": "$4.25M",
-      "status": "Finished",
-      "location": "East Port Said, Egypt",
-      "images": [
-        "/uploads/projects/assuit.jpg",
-        "/uploads/projects/assuit2.jpg"
-      ],
-      "consultingCta": "Explore our EPC projects",
-      "type": "EPC",
-      "id": "p10",
-      "description": "Supply and installation of the main transformer and its components for the East Port Said substation extension, enhancing electrical infrastructure."
-    },
-    {
-      "endDate": "2023-12-31",
-      "partners": [
         "Alfa Water"
       ],
-      "name": "NPC Creek Water Filters",
+      "name": "NPC Creek Water Self Cleaning Filters",
       "client": "Nasr Petroleum Company",
       "startDate": "2023-01-01",
       "value": "€2.5M",
@@ -247,14 +227,14 @@
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p11",
-      "description": "Turnkey supply and installation of 10 self-cleaning filters for a firefighting water system, including mechanical, electrical, and civil installation works."
+      "description": "Supply, install, and commissioning of 4 Alfa Water Automatic Self-Cleaning Filters (50 µm) and 6 Alfa Water Automatic Self-Cleaning Filters (10 µm) for a 700 m³/h fire-fighting water system, including manifolds and a 9.15m × 2.57m footprint."
     },
     {
       "endDate": "2022-12-31",
       "partners": [
         "Alfa Laval"
       ],
-      "name": "NPC Sea Water Filters",
+      "name": "NPC Saltwater Self Cleaning Filters",
       "client": "Nasr Petroleum Company",
       "startDate": "2022-01-01",
       "value": "€1.6M",
@@ -267,27 +247,7 @@
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p12",
-      "description": "Turnkey supply and installation of 4 self-cleaning filters for a firefighting water system, including mechanical, electrical, and civil installation works."
-    },
-    {
-      "endDate": "2021-12-31",
-      "partners": [
-        "TAIKAI"
-      ],
-      "name": "East PortSaid Substation Extension",
-      "client": "EETC",
-      "startDate": "2021-01-01",
-      "value": "$3M",
-      "status": "Finished",
-      "location": "East Port Said, Egypt",
-      "images": [
-        "/uploads/projects/assuit.jpg",
-        "/uploads/projects/assuit2.jpg"
-      ],
-      "consultingCta": "Explore our EPC projects",
-      "type": "EPC",
-      "id": "p13",
-      "description": "Supply and installation of the main transformer and its components for the East Port Said substation extension, enhancing electrical infrastructure."
+      "description": "Supply, install, commissioning, and start-up of 3 Alfa Laval Self-Cleaning Filters (ALF 50 R) and 1 Alfa Laval Self-Cleaning Filter (ALF 60 R) with auxiliaries. The system filters seawater for a 9,000 m³/h cooling water system."
     },
     {
       "endDate": "2020-12-30",
@@ -350,10 +310,10 @@
       "partners": [
         "SPIRAR"
       ],
-      "name": "Assuit West H2 Plant",
+      "name": "Assuit West CC Hydrogen Generation Unit",
       "client": "Upper Egypt Electricity Production Co.",
       "startDate": "2018-01-01",
-      "value": "$4.5M",
+      "value": "EGP 70 million",
       "status": "Finished",
       "location": "Assuit West, Egypt",
       "images": [
@@ -363,7 +323,7 @@
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p17",
-      "description": "Engineering, procurement, and construction of a 12 NM³/h hydrogen generation plant for Assuit Power Plant, including all related civil works."
+      "description": "Hydrogen Generation Plant: 12 NM³/h H₂ generation unit with storage cylinders.\nServices: Engineering, procurement, and construction.\nInfrastructure: Civil works and steel structure."
     },
     {
       "endDate": "2016-12-31",
@@ -390,10 +350,10 @@
       "partners": [
         "KSB"
       ],
-      "name": "Abu Sultan Boiler Feed Pump Replacement",
+      "name": "Abu Sultan PP Boiler Feed Water Pumps Replacement",
       "client": "East Delta Electricity Production Co.",
       "startDate": "2013-01-01",
-      "value": "$6M",
+      "value": "€6M",
       "status": "Finished",
       "location": "Abu Sultan, Egypt",
       "images": [
@@ -403,7 +363,7 @@
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p19",
-      "description": "Supply and installation of 9 boiler feed pumps (165 Bar, 3 per year), including valves, pipe modifications, pipe stress analysis, control, lube, and DCS communication system modifications, replacing Byron Jackson 'Flowserve' pumps for Unit Two."
+      "description": "EMC, in collaboration with KSB, replaced 12 Flowserve boiler feed pumps with KSB units. The scope included supply of control valves, pipe supports, engineering, stress analysis, pipe and DCS modifications, and full construction, including civil work."
     },
     {
       "endDate": "2013-12-31",
@@ -503,7 +463,7 @@
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p24",
-      "description": "Supply of spare parts and supervision of overhauls for two 2.5 MW MAN diesel engines, restoring output and heat rate to original values with performance guarantees."
+      "description": "Generators: 4x4MW\nServices: Engineering, BOP supply, installation & commissioning. \nInfrastructure: Civil works for powerhouse, workshop, housing, roads and fences.\n"
     },
     {
       "endDate": "2011-12-31",
@@ -513,7 +473,7 @@
       "name": "Abu Sultan Hydrogen Generation Plant",
       "client": "East Delta Electricity Production Co.",
       "startDate": "2011-01-01",
-      "value": "$2M",
+      "value": "€6 Million",
       "status": "Finished",
       "location": "Abu Sultan, Egypt",
       "images": [
@@ -523,7 +483,7 @@
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p25",
-      "description": "Engineering, supply, and construction of a 12 NM³/h hydrogen generation unit at 200 Bar, complete with compression and purification systems."
+      "description": "EMC, in collaboration with KSB, replaced 12 Flowserve boiler feed pumps with KSB units. The scope included supply of control valves, pipe supports, engineering, stress analysis, pipe and DCS modifications, and full construction, including civil work."
     },
     {
       "endDate": "2007-12-31",
