@@ -196,6 +196,9 @@ install_dependencies() {
         sync
         echo 3 > /proc/sys/vm/drop_caches 2>/dev/null || true
         
+        # Wait for memory to be released
+        sleep 2
+        
         log "Available memory: $(free -h | grep Mem | awk '{print $7}')"
         
         # Clear cache for clean install
@@ -204,7 +207,7 @@ install_dependencies() {
         
         # Install with very conservative memory settings
         log "Running npm install (optimized for low memory)..."
-        if ! NODE_OPTIONS="--max-old-space-size=384 --optimize-for-size" \
+        if ! NODE_OPTIONS="--max-old-space-size=400" \
              run_cmd npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps; then
             log_error "npm install failed - check output above"
             return 1
@@ -227,11 +230,14 @@ build_app() {
     sync
     echo 3 > /proc/sys/vm/drop_caches 2>/dev/null || true
     
+    # Wait a moment for memory to be released
+    sleep 2
+    
     log "Available memory: $(free -h | grep Mem | awk '{print $7}')"
     
-    # Build with very aggressive memory settings for low-RAM systems
-    # Use Node 16+ garbage collection flags
-    if ! NODE_OPTIONS="--max-old-space-size=512 --max-semi-space-size=2 --optimize-for-size" \
+    # Build with very conservative memory settings for low-RAM systems
+    # Removed --optimize-for-size as it's not allowed in NODE_OPTIONS
+    if ! NODE_OPTIONS="--max-old-space-size=600 --max-semi-space-size=2" \
          run_cmd npm run build; then
         log_error "Build failed - check output above"
         return 1
