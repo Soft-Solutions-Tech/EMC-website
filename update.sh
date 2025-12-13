@@ -95,13 +95,19 @@ sync_remote() {
 }
 
 install_dependencies() {
-    if git diff HEAD~1 --name-only 2>/dev/null | grep -q "package.json\|package-lock.json"; then
-        log "Installing dependencies"
-        npm ci >> "$LOG_FILE" 2>&1 || { log_error "npm ci failed"; return 1; }
-        log "Dependencies installed"
-    else
-        log "No dependency changes"
-    fi
+  if git diff HEAD~1 --name-only 2>/dev/null | grep -q "package.json\|package-lock.json"; then
+    log "Installing dependencies"
+    
+    npm cache clean --force >> "$LOG_FILE" 2>&1
+    NODE_OPTIONS="--max-old-space-size=512" npm install --prefer-offline --no-audit >> "$LOG_FILE" 2>&1 || {
+      log_error "npm install failed"
+      return 1
+    }
+    
+    log "Dependencies installed"
+  else
+    log "No dependency changes"
+  fi
 }
 
 generate_js_files() {
