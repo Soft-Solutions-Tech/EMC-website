@@ -185,16 +185,27 @@ install_dependencies() {
     fi
     
     if [ "${force_install:-false}" = "true" ]; then
-        log "Installing dependencies (this may take a few minutes)"
+        log "Installing dependencies (this may take 10-15 minutes on low-memory systems)"
+        
+        # Stop PM2 and kill to free maximum memory
+        log "Stopping PM2 apps to free memory..."
+        pm2 stop all >> "$LOG_FILE" 2>&1 || true
+        pm2 kill >> "$LOG_FILE" 2>&1 || true
+        
+        # Clear system caches
+        sync
+        echo 3 > /proc/sys/vm/drop_caches 2>/dev/null || true
+        
+        log "Available memory: $(free -h | grep Mem | awk '{print $7}')"
         
         # Clear cache for clean install
         log "Cleaning npm cache..."
         run_silent npm cache clean --force
         
-        # Install with memory limits and optimizations
-        log "Running npm install..."
-        if ! NODE_OPTIONS="--max-old-space-size=512" \
-             run_cmd npm install --prefer-offline --no-audit --loglevel=error; then
+        # Install with very conservative memory settings
+        log "Running npm install (optimized for low memory)..."
+        if ! NODE_OPTIONS="--max-old-space-size=384 --optimize-for-size" \
+             run_cmd npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps; then
             log_error "npm install failed - check output above"
             return 1
         fi
@@ -205,10 +216,22 @@ install_dependencies() {
 
 build_app() {
     log "Building Next.js application"
-    log "This may take several minutes..."
+    log "This may take 10-20 minutes on low-memory systems..."
     
-    # Build with memory limits and show full output
-    if ! NODE_OPTIONS="--max-old-space-size=1024" \
+    # Free as much memory as possible
+    log "Freeing memory for build process..."
+    pm2 stop all >> "$LOG_FILE" 2>&1 || true
+    pm2 kill >> "$LOG_FILE" 2>&1 || true
+    
+    # Clear system caches (requires root)
+    sync
+    echo 3 > /proc/sys/vm/drop_caches 2>/dev/null || true
+    
+    log "Available memory: $(free -h | grep Mem | awk '{print $7}')"
+    
+    # Build with very aggressive memory settings for low-RAM systems
+    # Use Node 16+ garbage collection flags
+    if ! NODE_OPTIONS="--max-old-space-size=512 --max-semi-space-size=2 --optimize-for-size" \
          run_cmd npm run build; then
         log_error "Build failed - check output above"
         return 1
