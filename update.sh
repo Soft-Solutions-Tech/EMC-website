@@ -18,6 +18,34 @@ log_error() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: $*" | tee -a "$LOG_FILE" >&2
 }
 
+# Execute command with live output and logging
+run_cmd() {
+    local cmd="$*"
+    log "Running: $cmd"
+    
+    # Run command, show output, and log it
+    if $cmd 2>&1 | tee -a "$LOG_FILE"; then
+        return 0
+    else
+        local exit_code=$?
+        log_error "Command failed with exit code $exit_code: $cmd"
+        return $exit_code
+    fi
+}
+
+# Execute command silently (only log, no stdout)
+run_silent() {
+    local cmd="$*"
+    
+    if $cmd >> "$LOG_FILE" 2>&1; then
+        return 0
+    else
+        local exit_code=$?
+        log_error "Command failed with exit code $exit_code: $cmd"
+        return $exit_code
+    fi
+}
+
 # Lock management
 acquire_lock() {
     if [ -f "$LOCK_FILE" ]; then
@@ -52,10 +80,10 @@ load_git_credentials() {
         return 1
     fi
     
-    git remote set-url origin "https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/Soft-Solutions-Tech/EMC-website.git" 2>> "$LOG_FILE" || {
+    if ! run_silent git remote set-url origin "https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/Soft-Solutions-Tech/EMC-website.git"; then
         log_error "Failed to set git remote URL"
         return 1
-    }
+    fi
     
     log "Git credentials loaded"
 }
@@ -67,10 +95,10 @@ has_changes() {
 sync_with_remote() {
     log "Syncing with remote repository"
     
-    git fetch origin main >> "$LOG_FILE" 2>&1 || {
+    if ! run_cmd git fetch origin main; then
         log_error "Git fetch failed"
         return 1
-    }
+    fi
     
     local local_commit=$(git rev-parse @ 2>/dev/null || echo "")
     local remote_commit=$(git rev-parse @{u} 2>/dev/null || echo "")
@@ -80,10 +108,10 @@ sync_with_remote() {
         return 0
     fi
     
-    git pull --rebase origin main >> "$LOG_FILE" 2>&1 || {
+    if ! run_cmd git pull --rebase origin main; then
         log_error "Git pull failed"
         return 1
-    }
+    fi
     
     log "Remote sync successful"
 }
@@ -100,25 +128,26 @@ commit_and_push() {
     sync_with_remote || return 1
     
     log "Committing changes: $commit_msg"
-    git add . >> "$LOG_FILE" 2>&1 || {
+    
+    if ! run_silent git add .; then
         log_error "Git add failed"
         return 1
-    }
+    fi
     
-    GIT_AUTHOR_NAME="CMS Updater" \
-    GIT_AUTHOR_EMAIL="updater@emc-egypt.net" \
-    GIT_COMMITTER_NAME="CMS Updater" \
-    GIT_COMMITTER_EMAIL="updater@emc-egypt.net" \
-    git commit -m "$commit_msg [$(date '+%Y-%m-%d %H:%M:%S')]" >> "$LOG_FILE" 2>&1 || {
+    if ! GIT_AUTHOR_NAME="CMS Updater" \
+         GIT_AUTHOR_EMAIL="updater@emc-egypt.net" \
+         GIT_COMMITTER_NAME="CMS Updater" \
+         GIT_COMMITTER_EMAIL="updater@emc-egypt.net" \
+         run_silent git commit -m "$commit_msg [$(date '+%Y-%m-%d %H:%M:%S')]"; then
         log_error "Git commit failed"
         return 1
-    }
+    fi
     
     log "Pushing to remote"
-    git push origin main >> "$LOG_FILE" 2>&1 || {
+    if ! run_cmd git push origin main; then
         log_error "Git push failed"
         return 1
-    }
+    fi
     
     log "Changes committed and pushed"
 }
@@ -133,10 +162,11 @@ generate_js_files() {
     fi
     
     log "Generating JS files from JSON"
-    node "$script" >> "$LOG_FILE" 2>&1 || {
+    
+    if ! run_cmd node "$script"; then
         log_error "JS generation failed"
         return 1
-    }
+    fi
     
     log "JS files generated successfully"
 }
@@ -158,14 +188,16 @@ install_dependencies() {
         log "Installing dependencies (this may take a few minutes)"
         
         # Clear cache for clean install
-        npm cache clean --force >> "$LOG_FILE" 2>&1
+        log "Cleaning npm cache..."
+        run_silent npm cache clean --force
         
         # Install with memory limits and optimizations
-        NODE_OPTIONS="--max-old-space-size=512" \
-        npm install --prefer-offline --no-audit --loglevel=error >> "$LOG_FILE" 2>&1 || {
-            log_error "npm install failed - check $LOG_FILE for details"
+        log "Running npm install..."
+        if ! NODE_OPTIONS="--max-old-space-size=512" \
+             run_cmd npm install --prefer-offline --no-audit --loglevel=error; then
+            log_error "npm install failed - check output above"
             return 1
-        }
+        fi
         
         log "Dependencies installed successfully"
     fi
@@ -173,13 +205,14 @@ install_dependencies() {
 
 build_app() {
     log "Building Next.js application"
+    log "This may take several minutes..."
     
-    # Build with memory limits
-    NODE_OPTIONS="--max-old-space-size=1024" \
-    npm run build >> "$LOG_FILE" 2>&1 || {
-        log_error "Build failed - check $LOG_FILE for details"
+    # Build with memory limits and show full output
+    if ! NODE_OPTIONS="--max-old-space-size=1024" \
+         run_cmd npm run build; then
+        log_error "Build failed - check output above"
         return 1
-    }
+    fi
     
     log "Build completed successfully"
 }
@@ -195,7 +228,7 @@ restart_app() {
     # Stop existing instance gracefully
     if pm2 list | grep -q "$PM2_APP_NAME"; then
         log "Stopping existing PM2 process"
-        pm2 delete "$PM2_APP_NAME" >> "$LOG_FILE" 2>&1 || true
+        run_cmd pm2 delete "$PM2_APP_NAME" || true
     fi
     
     # Load environment variables
@@ -205,23 +238,34 @@ restart_app() {
     fi
     
     # Start application
-    pm2 start "$ECOSYSTEM_FILE" --env production >> "$LOG_FILE" 2>&1 || {
+    log "Starting application..."
+    if ! run_cmd pm2 start "$ECOSYSTEM_FILE" --env production; then
         log_error "PM2 start failed"
         return 1
-    }
+    fi
     
     # Wait for application to initialize
     log "Waiting for application to start..."
     sleep 10
     
+    # Show PM2 status
+    log "Current PM2 status:"
+    run_cmd pm2 list
+    
     # Verify application is running
     if pm2 list | grep -q "$PM2_APP_NAME.*online"; then
         log "Application started successfully"
-        pm2 save >> "$LOG_FILE" 2>&1 || log_error "Failed to save PM2 state"
+        run_silent pm2 save || log_error "Failed to save PM2 state"
+        
+        # Show recent logs
+        log "Recent application logs:"
+        run_cmd pm2 logs "$PM2_APP_NAME" --lines 20 --nostream
+        
         return 0
     else
-        log_error "Application failed to start - check: pm2 logs $PM2_APP_NAME"
-        pm2 logs "$PM2_APP_NAME" --lines 50 >> "$LOG_FILE" 2>&1
+        log_error "Application failed to start"
+        log "Full PM2 logs:"
+        run_cmd pm2 logs "$PM2_APP_NAME" --lines 50 --nostream
         return 1
     fi
 }
@@ -243,6 +287,9 @@ verify_prerequisites() {
     fi
     
     log "All prerequisites verified"
+    log "Node version: $(node --version)"
+    log "npm version: $(npm --version)"
+    log "PM2 version: $(pm2 --version)"
 }
 
 # Main execution
@@ -290,6 +337,7 @@ main() {
     log "========================================"
     log "Update Process Completed Successfully"
     log "========================================"
+    log "Log file: $LOG_FILE"
 }
 
 # Run main function
