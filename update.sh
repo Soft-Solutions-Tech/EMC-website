@@ -57,26 +57,40 @@ has_changes() {
 }
 
 commit_and_push() {
-    local commit_msg="$1"
-    
-    if ! has_changes; then
-        log "No changes to commit"
-        return 0
-    fi
-    
-    log "Staging changes"
-    git add . || { log_error "Git add failed"; return 1; }
-    
-    log "Creating commit"
-    GIT_AUTHOR_NAME="CMS Updater" GIT_AUTHOR_EMAIL="updater@emc-egypt.net" \
-    GIT_COMMITTER_NAME="CMS Updater" GIT_COMMITTER_EMAIL="updater@emc-egypt.net" \
-    git commit -m "$commit_msg: $(date '+%Y-%m-%d %H:%M:%S')" || { log_error "Git commit failed"; return 1; }
-    
-    log "Pushing to GitHub"
-    git push origin main || { log_error "Push failed"; return 1; }
-    log "Push successful"
-}
+  local commit_msg="$1"
+  
+  if ! has_changes; then
+    log "No changes to commit"
+    return 0
+  fi
 
+  # Sync first to avoid push conflicts
+  log "Syncing with remote before commit"
+  git fetch origin main >> "$LOG_FILE" 2>&1
+  git pull --rebase origin main >> "$LOG_FILE" 2>&1 || {
+    log_error "Failed to sync with remote"
+    return 1
+  }
+
+  log "Staging changes"
+  git add . || { log_error "Git add failed"; return 1; }
+
+  log "Creating commit"
+  GIT_AUTHOR_NAME="CMS Updater" GIT_AUTHOR_EMAIL="updater@emc-egypt.net" \
+  GIT_COMMITTER_NAME="CMS Updater" GIT_COMMITTER_EMAIL="updater@emc-egypt.net" \
+  git commit -m "$commit_msg: $(date '+%Y-%m-%d %H:%M:%S')" || { 
+    log_error "Git commit failed"; 
+    return 1; 
+  }
+
+  log "Pushing to GitHub"
+  git push origin main >> "$LOG_FILE" 2>&1 || {
+    log_error "Push failed";
+    return 1;
+  }
+  
+  log "Push successful"
+}
 sync_remote() {
     log "Fetching remote changes"
     git fetch origin main >> "$LOG_FILE" 2>&1 || { log_error "Git fetch failed"; return 1; }
