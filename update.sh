@@ -109,7 +109,7 @@ sync_remote() {
 }
 
 install_dependencies() {
-  if git diff HEAD~1 --name-only 2>/dev/null | grep -q "package.json\|package-lock.json"; then
+  if [ ! -d "node_modules" ] || git diff HEAD~1 --name-only 2>/dev/null | grep -q "package.json\|package-lock.json"; then
     log "Installing dependencies"
     
     npm cache clean --force >> "$LOG_FILE" 2>&1
@@ -123,7 +123,6 @@ install_dependencies() {
     log "No dependency changes"
   fi
 }
-
 generate_js_files() {
     local script="$PROJECT_DIR/scripts/generate-js-from-json.cjs"
     if [ ! -f "$script" ]; then
