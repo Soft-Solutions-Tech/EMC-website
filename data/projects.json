@@ -1241,6 +1241,13 @@
       "type": "CONSULTING",
       "id": "p63",
       "description": "Consulting services for a turnkey 500 KV switchyard, including 220/500 KV transformers."
+    },
+    {
+      "id": "P64",
+      "name": "SEYCHELLES POWER PLANT ",
+      "type": "EPC",
+      "description": "SGFGIUIIGFERGERGRERG",
+      "status": "ACTIVE"
     }
   ]
 }
