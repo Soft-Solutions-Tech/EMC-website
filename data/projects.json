@@ -55,13 +55,13 @@
       "description": "EPC installation of two 66KV GIS bays including control, protection and civil work. This project involved comprehensive electrical infrastructure development for power distribution enhancement."
     },
     {
-      "endDate": null,
+      "endDate": "ONGOING ",
       "partners": [
         "TAIKAI"
       ],
       "name": "Imbaba Substation Extension",
       "client": "EETC",
-      "startDate": "2023-01-01",
+      "startDate": "",
       "value": "$1.2M",
       "status": "Active",
       "location": "Imbaba, Egypt",
