@@ -1,50 +1,45 @@
 "use client";
-import React, { useEffect } from "react";
-import Image from "next/image";
-import { projects, ProjectType } from "../../../../data/projects";
-import { formatDate } from "@/app/sections/Portoflio";
+import { Partners, Timeline } from "@/app/sections/Portoflio";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
-  Building2,
-  MapPin,
-  CalendarClock,
-  User,
-  Users,
   BadgeDollarSign,
   BriefcaseBusiness,
+  Building2,
+  MapPin,
+  User,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import Head from "next/head";
-import { useRouter, useParams } from "next/navigation";
+import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { projects, ProjectType } from "../../../../data/projects";
 
-// Utility functions
+// ─── Utilities ────────────────────────────────────────────────────────────────
+
 const getProjectTypeLabel = (type) => {
   const typeLabels = {
     [ProjectType.EPC]: "EPC",
     [ProjectType.CONSULTING]: "Consulting",
     [ProjectType.AFTERSALES]: "After Sales",
   };
-
   return typeLabels[type] || type?.charAt(0) + type?.slice(1).toLowerCase();
 };
 
-const getProjectById = (id) => {
-  return projects.find((p) => p.id?.toString() === id?.toString());
-};
-
-const validateImageUrl = (url) => {
-  return url && typeof url === "string" && url.trim() !== "";
-};
+const getProjectById = (id) =>
+  projects.find((p) => p.id?.toString() === id?.toString());
 
 const getValidImages = (images) => {
   if (!images || !Array.isArray(images)) return [];
-  return images.filter(validateImageUrl);
+  return images.filter(
+    (url) => url && typeof url === "string" && url.trim() !== "",
+  );
 };
 
-// Components
+// ─── Subcomponents ────────────────────────────────────────────────────────────
+
 const InfoBadge = ({ icon: Icon, text, className = "" }) => {
   if (!text) return null;
-
   return (
     <span
       className={`flex items-center gap-2 bg-muted text-muted-foreground rounded-full px-4 py-2 text-sm font-medium border border-muted ${className}`}
@@ -55,35 +50,13 @@ const InfoBadge = ({ icon: Icon, text, className = "" }) => {
   );
 };
 
-const Timeline = ({ start, end }) => {
-  // Don't render if neither start nor end date exists
-  if (!start && !end) return null;
-
-  return (
-    <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground">
-      <div className="flex items-center gap-2">
-        <CalendarClock className="w-4 h-4 text-primary" />
-        <span className="font-medium">{formatDate(start) || "N/A"}</span>
-      </div>
-      <ArrowRight className="w-4 h-4 text-muted-foreground" />
-      <div className="flex items-center gap-2">
-        <CalendarClock className="w-4 h-4 text-primary" />
-        <span className="font-medium">{formatDate(end)}</span>
-      </div>
-    </div>
-  );
-};
-
-const InfoBar = ({ status, client, value, location }) => {
+const InfoBar = ({ status, client, value }) => {
   const infoItems = [
     { icon: BriefcaseBusiness, text: status },
     { icon: BadgeDollarSign, text: value },
     { icon: User, text: client },
   ];
-
-  // Filter out items with no text
   const validItems = infoItems.filter((item) => item.text);
-
   if (validItems.length === 0) return null;
 
   return (
@@ -95,24 +68,8 @@ const InfoBar = ({ status, client, value, location }) => {
   );
 };
 
-const Partners = ({ partners }) => {
-  if (!partners || !Array.isArray(partners) || partners.length === 0)
-    return null;
-
-  return (
-    <div className="flex items-start gap-3 mb-4 text-sm text-muted-foreground">
-      <Users className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-      <div>
-        <span className="font-medium text-foreground">Partners: </span>
-        <span>{partners.join(", ")}</span>
-      </div>
-    </div>
-  );
-};
-
 const LocationDisplay = ({ location }) => {
   if (!location) return null;
-
   return (
     <div className="flex items-center gap-3 mb-6">
       <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
@@ -123,10 +80,8 @@ const LocationDisplay = ({ location }) => {
 
 const ImageGallery = ({ images, projectName }) => {
   const validImages = getValidImages(images);
-
   if (validImages.length === 0) return null;
 
-  // Determine grid layout based on image count
   const getGridLayout = (count) => {
     if (count === 1) return "grid-cols-1 max-w-2xl mx-auto";
     if (count === 2) return "grid-cols-1 sm:grid-cols-2 max-w-4xl mx-auto";
@@ -137,15 +92,11 @@ const ImageGallery = ({ images, projectName }) => {
     return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
   };
 
-  // Determine image height based on count and layout
   const getImageHeight = (count) => {
     if (count === 1) return "h-80 sm:h-96";
     if (count === 2) return "h-72 sm:h-80";
     return "h-64 sm:h-72";
   };
-
-  const gridLayout = getGridLayout(validImages.length);
-  const imageHeight = getImageHeight(validImages.length);
 
   return (
     <motion.div
@@ -154,11 +105,13 @@ const ImageGallery = ({ images, projectName }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.4 }}
     >
-      <div className={`grid ${gridLayout} gap-4 sm:gap-6`}>
+      <div
+        className={`grid ${getGridLayout(validImages.length)} gap-4 sm:gap-6`}
+      >
         {validImages.map((image, idx) => (
           <motion.div
             key={`${projectName}-${idx}`}
-            className={`relative ${imageHeight} bg-muted rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group`}
+            className={`relative ${getImageHeight(validImages.length)} bg-muted rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300`}
           >
             <Image
               src={image}
@@ -167,14 +120,12 @@ const ImageGallery = ({ images, projectName }) => {
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onError={(e) => {
-                // Fallback for broken images
                 e.target.style.display = "none";
                 if (e.target.nextElementSibling) {
                   e.target.nextElementSibling.style.display = "flex";
                 }
               }}
             />
-            {/* Fallback content for broken images */}
             <div className="absolute inset-0 bg-muted hidden items-center justify-center">
               <div className="text-center">
                 <Building2 className="w-8 h-8 text-muted-foreground/50 mx-auto mb-2" />
@@ -187,7 +138,6 @@ const ImageGallery = ({ images, projectName }) => {
         ))}
       </div>
 
-      {/* Show indicator if original array had more images than valid ones */}
       {images &&
         images.length !== validImages.length &&
         validImages.length > 0 && (
@@ -199,7 +149,7 @@ const ImageGallery = ({ images, projectName }) => {
   );
 };
 
-const NoImagesPlaceholder = ({ projectName }) => (
+const NoImagesPlaceholder = () => (
   <motion.div
     className="mb-12 text-center py-8"
     initial={{ opacity: 0 }}
@@ -294,9 +244,9 @@ const ProjectDetails = ({ project, hasValidImages }) => (
       status={project.status}
       client={project.client}
       value={project.value}
-      location={project.location}
     />
 
+    {/* align="left" — default, matches detail page left-aligned layout */}
     <Timeline start={project.startDate} end={project.endDate} />
 
     <Partners partners={project.partners} />
@@ -323,10 +273,6 @@ const BackButton = ({ project, router }) => {
     }
   };
 
-  const buttonText = project.type
-    ? `Back to ${getProjectTypeLabel(project.type)} Projects`
-    : "Back to Projects";
-
   return (
     <div className="text-center">
       <button
@@ -334,29 +280,28 @@ const BackButton = ({ project, router }) => {
         className="bg-primary hover:bg-primary-dark text-primary-foreground px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3 mx-auto"
       >
         <ArrowRight className="w-5 h-5 rotate-180" />
-        {buttonText}
+        {project.type
+          ? `Back to ${getProjectTypeLabel(project.type)} Projects`
+          : "Back to Projects"}
       </button>
     </div>
   );
 };
 
+// ─── Default Export ───────────────────────────────────────────────────────────
+
 export default function ProjectDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const projectId = params.id?.toString();
-  const project = getProjectById(projectId);
+  const project = getProjectById(params.id?.toString());
 
-  // Redirect to projects page after 3 seconds if project not found
   useEffect(() => {
-    if (!project && projectId) {
-      const timer = setTimeout(() => {
-        router.push("/projects");
-      }, 3000);
+    if (!project && params.id) {
+      const timer = setTimeout(() => router.push("/projects"), 3000);
       return () => clearTimeout(timer);
     }
-  }, [project, projectId, router]);
+  }, [project, params.id, router]);
 
-  // Handle case where no project is found
   if (!project) {
     return (
       <>
@@ -372,59 +317,49 @@ export default function ProjectDetailPage() {
     );
   }
 
-  // Check if project has valid images
   const validImages = getValidImages(project.images);
   const hasValidImages = validImages.length > 0;
 
-  // Generate dynamic meta tags
-  const getMetaTitle = () => {
-    return `${project.name || "Project Details"} | Portfolio`;
-  };
+  const metaTitle = `${project.name || "Project Details"} | Portfolio`;
+  const metaDescription =
+    [
+      `Explore details of ${project.name || "this project"}`,
+      project.type
+        ? `, a ${getProjectTypeLabel(project.type).toLowerCase()} project`
+        : "",
+      project.location ? ` located in ${project.location}` : "",
+      project.client ? ` for ${project.client}` : "",
+    ].join("") + ".";
 
-  const getMetaDescription = () => {
-    const baseDesc = `Explore details of ${project.name || "this project"}`;
-    const typeDesc = project.type
-      ? `, a ${getProjectTypeLabel(project.type).toLowerCase()} project`
-      : "";
-    const locationDesc = project.location
-      ? ` located in ${project.location}`
-      : "";
-    const clientDesc = project.client ? ` for ${project.client}` : "";
-
-    return `${baseDesc}${typeDesc}${locationDesc}${clientDesc}.`;
-  };
-
-  const getKeywords = () => {
-    const keywords = ["project details", "portfolio"];
-    if (project.type) keywords.push(project.type.toLowerCase());
-    if (project.location) keywords.push(project.location.toLowerCase());
-    if (project.client) keywords.push(project.client.toLowerCase());
-    return keywords.join(", ");
-  };
+  const metaKeywords = [
+    "project details",
+    "portfolio",
+    project.type?.toLowerCase(),
+    project.location?.toLowerCase(),
+    project.client?.toLowerCase(),
+  ]
+    .filter(Boolean)
+    .join(", ");
 
   return (
     <>
       <Head>
-        <title>{getMetaTitle()}</title>
-        <meta name="description" content={getMetaDescription()} />
-        <meta name="keywords" content={getKeywords()} />
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metaKeywords} />
       </Head>
       <section className="py-24 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Project Header */}
           <ProjectHeader project={project} />
 
-          {/* Conditional Image Gallery or Placeholder */}
           {hasValidImages ? (
             <ImageGallery images={project.images} projectName={project.name} />
           ) : (
-            <NoImagesPlaceholder projectName={project.name} />
+            <NoImagesPlaceholder />
           )}
 
-          {/* Project Details */}
           <ProjectDetails project={project} hasValidImages={hasValidImages} />
 
-          {/* Back Button */}
           <BackButton project={project} router={router} />
         </div>
       </section>

@@ -17,12 +17,12 @@ import {
   sectionHeadings,
 } from "../../../data/projects.js";
 
-// Constants
+// ─── Constants ───────────────────────────────────────────────────────────────
 const CAROUSEL_DURATION = 5000;
 const PROGRESS_UPDATE_INTERVAL = 30;
 
-// Utility functions
-// Normalizes any falsy/blank/Ongoing value to null
+// ─── Date Utilities (exported — used across all pages) ───────────────────────
+
 const normalizeDate = (dateStr) => {
   if (!dateStr || typeof dateStr !== "string") return null;
   const trimmed = dateStr.trim();
@@ -45,13 +45,10 @@ export const formatDate = (dateStr) => {
 export const getEndLabel = (endDate) => {
   const normalized = normalizeDate(endDate);
   if (!normalized) return "Present";
-
   const end = new Date(normalized);
   if (isNaN(end.getTime())) return "Present";
-
   const now = new Date();
   now.setHours(0, 0, 0, 0);
-
   return end >= now
     ? "Present"
     : end.toLocaleDateString(undefined, {
@@ -60,55 +57,21 @@ export const getEndLabel = (endDate) => {
         day: "numeric",
       });
 };
-const getBorderColor = (index) => {
-  return index === 1 ? "#004d6e" : "#006996";
-};
 
-// Get all available project types from data
-const getProjectTypes = () => {
-  return Object.values(ProjectType);
-};
+// ─── Shared Components (exported — used across all pages) ────────────────────
 
-// Get featured project for each type (first project of each type)
-const getFeaturedProjectByType = (type) => {
-  return projects.find((project) => project.type === type);
-};
-
-// Subcomponents
-const InfoBadge = ({ icon: Icon, text, className = "" }) => {
-  if (!text) return null;
-
-  return (
-    <span
-      className={`flex items-center gap-2 text-muted-foreground rounded-full px-4 py-2 text-sm font-medium border border-muted ${className}`}
-    >
-      <Icon className="w-4 h-4 text-primary" />
-      {text}
-    </span>
-  );
-};
-
-export const InfoBar = ({ status, client, value }) => {
-  const infoItems = [
-    { icon: BriefcaseBusiness, text: status },
-    { icon: BadgeDollarSign, text: value },
-    { icon: User, text: client },
-  ];
-
-  const validItems = infoItems.filter((item) => item.text);
-
-  if (validItems.length === 0) return null;
-
-  return (
-    <div className="flex flex-wrap gap-3 mb-6 items-center justify-center">
-      {validItems.map((item, index) => (
-        <InfoBadge key={index} icon={item.icon} text={item.text} />
-      ))}
-    </div>
-  );
-};
-
-export const Timeline = ({ start, end }) => {
+/**
+ * Timeline
+ * align="left"   → projects page & detail page (left-aligned cards)
+ * align="center" → home page (centered cards)
+ *
+ * Rendering rules:
+ *  - start + end  → Jan 1, 2023 → Dec 31, 2023
+ *  - start + ongoing → Jan 1, 2024 → Present (primary color)
+ *  - no start + end  → Finished: December 31, 2023
+ *  - no start + no end → renders nothing
+ */
+export const Timeline = ({ start, end, align = "left" }) => {
   const startLabel = formatDate(start);
   const endLabel = getEndLabel(end);
   const isOngoing = endLabel === "Present";
@@ -116,7 +79,11 @@ export const Timeline = ({ start, end }) => {
   if (!startLabel && !end) return null;
 
   return (
-    <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground justify-center">
+    <div
+      className={`flex items-center gap-3 mb-4 text-sm text-muted-foreground ${
+        align === "center" ? "justify-center" : ""
+      }`}
+    >
       {startLabel ? (
         <>
           <div className="flex items-center gap-2">
@@ -140,11 +107,41 @@ export const Timeline = ({ start, end }) => {
     </div>
   );
 };
-export const Partners = ({ partners }) => {
+
+export const InfoBar = ({ status, client, value }) => {
+  const infoItems = [
+    { icon: BriefcaseBusiness, text: status },
+    { icon: BadgeDollarSign, text: value },
+    { icon: User, text: client },
+  ];
+
+  const validItems = infoItems.filter((item) => item.text);
+  if (validItems.length === 0) return null;
+
+  return (
+    <div className="flex flex-wrap gap-3 mb-6 items-center justify-center">
+      {validItems.map((item, index) => (
+        <span
+          key={index}
+          className="flex items-center gap-2 text-muted-foreground rounded-full px-4 py-2 text-sm font-medium border border-muted"
+        >
+          <item.icon className="w-4 h-4 text-primary" />
+          {item.text}
+        </span>
+      ))}
+    </div>
+  );
+};
+
+export const Partners = ({ partners, align = "left" }) => {
   if (!partners || partners.length === 0) return null;
 
   return (
-    <div className="flex items-start gap-3 mb-4 text-sm text-muted-foreground justify-center">
+    <div
+      className={`flex items-start gap-3 mb-4 text-sm text-muted-foreground ${
+        align === "center" ? "justify-center" : ""
+      }`}
+    >
       <Users className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
       <div>
         <span className="font-medium text-primary">Partners: </span>
@@ -154,7 +151,17 @@ export const Partners = ({ partners }) => {
   );
 };
 
-// Carousel pagination dot component
+// ─── Internal Helpers ─────────────────────────────────────────────────────────
+
+const getBorderColor = (index) => (index === 1 ? "#004d6e" : "#006996");
+
+const getProjectTypes = () => Object.values(ProjectType);
+
+const getFeaturedProjectByType = (type) =>
+  projects.find((project) => project.type === type);
+
+// ─── Carousel ────────────────────────────────────────────────────────────────
+
 const PaginationDot = ({ index, isActive, progress, borderColor, onClick }) => {
   const radius = 7;
   const circumference = 2 * Math.PI * radius;
@@ -200,7 +207,6 @@ const PaginationDot = ({ index, isActive, progress, borderColor, onClick }) => {
   );
 };
 
-// Image carousel component
 const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -208,7 +214,6 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
   const intervalRef = useRef(null);
   const numImages = images?.length || 0;
 
-  // Cleanup function
   const cleanup = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -221,18 +226,14 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
 
   useEffect(() => {
     if (numImages <= 1) return;
-
     setProgress(0);
     cleanup();
 
-    // Animate progress
     const start = Date.now();
     intervalRef.current = setInterval(() => {
-      const elapsed = Date.now() - start;
-      setProgress(Math.min(elapsed / CAROUSEL_DURATION, 1));
+      setProgress(Math.min((Date.now() - start) / CAROUSEL_DURATION, 1));
     }, PROGRESS_UPDATE_INTERVAL);
 
-    // Auto-advance to next image
     timeoutRef.current = setTimeout(() => {
       setCurrent((prev) => (prev + 1) % numImages);
     }, CAROUSEL_DURATION);
@@ -250,7 +251,6 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden group rounded-lg">
-      {/* Image container */}
       <div
         className="w-full h-full flex transition-transform duration-700"
         style={{ transform: `translateX(-${current * 100}%)` }}
@@ -275,7 +275,6 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
         ))}
       </div>
 
-      {/* Pagination dots */}
       {images.length > 1 && (
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {images.map((_, idx) => (
@@ -294,7 +293,8 @@ const ProjectImageCarousel = ({ images, projectName, borderColor }) => {
   );
 };
 
-// Section heading component
+// ─── Section Heading ──────────────────────────────────────────────────────────
+
 const SectionHeading = ({ heading, className = "" }) => {
   if (!heading) return null;
 
@@ -319,13 +319,14 @@ const SectionHeading = ({ heading, className = "" }) => {
   );
 };
 
-// Project actions component
-const ProjectActions = ({ projectId, consultingCta, projectType }) => {
-  const defaultConsultingCta = projectType
-    ? `Explore our ${projectType.toLowerCase()} projects`
-    : "Explore our consulting projects";
+// ─── Project Card (Home) ──────────────────────────────────────────────────────
 
-  const finalConsultingCta = consultingCta || defaultConsultingCta;
+const ProjectActions = ({ projectId, consultingCta, projectType }) => {
+  const finalConsultingCta =
+    consultingCta ||
+    (projectType
+      ? `Explore our ${projectType.toLowerCase()} projects`
+      : "Explore our consulting projects");
 
   return (
     <div className="flex flex-col gap-3 w-full mt-6">
@@ -345,41 +346,33 @@ const ProjectActions = ({ projectId, consultingCta, projectType }) => {
   );
 };
 
-// Project content component
-const ProjectContent = ({ project, index }) => {
-  return (
-    <div className="flex flex-col items-center justify-center text-center h-full p-6">
-      <h3 className="text-xl font-semibold text-primary mb-3">
-        {project.name || "Untitled Project"}
-      </h3>
-      {project.description && (
-        <p className="text-muted-foreground mb-4 max-w-md">
-          {project.description}
-        </p>
-      )}
-      <InfoBar
-        status={project.status}
-        client={project.client}
-        value={project.value}
-        location={project.location}
-      />
-      <Timeline start={project.startDate} end={project.endDate} />
-      <Partners partners={project.partners} />
-      <ProjectActions
-        projectId={project.id}
-        consultingCta={project.consultingCta}
-        projectType={project.type}
-      />
-    </div>
-  );
-};
+const ProjectContent = ({ project }) => (
+  <div className="flex flex-col items-center justify-center text-center h-full p-6">
+    <h3 className="text-xl font-semibold text-primary mb-3">
+      {project.name || "Untitled Project"}
+    </h3>
+    {project.description && (
+      <p className="text-muted-foreground mb-4 max-w-md">
+        {project.description}
+      </p>
+    )}
+    <InfoBar
+      status={project.status}
+      client={project.client}
+      value={project.value}
+    />
+    <Timeline start={project.startDate} end={project.endDate} align="center" />
+    <Partners partners={project.partners} align="center" />
+    <ProjectActions
+      projectId={project.id}
+      consultingCta={project.consultingCta}
+      projectType={project.type}
+    />
+  </div>
+);
 
-// Project card component
 const ProjectCard = ({ project, index }) => {
   if (!project) return null;
-
-  const isEvenIndex = index % 2 === 0;
-  const borderColor = getBorderColor(index);
 
   return (
     <motion.div
@@ -387,30 +380,26 @@ const ProjectCard = ({ project, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={`grid grid-cols-1 lg:grid-cols-2 items-center gap-8 rounded-xl shadow-lg p-8 min-h-[400px] w-full ${
-        isEvenIndex ? "bg-muted" : "bg-white"
+        index % 2 === 0 ? "bg-muted" : "bg-white"
       }`}
     >
-      {/* Image Section */}
       <div className="w-full h-[300px] lg:h-[400px] rounded-lg overflow-hidden">
         <ProjectImageCarousel
           images={project.images}
           projectName={project.name}
-          borderColor={borderColor}
+          borderColor={getBorderColor(index)}
         />
       </div>
-
-      {/* Content Section */}
-      <ProjectContent project={project} index={index} />
+      <ProjectContent project={project} />
     </motion.div>
   );
 };
 
-// Main component
+// ─── Main Export ──────────────────────────────────────────────────────────────
+
 const PortfolioSection = () => {
   const featuredProjects = useMemo(() => {
-    const availableTypes = getProjectTypes();
-
-    return availableTypes
+    return getProjectTypes()
       .map((type) => getFeaturedProjectByType(type))
       .filter(Boolean);
   }, []);
@@ -423,15 +412,11 @@ const PortfolioSection = () => {
           .toUpperCase()
           .includes(h.label.toUpperCase().replace(" PROJECTS", "")),
     );
-
     const headingByIndex = sectionHeadings.find((h) => h.idx === index);
-
     return (
       headingByType ||
       headingByIndex || {
-        label: `${
-          projectType.charAt(0) + projectType.slice(1).toLowerCase()
-        } Projects`,
+        label: `${projectType.charAt(0) + projectType.slice(1).toLowerCase()} Projects`,
         idx: index,
         desc: [
           `Our ${projectType.toLowerCase()} project solutions and services`,
@@ -441,55 +426,46 @@ const PortfolioSection = () => {
   };
 
   return (
-    <>
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Title */}
-          <div className="mb-16 text-center">
-            <motion.h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              {portfolioTitle || "Our Projects Portfolio"}
-            </motion.h2>
-            <motion.div
-              className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md mb-3"
-              initial={{ width: 0 }}
-              whileInView={{ width: 128 }}
-              transition={{ duration: 1, delay: 0.5 }}
-            />
-          </div>
-
-          {/* Featured Projects */}
-          <div className="flex flex-col">
-            {featuredProjects.map((project, index) => {
-              const heading = getSectionHeadingForType(project.type, index);
-
-              return (
-                <React.Fragment key={project.id}>
-                  <SectionHeading
-                    heading={heading}
-                    className={index === 0 ? "mt-0" : "mt-8"}
-                  />
-                  <ProjectCard project={project} index={index} />
-                </React.Fragment>
-              );
-            })}
-          </div>
-
-          {/* Show message if no projects found */}
-          {featuredProjects.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-lg text-muted-foreground">
-                No featured projects available at this time.
-              </p>
-            </div>
-          )}
+    <section className="py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-16 text-center">
+          <motion.h2
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-dark to-primary leading-[1.15] pb-2"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {portfolioTitle || "Our Projects Portfolio"}
+          </motion.h2>
+          <motion.div
+            className="mt-4 mx-auto h-1 w-24 bg-primary rounded-full shadow-primary shadow-md mb-3"
+            initial={{ width: 0 }}
+            whileInView={{ width: 128 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          />
         </div>
-      </section>
-    </>
+
+        <div className="flex flex-col">
+          {featuredProjects.map((project, index) => (
+            <React.Fragment key={project.id}>
+              <SectionHeading
+                heading={getSectionHeadingForType(project.type, index)}
+                className={index === 0 ? "mt-0" : "mt-8"}
+              />
+              <ProjectCard project={project} index={index} />
+            </React.Fragment>
+          ))}
+        </div>
+
+        {featuredProjects.length === 0 && (
+          <div className="text-center py-16">
+            <p className="text-lg text-muted-foreground">
+              No featured projects available at this time.
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 
