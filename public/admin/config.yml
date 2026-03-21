@@ -74,7 +74,13 @@ collections:
                 name: career
                 widget: list
                 field: { label: Item, name: item, widget: string }
-              - { label: Image, name: image, widget: image, media_folder: "/public/uploads/team", public_folder: "/uploads/team" }
+              - {
+                  label: Image,
+                  name: image,
+                  widget: image,
+                  media_folder: "/public/uploads/team",
+                  public_folder: "/uploads/team",
+                }
           - label: Company Timeline
             name: companyTimeline
             widget: list
@@ -217,7 +223,12 @@ collections:
             fields:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
-              - { label: Logo, name: logo, widget: image, hint: "e.g., /uploads/partners/logo.jpg" }
+              - {
+                  label: Logo,
+                  name: logo,
+                  widget: image,
+                  hint: "e.g., /uploads/partners/logo.jpg",
+                }
               - { label: Brief, name: brief, widget: string }
               - {
                   label: Website,
@@ -252,7 +263,12 @@ collections:
             fields:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
-              - { label: Logo, name: logo, widget: image, hint: "e.g., /uploads/clients/logo.jpg" }
+              - {
+                  label: Logo,
+                  name: logo,
+                  widget: image,
+                  hint: "e.g., /uploads/clients/logo.jpg",
+                }
               - { label: Brief, name: brief, widget: string }
               - {
                   label: Website,
@@ -311,12 +327,18 @@ collections:
                   label: Start Date,
                   name: startDate,
                   widget: string,
+                  format: "YYYY-MM-DD",
+                  default: "",
+                  hint: "Leave blank if the start date is unknown",
                   required: false,
                 }
               - {
                   label: End Date,
                   name: endDate,
                   widget: string,
+                  format: "YYYY-MM-DD",
+                  default: "",
+                  hint: "Leave blank if the project is still ongoing",
                   required: false,
                 }
               - { label: Status, name: status, widget: string }
@@ -335,7 +357,14 @@ collections:
               - name: images
                 label: Images
                 widget: list
-                field: { label: Image, name: image, widget: image, media_folder: "/public/uploads/projects", public_folder: "/uploads/projects" }
+                field:
+                  {
+                    label: Image,
+                    name: image,
+                    widget: image,
+                    media_folder: "/public/uploads/projects",
+                    public_folder: "/uploads/projects",
+                  }
               - {
                   label: Consulting CTA,
                   name: consultingCta,

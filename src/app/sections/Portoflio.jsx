@@ -1,30 +1,40 @@
 "use client";
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import Image from "next/image";
-import {
-  projects,
-  sectionHeadings,
-  portfolioTitle,
-  ProjectType,
-} from "../../../data/projects.js";
-import {
-  User,
-  BriefcaseBusiness,
-  BadgeDollarSign,
-  CalendarClock,
-  Users,
-  ArrowRight,
-} from "lucide-react";
 import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  BadgeDollarSign,
+  BriefcaseBusiness,
+  CalendarClock,
+  User,
+  Users,
+} from "lucide-react";
+import Image from "next/image";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  portfolioTitle,
+  projects,
+  ProjectType,
+  sectionHeadings,
+} from "../../../data/projects.js";
 
 // Constants
 const CAROUSEL_DURATION = 5000;
 const PROGRESS_UPDATE_INTERVAL = 30;
 
 // Utility functions
+// Normalizes any falsy/blank/Ongoing value to null
+const normalizeDate = (dateStr) => {
+  if (!dateStr || typeof dateStr !== "string") return null;
+  const trimmed = dateStr.trim();
+  if (!trimmed || trimmed.toLowerCase() === "ongoing") return null;
+  return trimmed;
+};
+
 export const formatDate = (dateStr) => {
-  if (!dateStr) return "Present";
-  const date = new Date(dateStr);
+  const normalized = normalizeDate(dateStr);
+  if (!normalized) return null;
+  const date = new Date(normalized);
+  if (isNaN(date.getTime())) return null;
   return date.toLocaleDateString(undefined, {
     year: "numeric",
     month: "long",
@@ -32,6 +42,24 @@ export const formatDate = (dateStr) => {
   });
 };
 
+export const getEndLabel = (endDate) => {
+  const normalized = normalizeDate(endDate);
+  if (!normalized) return "Present";
+
+  const end = new Date(normalized);
+  if (isNaN(end.getTime())) return "Present";
+
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  return end >= now
+    ? "Present"
+    : end.toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+};
 const getBorderColor = (index) => {
   return index === 1 ? "#004d6e" : "#006996";
 };
@@ -81,23 +109,37 @@ export const InfoBar = ({ status, client, value }) => {
 };
 
 export const Timeline = ({ start, end }) => {
-  if (!start && !end) return null;
+  const startLabel = formatDate(start);
+  const endLabel = getEndLabel(end);
+  const isOngoing = endLabel === "Present";
+
+  if (!startLabel && !end) return null;
 
   return (
     <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground justify-center">
-      <div className="flex items-center gap-2">
-        <CalendarClock className="w-4 h-4 text-primary" />
-        <span className="font-medium">{formatDate(start) || "N/A"}</span>
-      </div>
-      <ArrowRight className="w-4 h-4 text-secondary" />
-      <div className="flex items-center gap-2">
-        <CalendarClock className="w-4 h-4 text-primary" />
-        <span className="font-medium">{formatDate(end)}</span>
-      </div>
+      {startLabel ? (
+        <>
+          <div className="flex items-center gap-2">
+            <CalendarClock className="w-4 h-4 text-primary" />
+            <span className="font-medium">{startLabel}</span>
+          </div>
+          <ArrowRight className="w-4 h-4 text-secondary" />
+          <div className="flex items-center gap-2">
+            <CalendarClock className="w-4 h-4 text-primary" />
+            <span className={`font-medium ${isOngoing ? "text-primary" : ""}`}>
+              {endLabel}
+            </span>
+          </div>
+        </>
+      ) : (
+        <div className="flex items-center gap-2">
+          <CalendarClock className="w-4 h-4 text-primary" />
+          <span className="font-medium">Finished: {endLabel}</span>
+        </div>
+      )}
     </div>
   );
 };
-
 export const Partners = ({ partners }) => {
   if (!partners || partners.length === 0) return null;
 
@@ -379,7 +421,7 @@ const PortfolioSection = () => {
         h.label.toUpperCase().includes(projectType.toUpperCase()) ||
         projectType
           .toUpperCase()
-          .includes(h.label.toUpperCase().replace(" PROJECTS", ""))
+          .includes(h.label.toUpperCase().replace(" PROJECTS", "")),
     );
 
     const headingByIndex = sectionHeadings.find((h) => h.idx === index);

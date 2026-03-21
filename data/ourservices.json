@@ -6,12 +6,7 @@
       "title": "EPC Projects",
       "description": "Diesel & hydrogen plants, district cooling plants, including engineering, procurement, civil works, installation, and commissioning.",
       "icon": "HardHat",
-      "features": [
-        "Engineering",
-        "Procurement",
-        "Civil Works",
-        "Installation"
-      ]
+      "features": ["Engineering", "Procurement", "Civil Works", "Installation"]
     },
     {
       "id": "2",

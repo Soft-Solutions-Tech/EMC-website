@@ -38,17 +38,14 @@
   "projects": [
     {
       "endDate": "2023-12-31",
-      "partners": [
-        "TAIKAI"
-      ],
+      "partners": ["TAIKAI"],
       "name": "Manshiyat Naser Extension",
       "client": "EETC",
+      "startDate": "",
       "value": "$2M",
       "status": "Finished",
       "location": "Manshiyat Naser, Egypt",
-      "images": [
-        "/uploads/projects/manshiyat.jpg"
-      ],
+      "images": ["/uploads/projects/manshiyat.jpg"],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p1",
@@ -56,18 +53,14 @@
     },
     {
       "endDate": "Ongoing",
-      "partners": [
-        "TAIKAI"
-      ],
+      "partners": ["TAIKAI"],
       "name": "Imbaba Substation Extension",
       "client": "EETC",
       "startDate": "",
       "value": "$1.2M",
       "status": "Active",
       "location": "Imbaba, Egypt",
-      "images": [
-        "/uploads/projects/imbaba.png"
-      ],
+      "images": ["/uploads/projects/imbaba.png"],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p2",
@@ -75,18 +68,14 @@
     },
     {
       "endDate": "2025-12-31",
-      "partners": [
-        "TAIKAI"
-      ],
+      "partners": ["TAIKAI"],
       "name": "East Port Said Extension",
       "client": "EETC",
       "startDate": "2023-01-01",
       "value": "$4.2M",
       "status": "Active",
       "location": "East Port Said, Egypt",
-      "images": [
-        "/uploads/projects/east-port.png"
-      ],
+      "images": ["/uploads/projects/east-port.png"],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p3",
@@ -94,9 +83,7 @@
     },
     {
       "endDate": "2020-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "Siwa & Habata & Bir Khamsa 17 MW",
       "client": "Bahira Distribution Co.",
       "startDate": "2019-01-01",
@@ -115,18 +102,14 @@
     },
     {
       "endDate": "2016-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "Farafra 16MW Diesel Station",
       "client": "Egyptian Armaments Authority",
       "startDate": "2015-01-01",
       "value": "$18M",
       "status": "Finished",
       "location": "Farafra, Egypt",
-      "images": [
-        "/uploads/projects/farafra.png"
-      ],
+      "images": ["/uploads/projects/farafra.png"],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p5",
@@ -134,9 +117,7 @@
     },
     {
       "endDate": null,
-      "partners": [
-        "Engineering Consultants Group S.A."
-      ],
+      "partners": ["Engineering Consultants Group S.A."],
       "name": "Seychelles 8MW Diesel Station",
       "client": "Public Utilities Corporation (in Praslin)",
       "startDate": "2024-01-01",
@@ -181,9 +162,7 @@
       "value": "$18M",
       "status": "Finished",
       "location": "AlKayan, Egypt",
-      "images": [
-        "/uploads/projects/alkayan.png"
-      ],
+      "images": ["/uploads/projects/alkayan.png"],
       "consultingCta": "Explore our EPC projects",
       "type": "EPC",
       "id": "p8",
@@ -191,9 +170,7 @@
     },
     {
       "endDate": "2018-12-31",
-      "partners": [
-        "SPIRARE Energy"
-      ],
+      "partners": ["SPIRARE Energy"],
       "name": "Assuit West H2 Hydrogen Generation Unit",
       "client": "Upper Egypt Electricity Production Co.",
       "startDate": "2018-01-01",
@@ -211,9 +188,7 @@
     },
     {
       "endDate": "2023-12-31",
-      "partners": [
-        "Alfa Water"
-      ],
+      "partners": ["Alfa Water"],
       "name": "NPC Creek Water Self Cleaning Filters",
       "client": "Nasr Petroleum Company",
       "startDate": "2023-01-01",
@@ -231,9 +206,7 @@
     },
     {
       "endDate": "2022-12-31",
-      "partners": [
-        "Alfa Laval"
-      ],
+      "partners": ["Alfa Laval"],
       "name": "NPC Saltwater Self Cleaning Filters",
       "client": "Nasr Petroleum Company",
       "startDate": "2022-01-01",
@@ -251,9 +224,7 @@
     },
     {
       "endDate": "2020-12-30",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "Siwa, Habata and Bir Khamsa Power Stations",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2020-01-01",
@@ -307,9 +278,7 @@
     },
     {
       "endDate": "2018-12-31",
-      "partners": [
-        "SPIRAR"
-      ],
+      "partners": ["SPIRAR"],
       "name": "Assuit West CC Hydrogen Generation Unit",
       "client": "Upper Egypt Electricity Production Co.",
       "startDate": "2018-01-01",
@@ -327,9 +296,7 @@
     },
     {
       "endDate": "2016-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "Farafra 16 MW Diesel Power Station",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2016-01-01",
@@ -347,9 +314,7 @@
     },
     {
       "endDate": "2015-12-31",
-      "partners": [
-        "KSB"
-      ],
+      "partners": ["KSB"],
       "name": "Abu Sultan PP Boiler Feed Water Pumps Replacement",
       "client": "East Delta Electricity Production Co.",
       "startDate": "2013-01-01",
@@ -367,9 +332,7 @@
     },
     {
       "endDate": "2013-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "Siwa 4 MW Power Station",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2013-01-01",
@@ -387,9 +350,7 @@
     },
     {
       "endDate": "2012-12-31",
-      "partners": [
-        "MWM"
-      ],
+      "partners": ["MWM"],
       "name": "E-Styrenics 12 MW Gas Engine Project",
       "client": "E-Styrenics",
       "startDate": "2012-01-01",
@@ -407,9 +368,7 @@
     },
     {
       "endDate": "2012-12-31",
-      "partners": [
-        "Sacre Davey"
-      ],
+      "partners": ["Sacre Davey"],
       "name": "Ataka Hydrogen Generation Plant",
       "client": "East Delta Electricity Production Co.",
       "startDate": "2012-01-01",
@@ -427,9 +386,7 @@
     },
     {
       "endDate": "2012-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "East Owinat 3X4 MW Diesel Power Plant",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2012-01-01",
@@ -447,9 +404,7 @@
     },
     {
       "endDate": "2011-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "Farafra Overhauls",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2011-01-01",
@@ -467,9 +422,7 @@
     },
     {
       "endDate": "2011-12-31",
-      "partners": [
-        "Sacre Davey"
-      ],
+      "partners": ["Sacre Davey"],
       "name": "Abu Sultan Hydrogen Generation Plant",
       "client": "East Delta Electricity Production Co.",
       "startDate": "2011-01-01",
@@ -487,9 +440,7 @@
     },
     {
       "endDate": "2007-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "WAU Diesel Power Station South Sudan",
       "client": "South Sudan Electricity Corporation",
       "startDate": "2007-01-01",
@@ -507,9 +458,7 @@
     },
     {
       "endDate": "2005-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "Tasluja",
       "client": "Kurdistan Regional Government",
       "startDate": "2005-01-01",
@@ -527,9 +476,7 @@
     },
     {
       "endDate": "2003-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "Mout Unit 6",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2003-01-01",
@@ -547,9 +494,7 @@
     },
     {
       "endDate": "2002-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "El Tur and El Qusseir Power Stations Conversion to HFO",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2002-01-01",
@@ -567,9 +512,7 @@
     },
     {
       "endDate": "1999-12-31",
-      "partners": [
-        "MAN Energy Solutions"
-      ],
+      "partners": ["MAN Energy Solutions"],
       "name": "Mout Power Station Extension by 2.5 MW",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "1999-01-01",
@@ -594,9 +537,7 @@
       "value": "€1.6M",
       "status": "Finished",
       "location": "Egypt",
-      "images": [
-        "/uploads/projects/npc-saltwater.png"
-      ],
+      "images": ["/uploads/projects/npc-saltwater.png"],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
       "id": "p31",
@@ -611,9 +552,7 @@
       "value": "€430,000",
       "status": "Active",
       "location": "Egypt",
-      "images": [
-        "/uploads/projects/npc-creek.png"
-      ],
+      "images": ["/uploads/projects/npc-creek.png"],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
       "id": "p32",
@@ -628,9 +567,7 @@
       "value": "€2.3M",
       "status": "Finished",
       "location": "Cairo, Egypt",
-      "images": [
-        "/uploads/projects/cairo-north.jpg"
-      ],
+      "images": ["/uploads/projects/cairo-north.jpg"],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
       "id": "p33",
@@ -645,9 +582,7 @@
       "value": "€1.9M",
       "status": "Finished",
       "location": "Tebbin, Egypt",
-      "images": [
-        "/uploads/projects/tebbin-water.jpg"
-      ],
+      "images": ["/uploads/projects/tebbin-water.jpg"],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
       "id": "p34",
@@ -655,18 +590,14 @@
     },
     {
       "endDate": "2018-12-31",
-      "partners": [
-        "KSB"
-      ],
+      "partners": ["KSB"],
       "name": "Abu Sultan PP Boiler Feed Water Pumps Replacement",
       "client": "East Delta Electricity Production Co.",
       "startDate": "2011-01-01",
       "value": "€6M",
       "status": "Finished",
       "location": "Abu Sultan, Egypt",
-      "images": [
-        "/uploads/projects/abu-sultan-pp.png"
-      ],
+      "images": ["/uploads/projects/abu-sultan-pp.png"],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
       "id": "p35",
@@ -674,18 +605,14 @@
     },
     {
       "endDate": "2015-12-31",
-      "partners": [
-        "KSB"
-      ],
+      "partners": ["KSB"],
       "name": "New Abu Qir PP Boiler Feed Pumps Replacement",
       "client": "West Delta Electricity Production Co.",
       "startDate": "2015-01-01",
       "value": "€2.7M",
       "status": "Finished",
       "location": "New Abu Qir, Egypt",
-      "images": [
-        "/uploads/projects/new-abuqir.png"
-      ],
+      "images": ["/uploads/projects/new-abuqir.png"],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
       "id": "p36",
@@ -693,18 +620,14 @@
     },
     {
       "endDate": "2023-12-31",
-      "partners": [
-        "JC HAMON"
-      ],
+      "partners": ["JC HAMON"],
       "name": "AMOC Cooling Towers Rehabilitation",
       "client": "AMOC",
       "startDate": "2023-01-01",
       "value": "$500K",
       "status": "Finished",
       "location": "Egypt",
-      "images": [
-        "/uploads/projects/amoc-cooling.jpg"
-      ],
+      "images": ["/uploads/projects/amoc-cooling.jpg"],
       "consultingCta": "Explore our After Sales projects",
       "type": "AFTERSALES",
       "id": "p37",
@@ -712,9 +635,7 @@
     },
     {
       "endDate": "2024-12-31",
-      "partners": [
-        "JC HAMON"
-      ],
+      "partners": ["JC HAMON"],
       "name": "Abu Zaabal Fertilizers Co. AZFC",
       "client": "Abu Zaabal Fertilizers Co.",
       "startDate": "2020-01-01",
@@ -732,9 +653,7 @@
     },
     {
       "endDate": "2011-12-31",
-      "partners": [
-        "Sacre Davey"
-      ],
+      "partners": ["Sacre Davey"],
       "name": "Abu Sultan Hydrogen Generation Plant",
       "client": "East Delta Electricity Production Co.",
       "startDate": "2011-01-01",
@@ -752,20 +671,14 @@
     },
     {
       "endDate": "2020-12-31",
-      "partners": [
-        "NARI",
-        "Hyundai",
-        "El Sewedy Electric"
-      ],
+      "partners": ["NARI", "Hyundai", "El Sewedy Electric"],
       "name": "Cairo Regional Control Center",
       "client": "EETC",
       "startDate": "2020-01-01",
       "value": "$75M",
       "status": "Finished",
       "location": "Cairo, Egypt",
-      "images": [
-        "/uploads/projects/assuit.jpg"
-      ],
+      "images": ["/uploads/projects/assuit.jpg"],
       "consultingCta": "Explore our Consulting projects",
       "type": "CONSULTING",
       "id": "p40",
@@ -773,11 +686,7 @@
     },
     {
       "endDate": "2019-12-31",
-      "partners": [
-        "NHVS",
-        "Taikai",
-        "El-Kharafi"
-      ],
+      "partners": ["NHVS", "Taikai", "El-Kharafi"],
       "name": "West Damietta 500 KV GIS Substation",
       "client": "EETC",
       "startDate": "2019-01-01",
@@ -795,11 +704,7 @@
     },
     {
       "endDate": "2019-12-31",
-      "partners": [
-        "Doosan",
-        "PSP El Sewedy",
-        "MHPS"
-      ],
+      "partners": ["Doosan", "PSP El Sewedy", "MHPS"],
       "name": "Layyah 900 MW Combined Cycle Sharjah (Condenser)",
       "client": "Sharjah Electricity and Water Authority",
       "startDate": "2019-01-01",
@@ -817,11 +722,7 @@
     },
     {
       "endDate": "2019-12-31",
-      "partners": [
-        "KSB",
-        "PSP El Sewedy",
-        "MHPS"
-      ],
+      "partners": ["KSB", "PSP El Sewedy", "MHPS"],
       "name": "Layyah 900 MW Combined Cycle Sharjah (Pumps)",
       "client": "Sharjah Electricity and Water Authority",
       "startDate": "2019-01-01",
@@ -839,10 +740,7 @@
     },
     {
       "endDate": "2018-12-31",
-      "partners": [
-        "NHVS",
-        "Taikai"
-      ],
+      "partners": ["NHVS", "Taikai"],
       "name": "Sohag 500/220 KV GIS Substation",
       "client": "EETC",
       "startDate": "2018-01-01",
@@ -860,9 +758,7 @@
     },
     {
       "endDate": "2017-12-31",
-      "partners": [
-        "Doosan"
-      ],
+      "partners": ["Doosan"],
       "name": "Assuit & Cairo West Steam Turbines 2X650 MW",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2017-01-01",
@@ -880,9 +776,7 @@
     },
     {
       "endDate": "2017-12-31",
-      "partners": [
-        "KSB"
-      ],
+      "partners": ["KSB"],
       "name": "Assuit & Cairo West Pumps & Drives 2X650 MW",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2017-01-01",
@@ -900,9 +794,7 @@
     },
     {
       "endDate": "2017-12-31",
-      "partners": [
-        "KSB"
-      ],
+      "partners": ["KSB"],
       "name": "Pumps & Drives for Siemens Mega Project 3X4,800 MW",
       "client": "Siemens",
       "startDate": "2017-01-01",
@@ -920,11 +812,7 @@
     },
     {
       "endDate": "2017-12-31",
-      "partners": [
-        "Electrolzyer",
-        "Orascom",
-        "El Sewedy"
-      ],
+      "partners": ["Electrolzyer", "Orascom", "El Sewedy"],
       "name": "Hydrogen Plants for Siemens Mega Project 3X4,800 MW",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2017-01-01",
@@ -942,9 +830,7 @@
     },
     {
       "endDate": "2016-12-31",
-      "partners": [
-        "Cimtas Pipe"
-      ],
+      "partners": ["Cimtas Pipe"],
       "name": "Helwan South Critical Piping & Valves",
       "client": "Upper Egypt Electricity Production Co.",
       "startDate": "2016-01-01",
@@ -962,9 +848,7 @@
     },
     {
       "endDate": "2015-12-31",
-      "partners": [
-        "KSB"
-      ],
+      "partners": ["KSB"],
       "name": "Helwan South Pumps & Drives",
       "client": "Upper Egypt Electricity Production Co.",
       "startDate": "2015-01-01",
@@ -982,9 +866,7 @@
     },
     {
       "endDate": "2015-12-31",
-      "partners": [
-        "SPECO"
-      ],
+      "partners": ["SPECO"],
       "name": "Helwan South Step-Up Transformers",
       "client": "Upper Egypt Electricity Production Co.",
       "startDate": "2015-01-01",
@@ -1002,9 +884,7 @@
     },
     {
       "endDate": "2013-12-31",
-      "partners": [
-        "AquaTech"
-      ],
+      "partners": ["AquaTech"],
       "name": "Ethydco ZLD Water Treatment Plant",
       "client": "Ethydco",
       "startDate": "2013-01-01",
@@ -1022,9 +902,7 @@
     },
     {
       "endDate": "2009-12-31",
-      "partners": [
-        "Hitachi"
-      ],
+      "partners": ["Hitachi"],
       "name": "Ain El Sokhna 2X650 MW Super Critical Steam Turbines",
       "client": "Upper Egypt Electricity Production Co.",
       "startDate": "2009-01-01",
@@ -1042,9 +920,7 @@
     },
     {
       "endDate": "2008-12-31",
-      "partners": [
-        "KSB"
-      ],
+      "partners": ["KSB"],
       "name": "El Tibbin 2X350 MW Major Pumps & Drives",
       "client": "Cairo Electricity Production Co.",
       "startDate": "2008-01-01",
@@ -1062,9 +938,7 @@
     },
     {
       "endDate": "2009-12-31",
-      "partners": [
-        "AquaTech"
-      ],
+      "partners": ["AquaTech"],
       "name": "Abu Qir Desalination 2X5000 M3 MED",
       "client": "West Delta Electricity Production Co.",
       "startDate": "2009-01-01",
@@ -1082,9 +956,7 @@
     },
     {
       "endDate": "2008-12-31",
-      "partners": [
-        "Cimtas Pipe"
-      ],
+      "partners": ["Cimtas Pipe"],
       "name": "Sidi Krir & El-Atf 2X750 MW Combined Cycle Piping",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2008-01-01",
@@ -1102,9 +974,7 @@
     },
     {
       "endDate": "2008-12-31",
-      "partners": [
-        "MAN B&W"
-      ],
+      "partners": ["MAN B&W"],
       "name": "ASEC – Al-Takamol Cement Co.",
       "client": "ASEC – Al-Takamol Cement Co.",
       "startDate": "2008-01-01",
@@ -1122,9 +992,7 @@
     },
     {
       "endDate": "2008-12-31",
-      "partners": [
-        "Cimtas Pipe"
-      ],
+      "partners": ["Cimtas Pipe"],
       "name": "Cairo West 2X350 MW Thermal Power Plant Piping",
       "client": "Cairo Electricity Production Co.",
       "startDate": "2008-01-01",
@@ -1142,9 +1010,7 @@
     },
     {
       "endDate": "2007-12-31",
-      "partners": [
-        "Hitachi Ltd."
-      ],
+      "partners": ["Hitachi Ltd."],
       "name": "Cairo West 2X350 MW Power Station Boilers",
       "client": "Cairo Electricity Production Co.",
       "startDate": "2007-01-01",
@@ -1162,9 +1028,7 @@
     },
     {
       "endDate": "2007-12-31",
-      "partners": [
-        "CMI"
-      ],
+      "partners": ["CMI"],
       "name": "El Kuriemat III 750 MW Combined Cycle HRSG",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2007-01-01",
@@ -1182,10 +1046,7 @@
     },
     {
       "endDate": "2006-12-31",
-      "partners": [
-        "Sumitomo",
-        "Hitachi"
-      ],
+      "partners": ["Sumitomo", "Hitachi"],
       "name": "El Kuriemat Combined Cycle Steam Turbine 750 MW",
       "client": "Egyptian Electricity Holding Company",
       "startDate": "2006-01-01",
@@ -1203,10 +1064,7 @@
     },
     {
       "endDate": "2005-12-31",
-      "partners": [
-        "Sumitomo",
-        "Fujikura"
-      ],
+      "partners": ["Sumitomo", "Fujikura"],
       "name": "Sidi Krir/Cairo 500 KV Transmission Line",
       "client": "EETC",
       "startDate": "2005-01-01",
@@ -1224,9 +1082,7 @@
     },
     {
       "endDate": "2004-12-31",
-      "partners": [
-        "Hitachi Ltd."
-      ],
+      "partners": ["Hitachi Ltd."],
       "name": "El Nubaria 500 KV Switchyard",
       "client": "EETC",
       "startDate": "2004-01-01",

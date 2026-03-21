@@ -43,6 +43,7 @@ export const projects = [
     ],
     "name": "Manshiyat Naser Extension",
     "client": "EETC",
+    "startDate": "",
     "value": "$2M",
     "status": "Finished",
     "location": "Manshiyat Naser, Egypt",
